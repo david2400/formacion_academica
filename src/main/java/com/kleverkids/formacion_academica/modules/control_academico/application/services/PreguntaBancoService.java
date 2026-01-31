@@ -1,0 +1,40 @@
+package com.kleverkids.formacion_academica.modules.control_academico.application.services;
+
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ActualizarPreguntaBancoUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.CrearPreguntaBancoUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ListarPreguntasPorTematicaUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class PreguntaBancoService implements CrearPreguntaBancoUseCase,
+        ActualizarPreguntaBancoUseCase,
+        ListarPreguntasPorTematicaUseCase {
+
+    private final PreguntaBancoRepositoryPort repositoryPort;
+
+    public PreguntaBancoService(PreguntaBancoRepositoryPort repositoryPort) {
+        this.repositoryPort = repositoryPort;
+    }
+
+    @Override
+    public PreguntaBancoDto crear(CrearPreguntaBancoDto request) {
+        return repositoryPort.guardar(request);
+    }
+
+    @Override
+    public PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request) {
+        return repositoryPort.actualizar(request);
+    }
+
+    @Override
+    public List<PreguntaBancoDto> listar(UUID tematicaId) {
+        return repositoryPort.listarPorTematica(tematicaId);
+    }
+}

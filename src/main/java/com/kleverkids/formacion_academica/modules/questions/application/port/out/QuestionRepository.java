@@ -1,0 +1,22 @@
+package com.kleverkids.formacion_academica.modules.questions.application.port.out;
+
+import com.kleverkids.formacion_academica.modules.questions.application.dto.QuestionSearchCriteria;
+import com.kleverkids.formacion_academica.modules.questions.domain.model.Question;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface QuestionRepository {
+    
+    Question save(Question question);
+    
+    Optional<Question> findById(UUID id);
+    
+    void deleteById(UUID id);
+    
+    Page<Question> search(QuestionSearchCriteria criteria, Pageable pageable);
+    
+    boolean existsById(UUID id);
+}
