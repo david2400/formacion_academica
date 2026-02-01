@@ -6,59 +6,31 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ReglaCalificacionDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.CalificacionPersonalizadaEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ExamenEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamenEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class ExamenMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class})
+public interface ExamenMapper {
 
-    private ExamenMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "reglas", source = "reglasCalificacion")
+    ExamenEntity toEntity(CrearExamenDto dto);
 
-    public static ExamenEntity toEntity(CrearExamenDto dto) {
-        ExamenEntity entity = new ExamenEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setClaseId(dto.claseId());
-        entity.setNombre(dto.nombre());
-        entity.setFecha(dto.fecha());
-        entity.setReglas(dto.reglasCalificacion().stream()
-                .map(ExamenMapper::toEmbeddable)
-                .toList());
-        return entity;
-    }
+    ExamenEntity.ReglaCalificacionEmbeddable toEmbeddable(ReglaCalificacionDto dto);
 
-    public static ExamenDto toDto(ExamenEntity entity) {
+    default ExamenDto toDto(ExamenEntity entity) {
         List<ReglaCalificacionDto> reglas = entity.getReglas().stream()
                 .map(r -> new ReglaCalificacionDto(r.getCriterio(), r.getPonderacion(), r.getPuntajeMaximo()))
                 .toList();
         return new ExamenDto(entity.getId(), entity.getClaseId(), entity.getNombre(), entity.getFecha(), reglas);
     }
 
-    private static ExamenEntity.ReglaCalificacionEmbeddable toEmbeddable(ReglaCalificacionDto dto) {
-        ExamenEntity.ReglaCalificacionEmbeddable emb = new ExamenEntity.ReglaCalificacionEmbeddable();
-        emb.setCriterio(dto.criterio());
-        emb.setPonderacion(dto.ponderacion());
-        emb.setPuntajeMaximo(dto.puntajeMaximo());
-        return emb;
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    CalificacionPersonalizadaEntity toCalificacionEntity(RegistrarCalificacionPersonalizadaDto dto);
 
-    public static CalificacionPersonalizadaEntity toEntity(RegistrarCalificacionPersonalizadaDto dto) {
-        CalificacionPersonalizadaEntity entity = new CalificacionPersonalizadaEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setExamenId(dto.examenId());
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setCriterio(dto.criterio());
-        entity.setPuntajeOtorgado(dto.puntajeOtorgado());
-        return entity;
-    }
-
-    public static CalificacionPersonalizadaDto toDto(CalificacionPersonalizadaEntity entity) {
-        return new CalificacionPersonalizadaDto(
-                entity.getExamenId(),
-                entity.getEstudianteId(),
-                entity.getCriterio(),
-                entity.getPuntajeOtorgado()
-        );
-    }
+    CalificacionPersonalizadaDto toCalificacionDto(CalificacionPersonalizadaEntity entity);
 }

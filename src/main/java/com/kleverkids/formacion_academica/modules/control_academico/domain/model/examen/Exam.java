@@ -1,8 +1,8 @@
-package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.EvaluationCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.ExamStatus;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.ExamStatus;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
 import com.kleverkids.formacion_academica.shared.common.domain.AggregateRoot;
 
 import java.math.BigDecimal;
@@ -100,7 +100,7 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void addQuestion(ExamQuestion question) {
         if (!status.canBeModified()) {
-            throw new IllegalStateException("Cannot modify exam in status: " + status);
+            throw new IllegalStateException("No se puede modificar el examen en estado: " + status);
         }
         this.questions.add(question);
         calculateTotalPoints();
@@ -109,7 +109,7 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void removeQuestion(UUID questionId) {
         if (!status.canBeModified()) {
-            throw new IllegalStateException("Cannot modify exam in status: " + status);
+            throw new IllegalStateException("No se puede modificar el examen en estado: " + status);
         }
         this.questions.removeIf(q -> q.getQuestionId().equals(questionId));
         calculateTotalPoints();
@@ -118,10 +118,10 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void schedule() {
         if (this.status != ExamStatus.DRAFT) {
-            throw new IllegalStateException("Can only schedule exams in DRAFT status");
+            throw new IllegalStateException("Solo se pueden programar exámenes en estado BORRADOR");
         }
         if (this.questions.isEmpty()) {
-            throw new IllegalStateException("Cannot schedule exam without questions");
+            throw new IllegalStateException("No se puede programar un examen sin preguntas");
         }
         this.status = ExamStatus.SCHEDULED;
         this.updatedAt = Instant.now();
@@ -129,7 +129,7 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void activate() {
         if (!this.status.canStart()) {
-            throw new IllegalStateException("Cannot activate exam in status: " + status);
+            throw new IllegalStateException("No se puede activar el examen en estado: " + status);
         }
         this.status = ExamStatus.ACTIVE;
         this.updatedAt = Instant.now();
@@ -137,7 +137,7 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void complete() {
         if (this.status != ExamStatus.ACTIVE) {
-            throw new IllegalStateException("Can only complete active exams");
+            throw new IllegalStateException("Solo se pueden completar exámenes activos");
         }
         this.status = ExamStatus.COMPLETED;
         this.updatedAt = Instant.now();
@@ -145,7 +145,7 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void archive() {
         if (this.status != ExamStatus.COMPLETED) {
-            throw new IllegalStateException("Can only archive completed exams");
+            throw new IllegalStateException("Solo se pueden archivar exámenes completados");
         }
         this.status = ExamStatus.ARCHIVED;
         this.updatedAt = Instant.now();
@@ -164,10 +164,10 @@ public class Exam extends AggregateRoot<UUID> {
     
     public void validate() {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Exam name is required");
+            throw new IllegalArgumentException("El nombre del examen es obligatorio");
         }
         if (timeConfig == null) {
-            throw new IllegalArgumentException("Time configuration is required");
+            throw new IllegalArgumentException("La configuración de tiempo es obligatoria");
         }
     }
 }

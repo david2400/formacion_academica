@@ -6,6 +6,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.model
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.QuestionEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.QuestionJpaRepository;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.QuestionPersistenceMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -13,18 +14,13 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
-public class QuestionPersistenceAdapter implements QuestionRepository {
+public class QuestionPersistenceJpaAdapter implements QuestionRepository {
     
     private final QuestionJpaRepository jpaRepository;
     private final QuestionPersistenceMapper mapper;
-    
-    public QuestionPersistenceAdapter(QuestionJpaRepository jpaRepository, 
-                                       QuestionPersistenceMapper mapper) {
-        this.jpaRepository = jpaRepository;
-        this.mapper = mapper;
-    }
-    
+
     @Override
     public Question save(Question question) {
         QuestionEntity entity = mapper.toEntity(question);

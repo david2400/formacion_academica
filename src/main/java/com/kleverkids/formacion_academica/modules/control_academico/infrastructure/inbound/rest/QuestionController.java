@@ -1,9 +1,11 @@
-package com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.in.web;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.inbound.rest;
 
-import com.kleverkids.formacion_academica.modules.questions.application.dto.*;
-import com.kleverkids.formacion_academica.modules.questions.application.port.in.*;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/questions")
 @Tag(name = "Questions", description = "Question management endpoints")
@@ -24,24 +27,11 @@ public class QuestionController {
     private final DeleteQuestionUseCase deleteQuestionUseCase;
     private final SearchQuestionsUseCase searchQuestionsUseCase;
     private final ValidateAnswerUseCase validateAnswerUseCase;
-    
-    public QuestionController(CreateQuestionUseCase createQuestionUseCase,
-                              UpdateQuestionUseCase updateQuestionUseCase,
-                              GetQuestionUseCase getQuestionUseCase,
-                              DeleteQuestionUseCase deleteQuestionUseCase,
-                              SearchQuestionsUseCase searchQuestionsUseCase,
-                              ValidateAnswerUseCase validateAnswerUseCase) {
-        this.createQuestionUseCase = createQuestionUseCase;
-        this.updateQuestionUseCase = updateQuestionUseCase;
-        this.getQuestionUseCase = getQuestionUseCase;
-        this.deleteQuestionUseCase = deleteQuestionUseCase;
-        this.searchQuestionsUseCase = searchQuestionsUseCase;
-        this.validateAnswerUseCase = validateAnswerUseCase;
-    }
+
     
     @PostMapping
     @Operation(summary = "Create a new question", description = "Creates a question of any supported type using polymorphic JSON")
-    public ResponseEntity<QuestionResponse> create(@RequestBody CreateQuestionCommand command) {
+    public ResponseEntity<QuestionResponse> create(@Valid @RequestBody CreateQuestionCommand command) {
         QuestionResponse response = createQuestionUseCase.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -56,7 +46,7 @@ public class QuestionController {
     @PutMapping("/{id}")
     @Operation(summary = "Update a question", description = "Updates an existing question")
     public ResponseEntity<QuestionResponse> update(@PathVariable UUID id,
-                                                    @RequestBody UpdateQuestionCommand command) {
+                                                   @Valid @RequestBody UpdateQuestionCommand command) {
         QuestionResponse response = updateQuestionUseCase.update(id, command);
         return ResponseEntity.ok(response);
     }
@@ -90,7 +80,7 @@ public class QuestionController {
     @PostMapping("/{id}/validate")
     @Operation(summary = "Validate an answer", description = "Validates a student's answer against the question")
     public ResponseEntity<ValidationResult> validateAnswer(@PathVariable UUID id,
-                                                            @RequestBody AnswerValidationRequest request) {
+                                                           @RequestBody AnswerValidationRequest request) {
         ValidationResult result = validateAnswerUseCase.validate(id, request);
         return ResponseEntity.ok(result);
     }

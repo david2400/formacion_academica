@@ -3,37 +3,23 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.EstudianteExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.RegistrarEstudianteExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.EstudianteExamenEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public final class EstudianteExamenMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class, LocalDateTime.class, ArrayList.class})
+public interface EstudianteExamenMapper {
 
-    private EstudianteExamenMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "asignadoEn", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
+    EstudianteExamenEntity toEntity(RegistrarEstudianteExamenDto dto);
 
-    public static EstudianteExamenEntity toEntity(RegistrarEstudianteExamenDto dto) {
-        EstudianteExamenEntity entity = new EstudianteExamenEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setExamenId(dto.examenId());
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setAsignadoEn(LocalDateTime.now());
-        entity.setRespuestas(new ArrayList<>());
-        return entity;
-    }
+    EstudianteExamenDto toDto(EstudianteExamenEntity entity);
 
-    public static EstudianteExamenDto toDto(EstudianteExamenEntity entity) {
-        return new EstudianteExamenDto(
-                entity.getId(),
-                entity.getExamenId(),
-                entity.getEstudianteId(),
-                entity.getAsignadoEn()
-        );
-    }
-
-    public static List<EstudianteExamenDto> toDtoList(List<EstudianteExamenEntity> entities) {
-        return entities.stream().map(EstudianteExamenMapper::toDto).toList();
-    }
+    List<EstudianteExamenDto> toDtoList(List<EstudianteExamenEntity> entities);
 }

@@ -1,9 +1,11 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
 
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamResultRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamResult;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamResultRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamPersistenceMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamResultJpaRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ExamResultEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamResultEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,17 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
-public class ExamResultPersistenceAdapter implements ExamResultRepository {
+public class ExamResultPersistenceAdapter implements ExamResultRepositoryPort {
     
     private final ExamResultJpaRepository jpaRepository;
     private final ExamPersistenceMapper mapper;
     
-    public ExamResultPersistenceAdapter(ExamResultJpaRepository jpaRepository, ExamPersistenceMapper mapper) {
-        this.jpaRepository = jpaRepository;
-        this.mapper = mapper;
-    }
-    
+
     @Override
     public ExamResult save(ExamResult result) {
         ExamResultEntity entity = mapper.toEntity(result);

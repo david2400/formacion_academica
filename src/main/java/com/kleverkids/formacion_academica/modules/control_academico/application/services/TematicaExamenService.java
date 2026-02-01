@@ -7,21 +7,19 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaExamenDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class TematicaExamenService implements CrearTematicaExamenUseCase,
         ActualizarTematicaExamenUseCase,
         ListarTematicasPorExamenUseCase {
 
     private final TematicaExamenRepositoryPort repositoryPort;
-
-    public TematicaExamenService(TematicaExamenRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public TematicaExamenDto crear(CrearTematicaExamenDto request) {

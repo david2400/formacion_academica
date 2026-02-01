@@ -7,16 +7,14 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.CrearExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ExamenService implements CrearExamenUseCase, RegistrarCalificacionPersonalizadaUseCase {
 
     private final ExamenRepositoryPort examenRepositoryPort;
-
-    public ExamenService(ExamenRepositoryPort examenRepositoryPort) {
-        this.examenRepositoryPort = examenRepositoryPort;
-    }
 
     @Override
     public ExamenDto crear(CrearExamenDto request) {

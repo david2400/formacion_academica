@@ -9,6 +9,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.IntentoExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RegistrarRespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/intentos")
 public class IntentoExamenController {
@@ -29,16 +32,6 @@ public class IntentoExamenController {
     private final RegistrarRespuestaIntentoUseCase registrarRespuestaUseCase;
     private final FinalizarIntentoExamenUseCase finalizarUseCase;
     private final ListarIntentosPorEstudianteUseCase listarUseCase;
-
-    public IntentoExamenController(IniciarIntentoExamenUseCase iniciarUseCase,
-                                   RegistrarRespuestaIntentoUseCase registrarRespuestaUseCase,
-                                   FinalizarIntentoExamenUseCase finalizarUseCase,
-                                   ListarIntentosPorEstudianteUseCase listarUseCase) {
-        this.iniciarUseCase = iniciarUseCase;
-        this.registrarRespuestaUseCase = registrarRespuestaUseCase;
-        this.finalizarUseCase = finalizarUseCase;
-        this.listarUseCase = listarUseCase;
-    }
 
     @PostMapping
     public ResponseEntity<IntentoExamenDto> iniciar(@PathVariable UUID examenId,
@@ -49,15 +42,9 @@ public class IntentoExamenController {
 
     @PostMapping("/{intentoId}/respuestas")
     public ResponseEntity<RespuestaIntentoDto> registrarRespuesta(@PathVariable UUID intentoId,
-                                                                  @RequestBody RegistrarRespuestaIntentoDto request) {
-        RegistrarRespuestaIntentoDto payload = new RegistrarRespuestaIntentoDto(
-                intentoId,
-                request.preguntaId(),
-                request.respuesta(),
-                request.esCorrecta(),
-                request.puntajeObtenido()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(registrarRespuestaUseCase.registrar(payload));
+                                                                  @Valid @RequestBody RegistrarRespuestaIntentoDto request) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(registrarRespuestaUseCase.registrar(request));
     }
 
     @PostMapping("/{intentoId}/finalizar")

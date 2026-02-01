@@ -1,19 +1,29 @@
-package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.*;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.EvaluationCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.ExamStatus;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.QuestionAnswer;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.ExamStatus;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.*;
-import org.springframework.stereotype.Component;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamQuestionEmbeddable;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamResultEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamSubmissionEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.QuestionAnswerEmbeddable;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.QuestionResultEmbeddable;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class ExamPersistenceMapper {
-    
-    public ExamEntity toEntity(Exam exam) {
+@Mapper(componentModel = "spring")
+public interface ExamPersistenceMapper {
+
+    default ExamEntity toEntity(Exam exam) {
         ExamEntity entity = new ExamEntity();
         entity.setId(exam.getId());
         entity.setName(exam.getName());
@@ -40,7 +50,7 @@ public class ExamPersistenceMapper {
         return entity;
     }
     
-    public Exam toDomain(ExamEntity entity) {
+    default Exam toDomain(ExamEntity entity) {
         Exam exam = new Exam();
         exam.setId(entity.getId());
         exam.setName(entity.getName());
@@ -66,7 +76,7 @@ public class ExamPersistenceMapper {
         return exam;
     }
     
-    public ExamSubmissionEntity toEntity(ExamSubmission submission) {
+    default ExamSubmissionEntity toEntity(ExamSubmission submission) {
         ExamSubmissionEntity entity = new ExamSubmissionEntity();
         entity.setId(submission.getId());
         entity.setExamId(submission.getExamId());
@@ -80,7 +90,7 @@ public class ExamPersistenceMapper {
         return entity;
     }
     
-    public ExamSubmission toDomain(ExamSubmissionEntity entity) {
+    default ExamSubmission toDomain(ExamSubmissionEntity entity) {
         ExamSubmission submission = new ExamSubmission();
         submission.setId(entity.getId());
         submission.setExamId(entity.getExamId());
@@ -94,7 +104,7 @@ public class ExamPersistenceMapper {
         return submission;
     }
     
-    public ExamResultEntity toEntity(ExamResult result) {
+    default ExamResultEntity toEntity(ExamResult result) {
         ExamResultEntity entity = new ExamResultEntity();
         entity.setId(result.getId());
         entity.setExamId(result.getExamId());
@@ -110,7 +120,7 @@ public class ExamPersistenceMapper {
         return entity;
     }
     
-    public ExamResult toDomain(ExamResultEntity entity) {
+    default ExamResult toDomain(ExamResultEntity entity) {
         ExamResult result = new ExamResult();
         result.setId(entity.getId());
         result.setExamId(entity.getExamId());
@@ -125,42 +135,42 @@ public class ExamPersistenceMapper {
         return result;
     }
     
-    private List<ExamQuestionEmbeddable> mapQuestionsToEmbeddable(List<ExamQuestion> questions) {
+    default List<ExamQuestionEmbeddable> mapQuestionsToEmbeddable(List<ExamQuestion> questions) {
         if (questions == null) return null;
         return questions.stream()
             .map(q -> new ExamQuestionEmbeddable(q.getId(), q.getQuestionId(), q.getOrder(), q.getPoints(), q.isRequired()))
             .collect(Collectors.toList());
     }
     
-    private List<ExamQuestion> mapQuestionsToDomain(List<ExamQuestionEmbeddable> questions) {
+    default List<ExamQuestion> mapQuestionsToDomain(List<ExamQuestionEmbeddable> questions) {
         if (questions == null) return null;
         return questions.stream()
             .map(q -> new ExamQuestion(q.getId(), q.getQuestionId(), q.getOrder(), q.getPoints(), q.isRequired()))
             .collect(Collectors.toList());
     }
     
-    private List<EvaluationCriteriaEmbeddable> mapCriteriaToEmbeddable(List<EvaluationCriteria> criteria) {
+    default List<EvaluationCriteriaEmbeddable> mapCriteriaToEmbeddable(List<EvaluationCriteria> criteria) {
         if (criteria == null) return null;
         return criteria.stream()
             .map(c -> new EvaluationCriteriaEmbeddable(c.getId(), c.getName(), c.getDescription(), c.getWeight(), c.getMaxScore()))
             .collect(Collectors.toList());
     }
     
-    private List<EvaluationCriteria> mapCriteriaToDomain(List<EvaluationCriteriaEmbeddable> criteria) {
+    default List<EvaluationCriteria> mapCriteriaToDomain(List<EvaluationCriteriaEmbeddable> criteria) {
         if (criteria == null) return null;
         return criteria.stream()
             .map(c -> EvaluationCriteria.create(c.getId(), c.getName(), c.getDescription(), c.getWeight(), c.getMaxScore()))
             .collect(Collectors.toList());
     }
     
-    private List<QuestionAnswerEmbeddable> mapAnswersToEmbeddable(List<QuestionAnswer> answers) {
+    default List<QuestionAnswerEmbeddable> mapAnswersToEmbeddable(List<QuestionAnswer> answers) {
         if (answers == null) return null;
         return answers.stream()
             .map(a -> new QuestionAnswerEmbeddable(a.getId(), a.getQuestionId(), a.getAnswer(), a.getScore(), a.isGraded(), a.getFeedback()))
             .collect(Collectors.toList());
     }
     
-    private List<QuestionAnswer> mapAnswersToDomain(List<QuestionAnswerEmbeddable> answers) {
+    default List<QuestionAnswer> mapAnswersToDomain(List<QuestionAnswerEmbeddable> answers) {
         if (answers == null) return null;
         return answers.stream()
             .map(a -> {
@@ -173,14 +183,14 @@ public class ExamPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private List<QuestionResultEmbeddable> mapQuestionResultsToEmbeddable(List<ExamResult.QuestionResult> results) {
+    default List<QuestionResultEmbeddable> mapQuestionResultsToEmbeddable(List<ExamResult.QuestionResult> results) {
         if (results == null) return null;
         return results.stream()
             .map(r -> new QuestionResultEmbeddable(r.getQuestionId(), r.getScore(), r.getMaxScore(), r.isCorrect(), r.getFeedback()))
             .collect(Collectors.toList());
     }
     
-    private List<ExamResult.QuestionResult> mapQuestionResultsToDomain(List<QuestionResultEmbeddable> results) {
+    default List<ExamResult.QuestionResult> mapQuestionResultsToDomain(List<QuestionResultEmbeddable> results) {
         if (results == null) return null;
         return results.stream()
             .map(r -> new ExamResult.QuestionResult(r.getQuestionId(), r.getScore(), r.getMaxScore(), r.isCorrect(), r.getFeedback()))

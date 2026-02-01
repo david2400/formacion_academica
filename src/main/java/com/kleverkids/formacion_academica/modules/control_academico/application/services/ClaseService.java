@@ -9,26 +9,24 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ClaseService implements CrearClaseUseCase, CrearClasesMasivasUseCase {
 
     private final ClaseRepositoryPort claseRepositoryPort;
 
-    public ClaseService(ClaseRepositoryPort claseRepositoryPort) {
-        this.claseRepositoryPort = claseRepositoryPort;
-    }
 
     @Override
     public ClaseDto crearClase(CrearClaseDto request) {
-        validarCodigoUnico(request.codigo());
         return claseRepositoryPort.guardar(request);
     }
 
     @Override
     public ResultadoClasesMasivasDto crearClases(CrearClasesMasivasDto request) {
-        request.clases().forEach(this::validarCodigoUnico);
         List<ClaseDto> creadas = claseRepositoryPort.guardarTodas(request.clases());
         return new ResultadoClasesMasivasDto(request.clases().size(), creadas.size(), creadas);
     }

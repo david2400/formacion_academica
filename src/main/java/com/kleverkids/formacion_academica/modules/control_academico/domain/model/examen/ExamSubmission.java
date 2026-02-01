@@ -1,4 +1,6 @@
-package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen;
+
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.QuestionAnswer;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -66,7 +68,7 @@ public class ExamSubmission {
     
     public void submit() {
         if (this.status != SubmissionStatus.IN_PROGRESS) {
-            throw new IllegalStateException("Cannot submit - not in progress");
+            throw new IllegalStateException("No se puede entregar - no está en progreso");
         }
         this.submittedAt = Instant.now();
         this.status = SubmissionStatus.SUBMITTED;
@@ -74,7 +76,7 @@ public class ExamSubmission {
     
     public void grade(BigDecimal score) {
         if (this.status != SubmissionStatus.SUBMITTED) {
-            throw new IllegalStateException("Cannot grade - not submitted");
+            throw new IllegalStateException("No se puede calificar - no ha sido entregado");
         }
         this.totalScore = score;
         this.graded = true;

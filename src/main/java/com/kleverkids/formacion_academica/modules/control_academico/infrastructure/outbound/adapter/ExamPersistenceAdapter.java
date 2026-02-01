@@ -1,10 +1,12 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
 
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamSearchCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamPersistenceMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamJpaRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ExamEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -12,17 +14,13 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
-public class ExamPersistenceAdapter implements ExamRepository {
+public class ExamPersistenceAdapter implements ExamRepositoryPort {
     
     private final ExamJpaRepository jpaRepository;
     private final ExamPersistenceMapper mapper;
-    
-    public ExamPersistenceAdapter(ExamJpaRepository jpaRepository, ExamPersistenceMapper mapper) {
-        this.jpaRepository = jpaRepository;
-        this.mapper = mapper;
-    }
-    
+
     @Override
     public Exam save(Exam exam) {
         ExamEntity entity = mapper.toEntity(exam);

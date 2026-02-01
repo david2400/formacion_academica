@@ -7,37 +7,37 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.t
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.TematicaExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.TematicaExamenEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.TematicaExamenJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
+
+@RequiredArgsConstructor
 @Component
 public class TematicaExamenJpaAdapter implements TematicaExamenRepositoryPort {
 
     private final TematicaExamenJpaRepository tematicaExamenJpaRepository;
-
-    public TematicaExamenJpaAdapter(TematicaExamenJpaRepository tematicaExamenJpaRepository) {
-        this.tematicaExamenJpaRepository = tematicaExamenJpaRepository;
-    }
+    private final TematicaExamenMapper tematicaExamenMapper;
 
     @Override
     public TematicaExamenDto guardar(CrearTematicaExamenDto request) {
-        TematicaExamenEntity entity = TematicaExamenMapper.toEntity(request);
-        return TematicaExamenMapper.toDto(tematicaExamenJpaRepository.save(entity));
+        TematicaExamenEntity entity = tematicaExamenMapper.toEntity(request);
+        return tematicaExamenMapper.toDto(tematicaExamenJpaRepository.save(entity));
     }
 
     @Override
     public TematicaExamenDto actualizar(ActualizarTematicaExamenDto request) {
         TematicaExamenEntity entity = tematicaExamenJpaRepository.findById(request.id())
                 .orElseThrow(() -> new IllegalArgumentException("Temática no encontrada"));
-        TematicaExamenMapper.applyUpdate(entity, request);
-        return TematicaExamenMapper.toDto(tematicaExamenJpaRepository.save(entity));
+        tematicaExamenMapper.applyUpdate(entity, request);
+        return tematicaExamenMapper.toDto(tematicaExamenJpaRepository.save(entity));
     }
 
     @Override
     public List<TematicaExamenDto> listarPorExamen(UUID examenId) {
-        return TematicaExamenMapper.toDtoList(
+        return tematicaExamenMapper.toDtoList(
                 tematicaExamenJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }

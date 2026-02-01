@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.application.port.out;
+package com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta;
 
 import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 

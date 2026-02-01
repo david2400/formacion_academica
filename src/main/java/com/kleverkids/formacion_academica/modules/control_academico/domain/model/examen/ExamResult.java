@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

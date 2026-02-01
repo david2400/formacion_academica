@@ -11,11 +11,13 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.r
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaPersistenceDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RespuestaPreguntaDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCase,
         ActualizarRespuestaPreguntaUseCase,
@@ -23,12 +25,6 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
 
     private final RespuestaPreguntaRepositoryPort respuestaRepository;
     private final EstudianteExamenRepositoryPort estudianteExamenRepository;
-
-    public RespuestaPreguntaService(RespuestaPreguntaRepositoryPort respuestaRepository,
-                                    EstudianteExamenRepositoryPort estudianteExamenRepository) {
-        this.respuestaRepository = respuestaRepository;
-        this.estudianteExamenRepository = estudianteExamenRepository;
-    }
 
     @Override
     public RespuestaPreguntaDto registrar(RegistrarRespuestaPreguntaDto request) {

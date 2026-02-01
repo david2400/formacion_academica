@@ -5,20 +5,19 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.estudiante_examen.EstudianteExamenRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.EstudianteExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.RegistrarEstudianteExamenDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class EstudianteExamenService implements RegistrarEstudianteExamenUseCase,
         ListarEstudiantesExamenUseCase {
 
     private final EstudianteExamenRepositoryPort repositoryPort;
 
-    public EstudianteExamenService(EstudianteExamenRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public EstudianteExamenDto registrar(RegistrarEstudianteExamenDto request) {

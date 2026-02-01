@@ -1,15 +1,21 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.examen.*;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamResultRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamSubmissionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.*;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.*;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamResultRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamSubmissionRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.QuestionAnswer;
+
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.ExamNotFoundException;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.EvaluationCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.ExamStatus;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.ExamStatus;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,26 +26,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExamUseCase,
         DeleteExamUseCase, SearchExamsUseCase, StartExamUseCase, SubmitExamUseCase,
         GradeExamUseCase, GetExamResultsUseCase {
     
-    private final ExamRepository examRepository;
-    private final ExamSubmissionRepository submissionRepository;
-    private final ExamResultRepository resultRepository;
+    private final ExamRepositoryPort examRepository;
+    private final ExamSubmissionRepositoryPort submissionRepository;
+    private final ExamResultRepositoryPort resultRepository;
     private final ExamScoringService scoringService;
-    
-    public ExamService(ExamRepository examRepository,
-                       ExamSubmissionRepository submissionRepository,
-                       ExamResultRepository resultRepository,
-                       ExamScoringService scoringService) {
-        this.examRepository = examRepository;
-        this.submissionRepository = submissionRepository;
-        this.resultRepository = resultRepository;
-        this.scoringService = scoringService;
-    }
     
     @Override
     public ExamResponse create(CreateExamCommand command) {
@@ -109,7 +106,7 @@ public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExa
             .orElseThrow(() -> new ExamNotFoundException(examId));
         
         if (exam.getStatus() != ExamStatus.ACTIVE) {
-            throw new IllegalStateException("Exam is not active");
+            throw new IllegalStateException("El examen no está activo");
         }
         
         ExamSubmission submission = new ExamSubmission(null, examId, studentId);
@@ -123,7 +120,7 @@ public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExa
             .orElseThrow(() -> new ExamNotFoundException(examId));
         
         ExamSubmission submission = submissionRepository.findById(command.submissionId())
-            .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
+            .orElseThrow(() -> new IllegalArgumentException("Entrega no encontrada"));
         
         // Add answers to submission
         for (QuestionAnswerDto answerDto : command.answers()) {
@@ -145,7 +142,7 @@ public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExa
     @Override
     public ExamResultResponse grade(UUID examId, UUID submissionId, GradeExamCommand command) {
         ExamSubmission submission = submissionRepository.findById(submissionId)
-            .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
+            .orElseThrow(() -> new IllegalArgumentException("Entrega no encontrada"));
         
         BigDecimal totalScore = BigDecimal.ZERO;
         for (GradeExamCommand.QuestionGradeDto grade : command.grades()) {
@@ -161,7 +158,7 @@ public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExa
         submissionRepository.save(submission);
         
         ExamResult result = resultRepository.findByExamIdAndStudentId(examId, submission.getStudentId())
-            .orElseThrow(() -> new IllegalArgumentException("Result not found"));
+            .orElseThrow(() -> new IllegalArgumentException("Resultado no encontrado"));
         
         result.setTotalScore(totalScore);
         result.setGrade(scoringService.calculateGrade(result.getPercentage()));
@@ -183,7 +180,7 @@ public class ExamService implements CreateExamUseCase, GetExamUseCase, UpdateExa
     @Transactional(readOnly = true)
     public ExamResultResponse getStudentResult(UUID examId, UUID studentId) {
         ExamResult result = resultRepository.findByExamIdAndStudentId(examId, studentId)
-            .orElseThrow(() -> new IllegalArgumentException("Result not found"));
+            .orElseThrow(() -> new IllegalArgumentException("Resultado no encontrado"));
         return ExamResultResponse.fromDomain(result);
     }
     

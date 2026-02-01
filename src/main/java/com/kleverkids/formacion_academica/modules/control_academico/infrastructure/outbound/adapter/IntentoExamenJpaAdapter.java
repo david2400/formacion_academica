@@ -7,23 +7,22 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RegistrarRespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.IntentoExamenMapper;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.IntentoExamenEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.RespuestaIntentoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.IntentoExamenEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.RespuestaIntentoEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.IntentoExamenJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
 public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
 
     private final IntentoExamenJpaRepository intentoExamenJpaRepository;
-
-    public IntentoExamenJpaAdapter(IntentoExamenJpaRepository intentoExamenJpaRepository) {
-        this.intentoExamenJpaRepository = intentoExamenJpaRepository;
-    }
+    private final IntentoExamenMapper intentoExamenMapper;
 
     @Override
     @Transactional
@@ -32,10 +31,10 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
                 .findFirstByExamenIdAndEstudianteIdAndEstado(request.examenId(), request.estudianteId(), "EN_PROGRESO")
                 .orElse(null);
         if (existente != null) {
-            return IntentoExamenMapper.toDto(existente);
+            return intentoExamenMapper.toDto(existente);
         }
-        IntentoExamenEntity entity = IntentoExamenMapper.toEntity(request);
-        return IntentoExamenMapper.toDto(intentoExamenJpaRepository.save(entity));
+        IntentoExamenEntity entity = intentoExamenMapper.toEntity(request);
+        return intentoExamenMapper.toDto(intentoExamenJpaRepository.save(entity));
     }
 
     @Override
@@ -46,10 +45,10 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
         if (!"EN_PROGRESO".equals(intento.getEstado())) {
             throw new IllegalStateException("Solo se pueden registrar respuestas en intentos en progreso");
         }
-        RespuestaIntentoEntity respuesta = IntentoExamenMapper.toEntity(request, intento);
+        RespuestaIntentoEntity respuesta = intentoExamenMapper.toEntity(request, intento);
         intento.getRespuestas().add(respuesta);
         intentoExamenJpaRepository.save(intento);
-        return IntentoExamenMapper.toDto(respuesta);
+        return intentoExamenMapper.toRespuestaDto(respuesta);
     }
 
     @Override
@@ -57,15 +56,14 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
     public IntentoExamenDto finalizar(FinalizarIntentoExamenDto request) {
         IntentoExamenEntity intento = intentoExamenJpaRepository.findById(request.intentoId())
                 .orElseThrow(() -> new IllegalArgumentException("Intento no encontrado"));
-        IntentoExamenMapper.applyFinalizacion(intento, request);
-        return IntentoExamenMapper.toDto(intentoExamenJpaRepository.save(intento));
+        intentoExamenMapper.applyFinalizacion(intento, request);
+        return intentoExamenMapper.toDto(intentoExamenJpaRepository.save(intento));
     }
 
     @Override
     public List<IntentoExamenDto> listarPorEstudiante(UUID examenId, UUID estudianteId) {
-        return intentoExamenJpaRepository.findByExamenIdAndEstudianteIdOrderByIniciadoEnDesc(examenId, estudianteId)
-                .stream()
-                .map(IntentoExamenMapper::toDto)
-                .toList();
+        return intentoExamenMapper.toDtoList(
+                intentoExamenJpaRepository.findByExamenIdAndEstudianteIdOrderByIniciadoEnDesc(examenId, estudianteId)
+        );
     }
 }

@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaExamenDto;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/examenes/{examenId}/tematicas")
 public class TematicaExamenController {
@@ -27,38 +30,19 @@ public class TematicaExamenController {
     private final ActualizarTematicaExamenUseCase actualizarUseCase;
     private final ListarTematicasPorExamenUseCase listarUseCase;
 
-    public TematicaExamenController(CrearTematicaExamenUseCase crearUseCase,
-                                    ActualizarTematicaExamenUseCase actualizarUseCase,
-                                    ListarTematicasPorExamenUseCase listarUseCase) {
-        this.crearUseCase = crearUseCase;
-        this.actualizarUseCase = actualizarUseCase;
-        this.listarUseCase = listarUseCase;
-    }
-
     @PostMapping
     public ResponseEntity<TematicaExamenDto> crear(@PathVariable UUID examenId,
-                                                   @RequestBody CrearTematicaExamenDto request) {
-        CrearTematicaExamenDto payload = new CrearTematicaExamenDto(
-                examenId,
-                request.titulo(),
-                request.descripcion(),
-                request.orden()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(payload));
+                                                   @Valid @RequestBody CrearTematicaExamenDto request) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
     @PutMapping("/{tematicaId}")
     public ResponseEntity<TematicaExamenDto> actualizar(@PathVariable UUID examenId,
                                                         @PathVariable UUID tematicaId,
-                                                        @RequestBody ActualizarTematicaExamenDto request) {
-        ActualizarTematicaExamenDto payload = new ActualizarTematicaExamenDto(
-                tematicaId,
-                examenId,
-                request.titulo(),
-                request.descripcion(),
-                request.orden()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+                                                        @Valid @RequestBody ActualizarTematicaExamenDto request) {
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @GetMapping

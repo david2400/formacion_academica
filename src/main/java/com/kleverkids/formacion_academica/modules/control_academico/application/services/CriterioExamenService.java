@@ -7,21 +7,19 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.ActualizarCriterioExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.CrearCriterioExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.CriterioExamenDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class CriterioExamenService implements CrearCriterioExamenUseCase,
         ActualizarCriterioExamenUseCase,
         ListarCriteriosPorExamenUseCase {
 
     private final CriterioExamenRepositoryPort repositoryPort;
-
-    public CriterioExamenService(CriterioExamenRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public CriterioExamenDto crear(CrearCriterioExamenDto request) {

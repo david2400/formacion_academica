@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes;
 
 import java.math.BigDecimal;
 import java.util.UUID;

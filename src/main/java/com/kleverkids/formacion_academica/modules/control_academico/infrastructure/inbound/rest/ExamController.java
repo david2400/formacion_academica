@@ -2,6 +2,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.*;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/exams")
 public class ExamController {
@@ -24,29 +27,9 @@ public class ExamController {
     private final SubmitExamUseCase submitExamUseCase;
     private final GradeExamUseCase gradeExamUseCase;
     private final GetExamResultsUseCase getExamResultsUseCase;
-    
-    public ExamController(CreateExamUseCase createExamUseCase,
-                          GetExamUseCase getExamUseCase,
-                          UpdateExamUseCase updateExamUseCase,
-                          DeleteExamUseCase deleteExamUseCase,
-                          SearchExamsUseCase searchExamsUseCase,
-                          StartExamUseCase startExamUseCase,
-                          SubmitExamUseCase submitExamUseCase,
-                          GradeExamUseCase gradeExamUseCase,
-                          GetExamResultsUseCase getExamResultsUseCase) {
-        this.createExamUseCase = createExamUseCase;
-        this.getExamUseCase = getExamUseCase;
-        this.updateExamUseCase = updateExamUseCase;
-        this.deleteExamUseCase = deleteExamUseCase;
-        this.searchExamsUseCase = searchExamsUseCase;
-        this.startExamUseCase = startExamUseCase;
-        this.submitExamUseCase = submitExamUseCase;
-        this.gradeExamUseCase = gradeExamUseCase;
-        this.getExamResultsUseCase = getExamResultsUseCase;
-    }
-    
+
     @PostMapping
-    public ResponseEntity<ExamResponse> create(@RequestBody CreateExamCommand command) {
+    public ResponseEntity<ExamResponse> create(@Valid @RequestBody CreateExamCommand command) {
         ExamResponse response = createExamUseCase.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -58,7 +41,7 @@ public class ExamController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<ExamResponse> update(@PathVariable UUID id, @RequestBody UpdateExamCommand command) {
+    public ResponseEntity<ExamResponse> update(@PathVariable UUID id, @Valid @RequestBody UpdateExamCommand command) {
         ExamResponse response = updateExamUseCase.update(id, command);
         return ResponseEntity.ok(response);
     }

@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta;
 
 import java.math.BigDecimal;
 import java.util.List;

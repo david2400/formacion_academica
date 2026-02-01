@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/tematicas/{tematicaId}/preguntas")
 public class PreguntaBancoController {
@@ -27,41 +30,20 @@ public class PreguntaBancoController {
     private final ActualizarPreguntaBancoUseCase actualizarUseCase;
     private final ListarPreguntasPorTematicaUseCase listarUseCase;
 
-    public PreguntaBancoController(CrearPreguntaBancoUseCase crearUseCase,
-                                   ActualizarPreguntaBancoUseCase actualizarUseCase,
-                                   ListarPreguntasPorTematicaUseCase listarUseCase) {
-        this.crearUseCase = crearUseCase;
-        this.actualizarUseCase = actualizarUseCase;
-        this.listarUseCase = listarUseCase;
-    }
 
     @PostMapping
     public ResponseEntity<PreguntaBancoDto> crear(@PathVariable UUID tematicaId,
-                                                  @RequestBody CrearPreguntaBancoDto request) {
-        CrearPreguntaBancoDto payload = new CrearPreguntaBancoDto(
-                tematicaId,
-                request.enunciado(),
-                request.tipo(),
-                request.nivelDificultad(),
-                request.puntaje(),
-                request.respuestas()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(payload));
+                                                  @Valid @RequestBody CrearPreguntaBancoDto request) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
     @PutMapping("/{preguntaId}")
     public ResponseEntity<PreguntaBancoDto> actualizar(@PathVariable UUID tematicaId,
                                                        @PathVariable UUID preguntaId,
-                                                       @RequestBody ActualizarPreguntaBancoDto request) {
-        ActualizarPreguntaBancoDto payload = new ActualizarPreguntaBancoDto(
-                preguntaId,
-                tematicaId,
-                request.enunciado(),
-                request.tipo(),
-                request.nivelDificultad(),
-                request.puntaje()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+                                                       @Valid @RequestBody ActualizarPreguntaBancoDto request) {
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @GetMapping

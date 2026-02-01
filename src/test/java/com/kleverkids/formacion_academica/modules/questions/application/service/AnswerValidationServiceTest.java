@@ -1,10 +1,11 @@
 package com.kleverkids.formacion_academica.modules.questions.application.service;
 
-import com.kleverkids.formacion_academica.modules.questions.application.dto.AnswerValidationRequest;
-import com.kleverkids.formacion_academica.modules.questions.application.dto.ValidationResult;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.*;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Difficulty;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Option;
+import com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta.AnswerValidationService;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.AnswerValidationRequest;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ValidationResult;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -10,11 +10,13 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.IntentoExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RegistrarRespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class IntentoExamenService implements IniciarIntentoExamenUseCase,
         RegistrarRespuestaIntentoUseCase,
@@ -23,9 +25,6 @@ public class IntentoExamenService implements IniciarIntentoExamenUseCase,
 
     private final IntentoExamenRepositoryPort repositoryPort;
 
-    public IntentoExamenService(IntentoExamenRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public IntentoExamenDto iniciar(IniciarIntentoExamenDto request) {

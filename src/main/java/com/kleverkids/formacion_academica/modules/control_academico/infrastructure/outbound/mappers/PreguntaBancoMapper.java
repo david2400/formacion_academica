@@ -5,63 +5,51 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.p
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearRespuestaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.RespuestaBancoDto;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.PreguntaBancoEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.RespuestaBancoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.PreguntaBancoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.RespuestaBancoEntity;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public final class PreguntaBancoMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class, ArrayList.class})
+public interface PreguntaBancoMapper {
 
-    private PreguntaBancoMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "respuestas", ignore = true)
+    PreguntaBancoEntity toEntity(CrearPreguntaBancoDto dto);
 
-    public static PreguntaBancoEntity toEntity(CrearPreguntaBancoDto dto) {
-        PreguntaBancoEntity entity = new PreguntaBancoEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setTematicaId(dto.tematicaId());
-        entity.setEnunciado(dto.enunciado());
-        entity.setTipo(dto.tipo());
-        entity.setNivelDificultad(dto.nivelDificultad());
-        entity.setPuntaje(dto.puntaje());
-        entity.setRespuestas(mapRespuestas(dto.respuestas(), entity));
-        return entity;
-    }
-
-    private static List<RespuestaBancoEntity> mapRespuestas(List<CrearRespuestaBancoDto> respuestasDto,
-                                                            PreguntaBancoEntity parent) {
-        if (respuestasDto == null || respuestasDto.isEmpty()) {
-            return List.of();
+    @AfterMapping
+    default void mapRespuestas(CrearPreguntaBancoDto dto, @MappingTarget PreguntaBancoEntity entity) {
+        if (dto.respuestas() == null || dto.respuestas().isEmpty()) {
+            entity.setRespuestas(List.of());
+            return;
         }
         List<RespuestaBancoEntity> respuestas = new ArrayList<>();
-        for (CrearRespuestaBancoDto respuestaDto : respuestasDto) {
+        for (CrearRespuestaBancoDto respuestaDto : dto.respuestas()) {
             RespuestaBancoEntity respuesta = new RespuestaBancoEntity();
             respuesta.setId(UUID.randomUUID());
-            respuesta.setPregunta(parent);
+            respuesta.setPregunta(entity);
             respuesta.setTexto(respuestaDto.texto());
             respuesta.setEsCorrecta(respuestaDto.esCorrecta());
             respuestas.add(respuesta);
         }
-        return respuestas;
+        entity.setRespuestas(respuestas);
     }
 
-    public static void applyUpdate(PreguntaBancoEntity entity, ActualizarPreguntaBancoDto dto) {
-        if (dto.enunciado() != null) {
-            entity.setEnunciado(dto.enunciado());
-        }
-        if (dto.tipo() != null) {
-            entity.setTipo(dto.tipo());
-        }
-        if (dto.nivelDificultad() != null) {
-            entity.setNivelDificultad(dto.nivelDificultad());
-        }
-        if (dto.puntaje() != null) {
-            entity.setPuntaje(dto.puntaje());
-        }
-    }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tematicaId", ignore = true)
+    @Mapping(target = "respuestas", ignore = true)
+    void applyUpdate(@MappingTarget PreguntaBancoEntity entity, ActualizarPreguntaBancoDto dto);
 
-    public static PreguntaBancoDto toDto(PreguntaBancoEntity entity) {
+    default PreguntaBancoDto toDto(PreguntaBancoEntity entity) {
         List<RespuestaBancoDto> respuestas = entity.getRespuestas().stream()
                 .map(r -> new RespuestaBancoDto(
                         r.getId(),
@@ -80,7 +68,5 @@ public final class PreguntaBancoMapper {
         );
     }
 
-    public static List<PreguntaBancoDto> toDtoList(List<PreguntaBancoEntity> entities) {
-        return entities.stream().map(PreguntaBancoMapper::toDto).toList();
-    }
+    List<PreguntaBancoDto> toDtoList(List<PreguntaBancoEntity> entities);
 }

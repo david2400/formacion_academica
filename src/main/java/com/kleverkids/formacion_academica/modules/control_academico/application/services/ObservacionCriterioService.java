@@ -7,11 +7,13 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ActualizarObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.RegistrarObservacionCriterioDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class ObservacionCriterioService implements RegistrarObservacionCriterioUseCase,
         ActualizarObservacionCriterioUseCase,
@@ -19,9 +21,6 @@ public class ObservacionCriterioService implements RegistrarObservacionCriterioU
 
     private final ObservacionCriterioRepositoryPort repositoryPort;
 
-    public ObservacionCriterioService(ObservacionCriterioRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public ObservacionCriterioDto registrar(RegistrarObservacionCriterioDto request) {

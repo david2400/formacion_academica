@@ -1,15 +1,17 @@
-package com.kleverkids.formacion_academica.modules.questions.application.service;
+package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
-import com.kleverkids.formacion_academica.modules.questions.application.dto.AnswerValidationRequest;
-import com.kleverkids.formacion_academica.modules.questions.application.dto.ValidationResult;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.AnswerValidationRequest;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ValidationResult;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.MatchingPair;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.OrderingItem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Service
 public class AnswerValidationService {
     

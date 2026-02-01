@@ -1,10 +1,10 @@
-package com.kleverkids.formacion_academica.modules.questions.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta;
 
-import com.kleverkids.formacion_academica.modules.questions.domain.exception.InvalidQuestionException;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Difficulty;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Media;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.QuestionType;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.ScaleConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.InvalidQuestionException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.ScaleConfig;
 
 import java.util.List;
 import java.util.Map;

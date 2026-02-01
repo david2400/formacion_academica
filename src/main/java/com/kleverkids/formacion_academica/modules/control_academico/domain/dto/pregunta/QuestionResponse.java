@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.application.dto;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.*;

@@ -9,28 +9,25 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.CalificacionPersonalizadaEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.CalificacionPersonalizadaJpaRepository;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamenJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class ExamenJpaAdapter implements ExamenRepositoryPort {
 
     private final ExamenJpaRepository examenJpaRepository;
     private final CalificacionPersonalizadaJpaRepository calificacionRepository;
-
-    public ExamenJpaAdapter(ExamenJpaRepository examenJpaRepository,
-                            CalificacionPersonalizadaJpaRepository calificacionRepository) {
-        this.examenJpaRepository = examenJpaRepository;
-        this.calificacionRepository = calificacionRepository;
-    }
+    private final ExamenMapper examenMapper;
 
     @Override
     public ExamenDto guardar(CrearExamenDto request) {
-        return ExamenMapper.toDto(examenJpaRepository.save(ExamenMapper.toEntity(request)));
+        return examenMapper.toDto(examenJpaRepository.save(examenMapper.toEntity(request)));
     }
 
     @Override
     public CalificacionPersonalizadaDto registrarCalificacion(RegistrarCalificacionPersonalizadaDto request) {
-        CalificacionPersonalizadaEntity entity = ExamenMapper.toEntity(request);
-        return ExamenMapper.toDto(calificacionRepository.save(entity));
+        CalificacionPersonalizadaEntity entity = examenMapper.toCalificacionEntity(request);
+        return examenMapper.toCalificacionDto(calificacionRepository.save(entity));
     }
 }

@@ -1,9 +1,9 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Exam;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamQuestion;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.EvaluationCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
 
 import java.math.BigDecimal;
 import java.time.Instant;

@@ -6,6 +6,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ActualizarObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.RegistrarObservacionCriterioDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/observaciones")
 public class ObservacionCriterioController {
@@ -27,27 +29,12 @@ public class ObservacionCriterioController {
     private final ActualizarObservacionCriterioUseCase actualizarUseCase;
     private final ListarObservacionesPorEstudianteUseCase listarUseCase;
 
-    public ObservacionCriterioController(RegistrarObservacionCriterioUseCase registrarUseCase,
-                                         ActualizarObservacionCriterioUseCase actualizarUseCase,
-                                         ListarObservacionesPorEstudianteUseCase listarUseCase) {
-        this.registrarUseCase = registrarUseCase;
-        this.actualizarUseCase = actualizarUseCase;
-        this.listarUseCase = listarUseCase;
-    }
-
     @PostMapping
     public ResponseEntity<ObservacionCriterioDto> registrar(@PathVariable UUID examenId,
                                                             @PathVariable UUID estudianteId,
                                                             @RequestBody RegistrarObservacionCriterioDto request) {
-        RegistrarObservacionCriterioDto payload = new RegistrarObservacionCriterioDto(
-                examenId,
-                request.criterioId(),
-                estudianteId,
-                request.puntaje(),
-                request.observacion(),
-                request.recomendacion()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(payload));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(request));
     }
 
     @PutMapping("/{observacionId}")
@@ -55,16 +42,8 @@ public class ObservacionCriterioController {
                                                              @PathVariable UUID estudianteId,
                                                              @PathVariable UUID observacionId,
                                                              @RequestBody ActualizarObservacionCriterioDto request) {
-        ActualizarObservacionCriterioDto payload = new ActualizarObservacionCriterioDto(
-                observacionId,
-                examenId,
-                request.criterioId(),
-                estudianteId,
-                request.puntaje(),
-                request.observacion(),
-                request.recomendacion()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @GetMapping

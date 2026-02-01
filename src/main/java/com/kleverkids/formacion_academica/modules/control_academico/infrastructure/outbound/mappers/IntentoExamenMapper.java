@@ -5,33 +5,31 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.IntentoExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RegistrarRespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.IntentoExamenEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.RespuestaIntentoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.IntentoExamenEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.RespuestaIntentoEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public final class IntentoExamenMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class, LocalDateTime.class, ArrayList.class})
+public interface IntentoExamenMapper {
 
-    private IntentoExamenMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "estado", constant = "EN_PROGRESO")
+    @Mapping(target = "iniciadoEn", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
+    @Mapping(target = "finalizadoEn", ignore = true)
+    @Mapping(target = "puntajeTotal", ignore = true)
+    IntentoExamenEntity toEntity(IniciarIntentoExamenDto dto);
 
-    public static IntentoExamenEntity toEntity(IniciarIntentoExamenDto dto) {
-        IntentoExamenEntity entity = new IntentoExamenEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setExamenId(dto.examenId());
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setEstado("EN_PROGRESO");
-        entity.setIniciadoEn(LocalDateTime.now());
-        entity.setRespuestas(new ArrayList<>());
-        return entity;
-    }
-
-    public static IntentoExamenDto toDto(IntentoExamenEntity entity) {
+    default IntentoExamenDto toDto(IntentoExamenEntity entity) {
         List<RespuestaIntentoDto> respuestas = entity.getRespuestas().stream()
-                .map(IntentoExamenMapper::toDto)
+                .map(this::toRespuestaDto)
                 .toList();
         return new IntentoExamenDto(
                 entity.getId(),
@@ -45,31 +43,22 @@ public final class IntentoExamenMapper {
         );
     }
 
-    public static RespuestaIntentoDto toDto(RespuestaIntentoEntity entity) {
-        return new RespuestaIntentoDto(
-                entity.getId(),
-                entity.getIntento().getId(),
-                entity.getPreguntaId(),
-                entity.getRespuesta(),
-                entity.isEsCorrecta(),
-                entity.getPuntajeObtenido()
-        );
-    }
+    @Mapping(target = "intentoId", source = "intento.id")
+    RespuestaIntentoDto toRespuestaDto(RespuestaIntentoEntity entity);
 
-    public static RespuestaIntentoEntity toEntity(RegistrarRespuestaIntentoDto dto, IntentoExamenEntity intento) {
-        RespuestaIntentoEntity entity = new RespuestaIntentoEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setIntento(intento);
-        entity.setPreguntaId(dto.preguntaId());
-        entity.setRespuesta(dto.respuesta());
-        entity.setEsCorrecta(Boolean.TRUE.equals(dto.esCorrecta()));
-        entity.setPuntajeObtenido(dto.puntajeObtenido());
-        return entity;
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "intento", source = "intento")
+    @Mapping(target = "preguntaId", source = "dto.preguntaId")
+    @Mapping(target = "respuesta", source = "dto.respuesta")
+    @Mapping(target = "esCorrecta", expression = "java(Boolean.TRUE.equals(dto.esCorrecta()))")
+    @Mapping(target = "puntajeObtenido", source = "dto.puntajeObtenido")
+    RespuestaIntentoEntity toEntity(RegistrarRespuestaIntentoDto dto, IntentoExamenEntity intento);
 
-    public static void applyFinalizacion(IntentoExamenEntity entity, FinalizarIntentoExamenDto dto) {
+    default void applyFinalizacion(@MappingTarget IntentoExamenEntity entity, FinalizarIntentoExamenDto dto) {
         entity.setEstado("FINALIZADO");
         entity.setFinalizadoEn(LocalDateTime.now());
         entity.setPuntajeTotal(dto.puntajeTotal());
     }
+
+    List<IntentoExamenDto> toDtoList(List<IntentoExamenEntity> entities);
 }

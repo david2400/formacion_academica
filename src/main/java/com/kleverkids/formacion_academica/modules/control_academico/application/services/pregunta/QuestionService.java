@@ -1,14 +1,16 @@
-package com.kleverkids.formacion_academica.modules.questions.application.service;
+package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
 
-import com.kleverkids.formacion_academica.modules.questions.application.dto.*;
-import com.kleverkids.formacion_academica.modules.questions.application.port.in.*;
-import com.kleverkids.formacion_academica.modules.questions.application.port.out.QuestionEventPublisher;
-import com.kleverkids.formacion_academica.modules.questions.application.port.out.QuestionRepository;
-import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionCreatedEvent;
-import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionDeletedEvent;
-import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionUpdatedEvent;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionEventPublisher;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionCreatedEvent;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionDeletedEvent;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionUpdatedEvent;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.QuestionNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.QuestionMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,25 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
-public class QuestionService implements CreateQuestionUseCase, UpdateQuestionUseCase, 
+public class QuestionService implements CreateQuestionUseCase, UpdateQuestionUseCase,
         GetQuestionUseCase, DeleteQuestionUseCase, SearchQuestionsUseCase, ValidateAnswerUseCase {
     
     private final QuestionRepository questionRepository;
     private final QuestionEventPublisher eventPublisher;
     private final QuestionMapper questionMapper;
     private final AnswerValidationService validationService;
-    
-    public QuestionService(QuestionRepository questionRepository,
-                           QuestionEventPublisher eventPublisher,
-                           QuestionMapper questionMapper,
-                           AnswerValidationService validationService) {
-        this.questionRepository = questionRepository;
-        this.eventPublisher = eventPublisher;
-        this.questionMapper = questionMapper;
-        this.validationService = validationService;
-    }
+
     
     @Override
     public QuestionResponse create(CreateQuestionCommand command) {

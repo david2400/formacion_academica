@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.application.services;
+package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ActualizarPreguntaBancoUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.CrearPreguntaBancoUseCase;
@@ -7,21 +7,19 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class PreguntaBancoService implements CrearPreguntaBancoUseCase,
         ActualizarPreguntaBancoUseCase,
         ListarPreguntasPorTematicaUseCase {
 
     private final PreguntaBancoRepositoryPort repositoryPort;
-
-    public PreguntaBancoService(PreguntaBancoRepositoryPort repositoryPort) {
-        this.repositoryPort = repositoryPort;
-    }
 
     @Override
     public PreguntaBancoDto crear(CrearPreguntaBancoDto request) {

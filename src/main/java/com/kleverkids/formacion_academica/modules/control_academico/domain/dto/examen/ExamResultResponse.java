@@ -1,12 +1,12 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamResult;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
 
 public record ExamResultResponse(
     UUID id,

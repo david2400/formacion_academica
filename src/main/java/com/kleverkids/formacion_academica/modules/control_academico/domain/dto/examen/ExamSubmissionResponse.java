@@ -1,9 +1,9 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamSubmission;
-
 import java.time.Instant;
 import java.util.UUID;
+
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
 
 public record ExamSubmissionResponse(
     UUID id,

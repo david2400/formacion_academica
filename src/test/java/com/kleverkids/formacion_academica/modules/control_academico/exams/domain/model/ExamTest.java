@@ -1,9 +1,9 @@
 package com.kleverkids.formacion_academica.modules.control_academico.exams.domain.model;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Exam;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamQuestion;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.ExamStatus;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.ExamStatus;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

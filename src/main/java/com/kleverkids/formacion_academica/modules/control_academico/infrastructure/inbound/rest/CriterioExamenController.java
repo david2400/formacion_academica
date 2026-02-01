@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.ActualizarCriterioExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.CrearCriterioExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.CriterioExamenDto;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/examenes/{examenId}/criterios")
 public class CriterioExamenController {
@@ -27,42 +30,20 @@ public class CriterioExamenController {
     private final ActualizarCriterioExamenUseCase actualizarUseCase;
     private final ListarCriteriosPorExamenUseCase listarUseCase;
 
-    public CriterioExamenController(CrearCriterioExamenUseCase crearUseCase,
-                                    ActualizarCriterioExamenUseCase actualizarUseCase,
-                                    ListarCriteriosPorExamenUseCase listarUseCase) {
-        this.crearUseCase = crearUseCase;
-        this.actualizarUseCase = actualizarUseCase;
-        this.listarUseCase = listarUseCase;
-    }
 
     @PostMapping
     public ResponseEntity<CriterioExamenDto> crear(@PathVariable UUID examenId,
-                                                   @RequestBody CrearCriterioExamenDto request) {
-        CrearCriterioExamenDto payload = new CrearCriterioExamenDto(
-                examenId,
-                request.nombre(),
-                request.descripcion(),
-                request.ponderacion(),
-                request.orden(),
-                request.recomendacionBase()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(payload));
+                                                   @Valid @RequestBody CrearCriterioExamenDto request) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
     @PutMapping("/{criterioId}")
     public ResponseEntity<CriterioExamenDto> actualizar(@PathVariable UUID examenId,
                                                         @PathVariable UUID criterioId,
-                                                        @RequestBody ActualizarCriterioExamenDto request) {
-        ActualizarCriterioExamenDto payload = new ActualizarCriterioExamenDto(
-                criterioId,
-                examenId,
-                request.nombre(),
-                request.descripcion(),
-                request.ponderacion(),
-                request.orden(),
-                request.recomendacionBase()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+                                                        @Valid @RequestBody ActualizarCriterioExamenDto request) {
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @GetMapping

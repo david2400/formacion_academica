@@ -4,52 +4,29 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.o
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.RegistrarObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ObservacionCriterioEntity;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class ObservacionCriterioMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class})
+public interface ObservacionCriterioMapper {
 
-    private ObservacionCriterioMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    ObservacionCriterioEntity toEntity(RegistrarObservacionCriterioDto dto);
 
-    public static ObservacionCriterioEntity toEntity(RegistrarObservacionCriterioDto dto) {
-        ObservacionCriterioEntity entity = new ObservacionCriterioEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setExamenId(dto.examenId());
-        entity.setCriterioId(dto.criterioId());
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setPuntaje(dto.puntaje());
-        entity.setObservacion(dto.observacion());
-        entity.setRecomendacion(dto.recomendacion());
-        return entity;
-    }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "examenId", ignore = true)
+    @Mapping(target = "criterioId", ignore = true)
+    @Mapping(target = "estudianteId", ignore = true)
+    void applyUpdate(@MappingTarget ObservacionCriterioEntity entity, ActualizarObservacionCriterioDto dto);
 
-    public static void applyUpdate(ObservacionCriterioEntity entity, ActualizarObservacionCriterioDto dto) {
-        if (dto.puntaje() != null) {
-            entity.setPuntaje(dto.puntaje());
-        }
-        if (dto.observacion() != null) {
-            entity.setObservacion(dto.observacion());
-        }
-        if (dto.recomendacion() != null) {
-            entity.setRecomendacion(dto.recomendacion());
-        }
-    }
+    ObservacionCriterioDto toDto(ObservacionCriterioEntity entity);
 
-    public static ObservacionCriterioDto toDto(ObservacionCriterioEntity entity) {
-        return new ObservacionCriterioDto(
-                entity.getId(),
-                entity.getExamenId(),
-                entity.getCriterioId(),
-                entity.getEstudianteId(),
-                entity.getPuntaje(),
-                entity.getObservacion(),
-                entity.getRecomendacion()
-        );
-    }
-
-    public static List<ObservacionCriterioDto> toDtoList(List<ObservacionCriterioEntity> entities) {
-        return entities.stream().map(ObservacionCriterioMapper::toDto).toList();
-    }
+    List<ObservacionCriterioDto> toDtoList(List<ObservacionCriterioEntity> entities);
 }

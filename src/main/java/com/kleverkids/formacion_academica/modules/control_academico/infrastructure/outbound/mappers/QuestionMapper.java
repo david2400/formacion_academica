@@ -1,18 +1,18 @@
-package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.*;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
-public class QuestionMapper {
+@Mapper(componentModel = "spring")
+public interface QuestionMapper {
     
-    public Question toDomain(CreateQuestionCommand command) {
+    default Question toDomain(CreateQuestionCommand command) {
         Difficulty difficulty = command.difficulty() != null 
             ? Difficulty.fromValue(command.difficulty()) 
             : Difficulty.BASIC;
@@ -67,7 +67,7 @@ public class QuestionMapper {
         };
     }
     
-    public void updateDomain(Question question, UpdateQuestionCommand cmd) {
+    default void updateDomain(Question question, UpdateQuestionCommand cmd) {
         if (cmd.questionText() != null) question.setQuestionText(cmd.questionText());
         if (cmd.difficulty() != null) question.setDifficulty(Difficulty.fromValue(cmd.difficulty()));
         if (cmd.maxScore() != null) question.setMaxScore(cmd.maxScore());
@@ -125,14 +125,14 @@ public class QuestionMapper {
         }
     }
     
-    private List<Media> mapMediaList(List<MediaDto> dtos) {
+    default List<Media> mapMediaList(List<MediaDto> dtos) {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> Media.create(d.id(), d.type(), d.url(), d.altText()))
             .collect(Collectors.toList());
     }
     
-    private List<Option> mapOptions(List<OptionDto> dtos) {
+    default List<Option> mapOptions(List<OptionDto> dtos) {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> Option.create(
@@ -144,7 +144,7 @@ public class QuestionMapper {
             .collect(Collectors.toList());
     }
     
-    private Rubric mapRubric(RubricDto dto) {
+    default Rubric mapRubric(RubricDto dto) {
         if (dto == null) return null;
         return Rubric.create(dto.criteria().stream()
             .map(c -> new Rubric.RubricCriterion(
@@ -156,12 +156,12 @@ public class QuestionMapper {
             .collect(Collectors.toList()));
     }
     
-    private ScaleConfig mapScaleConfig(ScaleConfigDto dto) {
+    default ScaleConfig mapScaleConfig(ScaleConfigDto dto) {
         if (dto == null) return null;
         return ScaleConfig.create(dto.minValue(), dto.maxValue(), dto.minLabel(), dto.maxLabel(), dto.labels());
     }
     
-    private List<OrderingItem> mapOrderingItems(List<OrderingItemDto> dtos) {
+    default List<OrderingItem> mapOrderingItems(List<OrderingItemDto> dtos) {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> OrderingItem.create(
@@ -172,7 +172,7 @@ public class QuestionMapper {
             .collect(Collectors.toList());
     }
     
-    private List<MatchingPair> mapMatchingPairs(List<MatchingPairDto> dtos) {
+    default List<MatchingPair> mapMatchingPairs(List<MatchingPairDto> dtos) {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> MatchingPair.create(

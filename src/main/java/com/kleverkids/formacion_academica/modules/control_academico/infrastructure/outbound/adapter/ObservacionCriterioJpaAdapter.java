@@ -7,37 +7,36 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.o
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ObservacionCriterioMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ObservacionCriterioEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ObservacionCriterioJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
 public class ObservacionCriterioJpaAdapter implements ObservacionCriterioRepositoryPort {
 
     private final ObservacionCriterioJpaRepository observacionCriterioJpaRepository;
-
-    public ObservacionCriterioJpaAdapter(ObservacionCriterioJpaRepository observacionCriterioJpaRepository) {
-        this.observacionCriterioJpaRepository = observacionCriterioJpaRepository;
-    }
+    private final ObservacionCriterioMapper observacionCriterioMapper;
 
     @Override
     public ObservacionCriterioDto registrar(RegistrarObservacionCriterioDto request) {
-        ObservacionCriterioEntity entity = ObservacionCriterioMapper.toEntity(request);
-        return ObservacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));
+        ObservacionCriterioEntity entity = observacionCriterioMapper.toEntity(request);
+        return observacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));
     }
 
     @Override
     public ObservacionCriterioDto actualizar(ActualizarObservacionCriterioDto request) {
         ObservacionCriterioEntity entity = observacionCriterioJpaRepository.findById(request.id())
                 .orElseThrow(() -> new IllegalArgumentException("Observación no encontrada"));
-        ObservacionCriterioMapper.applyUpdate(entity, request);
-        return ObservacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));
+        observacionCriterioMapper.applyUpdate(entity, request);
+        return observacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));
     }
 
     @Override
     public List<ObservacionCriterioDto> listarPorEstudiante(UUID examenId, UUID estudianteId) {
-        return ObservacionCriterioMapper.toDtoList(
+        return observacionCriterioMapper.toDtoList(
                 observacionCriterioJpaRepository.findByExamenIdAndEstudianteId(examenId, estudianteId)
         );
     }

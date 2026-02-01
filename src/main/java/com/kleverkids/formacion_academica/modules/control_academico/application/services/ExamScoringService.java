@@ -1,8 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamResult;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamSubmission;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.QuestionAnswer;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.QuestionAnswer;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class ExamScoringService {
     

@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.domain.event;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta;
 
 import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 

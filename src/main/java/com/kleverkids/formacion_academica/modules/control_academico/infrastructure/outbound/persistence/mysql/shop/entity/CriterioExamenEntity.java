@@ -4,10 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "criterios_examen")
 public class CriterioExamenEntity {
@@ -31,59 +33,4 @@ public class CriterioExamenEntity {
 
     private String recomendacionBase;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getExamenId() {
-        return examenId;
-    }
-
-    public void setExamenId(UUID examenId) {
-        this.examenId = examenId;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public BigDecimal getPonderacion() {
-        return ponderacion;
-    }
-
-    public void setPonderacion(BigDecimal ponderacion) {
-        this.ponderacion = ponderacion;
-    }
-
-    public Integer getOrden() {
-        return orden;
-    }
-
-    public void setOrden(Integer orden) {
-        this.orden = orden;
-    }
-
-    public String getRecomendacionBase() {
-        return recomendacionBase;
-    }
-
-    public void setRecomendacionBase(String recomendacionBase) {
-        this.recomendacionBase = recomendacionBase;
-    }
 }

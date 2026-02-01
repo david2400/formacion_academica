@@ -3,33 +3,21 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ClaseEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import java.util.List;
 import java.util.UUID;
 
-public final class ClaseMapper {
+@Mapper(componentModel = "spring", imports = {UUID.class})
+public interface ClaseMapper {
 
-    private ClaseMapper() {
-    }
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    ClaseEntity toEntity(CrearClaseDto dto);
 
-    public static ClaseEntity toEntity(CrearClaseDto dto) {
-        ClaseEntity entity = new ClaseEntity();
-        entity.setId(UUID.randomUUID());
-        entity.setCodigo(dto.codigo());
-        entity.setNombre(dto.nombre());
-        entity.setFechaInicio(dto.fechaInicio());
-        entity.setFechaFin(dto.fechaFin());
-        entity.setProfesoresIds(dto.profesoresIds());
-        return entity;
-    }
+    ClaseDto toDto(ClaseEntity entity);
 
-    public static ClaseDto toDto(ClaseEntity entity) {
-        return new ClaseDto(
-                entity.getId(),
-                entity.getCodigo(),
-                entity.getNombre(),
-                entity.getFechaInicio(),
-                entity.getFechaFin(),
-                entity.getProfesoresIds()
-        );
-    }
+    List<ClaseEntity> toEntityList(List<CrearClaseDto> dtos);
+
+    List<ClaseDto> toDtoList(List<ClaseEntity> entities);
 }

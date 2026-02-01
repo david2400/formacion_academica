@@ -4,10 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "calificaciones_personalizadas")
 public class CalificacionPersonalizadaEntity {
@@ -27,43 +29,4 @@ public class CalificacionPersonalizadaEntity {
     @Column(nullable = false)
     private BigDecimal puntajeOtorgado;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getExamenId() {
-        return examenId;
-    }
-
-    public void setExamenId(UUID examenId) {
-        this.examenId = examenId;
-    }
-
-    public UUID getEstudianteId() {
-        return estudianteId;
-    }
-
-    public void setEstudianteId(UUID estudianteId) {
-        this.estudianteId = estudianteId;
-    }
-
-    public String getCriterio() {
-        return criterio;
-    }
-
-    public void setCriterio(String criterio) {
-        this.criterio = criterio;
-    }
-
-    public BigDecimal getPuntajeOtorgado() {
-        return puntajeOtorgado;
-    }
-
-    public void setPuntajeOtorgado(BigDecimal puntajeOtorgado) {
-        this.puntajeOtorgado = puntajeOtorgado;
-    }
 }

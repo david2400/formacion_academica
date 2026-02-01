@@ -6,34 +6,29 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ClaseMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ClaseEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ClaseJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
 public class ClaseJpaAdapter implements ClaseRepositoryPort {
 
     private final ClaseJpaRepository claseJpaRepository;
-
-    public ClaseJpaAdapter(ClaseJpaRepository claseJpaRepository) {
-        this.claseJpaRepository = claseJpaRepository;
-    }
+    private final ClaseMapper claseMapper;
 
     @Override
     public ClaseDto guardar(CrearClaseDto clase) {
-        ClaseEntity entity = ClaseMapper.toEntity(clase);
-        return ClaseMapper.toDto(claseJpaRepository.save(entity));
+        ClaseEntity entity = claseMapper.toEntity(clase);
+        return claseMapper.toDto(claseJpaRepository.save(entity));
     }
 
     @Override
     public List<ClaseDto> guardarTodas(List<CrearClaseDto> clases) {
-        List<ClaseEntity> entities = clases.stream()
-                .map(ClaseMapper::toEntity)
-                .toList();
-        return claseJpaRepository.saveAll(entities).stream()
-                .map(ClaseMapper::toDto)
-                .toList();
+        List<ClaseEntity> entities = claseMapper.toEntityList(clases);
+        return claseMapper.toDtoList(claseJpaRepository.saveAll(entities));
     }
 
     @Override
@@ -44,7 +39,7 @@ public class ClaseJpaAdapter implements ClaseRepositoryPort {
     @Override
     public ClaseDto obtenerPorId(UUID id) {
         return claseJpaRepository.findById(id)
-                .map(ClaseMapper::toDto)
+                .map(claseMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));
     }
 }

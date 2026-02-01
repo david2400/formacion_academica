@@ -8,6 +8,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.a
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.AsistenciaMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.AsistenciaEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.AsistenciaJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,19 +17,17 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
 public class AsistenciaJpaAdapter implements AsistenciaRepositoryPort {
 
     private final AsistenciaJpaRepository asistenciaJpaRepository;
-
-    public AsistenciaJpaAdapter(AsistenciaJpaRepository asistenciaJpaRepository) {
-        this.asistenciaJpaRepository = asistenciaJpaRepository;
-    }
+    private final AsistenciaMapper asistenciaMapper;
 
     @Override
     public AsistenciaDto guardar(RegistrarAsistenciaDto request) {
-        AsistenciaEntity entity = AsistenciaMapper.toEntity(request);
-        return AsistenciaMapper.toDto(asistenciaJpaRepository.save(entity));
+        AsistenciaEntity entity = asistenciaMapper.toEntity(request);
+        return asistenciaMapper.toDto(asistenciaJpaRepository.save(entity));
     }
 
     @Override
@@ -39,7 +38,7 @@ public class AsistenciaJpaAdapter implements AsistenciaRepositoryPort {
                 filtro.claseId(),
                 filtro.desde(),
                 filtro.hasta(),
-                AsistenciaMapper.toDtoList(entities)
+                asistenciaMapper.toDtoList(entities)
         );
     }
 

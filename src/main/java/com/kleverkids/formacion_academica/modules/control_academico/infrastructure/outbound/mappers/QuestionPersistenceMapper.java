@@ -1,17 +1,17 @@
-package com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.mapper;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.*;
-import com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.entity.*;
-import org.springframework.stereotype.Component;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.*;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class QuestionPersistenceMapper {
+@Mapper(componentModel = "spring")
+public interface QuestionPersistenceMapper {
     
-    public QuestionEntity toEntity(Question question) {
+    default QuestionEntity toEntity(Question question) {
         return switch (question) {
             case MultipleChoiceSingleQuestion q -> toMultipleChoiceSingleEntity(q);
             case MultipleChoiceMultiQuestion q -> toMultipleChoiceMultiEntity(q);
@@ -26,7 +26,7 @@ public class QuestionPersistenceMapper {
         };
     }
     
-    public Question toDomain(QuestionEntity entity) {
+    default Question toDomain(QuestionEntity entity) {
         return switch (entity) {
             case MultipleChoiceSingleQuestionEntity e -> toMultipleChoiceSingleDomain(e);
             case MultipleChoiceMultiQuestionEntity e -> toMultipleChoiceMultiDomain(e);
@@ -42,7 +42,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Base entity mapping
-    private void mapBaseToEntity(Question q, QuestionEntity e) {
+    default void mapBaseToEntity(Question q, QuestionEntity e) {
         e.setId(q.getId());
         e.setQuestionText(q.getQuestionText());
         e.setDifficulty(q.getDifficulty().getValue());
@@ -59,7 +59,7 @@ public class QuestionPersistenceMapper {
         e.setVersion(q.getVersion());
     }
     
-    private void mapBaseToDomain(QuestionEntity e, Question q) {
+    default void mapBaseToDomain(QuestionEntity e, Question q) {
         q.setId(e.getId());
         q.setQuestionText(e.getQuestionText());
         q.setDifficulty(Difficulty.fromValue(e.getDifficulty()));
@@ -77,7 +77,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Multiple Choice Single
-    private MultipleChoiceSingleQuestionEntity toMultipleChoiceSingleEntity(MultipleChoiceSingleQuestion q) {
+    default MultipleChoiceSingleQuestionEntity toMultipleChoiceSingleEntity(MultipleChoiceSingleQuestion q) {
         MultipleChoiceSingleQuestionEntity e = new MultipleChoiceSingleQuestionEntity();
         mapBaseToEntity(q, e);
         e.setOptions(mapOptionsToEmbeddable(q.getOptions()));
@@ -85,7 +85,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private MultipleChoiceSingleQuestion toMultipleChoiceSingleDomain(MultipleChoiceSingleQuestionEntity e) {
+    default MultipleChoiceSingleQuestion toMultipleChoiceSingleDomain(MultipleChoiceSingleQuestionEntity e) {
         MultipleChoiceSingleQuestion q = new MultipleChoiceSingleQuestion();
         mapBaseToDomain(e, q);
         q.setOptions(mapOptionsToDomain(e.getOptions()));
@@ -94,7 +94,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Multiple Choice Multi
-    private MultipleChoiceMultiQuestionEntity toMultipleChoiceMultiEntity(MultipleChoiceMultiQuestion q) {
+    default MultipleChoiceMultiQuestionEntity toMultipleChoiceMultiEntity(MultipleChoiceMultiQuestion q) {
         MultipleChoiceMultiQuestionEntity e = new MultipleChoiceMultiQuestionEntity();
         mapBaseToEntity(q, e);
         e.setOptions(mapOptionsToEmbeddable(q.getOptions()));
@@ -104,7 +104,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private MultipleChoiceMultiQuestion toMultipleChoiceMultiDomain(MultipleChoiceMultiQuestionEntity e) {
+    default MultipleChoiceMultiQuestion toMultipleChoiceMultiDomain(MultipleChoiceMultiQuestionEntity e) {
         MultipleChoiceMultiQuestion q = new MultipleChoiceMultiQuestion();
         mapBaseToDomain(e, q);
         q.setOptions(mapOptionsToDomain(e.getOptions()));
@@ -115,14 +115,14 @@ public class QuestionPersistenceMapper {
     }
     
     // True/False
-    private TrueFalseQuestionEntity toTrueFalseEntity(TrueFalseQuestion q) {
+    default TrueFalseQuestionEntity toTrueFalseEntity(TrueFalseQuestion q) {
         TrueFalseQuestionEntity e = new TrueFalseQuestionEntity();
         mapBaseToEntity(q, e);
         e.setCorrectAnswer(q.isCorrectAnswer());
         return e;
     }
     
-    private TrueFalseQuestion toTrueFalseDomain(TrueFalseQuestionEntity e) {
+    default TrueFalseQuestion toTrueFalseDomain(TrueFalseQuestionEntity e) {
         TrueFalseQuestion q = new TrueFalseQuestion();
         mapBaseToDomain(e, q);
         q.setCorrectAnswer(e.isCorrectAnswer());
@@ -130,7 +130,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Open Short
-    private OpenShortQuestionEntity toOpenShortEntity(OpenShortQuestion q) {
+    default OpenShortQuestionEntity toOpenShortEntity(OpenShortQuestion q) {
         OpenShortQuestionEntity e = new OpenShortQuestionEntity();
         mapBaseToEntity(q, e);
         e.setAcceptedAnswers(q.getAcceptedAnswers());
@@ -139,7 +139,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private OpenShortQuestion toOpenShortDomain(OpenShortQuestionEntity e) {
+    default OpenShortQuestion toOpenShortDomain(OpenShortQuestionEntity e) {
         OpenShortQuestion q = new OpenShortQuestion();
         mapBaseToDomain(e, q);
         q.setAcceptedAnswers(e.getAcceptedAnswers());
@@ -149,7 +149,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Open Long
-    private OpenLongQuestionEntity toOpenLongEntity(OpenLongQuestion q) {
+    default OpenLongQuestionEntity toOpenLongEntity(OpenLongQuestion q) {
         OpenLongQuestionEntity e = new OpenLongQuestionEntity();
         mapBaseToEntity(q, e);
         e.setRubric(mapRubricToEmbeddable(q.getRubric()));
@@ -159,7 +159,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private OpenLongQuestion toOpenLongDomain(OpenLongQuestionEntity e) {
+    default OpenLongQuestion toOpenLongDomain(OpenLongQuestionEntity e) {
         OpenLongQuestion q = new OpenLongQuestion();
         mapBaseToDomain(e, q);
         q.setRubric(mapRubricToDomain(e.getRubric()));
@@ -170,7 +170,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Numeric
-    private NumericQuestionEntity toNumericEntity(NumericQuestion q) {
+    default NumericQuestionEntity toNumericEntity(NumericQuestion q) {
         NumericQuestionEntity e = new NumericQuestionEntity();
         mapBaseToEntity(q, e);
         e.setCorrectValue(q.getCorrectValue());
@@ -180,7 +180,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private NumericQuestion toNumericDomain(NumericQuestionEntity e) {
+    default NumericQuestion toNumericDomain(NumericQuestionEntity e) {
         NumericQuestion q = new NumericQuestion();
         mapBaseToDomain(e, q);
         q.setCorrectValue(e.getCorrectValue());
@@ -191,7 +191,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Scale
-    private ScaleQuestionEntity toScaleEntity(ScaleQuestion q) {
+    default ScaleQuestionEntity toScaleEntity(ScaleQuestion q) {
         ScaleQuestionEntity e = new ScaleQuestionEntity();
         mapBaseToEntity(q, e);
         e.setScaleConfig(mapScaleConfigToEmbeddable(q.getScaleConfig()));
@@ -199,7 +199,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private ScaleQuestion toScaleDomain(ScaleQuestionEntity e) {
+    default ScaleQuestion toScaleDomain(ScaleQuestionEntity e) {
         ScaleQuestion q = new ScaleQuestion();
         mapBaseToDomain(e, q);
         q.setScaleConfig(mapScaleConfigToDomain(e.getScaleConfig()));
@@ -208,7 +208,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Ordering
-    private OrderingQuestionEntity toOrderingEntity(OrderingQuestion q) {
+    default OrderingQuestionEntity toOrderingEntity(OrderingQuestion q) {
         OrderingQuestionEntity e = new OrderingQuestionEntity();
         mapBaseToEntity(q, e);
         e.setItems(mapOrderingItemsToEmbeddable(q.getItems()));
@@ -216,7 +216,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private OrderingQuestion toOrderingDomain(OrderingQuestionEntity e) {
+    default OrderingQuestion toOrderingDomain(OrderingQuestionEntity e) {
         OrderingQuestion q = new OrderingQuestion();
         mapBaseToDomain(e, q);
         q.setItems(mapOrderingItemsToDomain(e.getItems()));
@@ -225,7 +225,7 @@ public class QuestionPersistenceMapper {
     }
     
     // Matching
-    private MatchingQuestionEntity toMatchingEntity(MatchingQuestion q) {
+    default MatchingQuestionEntity toMatchingEntity(MatchingQuestion q) {
         MatchingQuestionEntity e = new MatchingQuestionEntity();
         mapBaseToEntity(q, e);
         e.setPairs(mapMatchingPairsToEmbeddable(q.getPairs()));
@@ -233,7 +233,7 @@ public class QuestionPersistenceMapper {
         return e;
     }
     
-    private MatchingQuestion toMatchingDomain(MatchingQuestionEntity e) {
+    default MatchingQuestion toMatchingDomain(MatchingQuestionEntity e) {
         MatchingQuestion q = new MatchingQuestion();
         mapBaseToDomain(e, q);
         q.setPairs(mapMatchingPairsToDomain(e.getPairs()));
@@ -242,21 +242,21 @@ public class QuestionPersistenceMapper {
     }
     
     // Helper methods for nested objects
-    private List<MediaEmbeddable> mapMediaToEmbeddable(List<Media> media) {
+    default List<MediaEmbeddable> mapMediaToEmbeddable(List<Media> media) {
         if (media == null) return null;
         return media.stream()
             .map(m -> new MediaEmbeddable(m.getId(), m.getType(), m.getUrl(), m.getAltText()))
             .collect(Collectors.toList());
     }
     
-    private List<Media> mapMediaToDomain(List<MediaEmbeddable> media) {
+    default List<Media> mapMediaToDomain(List<MediaEmbeddable> media) {
         if (media == null) return null;
         return media.stream()
             .map(m -> Media.create(m.getId(), m.getType(), m.getUrl(), m.getAltText()))
             .collect(Collectors.toList());
     }
     
-    private List<OptionEmbeddable> mapOptionsToEmbeddable(List<Option> options) {
+    default List<OptionEmbeddable> mapOptionsToEmbeddable(List<Option> options) {
         if (options == null) return null;
         return options.stream()
             .map(o -> new OptionEmbeddable(o.getId(), o.getText(),
@@ -266,7 +266,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private List<Option> mapOptionsToDomain(List<OptionEmbeddable> options) {
+    default List<Option> mapOptionsToDomain(List<OptionEmbeddable> options) {
         if (options == null) return null;
         return options.stream()
             .map(o -> Option.create(o.getId(), o.getText(),
@@ -276,7 +276,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private RubricEmbeddable mapRubricToEmbeddable(Rubric rubric) {
+    default RubricEmbeddable mapRubricToEmbeddable(Rubric rubric) {
         if (rubric == null) return null;
         return new RubricEmbeddable(rubric.getCriteria().stream()
             .map(c -> new RubricEmbeddable.CriterionEmbeddable(c.name(), c.description(), c.maxScore(),
@@ -286,7 +286,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList()));
     }
     
-    private Rubric mapRubricToDomain(RubricEmbeddable rubric) {
+    default Rubric mapRubricToDomain(RubricEmbeddable rubric) {
         if (rubric == null) return null;
         return Rubric.create(rubric.getCriteria().stream()
             .map(c -> new Rubric.RubricCriterion(c.getName(), c.getDescription(), c.getMaxScore(),
@@ -296,19 +296,19 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList()));
     }
     
-    private ScaleConfigEmbeddable mapScaleConfigToEmbeddable(ScaleConfig config) {
+    default ScaleConfigEmbeddable mapScaleConfigToEmbeddable(ScaleConfig config) {
         if (config == null) return null;
         return new ScaleConfigEmbeddable(config.getMinValue(), config.getMaxValue(),
             config.getMinLabel(), config.getMaxLabel(), config.getLabels());
     }
     
-    private ScaleConfig mapScaleConfigToDomain(ScaleConfigEmbeddable config) {
+    default ScaleConfig mapScaleConfigToDomain(ScaleConfigEmbeddable config) {
         if (config == null) return null;
         return ScaleConfig.create(config.getMinValue(), config.getMaxValue(),
             config.getMinLabel(), config.getMaxLabel(), config.getLabels());
     }
     
-    private List<OrderingItemEmbeddable> mapOrderingItemsToEmbeddable(List<OrderingItem> items) {
+    default List<OrderingItemEmbeddable> mapOrderingItemsToEmbeddable(List<OrderingItem> items) {
         if (items == null) return null;
         return items.stream()
             .map(i -> new OrderingItemEmbeddable(i.getId(), i.getText(), i.getCorrectPosition(),
@@ -317,7 +317,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private List<OrderingItem> mapOrderingItemsToDomain(List<OrderingItemEmbeddable> items) {
+    default List<OrderingItem> mapOrderingItemsToDomain(List<OrderingItemEmbeddable> items) {
         if (items == null) return null;
         return items.stream()
             .map(i -> OrderingItem.create(i.getId(), i.getText(), i.getCorrectPosition(),
@@ -326,7 +326,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private List<MatchingPairEmbeddable> mapMatchingPairsToEmbeddable(List<MatchingPair> pairs) {
+    default List<MatchingPairEmbeddable> mapMatchingPairsToEmbeddable(List<MatchingPair> pairs) {
         if (pairs == null) return null;
         return pairs.stream()
             .map(p -> new MatchingPairEmbeddable(p.getId(), p.getLeftItem(), p.getRightItem(),
@@ -337,7 +337,7 @@ public class QuestionPersistenceMapper {
             .collect(Collectors.toList());
     }
     
-    private List<MatchingPair> mapMatchingPairsToDomain(List<MatchingPairEmbeddable> pairs) {
+    default List<MatchingPair> mapMatchingPairsToDomain(List<MatchingPairEmbeddable> pairs) {
         if (pairs == null) return null;
         return pairs.stream()
             .map(p -> MatchingPair.create(p.getId(), p.getLeftItem(), p.getRightItem(),

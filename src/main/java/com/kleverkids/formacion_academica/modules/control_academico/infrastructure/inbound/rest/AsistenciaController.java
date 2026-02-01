@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.a
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.HistorialAsistenciaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.HistorialAsistenciaFiltroDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.RegistrarAsistenciaDto;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/control-academico/asistencias")
 public class AsistenciaController {
@@ -21,14 +24,8 @@ public class AsistenciaController {
     private final RegistrarAsistenciaUseCase registrarAsistenciaUseCase;
     private final ConsultarHistorialAsistenciaUseCase historialAsistenciaUseCase;
 
-    public AsistenciaController(RegistrarAsistenciaUseCase registrarAsistenciaUseCase,
-                                ConsultarHistorialAsistenciaUseCase historialAsistenciaUseCase) {
-        this.registrarAsistenciaUseCase = registrarAsistenciaUseCase;
-        this.historialAsistenciaUseCase = historialAsistenciaUseCase;
-    }
-
     @PostMapping
-    public ResponseEntity<AsistenciaDto> registrar(@RequestBody RegistrarAsistenciaDto request) {
+    public ResponseEntity<AsistenciaDto> registrar(@Valid @RequestBody RegistrarAsistenciaDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarAsistenciaUseCase.registrar(request));
     }
 

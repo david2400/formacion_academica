@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.domain.exception;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.exception;
 
 public class InvalidQuestionTypeException extends RuntimeException {
     

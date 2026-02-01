@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.domain.valueobject;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

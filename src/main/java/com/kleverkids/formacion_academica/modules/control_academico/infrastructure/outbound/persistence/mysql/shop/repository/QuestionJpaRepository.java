@@ -1,6 +1,6 @@
-package com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository;
 
-import com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.entity.QuestionEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.QuestionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -7,37 +7,36 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.CriterioExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.CriterioExamenEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.CriterioExamenJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Component
 public class CriterioExamenJpaAdapter implements CriterioExamenRepositoryPort {
 
     private final CriterioExamenJpaRepository criterioExamenJpaRepository;
-
-    public CriterioExamenJpaAdapter(CriterioExamenJpaRepository criterioExamenJpaRepository) {
-        this.criterioExamenJpaRepository = criterioExamenJpaRepository;
-    }
+    private final CriterioExamenMapper criterioExamenMapper;
 
     @Override
     public CriterioExamenDto guardar(CrearCriterioExamenDto request) {
-        CriterioExamenEntity entity = CriterioExamenMapper.toEntity(request);
-        return CriterioExamenMapper.toDto(criterioExamenJpaRepository.save(entity));
+        CriterioExamenEntity entity = criterioExamenMapper.toEntity(request);
+        return criterioExamenMapper.toDto(criterioExamenJpaRepository.save(entity));
     }
 
     @Override
     public CriterioExamenDto actualizar(ActualizarCriterioExamenDto request) {
-        CriterioExamenEntity entity = criterioExamenJpaRepository.findById(request.id())
+        CriterioExamenEntity entity = criterioExamenJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Criterio no encontrado"));
-        CriterioExamenMapper.applyUpdate(entity, request);
-        return CriterioExamenMapper.toDto(criterioExamenJpaRepository.save(entity));
+        criterioExamenMapper.applyUpdate(entity, request);
+        return criterioExamenMapper.toDto(criterioExamenJpaRepository.save(entity));
     }
 
     @Override
     public List<CriterioExamenDto> listarPorExamen(UUID examenId) {
-        return CriterioExamenMapper.toDtoList(
+        return criterioExamenMapper.toDtoList(
                 criterioExamenJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }

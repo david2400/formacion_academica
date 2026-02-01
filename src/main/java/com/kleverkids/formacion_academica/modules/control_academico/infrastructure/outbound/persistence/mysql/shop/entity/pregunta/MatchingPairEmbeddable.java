@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.entity;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta;
 
 import java.util.UUID;
 

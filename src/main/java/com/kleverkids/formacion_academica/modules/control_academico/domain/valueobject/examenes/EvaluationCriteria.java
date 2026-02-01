@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes;
 
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 

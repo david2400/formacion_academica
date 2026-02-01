@@ -1,10 +1,10 @@
-package com.kleverkids.formacion_academica.modules.questions.domain.model;
+package com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Difficulty;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.Media;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
 import com.kleverkids.formacion_academica.shared.common.domain.AggregateRoot;
 
 import java.time.Instant;
