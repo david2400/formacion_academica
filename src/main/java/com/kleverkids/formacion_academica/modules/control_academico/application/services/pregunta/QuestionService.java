@@ -7,8 +7,8 @@ import com.kleverkids.formacion_academica.modules.questions.application.port.out
 import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionCreatedEvent;
 import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionDeletedEvent;
 import com.kleverkids.formacion_academica.modules.questions.domain.event.QuestionUpdatedEvent;
-import com.kleverkids.formacion_academica.modules.questions.domain.exception.QuestionNotFoundException;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.Question;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.QuestionNotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

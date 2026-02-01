@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.questions.application.service;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
 import com.kleverkids.formacion_academica.modules.questions.application.dto.AnswerValidationRequest;
 import com.kleverkids.formacion_academica.modules.questions.application.dto.ValidationResult;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.*;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.MatchingPair;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.OrderingItem;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.MatchingPair;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.OrderingItem;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -26,7 +26,7 @@ public enum ExamStatus {
                 return status;
             }
         }
-        throw new IllegalArgumentException("Unknown exam status: " + value);
+        throw new IllegalArgumentException("Estado de examen desconocido: " + value);
     }
     
     public boolean canBeModified() {

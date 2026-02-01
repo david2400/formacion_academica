@@ -1,9 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
 
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamPersistenceMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamSubmissionRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.ExamSubmission;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.ExamSubmissionJpaRepository;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ExamSubmissionEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamSubmissionEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

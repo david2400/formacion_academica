@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.questions.application.dto;
 
-import com.kleverkids.formacion_academica.modules.questions.domain.model.*;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;

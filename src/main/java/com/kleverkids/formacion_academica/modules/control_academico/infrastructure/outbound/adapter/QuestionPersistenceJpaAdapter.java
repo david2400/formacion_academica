@@ -1,10 +1,11 @@
-package com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
 
-import com.kleverkids.formacion_academica.modules.questions.application.dto.QuestionSearchCriteria;
-import com.kleverkids.formacion_academica.modules.questions.application.port.out.QuestionRepository;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.Question;
-import com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.entity.QuestionEntity;
-import com.kleverkids.formacion_academica.modules.questions.infrastructure.adapter.out.persistence.mapper.QuestionPersistenceMapper;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.QuestionSearchCriteria;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.QuestionEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.repository.QuestionJpaRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.QuestionPersistenceMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;

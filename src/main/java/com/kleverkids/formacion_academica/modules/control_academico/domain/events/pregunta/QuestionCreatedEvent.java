@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.questions.domain.event;
 
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
 import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 
 import java.util.UUID;

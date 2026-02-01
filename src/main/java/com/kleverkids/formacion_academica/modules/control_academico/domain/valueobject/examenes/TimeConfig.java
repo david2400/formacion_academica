@@ -16,7 +16,7 @@ public final class TimeConfig extends ValueObject {
     
     private TimeConfig(int duration, LocalDate scheduledDate, LocalTime startTime, LocalTime endTime) {
         if (duration <= 0) {
-            throw new IllegalArgumentException("Duration must be positive");
+            throw new IllegalArgumentException("La duración debe ser positiva");
         }
         this.duration = duration;
         this.scheduledDate = scheduledDate;

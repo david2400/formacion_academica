@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.questions.application.port.out;
 
 import com.kleverkids.formacion_academica.modules.questions.application.dto.QuestionSearchCriteria;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.Question;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

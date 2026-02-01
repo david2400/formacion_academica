@@ -16,7 +16,7 @@ public final class EvaluationCriteria extends ValueObject {
     
     private EvaluationCriteria(UUID id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
         this.id = id != null ? id : UUID.randomUUID();
-        this.name = Objects.requireNonNull(name, "Criteria name cannot be null");
+        this.name = Objects.requireNonNull(name, "El nombre del criterio no puede ser nulo");
         this.description = description;
         this.weight = weight != null ? weight : BigDecimal.ONE;
         this.maxScore = maxScore != null ? maxScore : BigDecimal.valueOf(100);

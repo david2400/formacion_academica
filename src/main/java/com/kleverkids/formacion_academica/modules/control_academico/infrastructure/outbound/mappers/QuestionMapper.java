@@ -1,8 +1,8 @@
-package com.kleverkids.formacion_academica.modules.questions.application.service;
+package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
 
-import com.kleverkids.formacion_academica.modules.questions.application.dto.*;
-import com.kleverkids.formacion_academica.modules.questions.domain.model.*;
-import com.kleverkids.formacion_academica.modules.questions.domain.valueobject.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
