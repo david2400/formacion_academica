@@ -5,6 +5,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -35,6 +36,7 @@ public class AuditInfo {
     @UpdateTimestamp
     private Instant updatedAt;
 
+    @Builder.Default
     @Column(name = "deleted", nullable = false, insertable = false, updatable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean deleted = false;
 
@@ -60,5 +62,25 @@ public class AuditInfo {
     public void prePersistUpdate() {
 //        InformacionUsuarioDto helpersUsuarios = HelpersUsuarios.getInstance();
         this.usrMod = 1;
+    }
+
+    public Integer getUsrCrea() {
+        return usrCrea;
+    }
+
+    public Integer getUsrMod() {
+        return usrMod;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }

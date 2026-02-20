@@ -27,17 +27,8 @@ public class ClaseService implements CrearClaseUseCase, CrearClasesMasivasUseCas
 
     @Override
     public ResultadoClasesMasivasDto crearClases(CrearClasesMasivasDto request) {
-        List<ClaseDto> creadas = claseRepositoryPort.guardarTodas(request.clases());
-        return new ResultadoClasesMasivasDto(request.clases().size(), creadas.size(), creadas);
+        List<ClaseDto> creadas = claseRepositoryPort.guardarTodas(request.getClases());
+        return new ResultadoClasesMasivasDto(request.getClases().size(), creadas.size(), creadas);
     }
 
-    private void validarCodigoUnico(CrearClaseDto request) {
-        validarCodigoUnico(request.codigo());
-    }
-
-    private void validarCodigoUnico(String codigo) {
-        if (claseRepositoryPort.existePorCodigo(codigo)) {
-            throw new IllegalArgumentException("Ya existe una clase con código " + codigo);
-        }
-    }
 }

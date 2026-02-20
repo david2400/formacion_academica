@@ -1,17 +1,21 @@
 package com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.UUID;
 
-public record ActualizarEstadoInscripcionDto(UUID inscripcionId,
-                                             String nuevoEstado,
-                                             String motivo) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActualizarEstadoInscripcionDto extends CrearInscripcionDto {
 
-    public ActualizarEstadoInscripcionDto {
-        if (inscripcionId == null) {
-            throw new IllegalArgumentException("La inscripción es obligatoria");
-        }
-        if (nuevoEstado == null || nuevoEstado.isBlank()) {
-            throw new IllegalArgumentException("El estado es obligatorio");
-        }
-    }
+    @NotNull(message = "La inscripción es obligatoria")
+    private UUID inscripcionId;
+
 }

@@ -3,16 +3,19 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.EstudianteGrupoEntity;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class EstudianteGrupoMapper {
+@Mapper(componentModel = "spring")
+public interface EstudianteGrupoMapper {
 
-    private EstudianteGrupoMapper() {
-    }
+    EstudianteGrupoDto toDto(EstudianteGrupoEntity entity);
 
-    public static EstudianteGrupoEntity toEntity(AsignarEstudianteGrupoDto dto) {
+    List<EstudianteGrupoDto> toDtoList(List<EstudianteGrupoEntity> entities);
+
+    default EstudianteGrupoEntity toEntity(AsignarEstudianteGrupoDto dto) {
         EstudianteGrupoEntity entity = new EstudianteGrupoEntity();
         entity.setId(UUID.randomUUID());
         entity.setEstudianteId(dto.estudianteId());
@@ -20,19 +23,5 @@ public final class EstudianteGrupoMapper {
         entity.setFechaAsignacion(dto.fechaAsignacion());
         entity.setEstado("ASIGNADO");
         return entity;
-    }
-
-    public static EstudianteGrupoDto toDto(EstudianteGrupoEntity entity) {
-        return new EstudianteGrupoDto(
-                entity.getId(),
-                entity.getEstudianteId(),
-                entity.getGrupoId(),
-                entity.getFechaAsignacion(),
-                entity.getEstado()
-        );
-    }
-
-    public static List<EstudianteGrupoDto> toDtoList(List<EstudianteGrupoEntity> entities) {
-        return entities.stream().map(EstudianteGrupoMapper::toDto).toList();
     }
 }

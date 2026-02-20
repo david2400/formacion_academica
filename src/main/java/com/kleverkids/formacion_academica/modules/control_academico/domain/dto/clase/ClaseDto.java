@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 public record ClaseDto(UUID id,
-                       String codigo,
                        String nombre,
                        LocalDate fechaInicio,
                        LocalDate fechaFin,

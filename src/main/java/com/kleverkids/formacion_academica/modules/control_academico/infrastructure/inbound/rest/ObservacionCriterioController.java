@@ -6,7 +6,9 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ActualizarObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ObservacionCriterioDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.RegistrarObservacionCriterioDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona las observaciones asociadas a criterios de examen")
+@Tag(name = "Observaciones", description = "Gestiona las observaciones asociadas a criterios de examen")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/observaciones")
+@RequestMapping("/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/observaciones")
 public class ObservacionCriterioController {
 
     private final RegistrarObservacionCriterioUseCase registrarUseCase;

@@ -2,8 +2,10 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona los exámenes")
+@Tag(name = "Exámenes", description = "Gestiona los exámenes")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/exams")
+@RequestMapping("/control-academico/exams/v1")
 public class ExamController {
     
     private final CreateExamUseCase createExamUseCase;

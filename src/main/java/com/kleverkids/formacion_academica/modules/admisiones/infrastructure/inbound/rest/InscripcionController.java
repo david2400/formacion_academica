@@ -8,6 +8,8 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona las incripciones de los estudiantes")
+@Tag(name = "Inscripciones")
 @RestController
 @RequestMapping("/api/admisiones/inscripciones")
 public class InscripcionController {
@@ -58,11 +62,7 @@ public class InscripcionController {
     @PutMapping("/{inscripcionId}/estado")
     public ResponseEntity<InscripcionDto> cambiarEstado(@PathVariable UUID inscripcionId,
                                                         @RequestBody ActualizarEstadoInscripcionDto request) {
-        ActualizarEstadoInscripcionDto payload = new ActualizarEstadoInscripcionDto(
-                inscripcionId,
-                request.nuevoEstado(),
-                request.motivo()
-        );
-        return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(payload));
+
+        return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(request));
     }
 }

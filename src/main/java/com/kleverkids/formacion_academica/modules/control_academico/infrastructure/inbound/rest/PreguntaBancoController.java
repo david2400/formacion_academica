@@ -6,8 +6,10 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona el banco de preguntas por temática")
+@Tag(name = "Banco de Preguntas", description = "Gestiona el banco de preguntas por temática")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/tematicas/{tematicaId}/preguntas")
+@RequestMapping("/control-academico/preguntas")
 public class PreguntaBancoController {
 
     private final CrearPreguntaBancoUseCase crearUseCase;

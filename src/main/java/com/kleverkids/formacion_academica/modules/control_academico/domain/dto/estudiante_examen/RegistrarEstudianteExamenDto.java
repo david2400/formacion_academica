@@ -1,16 +1,23 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
-public record RegistrarEstudianteExamenDto(UUID examenId,
-                                           UUID estudianteId) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegistrarEstudianteExamenDto {
 
-    public RegistrarEstudianteExamenDto {
-        if (examenId == null) {
-            throw new IllegalArgumentException("El examen es obligatorio");
-        }
-        if (estudianteId == null) {
-            throw new IllegalArgumentException("El estudiante es obligatorio");
-        }
-    }
+    @NotNull(message = "El examen es obligatorio")
+    private UUID examenId;
+
+    @NotNull(message = "El estudiante es obligatorio")
+    private UUID estudianteId;
+
 }

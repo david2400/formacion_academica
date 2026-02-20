@@ -31,13 +31,9 @@ public class ClaseJpaAdapter implements ClaseRepositoryPort {
         return claseMapper.toDtoList(claseJpaRepository.saveAll(entities));
     }
 
-    @Override
-    public boolean existePorCodigo(String codigo) {
-        return claseJpaRepository.existsByCodigo(codigo);
-    }
 
     @Override
-    public ClaseDto obtenerPorId(UUID id) {
+    public ClaseDto getClaseById(UUID id) {
         return claseJpaRepository.findById(id)
                 .map(claseMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));

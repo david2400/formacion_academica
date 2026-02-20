@@ -1,19 +1,25 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula;
 
+import com.kleverkids.formacion_academica.shared.common.domain.dto.AuditInfoDto;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.UUID;
 
-public record ActualizarAulaDto(UUID id,
-                                String nombre,
-                                String descripcion,
-                                Integer capacidad,
-                                Boolean activo) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActualizarAulaDto extends CrearAulaDto {
 
-    public ActualizarAulaDto {
-        if (id == null) {
-            throw new IllegalArgumentException("El identificador del aula es obligatorio");
-        }
-        if (capacidad != null && capacidad <= 0) {
-            throw new IllegalArgumentException("La capacidad debe ser positiva");
-        }
+    @NotNull(message = "El identificador del aula es obligatorio")
+    private UUID id;
+
+    public UUID id() {
+        return id;
     }
+
 }

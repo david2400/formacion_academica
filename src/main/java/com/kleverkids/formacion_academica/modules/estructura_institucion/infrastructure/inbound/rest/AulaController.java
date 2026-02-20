@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona las aulas")
+@Tag(name = "Aulas", description = "Gestiona las aulas")
 @RestController
-@RequestMapping("/api/estructura-institucion/aulas")
+@RequestMapping("/estructura-institucion/aulas")
 public class AulaController {
 
     private final CrearAulaUseCase crearAulaUseCase;
@@ -43,14 +47,8 @@ public class AulaController {
     @PutMapping("/{aulaId}")
     public ResponseEntity<AulaDto> actualizar(@PathVariable UUID aulaId,
                                               @RequestBody ActualizarAulaDto request) {
-        ActualizarAulaDto payload = new ActualizarAulaDto(
-                aulaId,
-                request.nombre(),
-                request.descripcion(),
-                request.capacidad(),
-                request.activo()
-        );
-        return ResponseEntity.ok(actualizarAulaUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarAulaUseCase.actualizar(request));
     }
 
     @GetMapping

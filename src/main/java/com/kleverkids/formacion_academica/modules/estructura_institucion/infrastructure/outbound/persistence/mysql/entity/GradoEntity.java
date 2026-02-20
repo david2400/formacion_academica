@@ -1,15 +1,18 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity;
 
+import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "grados")
-public class GradoEntity {
+public class GradoEntity extends AuditInfo {
 
     @Id
     private UUID id;
@@ -22,35 +25,5 @@ public class GradoEntity {
 
     private Integer orden;
 
-    public UUID getId() {
-        return id;
-    }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNivelEducativo() {
-        return nivelEducativo;
-    }
-
-    public void setNivelEducativo(String nivelEducativo) {
-        this.nivelEducativo = nivelEducativo;
-    }
-
-    public Integer getOrden() {
-        return orden;
-    }
-
-    public void setOrden(Integer orden) {
-        this.orden = orden;
-    }
 }

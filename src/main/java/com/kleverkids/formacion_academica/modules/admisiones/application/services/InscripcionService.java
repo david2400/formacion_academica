@@ -44,7 +44,7 @@ public class InscripcionService implements RegistrarInscripcionUseCase,
 
     @Override
     public InscripcionDto cambiarEstado(ActualizarEstadoInscripcionDto request) {
-        consultarPorId(request.inscripcionId());
+        consultarPorId(request.getInscripcionId());
         return inscripcionRepositoryPort.actualizarEstado(request);
     }
 }

@@ -1,27 +1,39 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 import java.util.UUID;
 
-public record CrearPreguntaBancoDto(UUID tematicaId,
-                                    String enunciado,
-                                    String tipo,
-                                    String nivelDificultad,
-                                    Integer puntaje,
-                                    List<CrearRespuestaBancoDto> respuestas) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CrearPreguntaBancoDto {
 
-    public CrearPreguntaBancoDto {
-        if (tematicaId == null) {
-            throw new IllegalArgumentException("La temática es obligatoria");
-        }
-        if (enunciado == null || enunciado.isBlank()) {
-            throw new IllegalArgumentException("El enunciado es obligatorio");
-        }
-        if (tipo == null || tipo.isBlank()) {
-            throw new IllegalArgumentException("El tipo de pregunta es obligatorio");
-        }
-        if (puntaje == null || puntaje < 1) {
-            throw new IllegalArgumentException("El puntaje debe ser mayor o igual a 1");
-        }
-    }
+    @NotNull(message = "La temática es obligatoria")
+    private UUID tematicaId;
+
+    @NotBlank(message = "El enunciado es obligatorio")
+    private String enunciado;
+
+    @NotBlank(message = "El tipo de pregunta es obligatorio")
+    private String tipo;
+
+    private String nivelDificultad;
+
+    @NotNull(message = "El puntaje es obligatorio")
+    @Min(value = 1, message = "El puntaje debe ser mayor o igual a 1")
+    private Integer puntaje;
+
+    @Valid
+    private List<CrearRespuestaBancoDto> respuestas;
+
 }

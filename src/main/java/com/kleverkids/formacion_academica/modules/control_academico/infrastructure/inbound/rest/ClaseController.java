@@ -6,8 +6,10 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Description(value = "Gestiona las clases")
+@Tag(name = "Clases", description = "Gestiona las clases")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/clases")
+@RequestMapping("/control-academico/clases")
 public class ClaseController {
 
     private final CrearClaseUseCase crearClaseUseCase;

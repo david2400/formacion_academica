@@ -6,8 +6,10 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.a
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.HistorialAsistenciaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.HistorialAsistenciaFiltroDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.RegistrarAsistenciaDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Description(value = "Gestiona la asistencia de los estudiantes")
+@Tag(name = "Asistencias", description = "Gestiona la asistencia de los estudiantes")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/asistencias")
+@RequestMapping("/control-academico/asistencias")
 public class AsistenciaController {
 
     private final RegistrarAsistenciaUseCase registrarAsistenciaUseCase;

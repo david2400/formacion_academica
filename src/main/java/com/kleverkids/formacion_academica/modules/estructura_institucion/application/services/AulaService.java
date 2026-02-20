@@ -23,14 +23,12 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
 
     @Override
     public AulaDto crear(CrearAulaDto request) {
-        validarNombreDisponible(request.nombre(), null);
+        validarNombreDisponible(request.getNombre(), null);
         return aulaRepositoryPort.guardar(request);
     }
 
     @Override
     public AulaDto actualizar(ActualizarAulaDto request) {
-        validarExistencia(request.id());
-        validarNombreDisponible(request.nombre(), request.id());
         return aulaRepositoryPort.actualizar(request);
     }
 

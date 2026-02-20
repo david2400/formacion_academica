@@ -1,21 +1,26 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_criterio;
 
-import java.math.BigDecimal;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.UUID;
 
-public record ActualizarRespuestaCriterioDto(UUID id,
-                                             String respuesta,
-                                             BigDecimal puntajeObtenido) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class ActualizarRespuestaCriterioDto extends RegistrarRespuestaCriterioDto {
 
-    public ActualizarRespuestaCriterioDto {
-        if (id == null) {
-            throw new IllegalArgumentException("El identificador de la respuesta es obligatorio");
-        }
-        if ((respuesta == null || respuesta.isBlank()) && puntajeObtenido == null) {
-            throw new IllegalArgumentException("Debe enviar al menos un cambio (respuesta o puntaje)");
-        }
-        if (puntajeObtenido != null && BigDecimal.ZERO.compareTo(puntajeObtenido) > 0) {
-            throw new IllegalArgumentException("El puntaje debe ser mayor o igual a cero");
-        }
+    @NotNull(message = "El identificador de la respuesta es obligatorio")
+    private UUID id;
+
+    public UUID id() {
+        return id;
     }
+
 }

@@ -9,8 +9,10 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.IntentoExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RegistrarRespuestaIntentoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona los intentos de examen de un estudiante")
+@Tag(name = "Intentos de Examen", description = "Gestiona los intentos de examen de un estudiante")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/intentos")
+@RequestMapping("/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/intentos")
 public class IntentoExamenController {
 
     private final IniciarIntentoExamenUseCase iniciarUseCase;

@@ -1,29 +1,73 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
-public record CrearAcudienteDto(UUID estudianteId,
-                                String tipoDocumento,
-                                String numeroDocumento,
-                                String nombres,
-                                String apellidos,
-                                String parentesco,
-                                String telefono,
-                                String correo,
-                                boolean esPrincipal) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CrearAcudienteDto {
 
-    public CrearAcudienteDto {
-        if (estudianteId == null) {
-            throw new IllegalArgumentException("El estudiante es obligatorio");
-        }
-        if (numeroDocumento == null || numeroDocumento.isBlank()) {
-            throw new IllegalArgumentException("El número de documento es obligatorio");
-        }
-        if (nombres == null || nombres.isBlank()) {
-            throw new IllegalArgumentException("El nombre del acudiente es obligatorio");
-        }
-        if (parentesco == null || parentesco.isBlank()) {
-            throw new IllegalArgumentException("El parentesco es obligatorio");
-        }
+    @NotNull(message = "El estudiante es obligatorio")
+    private UUID estudianteId;
+    private String tipoDocumento;
+
+    @NotBlank(message = "El número de documento es obligatorio")
+    private String numeroDocumento;
+
+    @NotBlank(message = "El nombre del acudiente es obligatorio")
+    private String nombres;
+    private String apellidos;
+
+    @NotBlank(message = "El parentesco es obligatorio")
+    private String parentesco;
+    private String telefono;
+
+    @Email(message = "El correo debe ser válido")
+    private String correo;
+    private boolean esPrincipal;
+
+    public UUID estudianteId() {
+        return estudianteId;
+    }
+
+    public String tipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public String numeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public String nombres() {
+        return nombres;
+    }
+
+    public String apellidos() {
+        return apellidos;
+    }
+
+    public String parentesco() {
+        return parentesco;
+    }
+
+    public String telefono() {
+        return telefono;
+    }
+
+    public String correo() {
+        return correo;
+    }
+
+    public boolean esPrincipal() {
+        return esPrincipal;
     }
 }

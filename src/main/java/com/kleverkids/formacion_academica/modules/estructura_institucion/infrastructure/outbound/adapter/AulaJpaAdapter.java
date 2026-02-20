@@ -16,23 +16,26 @@ import java.util.UUID;
 public class AulaJpaAdapter implements AulaRepositoryPort {
 
     private final AulaJpaRepository aulaJpaRepository;
+    private final AulaMapper aulaMapper;
 
-    public AulaJpaAdapter(AulaJpaRepository aulaJpaRepository) {
+    public AulaJpaAdapter(AulaJpaRepository aulaJpaRepository,
+                          AulaMapper aulaMapper) {
         this.aulaJpaRepository = aulaJpaRepository;
+        this.aulaMapper = aulaMapper;
     }
 
     @Override
     public AulaDto guardar(CrearAulaDto request) {
-        AulaEntity entity = AulaMapper.toEntity(request);
-        return AulaMapper.toDto(aulaJpaRepository.save(entity));
+        AulaEntity entity = aulaMapper.toEntity(request);
+        return aulaMapper.toDto(aulaJpaRepository.save(entity));
     }
 
     @Override
     public AulaDto actualizar(ActualizarAulaDto request) {
-        AulaEntity entity = aulaJpaRepository.findById(request.id())
+        AulaEntity entity = aulaJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
-        AulaMapper.applyUpdate(entity, request);
-        return AulaMapper.toDto(aulaJpaRepository.save(entity));
+        aulaMapper.updateEntityFromDto(request, entity);
+        return aulaMapper.toDto(aulaJpaRepository.save(entity));
     }
 
     @Override
@@ -48,12 +51,12 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     @Override
     public AulaDto obtenerPorId(UUID id) {
         return aulaJpaRepository.findById(id)
-                .map(AulaMapper::toDto)
+                .map(aulaMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
     }
 
     @Override
     public List<AulaDto> listar() {
-        return AulaMapper.toDtoList(aulaJpaRepository.findAll());
+        return aulaMapper.toDtoList(aulaJpaRepository.findAll());
     }
 }

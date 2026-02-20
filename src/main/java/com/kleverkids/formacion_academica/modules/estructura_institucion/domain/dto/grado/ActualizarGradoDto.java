@@ -1,18 +1,21 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.UUID;
 
-public record ActualizarGradoDto(UUID id,
-                                 String nombre,
-                                 String nivelEducativo,
-                                 Integer orden) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActualizarGradoDto extends CrearGradoDto {
 
-    public ActualizarGradoDto {
-        if (id == null) {
-            throw new IllegalArgumentException("El identificador del grado es obligatorio");
-        }
-        if (orden != null && orden < 0) {
-            throw new IllegalArgumentException("El orden debe ser positivo");
-        }
-    }
+    @NotNull(message = "El identificador del grado es obligatorio")
+    private UUID id;
+
 }

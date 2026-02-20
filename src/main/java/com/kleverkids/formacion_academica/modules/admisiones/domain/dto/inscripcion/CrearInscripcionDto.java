@@ -1,22 +1,30 @@
 package com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CrearInscripcionDto(UUID estudianteId,
-                                  String periodoAcademico,
-                                  LocalDate fechaSolicitud,
-                                  String observaciones) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CrearInscripcionDto {
 
-    public CrearInscripcionDto {
-        if (estudianteId == null) {
-            throw new IllegalArgumentException("El estudiante es obligatorio");
-        }
-        if (periodoAcademico == null || periodoAcademico.isBlank()) {
-            throw new IllegalArgumentException("El periodo académico es obligatorio");
-        }
-        if (fechaSolicitud == null) {
-            throw new IllegalArgumentException("La fecha de solicitud es obligatoria");
-        }
-    }
+    @NotNull(message = "El estudiante es obligatorio")
+    private UUID estudianteId;
+
+    @NotBlank(message = "El periodo académico es obligatorio")
+    private String periodoAcademico;
+
+    @NotNull(message = "La fecha de solicitud es obligatoria")
+    private LocalDate fechaSolicitud;
+
+    private String observaciones;
+
 }

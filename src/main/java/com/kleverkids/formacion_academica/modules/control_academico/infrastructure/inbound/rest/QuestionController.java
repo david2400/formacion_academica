@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "Preguntas", description = "Gestiona las preguntas")
+@Description(value = "Gestiona las preguntas")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/questions")
-@Tag(name = "Questions", description = "Question management endpoints")
+@RequestMapping("/control-academico/questions/v1")
 public class QuestionController {
     
     private final CreateQuestionUseCase createQuestionUseCase;

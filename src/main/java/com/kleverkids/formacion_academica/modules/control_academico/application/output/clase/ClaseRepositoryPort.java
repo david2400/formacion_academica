@@ -12,7 +12,5 @@ public interface ClaseRepositoryPort {
 
     List<ClaseDto> guardarTodas(List<CrearClaseDto> clases);
 
-    boolean existePorCodigo(String codigo);
-
-    ClaseDto obtenerPorId(UUID id);
+    ClaseDto getClaseById(UUID id);
 }

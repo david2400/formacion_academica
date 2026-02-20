@@ -7,6 +7,8 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.CrearAcudienteDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona los acudientes")
+@Tag(name = "Acudientes", description = "Gestiona los acudientes")
 @RestController
-@RequestMapping("/api/gestion-alumnos/acudientes")
+@RequestMapping("/gestion-alumnos/acudientes")
 public class AcudienteController {
 
     private final CrearAcudienteUseCase crearUseCase;

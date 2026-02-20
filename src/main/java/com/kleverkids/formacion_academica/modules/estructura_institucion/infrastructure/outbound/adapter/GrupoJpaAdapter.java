@@ -15,22 +15,25 @@ import java.util.UUID;
 public class GrupoJpaAdapter implements GrupoRepositoryPort {
 
     private final GrupoJpaRepository grupoJpaRepository;
+    private final GrupoMapper grupoMapper;
 
-    public GrupoJpaAdapter(GrupoJpaRepository grupoJpaRepository) {
+    public GrupoJpaAdapter(GrupoJpaRepository grupoJpaRepository,
+                           GrupoMapper grupoMapper) {
         this.grupoJpaRepository = grupoJpaRepository;
+        this.grupoMapper = grupoMapper;
     }
 
     @Override
     public GrupoDto guardar(CrearGrupoDto request) {
-        return GrupoMapper.toDto(grupoJpaRepository.save(GrupoMapper.toEntity(request)));
+        return grupoMapper.toDto(grupoJpaRepository.save(grupoMapper.toEntity(request)));
     }
 
     @Override
     public GrupoDto actualizar(ActualizarGrupoDto request) {
-        GrupoEntity entity = grupoJpaRepository.findById(request.id())
+        GrupoEntity entity = grupoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
-        GrupoMapper.applyUpdate(entity, request);
-        return GrupoMapper.toDto(grupoJpaRepository.save(entity));
+        grupoMapper.updateEntityFromDto(request, entity);
+        return grupoMapper.toDto(grupoJpaRepository.save(entity));
     }
 
     @Override
@@ -41,7 +44,7 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
     @Override
     public GrupoDto obtenerPorId(UUID id) {
         return grupoJpaRepository.findById(id)
-                .map(GrupoMapper::toDto)
+                .map(grupoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
     }
 }

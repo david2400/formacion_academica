@@ -5,6 +5,8 @@ import com.kleverkids.formacion_academica.modules.admisiones.application.input.m
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona las matriculas de los alumnos")
+@Tag(name = "Matricula")
 @RestController
 @RequestMapping("/api/admisiones/matriculas")
 public class MatriculaController {

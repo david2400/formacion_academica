@@ -28,8 +28,7 @@ public class MatriculaService implements RegistrarMatriculaUseCase,
 
     @Override
     public MatriculaDto registrar(CrearMatriculaDto request) {
-        inscripcionRepositoryPort.obtenerPorId(request.inscripcionId())
-                .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
+
         return matriculaRepositoryPort.registrar(request);
     }
 

@@ -1,30 +1,63 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
-public record RegistrarRespuestaPreguntaDto(UUID examenId,
-                                            UUID estudianteId,
-                                            UUID preguntaId,
-                                            UUID respuestaBancoId,
-                                            String respuestaTexto,
-                                            Boolean esCorrecta,
-                                            Integer puntajeObtenido) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegistrarRespuestaPreguntaDto {
 
-    public RegistrarRespuestaPreguntaDto {
-        if (examenId == null) {
-            throw new IllegalArgumentException("El examen es obligatorio");
-        }
-        if (estudianteId == null) {
-            throw new IllegalArgumentException("El estudiante es obligatorio");
-        }
-        if (preguntaId == null) {
-            throw new IllegalArgumentException("La pregunta es obligatoria");
-        }
-        if ((respuestaTexto == null || respuestaTexto.isBlank()) && respuestaBancoId == null) {
-            throw new IllegalArgumentException("Debe proveer una respuesta en texto u opción del banco");
-        }
-        if (puntajeObtenido != null && puntajeObtenido < 0) {
-            throw new IllegalArgumentException("El puntaje debe ser mayor o igual a cero");
-        }
+    @NotNull(message = "El examen es obligatorio")
+    private UUID examenId;
+
+    @NotNull(message = "El estudiante es obligatorio")
+    private UUID estudianteId;
+
+    @NotNull(message = "La pregunta es obligatoria")
+    private UUID preguntaId;
+
+    private UUID respuestaBancoId;
+
+    private String respuestaTexto;
+
+    private Boolean esCorrecta;
+
+    @Min(value = 0, message = "El puntaje debe ser mayor o igual a cero")
+    private Integer puntajeObtenido;
+
+    public UUID examenId() {
+        return examenId;
+    }
+
+    public UUID estudianteId() {
+        return estudianteId;
+    }
+
+    public UUID preguntaId() {
+        return preguntaId;
+    }
+
+    public UUID respuestaBancoId() {
+        return respuestaBancoId;
+    }
+
+    public String respuestaTexto() {
+        return respuestaTexto;
+    }
+
+    public Boolean esCorrecta() {
+        return esCorrecta;
+    }
+
+    public Integer puntajeObtenido() {
+        return puntajeObtenido;
     }
 }

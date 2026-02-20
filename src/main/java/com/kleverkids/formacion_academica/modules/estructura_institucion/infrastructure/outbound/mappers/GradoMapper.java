@@ -1,31 +1,33 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers;
 
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GradoEntity;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteEntity;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.UUID;
 
-public final class GradoMapper {
+@Mapper(componentModel = "spring")
+public interface GradoMapper {
 
-    private GradoMapper() {
-    }
+    GradoDto toDto(GradoEntity entity);
 
-    public static GradoEntity toEntity(CrearGradoDto dto) {
+    default GradoEntity toEntity(CrearGradoDto dto) {
         GradoEntity entity = new GradoEntity();
         entity.setId(UUID.randomUUID());
-        entity.setNombre(dto.nombre());
-        entity.setNivelEducativo(dto.nivelEducativo());
-        entity.setOrden(dto.orden());
+        entity.setNombre(dto.getNombre());
+        entity.setNivelEducativo(dto.getNivelEducativo());
+        entity.setOrden(dto.getOrden());
         return entity;
     }
 
-    public static GradoDto toDto(GradoEntity entity) {
-        return new GradoDto(
-                entity.getId(),
-                entity.getNombre(),
-                entity.getNivelEducativo(),
-                entity.getOrden()
-        );
-    }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntityFromDto(ActualizarGradoDto dto, @MappingTarget GradoEntity entity);
 }

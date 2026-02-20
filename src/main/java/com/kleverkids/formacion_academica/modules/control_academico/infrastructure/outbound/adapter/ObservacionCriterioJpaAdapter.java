@@ -28,7 +28,7 @@ public class ObservacionCriterioJpaAdapter implements ObservacionCriterioReposit
 
     @Override
     public ObservacionCriterioDto actualizar(ActualizarObservacionCriterioDto request) {
-        ObservacionCriterioEntity entity = observacionCriterioJpaRepository.findById(request.id())
+        ObservacionCriterioEntity entity = observacionCriterioJpaRepository.findById(request.getCriterioId())
                 .orElseThrow(() -> new IllegalArgumentException("Observación no encontrada"));
         observacionCriterioMapper.applyUpdate(entity, request);
         return observacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));

@@ -16,15 +16,18 @@ import java.util.UUID;
 public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort {
 
     private final EstudianteGrupoJpaRepository estudianteGrupoJpaRepository;
+    private final EstudianteGrupoMapper estudianteGrupoMapper;
 
-    public EstudianteGrupoJpaAdapter(EstudianteGrupoJpaRepository estudianteGrupoJpaRepository) {
+    public EstudianteGrupoJpaAdapter(EstudianteGrupoJpaRepository estudianteGrupoJpaRepository,
+                                     EstudianteGrupoMapper estudianteGrupoMapper) {
         this.estudianteGrupoJpaRepository = estudianteGrupoJpaRepository;
+        this.estudianteGrupoMapper = estudianteGrupoMapper;
     }
 
     @Override
     public EstudianteGrupoDto asignar(AsignarEstudianteGrupoDto request) {
-        EstudianteGrupoEntity entity = EstudianteGrupoMapper.toEntity(request);
-        return EstudianteGrupoMapper.toDto(estudianteGrupoJpaRepository.save(entity));
+        EstudianteGrupoEntity entity = estudianteGrupoMapper.toEntity(request);
+        return estudianteGrupoMapper.toDto(estudianteGrupoJpaRepository.save(entity));
     }
 
     @Override
@@ -32,11 +35,11 @@ public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort 
         EstudianteGrupoEntity entity = estudianteGrupoJpaRepository.findById(request.asignacionId())
                 .orElseThrow(() -> new IllegalArgumentException("Asignación no encontrada"));
         entity.setEstado(request.nuevoEstado());
-        return EstudianteGrupoMapper.toDto(estudianteGrupoJpaRepository.save(entity));
+        return estudianteGrupoMapper.toDto(estudianteGrupoJpaRepository.save(entity));
     }
 
     @Override
     public List<EstudianteGrupoDto> listarPorGrupo(UUID grupoId) {
-        return EstudianteGrupoMapper.toDtoList(estudianteGrupoJpaRepository.findByGrupoId(grupoId));
+        return estudianteGrupoMapper.toDtoList(estudianteGrupoJpaRepository.findByGrupoId(grupoId));
     }
 }

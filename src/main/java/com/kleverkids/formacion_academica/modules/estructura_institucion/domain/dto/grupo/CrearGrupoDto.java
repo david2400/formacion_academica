@@ -1,26 +1,57 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.UUID;
 
-public record CrearGrupoDto(String codigo,
-                            String nombre,
-                            UUID gradoId,
-                            Integer capacidadMaxima,
-                            UUID tutorId,
-                            UUID aulaId) {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CrearGrupoDto {
 
-    public CrearGrupoDto {
-        if (codigo == null || codigo.isBlank()) {
-            throw new IllegalArgumentException("El código es obligatorio");
-        }
-        if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre es obligatorio");
-        }
-        if (gradoId == null) {
-            throw new IllegalArgumentException("El grado es obligatorio");
-        }
-        if (capacidadMaxima != null && capacidadMaxima <= 0) {
-            throw new IllegalArgumentException("La capacidad debe ser positiva");
-        }
+    @NotBlank(message = "El código es obligatorio")
+    private String codigo;
+
+    @NotBlank(message = "El nombre es obligatorio")
+    private String nombre;
+
+    @NotNull(message = "El grado es obligatorio")
+    private UUID gradoId;
+
+    @Positive(message = "La capacidad debe ser positiva")
+    private Integer capacidadMaxima;
+
+    private UUID tutorId;
+    private UUID aulaId;
+
+    public String codigo() {
+        return codigo;
+    }
+
+    public String nombre() {
+        return nombre;
+    }
+
+    public UUID gradoId() {
+        return gradoId;
+    }
+
+    public Integer capacidadMaxima() {
+        return capacidadMaxima;
+    }
+
+    public UUID tutorId() {
+        return tutorId;
+    }
+
+    public UUID aulaId() {
+        return aulaId;
     }
 }

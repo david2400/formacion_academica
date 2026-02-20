@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona la asignación de estudiantes a grupos")
+@Tag(name = "Estudiantes por Grupo", description = "Gestiona la asignación de estudiantes a grupos")
 @RestController
-@RequestMapping("/api/estructura-institucion/estudiantes-grupo")
+@RequestMapping("/estructura-institucion/estudiantes-grupo")
 public class EstudianteGrupoController {
 
     private final AsignarEstudianteGrupoUseCase asignarUseCase;

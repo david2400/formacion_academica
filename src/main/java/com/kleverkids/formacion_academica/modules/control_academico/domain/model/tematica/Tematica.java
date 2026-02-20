@@ -2,8 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 
 import java.util.UUID;
 
-public record TematicaExamen(UUID id,
-                             UUID examenId,
+public record Tematica(UUID id,
                              String titulo,
                              String descripcion,
                              Integer orden) {

@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,8 +9,7 @@ import lombok.Setter;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class CrearClasesMasivasDto {
 

@@ -27,12 +27,12 @@ public interface PreguntaBancoMapper {
 
     @AfterMapping
     default void mapRespuestas(CrearPreguntaBancoDto dto, @MappingTarget PreguntaBancoEntity entity) {
-        if (dto.respuestas() == null || dto.respuestas().isEmpty()) {
+        if (dto.getRespuestas() == null || dto.getRespuestas().isEmpty()) {
             entity.setRespuestas(List.of());
             return;
         }
         List<RespuestaBancoEntity> respuestas = new ArrayList<>();
-        for (CrearRespuestaBancoDto respuestaDto : dto.respuestas()) {
+        for (CrearRespuestaBancoDto respuestaDto : dto.getRespuestas()) {
             RespuestaBancoEntity respuesta = new RespuestaBancoEntity();
             respuesta.setId(UUID.randomUUID());
             respuesta.setPregunta(entity);

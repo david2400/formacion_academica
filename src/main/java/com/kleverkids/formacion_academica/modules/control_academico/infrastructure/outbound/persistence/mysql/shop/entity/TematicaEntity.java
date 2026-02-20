@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "tematicas_examen")
-public class TematicaExamenEntity {
+@Table(name = "tematicas")
+public class TematicaEntity {
 
     @Id
     private UUID id;
@@ -26,6 +26,5 @@ public class TematicaExamenEntity {
 
     @Column(nullable = false)
     private Integer orden;
-
 
 }

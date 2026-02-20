@@ -13,30 +13,25 @@ import org.springframework.stereotype.Component;
 public class GradoJpaAdapter implements GradoRepositoryPort {
 
     private final GradoJpaRepository gradoJpaRepository;
+    private final GradoMapper gradoMapper;
 
-    public GradoJpaAdapter(GradoJpaRepository gradoJpaRepository) {
+    public GradoJpaAdapter(GradoJpaRepository gradoJpaRepository,
+                           GradoMapper gradoMapper) {
         this.gradoJpaRepository = gradoJpaRepository;
+        this.gradoMapper = gradoMapper;
     }
 
     @Override
     public GradoDto guardar(CrearGradoDto request) {
-        return GradoMapper.toDto(gradoJpaRepository.save(GradoMapper.toEntity(request)));
+        return gradoMapper.toDto(gradoJpaRepository.save(gradoMapper.toEntity(request)));
     }
 
     @Override
     public GradoDto actualizar(ActualizarGradoDto request) {
-        GradoEntity entity = gradoJpaRepository.findById(request.id())
+        GradoEntity entity = gradoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
-        if (request.nombre() != null) {
-            entity.setNombre(request.nombre());
-        }
-        if (request.nivelEducativo() != null) {
-            entity.setNivelEducativo(request.nivelEducativo());
-        }
-        if (request.orden() != null) {
-            entity.setOrden(request.orden());
-        }
-        return GradoMapper.toDto(gradoJpaRepository.save(entity));
+
+        return gradoMapper.toDto(gradoJpaRepository.save(entity));
     }
 
     @Override
@@ -47,7 +42,7 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     @Override
     public GradoDto obtenerPorId(java.util.UUID id) {
         return gradoJpaRepository.findById(id)
-                .map(GradoMapper::toDto)
+                .map(gradoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
     }
 }

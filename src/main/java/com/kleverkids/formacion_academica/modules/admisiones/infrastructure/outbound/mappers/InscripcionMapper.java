@@ -4,43 +4,29 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class InscripcionMapper {
+@Mapper(componentModel = "spring")
+public interface InscripcionMapper {
 
-    private InscripcionMapper() {
-    }
+    InscripcionDto toDto(InscripcionEntity entity);
 
-    public static InscripcionEntity toEntity(CrearInscripcionDto dto) {
+    List<InscripcionDto> toDtoList(List<InscripcionEntity> entities);
+
+    default InscripcionEntity toEntity(CrearInscripcionDto dto) {
         InscripcionEntity entity = new InscripcionEntity();
         entity.setId(UUID.randomUUID());
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setPeriodoAcademico(dto.periodoAcademico());
-        entity.setFechaSolicitud(dto.fechaSolicitud());
+        entity.setEstudianteId(dto.getEstudianteId());
+        entity.setPeriodoAcademico(dto.getPeriodoAcademico());
+        entity.setFechaSolicitud(dto.getFechaSolicitud());
         entity.setEstado("PENDIENTE");
-        entity.setObservaciones(dto.observaciones());
+        entity.setObservaciones(dto.getObservaciones());
         return entity;
     }
 
-    public static void applyEstado(InscripcionEntity entity, ActualizarEstadoInscripcionDto dto) {
-        entity.setEstado(dto.nuevoEstado());
-        entity.setObservaciones(dto.motivo());
-    }
-
-    public static InscripcionDto toDto(InscripcionEntity entity) {
-        return new InscripcionDto(
-                entity.getId(),
-                entity.getEstudianteId(),
-                entity.getPeriodoAcademico(),
-                entity.getFechaSolicitud(),
-                entity.getEstado(),
-                entity.getObservaciones()
-        );
-    }
-
-    public static List<InscripcionDto> toDtoList(List<InscripcionEntity> entities) {
-        return entities.stream().map(InscripcionMapper::toDto).toList();
+    default void applyEstado(InscripcionEntity entity, ActualizarEstadoInscripcionDto dto) {
     }
 }

@@ -5,6 +5,8 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+@Description(value = "Gestiona los grados")
+@Tag(name = "Grados", description = "Gestiona los grados")
 @RestController
-@RequestMapping("/api/estructura-institucion/grados")
+@RequestMapping("/estructura-institucion/grados")
 public class GradoController {
 
     private final CrearGradoUseCase crearGradoUseCase;
@@ -37,12 +41,7 @@ public class GradoController {
     @PutMapping("/{gradoId}")
     public ResponseEntity<GradoDto> actualizar(@PathVariable UUID gradoId,
                                                @RequestBody ActualizarGradoDto request) {
-        ActualizarGradoDto payload = new ActualizarGradoDto(
-                gradoId,
-                request.nombre(),
-                request.nivelEducativo(),
-                request.orden()
-        );
-        return ResponseEntity.ok(actualizarGradoUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarGradoUseCase.actualizar(request));
     }
 }

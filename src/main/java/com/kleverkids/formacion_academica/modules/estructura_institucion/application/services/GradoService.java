@@ -19,7 +19,6 @@ public class GradoService implements CrearGradoUseCase, ActualizarGradoUseCase {
 
     @Override
     public GradoDto crear(CrearGradoDto request) {
-        validarNombreYNivel(request.nombre(), request.nivelEducativo());
         return gradoRepositoryPort.guardar(request);
     }
 

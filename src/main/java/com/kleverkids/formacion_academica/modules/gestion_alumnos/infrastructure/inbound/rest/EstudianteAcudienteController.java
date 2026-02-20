@@ -8,6 +8,8 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.ActualizarEstudianteAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.CrearEstudianteAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.EstudianteAcudienteDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Description(value = "Gestiona la relación entre estudiantes y acudientes")
+@Tag(name = "Estudiante - Acudiente", description = "Gestiona la relación entre estudiantes y acudientes")
 @RestController
-@RequestMapping("/api/gestion-alumnos/relaciones-estudiante-acudiente")
+@RequestMapping("/gestion-alumnos/relaciones-estudiante-acudiente")
 public class EstudianteAcudienteController {
 
     private final CrearEstudianteAcudienteUseCase crearUseCase;
