@@ -14,4 +14,8 @@ public interface ObservacionCriterioRepositoryPort {
     ObservacionCriterioDto actualizar(ActualizarObservacionCriterioDto request);
 
     List<ObservacionCriterioDto> listarPorEstudiante(UUID examenId, UUID estudianteId);
+
+    ObservacionCriterioDto obtenerPorId(UUID observacionId);
+
+    void eliminar(UUID observacionId);
 }

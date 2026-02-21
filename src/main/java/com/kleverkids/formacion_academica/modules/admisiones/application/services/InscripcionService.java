@@ -2,6 +2,7 @@ package com.kleverkids.formacion_academica.modules.admisiones.application.servic
 
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.CambiarEstadoInscripcionUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.ConsultarInscripcionUseCase;
+import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.EliminarInscripcionUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.ListarInscripcionesUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.RegistrarInscripcionUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
@@ -18,7 +19,8 @@ import java.util.UUID;
 public class InscripcionService implements RegistrarInscripcionUseCase,
         ConsultarInscripcionUseCase,
         ListarInscripcionesUseCase,
-        CambiarEstadoInscripcionUseCase {
+        CambiarEstadoInscripcionUseCase,
+        EliminarInscripcionUseCase {
 
     private final InscripcionRepositoryPort inscripcionRepositoryPort;
 
@@ -46,5 +48,11 @@ public class InscripcionService implements RegistrarInscripcionUseCase,
     public InscripcionDto cambiarEstado(ActualizarEstadoInscripcionDto request) {
         consultarPorId(request.getInscripcionId());
         return inscripcionRepositoryPort.actualizarEstado(request);
+    }
+
+    @Override
+    public void eliminar(UUID inscripcionId) {
+        consultarPorId(inscripcionId);
+        inscripcionRepositoryPort.eliminar(inscripcionId);
     }
 }

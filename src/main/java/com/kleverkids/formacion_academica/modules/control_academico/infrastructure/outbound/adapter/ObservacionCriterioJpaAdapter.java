@@ -28,7 +28,7 @@ public class ObservacionCriterioJpaAdapter implements ObservacionCriterioReposit
 
     @Override
     public ObservacionCriterioDto actualizar(ActualizarObservacionCriterioDto request) {
-        ObservacionCriterioEntity entity = observacionCriterioJpaRepository.findById(request.getCriterioId())
+        ObservacionCriterioEntity entity = observacionCriterioJpaRepository.findById(request.id())
                 .orElseThrow(() -> new IllegalArgumentException("Observación no encontrada"));
         observacionCriterioMapper.applyUpdate(entity, request);
         return observacionCriterioMapper.toDto(observacionCriterioJpaRepository.save(entity));
@@ -39,5 +39,17 @@ public class ObservacionCriterioJpaAdapter implements ObservacionCriterioReposit
         return observacionCriterioMapper.toDtoList(
                 observacionCriterioJpaRepository.findByExamenIdAndEstudianteId(examenId, estudianteId)
         );
+    }
+
+    @Override
+    public ObservacionCriterioDto obtenerPorId(UUID observacionId) {
+        return observacionCriterioJpaRepository.findById(observacionId)
+                .map(observacionCriterioMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Observación no encontrada"));
+    }
+
+    @Override
+    public void eliminar(UUID observacionId) {
+        observacionCriterioJpaRepository.deleteById(observacionId);
     }
 }

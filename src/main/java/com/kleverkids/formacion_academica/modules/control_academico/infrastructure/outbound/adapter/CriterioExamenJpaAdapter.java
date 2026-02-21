@@ -40,4 +40,16 @@ public class CriterioExamenJpaAdapter implements CriterioExamenRepositoryPort {
                 criterioExamenJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }
+
+    @Override
+    public CriterioExamenDto obtenerPorId(UUID criterioId) {
+        return criterioExamenJpaRepository.findById(criterioId)
+                .map(criterioExamenMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Criterio no encontrado"));
+    }
+
+    @Override
+    public void eliminar(UUID criterioId) {
+        criterioExamenJpaRepository.deleteById(criterioId);
+    }
 }

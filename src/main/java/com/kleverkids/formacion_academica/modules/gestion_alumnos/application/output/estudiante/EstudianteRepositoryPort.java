@@ -3,6 +3,8 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.o
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +20,9 @@ public interface EstudianteRepositoryPort {
 
     List<EstudianteDto> listar();
 
+    Page<EstudianteDto> listar(Pageable pageable);
+
     boolean existePorDocumento(String tipoDocumento, String numeroDocumento);
+
+    void eliminar(UUID estudianteId);
 }

@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructur
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ActualizarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ConsultarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.CrearAcudienteUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.EliminarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ListarAcudientesPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,15 +34,18 @@ public class AcudienteController {
     private final ActualizarAcudienteUseCase actualizarUseCase;
     private final ConsultarAcudienteUseCase consultarUseCase;
     private final ListarAcudientesPorEstudianteUseCase listarUseCase;
+    private final EliminarAcudienteUseCase eliminarUseCase;
 
     public AcudienteController(CrearAcudienteUseCase crearUseCase,
                                ActualizarAcudienteUseCase actualizarUseCase,
                                ConsultarAcudienteUseCase consultarUseCase,
-                               ListarAcudientesPorEstudianteUseCase listarUseCase) {
+                               ListarAcudientesPorEstudianteUseCase listarUseCase,
+                               EliminarAcudienteUseCase eliminarUseCase) {
         this.crearUseCase = crearUseCase;
         this.actualizarUseCase = actualizarUseCase;
         this.consultarUseCase = consultarUseCase;
         this.listarUseCase = listarUseCase;
+        this.eliminarUseCase = eliminarUseCase;
     }
 
     @PostMapping
@@ -74,5 +79,11 @@ public class AcudienteController {
     @GetMapping("/estudiante/{estudianteId}")
     public ResponseEntity<List<AcudienteDto>> listarPorEstudiante(@PathVariable UUID estudianteId) {
         return ResponseEntity.ok(listarUseCase.listar(estudianteId));
+    }
+
+    @DeleteMapping("/{acudienteId}")
+    public ResponseEntity<Void> eliminar(@PathVariable UUID acudienteId) {
+        eliminarUseCase.eliminar(acudienteId);
+        return ResponseEntity.noContent().build();
     }
 }

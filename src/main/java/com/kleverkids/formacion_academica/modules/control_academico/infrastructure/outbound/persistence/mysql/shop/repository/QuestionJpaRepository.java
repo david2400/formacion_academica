@@ -27,7 +27,7 @@ public interface QuestionJpaRepository extends JpaRepository<QuestionEntity, UUI
         Pageable pageable
     );
     
-    @Query("SELECT q FROM QuestionEntity q WHERE q.deleted = :includeDeleted OR q.deleted = false " +
+    @Query("SELECT q FROM QuestionEntity q WHERE (:includeDeleted = true OR q.deleted = false) " +
            "AND (:questionType IS NULL OR q.questionType = :questionType) " +
            "AND (:difficulty IS NULL OR q.difficulty = :difficulty) " +
            "AND (:themeId IS NULL OR q.themeId = :themeId) " +

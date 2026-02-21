@@ -18,4 +18,6 @@ public interface InscripcionRepositoryPort {
     List<InscripcionDto> listar(ListarInscripcionesFiltroDto filtro);
 
     InscripcionDto actualizarEstado(ActualizarEstadoInscripcionDto request);
+
+    void eliminar(UUID inscripcionId);
 }

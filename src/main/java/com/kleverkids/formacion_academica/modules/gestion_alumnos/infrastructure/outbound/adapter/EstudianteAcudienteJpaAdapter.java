@@ -57,4 +57,9 @@ public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteReposit
         }
         return relacionJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrueAndIdNot(estudianteId, excluirRelacionId);
     }
+
+    @Override
+    public void eliminar(UUID relacionId) {
+        relacionJpaRepository.deleteById(relacionId);
+    }
 }

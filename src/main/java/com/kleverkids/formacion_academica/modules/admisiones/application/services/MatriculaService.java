@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.admisiones.application.services;
 
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ConsultarMatriculaUseCase;
+import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.EliminarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ListarMatriculasUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
@@ -15,7 +16,8 @@ import java.util.UUID;
 @Service
 public class MatriculaService implements RegistrarMatriculaUseCase,
         ConsultarMatriculaUseCase,
-        ListarMatriculasUseCase {
+        ListarMatriculasUseCase,
+        EliminarMatriculaUseCase {
 
     private final MatriculaRepositoryPort matriculaRepositoryPort;
     private final InscripcionRepositoryPort inscripcionRepositoryPort;
@@ -41,5 +43,11 @@ public class MatriculaService implements RegistrarMatriculaUseCase,
     @Override
     public List<MatriculaDto> listarPorEstudiante(UUID estudianteId) {
         return matriculaRepositoryPort.listarPorEstudiante(estudianteId);
+    }
+
+    @Override
+    public void eliminar(UUID matriculaId) {
+        consultarPorId(matriculaId);
+        matriculaRepositoryPort.eliminar(matriculaId);
     }
 }

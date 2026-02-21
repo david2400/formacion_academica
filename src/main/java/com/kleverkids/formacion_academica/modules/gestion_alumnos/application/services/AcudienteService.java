@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.s
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ActualizarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ConsultarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.CrearAcudienteUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.EliminarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ListarAcudientesPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.acudiente.AcudienteRepositoryPort;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante.EstudianteRepositoryPort;
@@ -18,7 +19,8 @@ import java.util.UUID;
 public class AcudienteService implements CrearAcudienteUseCase,
         ActualizarAcudienteUseCase,
         ConsultarAcudienteUseCase,
-        ListarAcudientesPorEstudianteUseCase {
+        ListarAcudientesPorEstudianteUseCase,
+        EliminarAcudienteUseCase {
 
     private final AcudienteRepositoryPort acudienteRepositoryPort;
     private final EstudianteRepositoryPort estudianteRepositoryPort;
@@ -57,6 +59,12 @@ public class AcudienteService implements CrearAcudienteUseCase,
     public List<AcudienteDto> listar(UUID estudianteId) {
         validarExistenciaEstudiante(estudianteId);
         return acudienteRepositoryPort.listarPorEstudiante(estudianteId);
+    }
+
+    @Override
+    public void eliminar(UUID acudienteId) {
+        consultarPorId(acudienteId);
+        acudienteRepositoryPort.eliminar(acudienteId);
     }
 
     private void validarExistenciaEstudiante(UUID estudianteId) {

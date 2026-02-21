@@ -61,4 +61,9 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
         inscripcionMapper.applyEstado(entity, request);
         return inscripcionMapper.toDto(inscripcionJpaRepository.save(entity));
     }
+
+    @Override
+    public void eliminar(UUID inscripcionId) {
+        inscripcionJpaRepository.deleteById(inscripcionId);
+    }
 }

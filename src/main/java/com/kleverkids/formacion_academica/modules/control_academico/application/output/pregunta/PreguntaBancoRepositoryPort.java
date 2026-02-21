@@ -14,4 +14,8 @@ public interface PreguntaBancoRepositoryPort {
     PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request);
 
     List<PreguntaBancoDto> listarPorTematica(UUID tematicaId);
+
+    PreguntaBancoDto obtenerPorId(UUID preguntaId);
+
+    void eliminar(UUID preguntaId);
 }

@@ -14,4 +14,8 @@ public interface RespuestaPreguntaRepositoryPort {
     RespuestaPreguntaDto actualizar(ActualizarRespuestaPreguntaDto request);
 
     List<RespuestaPreguntaDto> listarPorEstudiante(UUID examenId, UUID estudianteId);
+
+    RespuestaPreguntaDto obtenerPorId(UUID respuestaId);
+
+    void eliminar(UUID respuestaId);
 }

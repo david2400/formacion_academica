@@ -47,7 +47,7 @@ public class IntentoExamenController {
     @PostMapping("/{intentoId}/respuestas")
     public ResponseEntity<RespuestaIntentoDto> registrarRespuesta(@PathVariable UUID intentoId,
                                                                   @Valid @RequestBody RegistrarRespuestaIntentoDto request) {
-
+        request.setIntentoId(intentoId);
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarRespuestaUseCase.registrar(request));
     }
 

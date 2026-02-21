@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.s
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.ActualizarEstudianteAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.ConsultarEstudianteAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.CrearEstudianteAcudienteUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.EliminarEstudianteAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.ListarPorAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.ListarPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.acudiente.AcudienteRepositoryPort;
@@ -21,7 +22,8 @@ public class EstudianteAcudienteService implements CrearEstudianteAcudienteUseCa
         ActualizarEstudianteAcudienteUseCase,
         ConsultarEstudianteAcudienteUseCase,
         ListarPorEstudianteUseCase,
-        ListarPorAcudienteUseCase {
+        ListarPorAcudienteUseCase,
+        EliminarEstudianteAcudienteUseCase {
 
     private final EstudianteAcudienteRepositoryPort relacionRepositoryPort;
     private final EstudianteRepositoryPort estudianteRepositoryPort;
@@ -68,6 +70,12 @@ public class EstudianteAcudienteService implements CrearEstudianteAcudienteUseCa
     public List<EstudianteAcudienteDto> listarPorAcudiente(UUID acudienteId) {
         validarExistenciaAcudiente(acudienteId);
         return relacionRepositoryPort.listarPorAcudiente(acudienteId);
+    }
+
+    @Override
+    public void eliminar(UUID relacionId) {
+        consultarPorId(relacionId);
+        relacionRepositoryPort.eliminar(relacionId);
     }
 
     private void validarExistenciaEstudiante(UUID estudianteId) {

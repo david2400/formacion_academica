@@ -1,6 +1,8 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.inbound.rest;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ActualizarRespuestaPreguntaUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ConsultarRespuestaPreguntaUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.EliminarRespuestaPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ListarRespuestasPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.RegistrarRespuestaPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.ActualizarRespuestaPreguntaDto;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,26 +30,29 @@ import java.util.UUID;
 @Tag(name = "Respuestas Preguntas", description = "Gestiona las respuestas a preguntas de un examen")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/respuestas-preguntas")
+@RequestMapping("/control-academico/examenes/{examenId}/estudiantes/{estudianteId}/respuestas-preguntas")
 public class RespuestaPreguntaController {
 
     private final RegistrarRespuestaPreguntaUseCase registrarUseCase;
     private final ActualizarRespuestaPreguntaUseCase actualizarUseCase;
     private final ListarRespuestasPreguntaUseCase listarUseCase;
+    private final ConsultarRespuestaPreguntaUseCase consultarUseCase;
+    private final EliminarRespuestaPreguntaUseCase eliminarUseCase;
 
 
     @PostMapping
     public ResponseEntity<RespuestaPreguntaDto> registrar(@PathVariable UUID examenId,
                                                           @PathVariable UUID estudianteId,
                                                           @Valid @RequestBody RegistrarRespuestaPreguntaDto request) {
-
+        request.setExamenId(examenId);
+        request.setEstudianteId(estudianteId);
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(request));
     }
 
     @PutMapping("/{respuestaId}")
     public ResponseEntity<RespuestaPreguntaDto> actualizar(@PathVariable UUID respuestaId,
                                                            @Valid @RequestBody ActualizarRespuestaPreguntaDto request) {
-
+        request.setId(respuestaId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
@@ -54,5 +60,20 @@ public class RespuestaPreguntaController {
     public ResponseEntity<List<RespuestaPreguntaDto>> listar(@PathVariable UUID examenId,
                                                              @PathVariable UUID estudianteId) {
         return ResponseEntity.ok(listarUseCase.listar(examenId, estudianteId));
+    }
+
+    @GetMapping("/{respuestaId}")
+    public ResponseEntity<RespuestaPreguntaDto> consultar(@PathVariable UUID examenId,
+                                                          @PathVariable UUID estudianteId,
+                                                          @PathVariable UUID respuestaId) {
+        return ResponseEntity.ok(consultarUseCase.consultarPorId(respuestaId));
+    }
+
+    @DeleteMapping("/{respuestaId}")
+    public ResponseEntity<Void> eliminar(@PathVariable UUID examenId,
+                                         @PathVariable UUID estudianteId,
+                                         @PathVariable UUID respuestaId) {
+        eliminarUseCase.eliminar(respuestaId);
+        return ResponseEntity.noContent().build();
     }
 }

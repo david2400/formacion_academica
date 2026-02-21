@@ -9,6 +9,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GrupoJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -46,5 +47,15 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
         return grupoJpaRepository.findById(id)
                 .map(grupoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
+    }
+
+    @Override
+    public List<GrupoDto> listar() {
+        return grupoMapper.toDtoList(grupoJpaRepository.findAll());
+    }
+
+    @Override
+    public void eliminar(UUID id) {
+        grupoJpaRepository.deleteById(id);
     }
 }

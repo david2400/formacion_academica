@@ -59,4 +59,9 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     public List<AulaDto> listar() {
         return aulaMapper.toDtoList(aulaJpaRepository.findAll());
     }
+
+    @Override
+    public void eliminar(UUID id) {
+        aulaJpaRepository.deleteById(id);
+    }
 }

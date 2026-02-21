@@ -52,4 +52,9 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
         }
         return acudienteJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrueAndIdNot(estudianteId, excluirAcudienteId);
     }
+
+    @Override
+    public void eliminar(UUID acudienteId) {
+        acudienteJpaRepository.deleteById(acudienteId);
+    }
 }

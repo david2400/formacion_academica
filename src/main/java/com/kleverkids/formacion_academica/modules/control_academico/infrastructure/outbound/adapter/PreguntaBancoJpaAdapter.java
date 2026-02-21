@@ -38,4 +38,16 @@ public class PreguntaBancoJpaAdapter implements PreguntaBancoRepositoryPort {
     public List<PreguntaBancoDto> listarPorTematica(UUID tematicaId) {
         return preguntaBancoMapper.toDtoList(preguntaBancoJpaRepository.findByTematicaId(tematicaId));
     }
+
+    @Override
+    public PreguntaBancoDto obtenerPorId(UUID preguntaId) {
+        return preguntaBancoJpaRepository.findById(preguntaId)
+                .map(preguntaBancoMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Pregunta no encontrada"));
+    }
+
+    @Override
+    public void eliminar(UUID preguntaId) {
+        preguntaBancoJpaRepository.deleteById(preguntaId);
+    }
 }

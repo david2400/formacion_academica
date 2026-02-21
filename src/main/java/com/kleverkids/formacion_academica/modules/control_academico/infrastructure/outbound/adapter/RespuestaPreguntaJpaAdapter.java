@@ -48,4 +48,16 @@ public class RespuestaPreguntaJpaAdapter implements RespuestaPreguntaRepositoryP
                 respuestaPreguntaJpaRepository.findByExamenIdAndEstudianteIdOrderByRegistradaEnAsc(examenId, estudianteId)
         );
     }
+
+    @Override
+    public RespuestaPreguntaDto obtenerPorId(UUID respuestaId) {
+        return respuestaPreguntaJpaRepository.findById(respuestaId)
+                .map(respuestaPreguntaMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Respuesta de pregunta no encontrada"));
+    }
+
+    @Override
+    public void eliminar(UUID respuestaId) {
+        respuestaPreguntaJpaRepository.deleteById(respuestaId);
+    }
 }

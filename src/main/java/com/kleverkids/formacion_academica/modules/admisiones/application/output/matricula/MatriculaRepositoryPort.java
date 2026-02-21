@@ -14,4 +14,6 @@ public interface MatriculaRepositoryPort {
     Optional<MatriculaDto> obtenerPorId(UUID matriculaId);
 
     List<MatriculaDto> listarPorEstudiante(UUID estudianteId);
+
+    void eliminar(UUID matriculaId);
 }

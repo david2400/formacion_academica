@@ -19,4 +19,6 @@ public interface AcudienteRepositoryPort {
     List<AcudienteDto> listarPorEstudiante(UUID estudianteId);
 
     boolean existePrincipalParaEstudiante(UUID estudianteId, UUID excluirAcudienteId);
+
+    void eliminar(UUID acudienteId);
 }

@@ -9,6 +9,9 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GradoJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.UUID;
+
 @Component
 public class GradoJpaAdapter implements GradoRepositoryPort {
 
@@ -30,7 +33,7 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     public GradoDto actualizar(ActualizarGradoDto request) {
         GradoEntity entity = gradoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
-
+        gradoMapper.updateEntityFromDto(request, entity);
         return gradoMapper.toDto(gradoJpaRepository.save(entity));
     }
 
@@ -44,5 +47,15 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
         return gradoJpaRepository.findById(id)
                 .map(gradoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
+    }
+
+    @Override
+    public List<GradoDto> listar() {
+        return gradoJpaRepository.findAll().stream().map(gradoMapper::toDto).toList();
+    }
+
+    @Override
+    public void eliminar(UUID id) {
+        gradoJpaRepository.deleteById(id);
     }
 }

@@ -41,4 +41,16 @@ public class TematicaJpaAdapter implements TematicaRepositoryPort {
                 TematicaJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }
+
+    @Override
+    public TematicaDto obtenerPorId(UUID tematicaId) {
+        return TematicaJpaRepository.findById(tematicaId)
+                .map(TematicaMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Temática no encontrada"));
+    }
+
+    @Override
+    public void eliminar(UUID tematicaId) {
+        TematicaJpaRepository.deleteById(tematicaId);
+    }
 }

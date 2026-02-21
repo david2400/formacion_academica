@@ -1,6 +1,8 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ActualizarRespuestaPreguntaUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ConsultarRespuestaPreguntaUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.EliminarRespuestaPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.ListarRespuestasPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.respuesta_pregunta.RegistrarRespuestaPreguntaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.estudiante_examen.EstudianteExamenRepositoryPort;
@@ -21,7 +23,9 @@ import java.util.UUID;
 @Service
 public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCase,
         ActualizarRespuestaPreguntaUseCase,
-        ListarRespuestasPreguntaUseCase {
+        ListarRespuestasPreguntaUseCase,
+        ConsultarRespuestaPreguntaUseCase,
+        EliminarRespuestaPreguntaUseCase {
 
     private final RespuestaPreguntaRepositoryPort respuestaRepository;
     private final EstudianteExamenRepositoryPort estudianteExamenRepository;
@@ -54,5 +58,16 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
     @Override
     public List<RespuestaPreguntaDto> listar(UUID examenId, UUID estudianteId) {
         return respuestaRepository.listarPorEstudiante(examenId, estudianteId);
+    }
+
+    @Override
+    public RespuestaPreguntaDto consultarPorId(UUID respuestaId) {
+        return respuestaRepository.obtenerPorId(respuestaId);
+    }
+
+    @Override
+    public void eliminar(UUID respuestaId) {
+        respuestaRepository.obtenerPorId(respuestaId);
+        respuestaRepository.eliminar(respuestaId);
     }
 }

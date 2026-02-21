@@ -14,4 +14,8 @@ public interface CriterioExamenRepositoryPort {
     CriterioExamenDto actualizar(ActualizarCriterioExamenDto request);
 
     List<CriterioExamenDto> listarPorExamen(UUID examenId);
+
+    CriterioExamenDto obtenerPorId(UUID criterioId);
+
+    void eliminar(UUID criterioId);
 }

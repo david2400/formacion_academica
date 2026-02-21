@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.inbound.rest;
 
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ConsultarMatriculaUseCase;
+import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.EliminarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ListarMatriculasUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,19 +25,22 @@ import java.util.UUID;
 @Description(value = "Gestiona las matriculas de los alumnos")
 @Tag(name = "Matricula")
 @RestController
-@RequestMapping("/api/admisiones/matriculas")
+@RequestMapping("/admisiones/matriculas")
 public class MatriculaController {
 
     private final RegistrarMatriculaUseCase registrarUseCase;
     private final ConsultarMatriculaUseCase consultarUseCase;
     private final ListarMatriculasUseCase listarUseCase;
+    private final EliminarMatriculaUseCase eliminarUseCase;
 
     public MatriculaController(RegistrarMatriculaUseCase registrarUseCase,
                                ConsultarMatriculaUseCase consultarUseCase,
-                               ListarMatriculasUseCase listarUseCase) {
+                               ListarMatriculasUseCase listarUseCase,
+                               EliminarMatriculaUseCase eliminarUseCase) {
         this.registrarUseCase = registrarUseCase;
         this.consultarUseCase = consultarUseCase;
         this.listarUseCase = listarUseCase;
+        this.eliminarUseCase = eliminarUseCase;
     }
 
     @PostMapping
@@ -51,5 +56,11 @@ public class MatriculaController {
     @GetMapping
     public ResponseEntity<List<MatriculaDto>> listarPorEstudiante(@RequestParam UUID estudianteId) {
         return ResponseEntity.ok(listarUseCase.listarPorEstudiante(estudianteId));
+    }
+
+    @DeleteMapping("/{matriculaId}")
+    public ResponseEntity<Void> eliminar(@PathVariable UUID matriculaId) {
+        eliminarUseCase.eliminar(matriculaId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -20,4 +20,6 @@ public interface AulaRepositoryPort {
     AulaDto obtenerPorId(UUID id);
 
     List<AulaDto> listar();
+
+    void eliminar(UUID id);
 }

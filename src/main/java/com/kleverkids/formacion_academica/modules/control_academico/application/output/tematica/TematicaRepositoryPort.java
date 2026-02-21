@@ -14,4 +14,8 @@ public interface TematicaRepositoryPort {
     TematicaDto actualizar(ActualizarTematicaDto request);
 
     List<TematicaDto> listarPorExamen(UUID examenId);
+
+    TematicaDto obtenerPorId(UUID tematicaId);
+
+    void eliminar(UUID tematicaId);
 }

@@ -39,4 +39,9 @@ public class MatriculaJpaAdapter implements MatriculaRepositoryPort {
     public List<MatriculaDto> listarPorEstudiante(UUID estudianteId) {
         return matriculaMapper.toDtoList(matriculaJpaRepository.findByEstudianteId(estudianteId));
     }
+
+    @Override
+    public void eliminar(UUID matriculaId) {
+        matriculaJpaRepository.deleteById(matriculaId);
+    }
 }

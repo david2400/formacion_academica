@@ -1,7 +1,9 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.application.services;
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.ActualizarAulaUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.ConsultarAulaUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.CrearAulaUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.EliminarAulaUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.ListarAulasUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.aula.AulaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
@@ -13,7 +15,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, ListarAulasUseCase {
+public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, ListarAulasUseCase,
+        ConsultarAulaUseCase, EliminarAulaUseCase {
 
     private final AulaRepositoryPort aulaRepositoryPort;
 
@@ -35,6 +38,17 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
     @Override
     public List<AulaDto> listar() {
         return aulaRepositoryPort.listar();
+    }
+
+    @Override
+    public AulaDto consultarPorId(UUID aulaId) {
+        return aulaRepositoryPort.obtenerPorId(aulaId);
+    }
+
+    @Override
+    public void eliminar(UUID aulaId) {
+        validarExistencia(aulaId);
+        aulaRepositoryPort.eliminar(aulaId);
     }
 
     private void validarNombreDisponible(String nombre, UUID aulaId) {

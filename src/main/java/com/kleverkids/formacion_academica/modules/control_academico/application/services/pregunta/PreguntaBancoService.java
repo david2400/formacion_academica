@@ -1,7 +1,9 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ActualizarPreguntaBancoUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ConsultarPreguntaBancoUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.CrearPreguntaBancoUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.EliminarPreguntaBancoUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.ListarPreguntasPorTematicaUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
@@ -17,7 +19,9 @@ import java.util.UUID;
 @Service
 public class PreguntaBancoService implements CrearPreguntaBancoUseCase,
         ActualizarPreguntaBancoUseCase,
-        ListarPreguntasPorTematicaUseCase {
+        ListarPreguntasPorTematicaUseCase,
+        ConsultarPreguntaBancoUseCase,
+        EliminarPreguntaBancoUseCase {
 
     private final PreguntaBancoRepositoryPort repositoryPort;
 
@@ -34,5 +38,16 @@ public class PreguntaBancoService implements CrearPreguntaBancoUseCase,
     @Override
     public List<PreguntaBancoDto> listar(UUID tematicaId) {
         return repositoryPort.listarPorTematica(tematicaId);
+    }
+
+    @Override
+    public PreguntaBancoDto consultarPorId(UUID preguntaId) {
+        return repositoryPort.obtenerPorId(preguntaId);
+    }
+
+    @Override
+    public void eliminar(UUID preguntaId) {
+        repositoryPort.obtenerPorId(preguntaId);
+        repositoryPort.eliminar(preguntaId);
     }
 }
