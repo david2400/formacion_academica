@@ -5,6 +5,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.CrearAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.EliminarAcudienteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ListarAcudientesPorEstudianteUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ListarAcudientesUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.CrearAcudienteDto;
@@ -33,18 +34,21 @@ public class AcudienteController {
     private final CrearAcudienteUseCase crearUseCase;
     private final ActualizarAcudienteUseCase actualizarUseCase;
     private final ConsultarAcudienteUseCase consultarUseCase;
-    private final ListarAcudientesPorEstudianteUseCase listarUseCase;
+    private final ListarAcudientesUseCase listarUseCase;
+    private final ListarAcudientesPorEstudianteUseCase listarPorEstudianteUseCase;
     private final EliminarAcudienteUseCase eliminarUseCase;
 
     public AcudienteController(CrearAcudienteUseCase crearUseCase,
                                ActualizarAcudienteUseCase actualizarUseCase,
                                ConsultarAcudienteUseCase consultarUseCase,
-                               ListarAcudientesPorEstudianteUseCase listarUseCase,
+                               ListarAcudientesUseCase listarUseCase,
+                               ListarAcudientesPorEstudianteUseCase listarPorEstudianteUseCase,
                                EliminarAcudienteUseCase eliminarUseCase) {
         this.crearUseCase = crearUseCase;
         this.actualizarUseCase = actualizarUseCase;
         this.consultarUseCase = consultarUseCase;
         this.listarUseCase = listarUseCase;
+        this.listarPorEstudianteUseCase = listarPorEstudianteUseCase;
         this.eliminarUseCase = eliminarUseCase;
     }
 
@@ -76,9 +80,14 @@ public class AcudienteController {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(acudienteId));
     }
 
+    @GetMapping
+    public ResponseEntity<List<AcudienteDto>> listar() {
+        return ResponseEntity.ok(listarUseCase.listar());
+    }
+
     @GetMapping("/estudiante/{estudianteId}")
     public ResponseEntity<List<AcudienteDto>> listarPorEstudiante(@PathVariable UUID estudianteId) {
-        return ResponseEntity.ok(listarUseCase.listar(estudianteId));
+        return ResponseEntity.ok(listarPorEstudianteUseCase.listar(estudianteId));
     }
 
     @DeleteMapping("/{acudienteId}")

@@ -1,9 +1,11 @@
 package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.inbound.rest;
 
+import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ActualizarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ConsultarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.EliminarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ListarMatriculasUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.ActualizarMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,15 +31,18 @@ import java.util.UUID;
 @RequestMapping("/admisiones/matriculas")
 public class MatriculaController {
 
+    private final ActualizarMatriculaUseCase actualizarUseCase;
     private final RegistrarMatriculaUseCase registrarUseCase;
     private final ConsultarMatriculaUseCase consultarUseCase;
     private final ListarMatriculasUseCase listarUseCase;
     private final EliminarMatriculaUseCase eliminarUseCase;
 
-    public MatriculaController(RegistrarMatriculaUseCase registrarUseCase,
+    public MatriculaController(ActualizarMatriculaUseCase actualizarUseCase,
+                               RegistrarMatriculaUseCase registrarUseCase,
                                ConsultarMatriculaUseCase consultarUseCase,
                                ListarMatriculasUseCase listarUseCase,
                                EliminarMatriculaUseCase eliminarUseCase) {
+        this.actualizarUseCase = actualizarUseCase;
         this.registrarUseCase = registrarUseCase;
         this.consultarUseCase = consultarUseCase;
         this.listarUseCase = listarUseCase;
@@ -46,6 +52,21 @@ public class MatriculaController {
     @PostMapping
     public ResponseEntity<MatriculaDto> registrar(@RequestBody CrearMatriculaDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(request));
+    }
+
+    @PutMapping("/{matriculaId}")
+    public ResponseEntity<MatriculaDto> actualizar(@PathVariable UUID matriculaId,
+                                                  @RequestBody ActualizarMatriculaDto request) {
+        request = new ActualizarMatriculaDto(
+            matriculaId,
+            request.estudianteId(),
+            request.gradoId(),
+            request.grupoId(),
+            request.fechaMatricula(),
+            request.estado(),
+            request.observaciones()
+        );
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @GetMapping("/{matriculaId}")
