@@ -4,6 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionEventPublisher;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionCreatedEvent;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionDeletedEvent;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionUpdatedEvent;
@@ -16,20 +17,27 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class QuestionService implements CreateQuestionUseCase, UpdateQuestionUseCase,
-        GetQuestionUseCase, DeleteQuestionUseCase, SearchQuestionsUseCase, ValidateAnswerUseCase {
+public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUseCase,
+        GetQuestionUseCase, DeleteQuestionUseCase, SearchQuestionsUseCase, ValidateAnswerUseCase,
+        CrearPreguntaBancoUseCase, ActualizarPreguntaBancoUseCase, ListarPreguntasPorTematicaUseCase,
+        ConsultarPreguntaBancoUseCase, EliminarPreguntaBancoUseCase {
     
+    // Use Cases del sistema en inglés
     private final QuestionRepository questionRepository;
     private final QuestionEventPublisher eventPublisher;
     private final QuestionMapper questionMapper;
     private final AnswerValidationService validationService;
-
     
+    // Use Cases del sistema en español
+    private final PreguntaBancoRepositoryPort preguntaBancoRepositoryPort;
+    
+    // Implementación de Use Cases en inglés
     @Override
     public QuestionResponse create(CreateQuestionCommand command) {
         Question question = questionMapper.toDomain(command);
@@ -94,5 +102,32 @@ public class QuestionService implements CreateQuestionUseCase, UpdateQuestionUse
         Question question = questionRepository.findById(questionId)
             .orElseThrow(() -> new QuestionNotFoundException(questionId));
         return validationService.validate(question, request);
+    }
+    
+    // Implementación de Use Cases en español
+    @Override
+    public PreguntaBancoDto crear(CrearPreguntaBancoDto request) {
+        return preguntaBancoRepositoryPort.guardar(request);
+    }
+
+    @Override
+    public PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request) {
+        return preguntaBancoRepositoryPort.actualizar(request);
+    }
+
+    @Override
+    public List<PreguntaBancoDto> listar(UUID tematicaId) {
+        return preguntaBancoRepositoryPort.listarPorTematica(tematicaId);
+    }
+
+    @Override
+    public PreguntaBancoDto consultarPorId(UUID preguntaId) {
+        return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
+    }
+
+    @Override
+    public void eliminar(UUID preguntaId) {
+        preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
+        preguntaBancoRepositoryPort.eliminar(preguntaId);
     }
 }
