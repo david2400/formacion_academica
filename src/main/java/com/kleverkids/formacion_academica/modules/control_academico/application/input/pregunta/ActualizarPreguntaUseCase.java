@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.p
 
 import java.util.UUID;
 
-public interface UpdateQuestionUseCase {
+public interface ActualizarPreguntaUseCase {
     
-    QuestionResponse update(UUID id, UpdateQuestionCommand command);
+    QuestionResponse actualizar(UUID id, UpdateQuestionCommand command);
 }

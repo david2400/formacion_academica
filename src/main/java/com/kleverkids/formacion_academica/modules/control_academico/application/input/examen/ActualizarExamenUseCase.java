@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.UUID;
 
-public interface UpdateExamUseCase {
+public interface ActualizarExamenUseCase {
     
-    ExamResponse update(UUID id, UpdateExamCommand command);
+    ExamResponse actualizar(UUID id, UpdateExamCommand command);
 }

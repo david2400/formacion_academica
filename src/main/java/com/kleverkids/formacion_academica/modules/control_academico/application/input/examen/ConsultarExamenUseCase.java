@@ -4,7 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.UUID;
 
-public interface GetExamUseCase {
+public interface ConsultarExamenUseCase {
     
-    ExamResponse getById(UUID id);
+    ExamResponse consultarPorId(UUID id);
 }

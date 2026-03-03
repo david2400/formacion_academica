@@ -4,7 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.UUID;
 
-public interface StartExamUseCase {
+public interface IniciarExamenUseCase {
     
-    ExamSubmissionResponse start(UUID examId, UUID studentId);
+    ExamSubmissionResponse iniciar(UUID examenId, UUID estudianteId);
 }

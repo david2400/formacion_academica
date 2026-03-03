@@ -29,21 +29,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateExamUseCase,
-        DeleteExamUseCase, SearchExamsUseCase, StartExamUseCase, SubmitExamUseCase,
-        GradeExamUseCase, GetExamResultsUseCase, CrearExamenUseCase, RegistrarCalificacionPersonalizadaUseCase {
+public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUseCase,
+        EliminarExamenUseCase, BuscarExamenesUseCase, IniciarExamenUseCase, EnviarExamenUseCase,
+        CalificarExamenUseCase, ObtenerResultadosExamenUseCase, CrearExamenUseCase, RegistrarCalificacionPersonalizadaUseCase {
     
     // Use Cases del sistema en inglés
     private final ExamRepositoryPort examRepository;
     private final ExamSubmissionRepositoryPort submissionRepository;
     private final ExamResultRepositoryPort resultRepository;
-    private final ExamScoringService scoringService;
+    private final ServicioCalificacionExamen scoringService;
     
     // Use Cases del sistema en español
     private final ExamenRepositoryPort examenRepositoryPort;
     
     // Implementación de Use Cases en inglés
-    @Override
     public ExamResponse create(CreateExamCommand command) {
         Exam exam = new Exam(
             null,
@@ -63,7 +62,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamResponse.fromDomain(saved);
     }
     
-    @Override
     @Transactional(readOnly = true)
     public ExamResponse getById(UUID id) {
         Exam exam = examRepository.findById(id)
@@ -71,7 +69,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamResponse.fromDomain(exam);
     }
     
-    @Override
     public ExamResponse update(UUID id, UpdateExamCommand command) {
         Exam exam = examRepository.findById(id)
             .orElseThrow(() -> new ExamNotFoundException(id));
@@ -90,7 +87,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamResponse.fromDomain(saved);
     }
     
-    @Override
     public void delete(UUID id) {
         Exam exam = examRepository.findById(id)
             .orElseThrow(() -> new ExamNotFoundException(id));
@@ -98,14 +94,12 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         examRepository.save(exam);
     }
     
-    @Override
     @Transactional(readOnly = true)
     public Page<ExamResponse> search(ExamSearchCriteria criteria, Pageable pageable) {
         return examRepository.search(criteria, pageable)
             .map(ExamResponse::fromDomain);
     }
     
-    @Override
     public ExamSubmissionResponse start(UUID examId, UUID studentId) {
         Exam exam = examRepository.findById(examId)
             .orElseThrow(() -> new ExamNotFoundException(examId));
@@ -119,7 +113,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamSubmissionResponse.fromDomain(saved);
     }
     
-    @Override
     public ExamResultResponse submit(UUID examId, SubmitExamCommand command) {
         Exam exam = examRepository.findById(examId)
             .orElseThrow(() -> new ExamNotFoundException(examId));
@@ -144,7 +137,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamResultResponse.fromDomain(savedResult);
     }
     
-    @Override
     public ExamResultResponse grade(UUID examId, UUID submissionId, GradeExamCommand command) {
         ExamSubmission submission = submissionRepository.findById(submissionId)
             .orElseThrow(() -> new IllegalArgumentException("Entrega no encontrada"));
@@ -173,7 +165,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return ExamResultResponse.fromDomain(savedResult);
     }
     
-    @Override
     @Transactional(readOnly = true)
     public List<ExamResultResponse> getResults(UUID examId) {
         return resultRepository.findByExamId(examId).stream()
@@ -181,7 +172,6 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
             .collect(Collectors.toList());
     }
     
-    @Override
     @Transactional(readOnly = true)
     public ExamResultResponse getStudentResult(UUID examId, UUID studentId) {
         ExamResult result = resultRepository.findByExamIdAndStudentId(examId, studentId)
@@ -218,6 +208,52 @@ public class ExamenService implements CreateExamUseCase, GetExamUseCase, UpdateE
         return dtos.stream()
             .map(d -> EvaluationCriteria.create(d.id(), d.name(), d.description(), d.weight(), d.maxScore()))
             .collect(Collectors.toList());
+    }
+    
+    // Implementación de Use Cases en español
+    @Override
+    public ExamResponse consultarPorId(UUID id) {
+        return getById(id);
+    }
+    
+    @Override
+    public ExamResponse actualizar(UUID id, UpdateExamCommand command) {
+        return update(id, command);
+    }
+    
+    @Override
+    public void eliminar(UUID id) {
+        delete(id);
+    }
+    
+    @Override
+    public Page<ExamResponse> buscar(ExamSearchCriteria criterios, Pageable pageable) {
+        return search(criterios, pageable);
+    }
+    
+    @Override
+    public ExamSubmissionResponse iniciar(UUID examenId, UUID estudianteId) {
+        return start(examenId, estudianteId);
+    }
+    
+    @Override
+    public ExamResultResponse enviar(UUID examenId, SubmitExamCommand command) {
+        return submit(examenId, command);
+    }
+    
+    @Override
+    public ExamResultResponse calificar(UUID examenId, UUID envioId, GradeExamCommand command) {
+        return grade(examenId, envioId, command);
+    }
+    
+    @Override
+    public List<ExamResultResponse> obtenerResultados(UUID examenId) {
+        return getResults(examenId);
+    }
+    
+    @Override
+    public ExamResultResponse obtenerResultadoEstudiante(UUID examenId, UUID estudianteId) {
+        return getStudentResult(examenId, estudianteId);
     }
     
     private Object extractAnswer(QuestionAnswerDto dto) {

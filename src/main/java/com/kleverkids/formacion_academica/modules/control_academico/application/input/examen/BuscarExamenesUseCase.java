@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface SearchExamsUseCase {
+public interface BuscarExamenesUseCase {
     
-    Page<ExamResponse> search(ExamSearchCriteria criteria, Pageable pageable);
+    Page<ExamResponse> buscar(ExamSearchCriteria criterios, Pageable pageable);
 }

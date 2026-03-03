@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.UUID;
 
-public interface SubmitExamUseCase {
+public interface EnviarExamenUseCase {
     
-    ExamResultResponse submit(UUID examId, SubmitExamCommand command);
+    ExamResultResponse enviar(UUID examenId, SubmitExamCommand command);
 }

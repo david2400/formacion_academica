@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.UUID;
 
-public interface GradeExamUseCase {
+public interface CalificarExamenUseCase {
     
-    ExamResultResponse grade(UUID examId, UUID submissionId, GradeExamCommand command);
+    ExamResultResponse calificar(UUID examenId, UUID envioId, GradeExamCommand command);
 }

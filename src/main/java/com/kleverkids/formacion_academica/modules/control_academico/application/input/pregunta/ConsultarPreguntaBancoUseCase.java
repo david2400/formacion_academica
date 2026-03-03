@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface ConsultarPreguntaBancoUseCase {
 
-    PreguntaBancoDto consultarPorId(UUID preguntaId);
+    PreguntaBancoDto consultarPreguntaBancoPorId(UUID preguntaId);
 }

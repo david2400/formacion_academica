@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.questions.application.service;
 
-import com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta.AnswerValidationService;
+import com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta.ServicioValidacionRespuesta;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.AnswerValidationRequest;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ValidationResult;
@@ -17,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnswerValidationServiceTest {
     
-    private AnswerValidationService validationService;
+    private ServicioValidacionRespuesta validationService;
     
     @BeforeEach
     void setUp() {
-        validationService = new AnswerValidationService();
+        validationService = new ServicioValidacionRespuesta();
     }
     
     @Test

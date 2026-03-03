@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import java.util.UUID;
 
-public interface DeleteQuestionUseCase {
+public interface EliminarPreguntaUseCase {
     
-    void delete(UUID id);
+    void eliminar(UUID id);
 }

@@ -22,12 +22,12 @@ import java.util.UUID;
 public class PreguntaController {
     
     // Use Cases del QuestionController original
-    private final CreateQuestionUseCase createQuestionUseCase;
-    private final UpdateQuestionUseCase updateQuestionUseCase;
-    private final GetQuestionUseCase getQuestionUseCase;
-    private final DeleteQuestionUseCase deleteQuestionUseCase;
-    private final SearchQuestionsUseCase searchQuestionsUseCase;
-    private final ValidateAnswerUseCase validateAnswerUseCase;
+    private final CrearPreguntaUseCase crearPreguntaUseCase;
+    private final ActualizarPreguntaUseCase actualizarPreguntaUseCase;
+    private final ConsultarPreguntaUseCase consultarPreguntaUseCase;
+    private final EliminarPreguntaUseCase eliminarPreguntaUseCase;
+    private final BuscarPreguntasUseCase buscarPreguntasUseCase;
+    private final ValidarRespuestaUseCase validarRespuestaUseCase;
     
     // Use Cases del PreguntaBancoController original
     private final CrearPreguntaBancoUseCase crearPreguntaBancoUseCase;
@@ -40,29 +40,26 @@ public class PreguntaController {
     @PostMapping
     @Operation(summary = "Crear una nueva pregunta", description = "Crea una pregunta de cualquier tipo usando JSON polimórfico")
     public ResponseEntity<QuestionResponse> crear(@Valid @RequestBody CreateQuestionCommand command) {
-        QuestionResponse response = createQuestionUseCase.create(command);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(crearPreguntaUseCase.create(command));
     }
     
     @GetMapping("/{preguntaId}")
     @Operation(summary = "Obtener pregunta por ID", description = "Recupera una pregunta por su identificador único")
     public ResponseEntity<QuestionResponse> consultar(@PathVariable UUID preguntaId) {
-        QuestionResponse response = getQuestionUseCase.getById(preguntaId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(consultarPreguntaUseCase.consultarPorId(preguntaId));
     }
     
     @PutMapping("/{preguntaId}")
     @Operation(summary = "Actualizar una pregunta", description = "Actualiza una pregunta existente")
     public ResponseEntity<QuestionResponse> actualizar(@PathVariable UUID preguntaId,
                                                    @Valid @RequestBody UpdateQuestionCommand command) {
-        QuestionResponse response = updateQuestionUseCase.update(preguntaId, command);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(actualizarPreguntaUseCase.actualizar(preguntaId, command));
     }
     
     @DeleteMapping("/{preguntaId}")
     @Operation(summary = "Eliminar una pregunta", description = "Elimina una pregunta (soft delete)")
     public ResponseEntity<Void> eliminar(@PathVariable UUID preguntaId) {
-        deleteQuestionUseCase.delete(preguntaId);
+        eliminarPreguntaUseCase.eliminar(preguntaId);
         return ResponseEntity.noContent().build();
     }
     
@@ -70,7 +67,7 @@ public class PreguntaController {
     @Operation(summary = "Validar una respuesta", description = "Valida la respuesta de un estudiante contra la pregunta")
     public ResponseEntity<ValidationResult> validarRespuesta(@PathVariable UUID preguntaId,
                                                            @RequestBody AnswerValidationRequest request) {
-        ValidationResult result = validateAnswerUseCase.validate(preguntaId, request);
+        ValidationResult result = validarRespuestaUseCase.validar(preguntaId, request);
         return ResponseEntity.ok(result);
     }
     
@@ -99,7 +96,7 @@ public class PreguntaController {
     @GetMapping("/banco/{tematicaId}/{preguntaId}")
     public ResponseEntity<PreguntaBancoDto> consultarEnBanco(@PathVariable UUID tematicaId,
                                                             @PathVariable UUID preguntaId) {
-        return ResponseEntity.ok(consultarPreguntaBancoUseCase.consultarPorId(preguntaId));
+        return ResponseEntity.ok(consultarPreguntaBancoUseCase.consultarPreguntaBancoPorId(preguntaId));
     }
 
     @DeleteMapping("/banco/{tematicaId}/{preguntaId}")

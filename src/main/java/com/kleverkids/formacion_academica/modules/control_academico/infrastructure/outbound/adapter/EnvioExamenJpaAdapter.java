@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class ExamSubmissionPersistenceJpaAdapter implements ExamSubmissionRepositoryPort {
+public class EnvioExamenJpaAdapter implements ExamSubmissionRepositoryPort {
     
     private final ExamSubmissionJpaRepository jpaRepository;
     private final ExamPersistenceMapper mapper;
@@ -29,12 +29,8 @@ public class ExamSubmissionPersistenceJpaAdapter implements ExamSubmissionReposi
     
     @Override
     public Optional<ExamSubmission> findById(UUID id) {
-        return jpaRepository.findById(id).map(mapper::toDomain);
-    }
-    
-    @Override
-    public Optional<ExamSubmission> findByExamIdAndStudentId(UUID examId, UUID studentId) {
-        return jpaRepository.findByExamIdAndStudentId(examId, studentId).map(mapper::toDomain);
+        return jpaRepository.findById(id)
+            .map(mapper::toDomain);
     }
     
     @Override
@@ -42,5 +38,15 @@ public class ExamSubmissionPersistenceJpaAdapter implements ExamSubmissionReposi
         return jpaRepository.findByExamId(examId).stream()
             .map(mapper::toDomain)
             .collect(Collectors.toList());
+    }
+    
+    @Override
+    public Optional<ExamSubmission> findByExamIdAndStudentId(UUID examId, UUID studentId) {
+        return jpaRepository.findByExamIdAndStudentId(examId, studentId)
+            .map(mapper::toDomain);
+    }
+    
+    public void deleteById(UUID id) {
+        jpaRepository.deleteById(id);
     }
 }

@@ -23,8 +23,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUseCase,
-        GetQuestionUseCase, DeleteQuestionUseCase, SearchQuestionsUseCase, ValidateAnswerUseCase,
+public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaUseCase, ActualizarPreguntaUseCase,
+        EliminarPreguntaUseCase, BuscarPreguntasUseCase, ValidarRespuestaUseCase,
         CrearPreguntaBancoUseCase, ActualizarPreguntaBancoUseCase, ListarPreguntasPorTematicaUseCase,
         ConsultarPreguntaBancoUseCase, EliminarPreguntaBancoUseCase {
     
@@ -32,7 +32,7 @@ public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUse
     private final QuestionRepository questionRepository;
     private final QuestionEventPublisher eventPublisher;
     private final QuestionMapper questionMapper;
-    private final AnswerValidationService validationService;
+    private final ServicioValidacionRespuesta validationService;
     
     // Use Cases del sistema en español
     private final PreguntaBancoRepositoryPort preguntaBancoRepositoryPort;
@@ -55,7 +55,7 @@ public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUse
     }
     
     @Override
-    public QuestionResponse update(UUID id, UpdateQuestionCommand command) {
+    public QuestionResponse actualizar(UUID id, UpdateQuestionCommand command) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
         
@@ -72,13 +72,12 @@ public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUse
     
     @Override
     @Transactional(readOnly = true)
-    public QuestionResponse getById(UUID id) {
+    public QuestionResponse consultarPorId(UUID id) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
         return QuestionResponse.fromDomain(question);
     }
     
-    @Override
     public void delete(UUID id) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
@@ -89,14 +88,12 @@ public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUse
         eventPublisher.publish(new QuestionDeletedEvent(id));
     }
     
-    @Override
     @Transactional(readOnly = true)
     public Page<QuestionResponse> search(QuestionSearchCriteria criteria, Pageable pageable) {
         return questionRepository.search(criteria, pageable)
             .map(QuestionResponse::fromDomain);
     }
     
-    @Override
     @Transactional(readOnly = true)
     public ValidationResult validate(UUID questionId, AnswerValidationRequest request) {
         Question question = questionRepository.findById(questionId)
@@ -121,13 +118,24 @@ public class PreguntaService implements CreateQuestionUseCase, UpdateQuestionUse
     }
 
     @Override
-    public PreguntaBancoDto consultarPorId(UUID preguntaId) {
-        return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
-    }
-
-    @Override
     public void eliminar(UUID preguntaId) {
         preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
         preguntaBancoRepositoryPort.eliminar(preguntaId);
+    }
+    
+    // Implementación de ConsultarPreguntaBancoUseCase
+    @Override
+    public PreguntaBancoDto consultarPreguntaBancoPorId(UUID preguntaId) {
+        return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
+    }
+    
+    @Override
+    public Page<QuestionResponse> buscar(QuestionSearchCriteria criterios, Pageable pageable) {
+        return search(criterios, pageable);
+    }
+    
+    @Override
+    public ValidationResult validar(UUID preguntaId, AnswerValidationRequest request) {
+        return validate(preguntaId, request);
     }
 }

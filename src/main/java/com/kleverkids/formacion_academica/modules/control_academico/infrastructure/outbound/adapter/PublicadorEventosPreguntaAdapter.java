@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class QuestionEventPublisherAdapter implements QuestionEventPublisher {
+public class PublicadorEventosPreguntaAdapter implements QuestionEventPublisher {
     
-    private static final Logger log = LoggerFactory.getLogger(QuestionEventPublisherAdapter.class);
+    private static final Logger log = LoggerFactory.getLogger(PublicadorEventosPreguntaAdapter.class);
     
     private final ApplicationEventPublisher applicationEventPublisher;
 

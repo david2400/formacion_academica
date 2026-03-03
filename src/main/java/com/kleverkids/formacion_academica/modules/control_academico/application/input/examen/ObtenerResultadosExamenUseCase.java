@@ -5,9 +5,9 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import java.util.List;
 import java.util.UUID;
 
-public interface GetExamResultsUseCase {
+public interface ObtenerResultadosExamenUseCase {
     
-    List<ExamResultResponse> getResults(UUID examId);
+    List<ExamResultResponse> obtenerResultados(UUID examenId);
     
-    ExamResultResponse getStudentResult(UUID examId, UUID studentId);
+    ExamResultResponse obtenerResultadoEstudiante(UUID examenId, UUID estudianteId);
 }

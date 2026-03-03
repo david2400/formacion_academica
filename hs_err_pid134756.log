@@ -1,0 +1,235 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes. Error detail: AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:44), pid=134756, tid=134532
+#
+# JRE version:  (21.0.8+9) (build )
+# Java VM: OpenJDK 64-Bit Server VM (21.0.8+9-LTS, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xmx256m -Dclassworlds.conf=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798\bin\m2.conf -Dmaven.home=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798 -Dlibrary.jansi.path=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798\lib\jansi-native -Dmaven.multiModuleProjectDirectory=C:\Users\davi4\Documents\Proyectos\JAVA\formacion_academica org.codehaus.plexus.classworlds.launcher.Launcher clean compile -q
+
+Host: AMD Ryzen 7 3700X 8-Core Processor             , 16 cores, 31G,  Windows 11 , 64 bit Build 26100 (10.0.26100.7705)
+Time: Mon Mar  2 22:25:07 2026 SA Pacific Standard Time elapsed time: 2.406282 seconds (0d 0h 0m 2s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001b1b9cc5120):  JavaThread "Unknown thread" [_thread_in_vm, id=134532, stack(0x00000016f8900000,0x00000016f8a00000) (1024K)]
+
+Stack: [0x00000016f8900000,0x00000016f8a00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6deaf9]
+V  [jvm.dll+0x8bccc3]
+V  [jvm.dll+0x8bf07e]
+V  [jvm.dll+0x8bf763]
+V  [jvm.dll+0x287836]
+V  [jvm.dll+0xc15f7]
+V  [jvm.dll+0x33dc75]
+V  [jvm.dll+0x336371]
+V  [jvm.dll+0x884fd9]
+V  [jvm.dll+0x3c9021]
+V  [jvm.dll+0x86e203]
+V  [jvm.dll+0x45cfae]
+V  [jvm.dll+0x45ec31]
+C  [jli.dll+0x52ab]
+C  [ucrtbase.dll+0x37b0]
+C  [KERNEL32.DLL+0x2e8d7]
+C  [ntdll.dll+0x8c40c]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff8c8c81188, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000001b1bc25eab0 WorkerThread "GC Thread#0"                     [id=132624, stack(0x00000016f8a00000,0x00000016f8b00000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff8c8372860]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007ff8c8cf54f8] Heap_lock - owner thread: 0x000001b1b9cc5120
+
+Heap address: 0x00000000f0000000, size: 256 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 12 size 40 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x00000000f0000000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff8c87682f9]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.071 Loaded shared library C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff680fb0000 - 0x00007ff680fbe000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\java.exe
+0x00007ff95f320000 - 0x00007ff95f588000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff95d0c0000 - 0x00007ff95d189000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff95c8b0000 - 0x00007ff95cca1000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff95c760000 - 0x00007ff95c8ab000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff956780000 - 0x00007ff956798000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\jli.dll
+0x00007ff95f110000 - 0x00007ff95f2d6000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff956760000 - 0x00007ff95677b000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\VCRUNTIME140.dll
+0x00007ff95ad00000 - 0x00007ff95af93000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7824_none_3e0870b2e3345462\COMCTL32.dll
+0x00007ff95eee0000 - 0x00007ff95ef89000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff95e9c0000 - 0x00007ff95e9eb000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff95cd70000 - 0x00007ff95ce9b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff95c6b0000 - 0x00007ff95c753000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff95bc00000 - 0x00007ff95bc27000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff95d200000 - 0x00007ff95d231000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ff9566b0000 - 0x00007ff9566bc000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\vcruntime140_1.dll
+0x00007ff92fac0000 - 0x00007ff92fb4d000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\msvcp140.dll
+0x00007ff8c8030000 - 0x00007ff8c8dd7000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\server\jvm.dll
+0x00007ff95d700000 - 0x00007ff95d7b4000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff95e7f0000 - 0x00007ff95e896000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff95d560000 - 0x00007ff95d678000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff95d680000 - 0x00007ff95d6f4000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff94c900000 - 0x00007ff94c935000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff9538e0000 - 0x00007ff9538eb000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff95ba60000 - 0x00007ff95babe000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ff95b990000 - 0x00007ff95b9a4000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ff95a030000 - 0x00007ff95a04b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ff955d50000 - 0x00007ff955d5a000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\jimage.dll
+0x00007ff95b3b0000 - 0x00007ff95b5f2000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ff95eaf0000 - 0x00007ff95ee76000 	C:\WINDOWS\System32\combase.dll
+0x00007ff95d2c0000 - 0x00007ff95d397000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ff95b2a0000 - 0x00007ff95b2db000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ff95d010000 - 0x00007ff95d0b5000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff942f10000 - 0x00007ff942f2f000 	C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\java.dll
+
+JVMTI agents: none
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7824_none_3e0870b2e3345462;C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin\server
+
+VM Arguments:
+jvm_args: -Xmx256m -Dclassworlds.conf=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798\bin\m2.conf -Dmaven.home=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798 -Dlibrary.jansi.path=C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798\lib\jansi-native -Dmaven.multiModuleProjectDirectory=C:\Users\davi4\Documents\Proyectos\JAVA\formacion_academica 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher clean compile -q
+java_class_path (initial): C:\Users\davi4\.m2\wrapper\dists\apache-maven-3.9.12\59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798\boot\plexus-classworlds-2.9.0.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 13                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 268435456                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 268435456                                 {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7602480                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122027880                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122027880                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 268435456                              {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Amazon Corretto\jdk21.0.8_9
+PATH=C:\Program Files\Amazon Corretto\jdk21.0.8_9\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\app\davi4\product\18.0.0\dbhomeXE\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;;C:\Program Files\Docker\Docker\resources\bin;C:\composer;C:\AppServ\php7;C:\Program Files\Java\jdk1.8.0_111\bin;C:\Program Files\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Users\davi4\.console-ninja\.bin;C:\Users\davi4\AppData\Local\Microsoft\WindowsApps;C:\Users\davi4\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\davi4\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\davi4\AppData\Local\GitHubDesktop\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.2.2\bin;C:\Users\davi4\AppData\Roaming\Composer\vendor\bin;C:\AppServ\Apache24\bin;C:\AppServ\php7;C:\AppServ\MySQL\bin;C:\Program Files\Java\jdk-17;C:\flutter\bin;C:\Users\davi4\AppData\Roaming\npm;C:\Users\davi4\AppData\Local\Microsoft\WindowsApps;C:\Users\davi4\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\davi4\AppData\Local\Programs\Windsurf\bin
+USERNAME=davi4
+LANG=en_US.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
+TMP=C:\Users\davi4\AppData\Local\Temp
+TEMP=C:\Users\davi4\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.7705)
+OS uptime: 0 days 3:31 hours
+Hyper-V role detected
+
+CPU: total 16 (initial active 16) (16 cores per cpu, 2 threads per core) family 23 model 113 stepping 0 microcode 0x8701013, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4a, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, hv, rdtscp, rdpid, f16c
+Processor Information for the first 16 processors :
+  Max Mhz: 3593, Current Mhz: 3593, Mhz Limit: 3593
+
+Memory: 4k page, system-wide physical 32719M (709M free)
+TotalPageFile size 89772M (AvailPageFile size 13M)
+current process WorkingSet (physical memory assigned to process): 12M, peak: 12M
+current process commit charge ("private bytes"): 59M, peak: 60M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.8+9-LTS) for windows-amd64 JRE (21.0.8+9-LTS), built on 2025-07-09T19:22:31Z by "Administrator" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.

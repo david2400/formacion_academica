@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.p
 
 import java.util.UUID;
 
-public interface ValidateAnswerUseCase {
+public interface ValidarRespuestaUseCase {
     
-    ValidationResult validate(UUID questionId, AnswerValidationRequest request);
+    ValidationResult validar(UUID preguntaId, AnswerValidationRequest request);
 }

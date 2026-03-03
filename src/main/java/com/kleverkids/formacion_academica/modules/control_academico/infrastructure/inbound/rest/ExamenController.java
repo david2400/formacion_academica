@@ -22,15 +22,14 @@ public class ExamenController {
     
     // Use Cases existentes
     private final CrearExamenUseCase crearExamenUseCase;
-    private final CreateExamUseCase createExamUseCase;
-    private final GetExamUseCase getExamUseCase;
-    private final UpdateExamUseCase updateExamUseCase;
-    private final DeleteExamUseCase deleteExamUseCase;
-    private final SearchExamsUseCase searchExamsUseCase;
-    private final StartExamUseCase startExamUseCase;
-    private final SubmitExamUseCase submitExamUseCase;
-    private final GradeExamUseCase gradeExamUseCase;
-    private final GetExamResultsUseCase getExamResultsUseCase;
+    private final ConsultarExamenUseCase consultarExamenUseCase;
+    private final ActualizarExamenUseCase actualizarExamenUseCase;
+    private final EliminarExamenUseCase eliminarExamenUseCase;
+    private final BuscarExamenesUseCase buscarExamenesUseCase;
+    private final IniciarExamenUseCase iniciarExamenUseCase;
+    private final EnviarExamenUseCase enviarExamenUseCase;
+    private final CalificarExamenUseCase calificarExamenUseCase;
+    private final ObtenerResultadosExamenUseCase obtenerResultadosExamenUseCase;
     private final RegistrarCalificacionPersonalizadaUseCase registrarCalificacionPersonalizadaUseCase;
 
     // Endpoints básicos
@@ -41,19 +40,17 @@ public class ExamenController {
     
     @GetMapping("/{examenId}")
     public ResponseEntity<ExamResponse> consultar(@PathVariable UUID examenId) {
-        ExamResponse response = getExamUseCase.getById(examenId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(consultarExamenUseCase.consultarPorId(examenId));
     }
     
     @PutMapping("/{examenId}")
     public ResponseEntity<ExamResponse> actualizar(@PathVariable UUID examenId, @Valid @RequestBody UpdateExamCommand command) {
-        ExamResponse response = updateExamUseCase.update(examenId, command);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(actualizarExamenUseCase.actualizar(examenId, command));
     }
     
     @DeleteMapping("/{examenId}")
     public ResponseEntity<Void> eliminar(@PathVariable UUID examenId) {
-        deleteExamUseCase.delete(examenId);
+        eliminarExamenUseCase.eliminar(examenId);
         return ResponseEntity.noContent().build();
     }
     
@@ -67,7 +64,7 @@ public class ExamenController {
     public ResponseEntity<ExamSubmissionResponse> iniciar(
             @PathVariable UUID examenId,
             @RequestParam UUID estudianteId) {
-        ExamSubmissionResponse response = startExamUseCase.start(examenId, estudianteId);
+        ExamSubmissionResponse response = iniciarExamenUseCase.iniciar(examenId, estudianteId);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     
@@ -75,7 +72,7 @@ public class ExamenController {
     public ResponseEntity<ExamResultResponse> enviar(
             @PathVariable UUID examenId,
             @RequestBody SubmitExamCommand command) {
-        ExamResultResponse response = submitExamUseCase.submit(examenId, command);
+        ExamResultResponse response = enviarExamenUseCase.enviar(examenId, command);
         return ResponseEntity.ok(response);
     }
     
@@ -84,13 +81,13 @@ public class ExamenController {
             @PathVariable UUID examenId,
             @PathVariable UUID envioId,
             @RequestBody GradeExamCommand command) {
-        ExamResultResponse response = gradeExamUseCase.grade(examenId, envioId, command);
+        ExamResultResponse response = calificarExamenUseCase.calificar(examenId, envioId, command);
         return ResponseEntity.ok(response);
     }
     
     @GetMapping("/{examenId}/resultados")
     public ResponseEntity<List<ExamResultResponse>> getResultados(@PathVariable UUID examenId) {
-        List<ExamResultResponse> response = getExamResultsUseCase.getResults(examenId);
+        List<ExamResultResponse> response = obtenerResultadosExamenUseCase.obtenerResultados(examenId);
         return ResponseEntity.ok(response);
     }
     
@@ -98,7 +95,7 @@ public class ExamenController {
     public ResponseEntity<ExamResultResponse> getResultadoEstudiante(
             @PathVariable UUID examenId,
             @PathVariable UUID estudianteId) {
-        ExamResultResponse response = getExamResultsUseCase.getStudentResult(examenId, estudianteId);
+        ExamResultResponse response = obtenerResultadosExamenUseCase.obtenerResultadoEstudiante(examenId, estudianteId);
         return ResponseEntity.ok(response);
     }
 }
