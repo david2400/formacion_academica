@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class GradoJpaAdapter implements GradoRepositoryPort {
@@ -43,7 +42,7 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     }
 
     @Override
-    public GradoDto obtenerPorId(java.util.UUID id) {
+    public GradoDto obtenerPorId(Long id) {
         return gradoJpaRepository.findById(id)
                 .map(gradoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
@@ -55,7 +54,7 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID id) {
+    public void eliminar(Long id) {
         gradoJpaRepository.deleteById(id);
     }
 }

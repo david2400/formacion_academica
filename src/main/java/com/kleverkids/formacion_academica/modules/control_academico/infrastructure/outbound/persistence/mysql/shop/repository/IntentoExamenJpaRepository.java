@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface IntentoExamenJpaRepository extends JpaRepository<IntentoExamenEntity, UUID> {
 
-    Optional<IntentoExamenEntity> findFirstByExamenIdAndEstudianteIdAndEstado(UUID examenId, UUID estudianteId, String estado);
+public interface IntentoExamenJpaRepository extends JpaRepository<IntentoExamenEntity, Long> {
 
-    List<IntentoExamenEntity> findByExamenIdAndEstudianteIdOrderByIniciadoEnDesc(UUID examenId, UUID estudianteId);
+    Optional<IntentoExamenEntity> findFirstByExamenIdAndEstudianteIdAndEstado(Long examenId, Long estudianteId, String estado);
+
+    List<IntentoExamenEntity> findByExamenIdAndEstudianteIdOrderByIniciadoEnDesc(Long examenId, Long estudianteId);
 }

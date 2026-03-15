@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EstudianteService implements CrearEstudianteUseCase,
@@ -43,7 +42,7 @@ public class EstudianteService implements CrearEstudianteUseCase,
     }
 
     @Override
-    public EstudianteDto consultarPorId(UUID estudianteId) {
+    public EstudianteDto consultarPorId(Long estudianteId) {
         return repositoryPort.obtenerPorId(estudianteId)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
     }
@@ -59,7 +58,7 @@ public class EstudianteService implements CrearEstudianteUseCase,
     }
 
     @Override
-    public void eliminar(UUID estudianteId) {
+    public void eliminar(Long estudianteId) {
         consultarPorId(estudianteId);
         repositoryPort.eliminar(estudianteId);
     }

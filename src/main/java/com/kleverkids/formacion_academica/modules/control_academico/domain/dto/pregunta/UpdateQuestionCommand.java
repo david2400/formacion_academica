@@ -3,13 +3,12 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public record UpdateQuestionCommand(
     String questionText,
     String difficulty,
     Integer maxScore,
-    UUID themeId,
+    Long themeId,
     List<MediaDto> media,
     String hint,
     String explanation,
@@ -17,8 +16,8 @@ public record UpdateQuestionCommand(
     Map<String, Object> metadata,
     // Multiple choice fields
     List<OptionDto> options,
-    UUID correctOptionId,
-    List<UUID> correctOptionIds,
+    Long correctOptionId,
+    List<Long> correctOptionIds,
     Integer minSelections,
     Integer maxSelections,
     // True/False field

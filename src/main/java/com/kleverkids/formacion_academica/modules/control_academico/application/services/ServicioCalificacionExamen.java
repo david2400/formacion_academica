@@ -11,13 +11,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Service
 public class ServicioCalificacionExamen {
     
-    public ExamResult calculateResult(UUID examId, ExamSubmission submission, BigDecimal maxScore) {
+    public ExamResult calculateResult(Long examId, ExamSubmission submission, BigDecimal maxScore) {
         List<ExamResult.QuestionResult> questionResults = new ArrayList<>();
         
         BigDecimal totalScore = BigDecimal.ZERO;

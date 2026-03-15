@@ -11,12 +11,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Mapper(componentModel = "spring", imports = {UUID.class})
+
+@Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ExamenMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "reglas", source = "reglasCalificacion")
     ExamenEntity toEntity(CrearExamenDto dto);
 
@@ -29,7 +30,7 @@ public interface ExamenMapper {
         return new ExamenDto(entity.getId(), entity.getClaseId(), entity.getNombre(), entity.getFecha(), reglas);
     }
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     CalificacionPersonalizadaEntity toCalificacionEntity(RegistrarCalificacionPersonalizadaDto dto);
 
     CalificacionPersonalizadaDto toCalificacionDto(CalificacionPersonalizadaEntity entity);

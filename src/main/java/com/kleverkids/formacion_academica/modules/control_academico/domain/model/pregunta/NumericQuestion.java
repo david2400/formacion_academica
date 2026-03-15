@@ -8,7 +8,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class NumericQuestion extends Question {
     
@@ -22,8 +21,8 @@ public class NumericQuestion extends Question {
         this.questionType = QuestionType.NUMERIC;
     }
     
-    public NumericQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                            UUID themeId, List<Media> media, String hint, String explanation,
+    public NumericQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                            Long themeId, List<Media> media, String hint, String explanation,
                             List<String> tags, Map<String, Object> metadata,
                             BigDecimal correctValue, BigDecimal tolerance, String unit, Integer decimalPlaces) {
         super(id, questionText, QuestionType.NUMERIC, difficulty, maxScore,

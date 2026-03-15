@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface AulaRepositoryPort {
 
@@ -15,11 +14,11 @@ public interface AulaRepositoryPort {
 
     boolean existePorNombre(String nombre);
 
-    boolean existePorId(UUID id);
+    boolean existePorId(Long id);
 
-    AulaDto obtenerPorId(UUID id);
+    AulaDto obtenerPorId(Long id);
 
     List<AulaDto> listar();
 
-    void eliminar(UUID id);
+    void eliminar(Long id);
 }

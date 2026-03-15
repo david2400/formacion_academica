@@ -12,7 +12,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, ListarAulasUseCase,
@@ -41,17 +40,17 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
     }
 
     @Override
-    public AulaDto consultarPorId(UUID aulaId) {
+    public AulaDto consultarPorId(Long aulaId) {
         return aulaRepositoryPort.obtenerPorId(aulaId);
     }
 
     @Override
-    public void eliminar(UUID aulaId) {
+    public void eliminar(Long aulaId) {
         validarExistencia(aulaId);
         aulaRepositoryPort.eliminar(aulaId);
     }
 
-    private void validarNombreDisponible(String nombre, UUID aulaId) {
+    private void validarNombreDisponible(String nombre, Long aulaId) {
         if (nombre == null || nombre.isBlank()) {
             return;
         }
@@ -67,7 +66,7 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
         }
     }
 
-    private void validarExistencia(UUID aulaId) {
+    private void validarExistencia(Long aulaId) {
         if (!aulaRepositoryPort.existePorId(aulaId)) {
             throw new IllegalArgumentException("El aula no existe");
         }

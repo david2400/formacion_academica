@@ -1,8 +1,8 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento;
 
-import java.util.UUID;
 
-public record FinalizarIntentoExamenDto(UUID intentoId,
+
+public record FinalizarIntentoExamenDto(Long intentoId,
                                         Integer puntajeTotal) {
 
     public FinalizarIntentoExamenDto {

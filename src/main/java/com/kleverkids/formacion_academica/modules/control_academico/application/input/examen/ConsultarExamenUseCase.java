@@ -2,9 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResponse;
 
-import java.util.UUID;
-
 public interface ConsultarExamenUseCase {
     
-    ExamResponse consultarPorId(UUID id);
+    ExamResponse consultarPorId(Long id);
 }

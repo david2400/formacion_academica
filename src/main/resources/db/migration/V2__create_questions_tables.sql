@@ -2,12 +2,12 @@
 -- V2__create_questions_tables.sql
 
 CREATE TABLE questions (
-    id UUID PRIMARY KEY,
+    id Long PRIMARY KEY,
     question_type VARCHAR(50) NOT NULL,
     question_text TEXT NOT NULL,
     difficulty VARCHAR(20) NOT NULL,
     max_score INTEGER NOT NULL DEFAULT 1,
-    theme_id UUID,
+    theme_id Long,
     hint TEXT,
     explanation TEXT,
     tags JSON,
@@ -16,7 +16,7 @@ CREATE TABLE questions (
     
     -- Multiple Choice Single fields
     options JSON,
-    correct_option_id UUID,
+    correct_option_id Long,
     
     -- Multiple Choice Multi fields
     correct_option_ids JSON,
@@ -57,8 +57,8 @@ CREATE TABLE questions (
     -- Auditing fields
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
-    created_by UUID,
-    updated_by UUID,
+    created_by Long,
+    updated_by Long,
     deleted BOOLEAN DEFAULT FALSE,
     version BIGINT DEFAULT 0
 );

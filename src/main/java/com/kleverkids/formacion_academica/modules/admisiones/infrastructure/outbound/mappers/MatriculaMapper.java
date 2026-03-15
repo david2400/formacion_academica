@@ -6,7 +6,6 @@ import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outb
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface MatriculaMapper {
@@ -17,7 +16,6 @@ public interface MatriculaMapper {
 
     default MatriculaEntity toEntity(CrearMatriculaDto dto) {
         MatriculaEntity entity = new MatriculaEntity();
-        entity.setId(UUID.randomUUID());
         entity.setInscripcionId(dto.getInscripcionId());
         entity.setEstudianteId(dto.getEstudianteId());
         entity.setGradoId(dto.getGradoId());

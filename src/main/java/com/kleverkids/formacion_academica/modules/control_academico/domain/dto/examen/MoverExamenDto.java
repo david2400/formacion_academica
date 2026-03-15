@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -14,12 +14,12 @@ import java.util.UUID;
 public class MoverExamenDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "La clase destino es obligatoria")
-    private UUID claseDestinoId;
+    private Long claseDestinoId;
 
-    public MoverExamenDto(UUID examenId, UUID claseDestinoId) {
+    public MoverExamenDto(Long examenId, Long claseDestinoId) {
         this.examenId = Objects.requireNonNull(examenId, "El examen es obligatorio");
         this.claseDestinoId = Objects.requireNonNull(claseDestinoId, "La clase destino es obligatoria");
     }

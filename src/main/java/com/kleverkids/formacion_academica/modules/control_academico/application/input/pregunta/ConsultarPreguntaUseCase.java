@@ -2,9 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.QuestionResponse;
 
-import java.util.UUID;
-
 public interface ConsultarPreguntaUseCase {
     
-    QuestionResponse consultarPorId(UUID id);
+    QuestionResponse consultarPorId(Long id);
 }

@@ -1,10 +1,9 @@
 package com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public record InscripcionDto(UUID id,
-                             UUID estudianteId,
+public record InscripcionDto(Long id,
+                             Long estudianteId,
                              String periodoAcademico,
                              LocalDate fechaSolicitud,
                              String estado,

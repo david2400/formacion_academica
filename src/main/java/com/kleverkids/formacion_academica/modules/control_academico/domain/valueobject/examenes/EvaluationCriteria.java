@@ -4,18 +4,18 @@ import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
+
 
 public final class EvaluationCriteria extends ValueObject {
     
-    private final UUID id;
+    private final Long id;
     private final String name;
     private final String description;
     private final BigDecimal weight;
     private final BigDecimal maxScore;
     
-    private EvaluationCriteria(UUID id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
-        this.id = id != null ? id : UUID.randomUUID();
+    private EvaluationCriteria(Long id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
+        this.id = id ;
         this.name = Objects.requireNonNull(name, "El nombre del criterio no puede ser nulo");
         this.description = description;
         this.weight = weight != null ? weight : BigDecimal.ONE;
@@ -26,11 +26,11 @@ public final class EvaluationCriteria extends ValueObject {
         return new EvaluationCriteria(null, name, description, weight, maxScore);
     }
     
-    public static EvaluationCriteria create(UUID id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
+    public static EvaluationCriteria create(Long id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
         return new EvaluationCriteria(id, name, description, weight, maxScore);
     }
     
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     

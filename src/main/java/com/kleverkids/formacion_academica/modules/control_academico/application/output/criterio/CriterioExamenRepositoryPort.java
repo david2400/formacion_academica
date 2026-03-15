@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio.CriterioExamenDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface CriterioExamenRepositoryPort {
 
@@ -13,9 +12,9 @@ public interface CriterioExamenRepositoryPort {
 
     CriterioExamenDto actualizar(ActualizarCriterioExamenDto request);
 
-    List<CriterioExamenDto> listarPorExamen(UUID examenId);
+    List<CriterioExamenDto> listarPorExamen(Long examenId);
 
-    CriterioExamenDto obtenerPorId(UUID criterioId);
+    CriterioExamenDto obtenerPorId(Long criterioId);
 
-    void eliminar(UUID criterioId);
+    void eliminar(Long criterioId);
 }

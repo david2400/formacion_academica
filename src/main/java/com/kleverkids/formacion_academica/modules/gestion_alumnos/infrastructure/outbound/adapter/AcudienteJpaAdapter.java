@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -36,17 +35,17 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
     }
 
     @Override
-    public Optional<AcudienteDto> obtenerPorId(UUID acudienteId) {
+    public Optional<AcudienteDto> obtenerPorId(Long acudienteId) {
         return acudienteJpaRepository.findById(acudienteId).map(acudienteMapper::toDto);
     }
 
     @Override
-    public List<AcudienteDto> listarPorEstudiante(UUID estudianteId) {
+    public List<AcudienteDto> listarPorEstudiante(Long estudianteId) {
         return acudienteMapper.toDtoList(acudienteJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override
-    public boolean existePrincipalParaEstudiante(UUID estudianteId, UUID excluirAcudienteId) {
+    public boolean existePrincipalParaEstudiante(Long estudianteId, Long excluirAcudienteId) {
         if (excluirAcudienteId == null) {
             return acudienteJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrue(estudianteId);
         }
@@ -54,7 +53,7 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID acudienteId) {
+    public void eliminar(Long acudienteId) {
         acudienteJpaRepository.deleteById(acudienteId);
     }
 }

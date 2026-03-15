@@ -1,12 +1,12 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model.observacion;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public record ObservacionCriterio(UUID id,
-                                  UUID examenId,
-                                  UUID criterioId,
-                                  UUID estudianteId,
+
+public record ObservacionCriterio(Long id,
+                                  Long examenId,
+                                  Long criterioId,
+                                  Long estudianteId,
                                   BigDecimal puntaje,
                                   String observacion,
                                   String recomendacion) {

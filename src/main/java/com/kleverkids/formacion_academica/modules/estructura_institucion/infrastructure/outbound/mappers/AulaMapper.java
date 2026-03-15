@@ -10,7 +10,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface AulaMapper {
@@ -24,7 +23,6 @@ public interface AulaMapper {
 
     default AulaEntity toEntity(CrearAulaDto dto) {
         AulaEntity entity = new AulaEntity();
-        entity.setId(UUID.randomUUID());
         entity.setNombre(dto.nombre());
         entity.setDescripcion(dto.descripcion());
         entity.setCapacidad(dto.capacidad());

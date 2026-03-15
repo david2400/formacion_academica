@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Component
@@ -35,21 +35,21 @@ public class ObservacionCriterioJpaAdapter implements ObservacionCriterioReposit
     }
 
     @Override
-    public List<ObservacionCriterioDto> listarPorEstudiante(UUID examenId, UUID estudianteId) {
+    public List<ObservacionCriterioDto> listarPorEstudiante(Long examenId, Long estudianteId) {
         return observacionCriterioMapper.toDtoList(
                 observacionCriterioJpaRepository.findByExamenIdAndEstudianteId(examenId, estudianteId)
         );
     }
 
     @Override
-    public ObservacionCriterioDto obtenerPorId(UUID observacionId) {
+    public ObservacionCriterioDto obtenerPorId(Long observacionId) {
         return observacionCriterioJpaRepository.findById(observacionId)
                 .map(observacionCriterioMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Observación no encontrada"));
     }
 
     @Override
-    public void eliminar(UUID observacionId) {
+    public void eliminar(Long observacionId) {
         observacionCriterioJpaRepository.deleteById(observacionId);
     }
 }

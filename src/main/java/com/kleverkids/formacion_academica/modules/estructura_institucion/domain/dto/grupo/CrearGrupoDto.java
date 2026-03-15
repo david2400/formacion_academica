@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -23,13 +21,13 @@ public class CrearGrupoDto {
     private String nombre;
 
     @NotNull(message = "El grado es obligatorio")
-    private UUID gradoId;
+    private Long gradoId;
 
     @Positive(message = "La capacidad debe ser positiva")
     private Integer capacidadMaxima;
 
-    private UUID tutorId;
-    private UUID aulaId;
+    private Long tutorId;
+    private Long aulaId;
 
     public String codigo() {
         return codigo;
@@ -39,7 +37,7 @@ public class CrearGrupoDto {
         return nombre;
     }
 
-    public UUID gradoId() {
+    public Long gradoId() {
         return gradoId;
     }
 
@@ -47,11 +45,11 @@ public class CrearGrupoDto {
         return capacidadMaxima;
     }
 
-    public UUID tutorId() {
+    public Long tutorId() {
         return tutorId;
     }
 
-    public UUID aulaId() {
+    public Long aulaId() {
         return aulaId;
     }
 }

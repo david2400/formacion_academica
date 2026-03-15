@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -43,13 +42,13 @@ public class PreguntaJpaAdapter implements QuestionRepository, PreguntaBancoRepo
     }
     
     @Override
-    public Optional<Question> findById(UUID id) {
+    public Optional<Question> findById(Long id) {
         return questionJpaRepository.findById(id)
             .map(questionPersistenceMapper::toDomain);
     }
     
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         questionJpaRepository.deleteById(id);
     }
     
@@ -80,7 +79,7 @@ public class PreguntaJpaAdapter implements QuestionRepository, PreguntaBancoRepo
     }
     
     @Override
-    public boolean existsById(UUID id) {
+    public boolean existsById(Long id) {
         return questionJpaRepository.existsById(id);
     }
 
@@ -100,19 +99,19 @@ public class PreguntaJpaAdapter implements QuestionRepository, PreguntaBancoRepo
     }
 
     @Override
-    public List<PreguntaBancoDto> listarPorTematica(UUID tematicaId) {
+    public List<PreguntaBancoDto> listarPorTematica(Long tematicaId) {
         return preguntaBancoMapper.toDtoList(preguntaBancoJpaRepository.findByTematicaId(tematicaId));
     }
 
     @Override
-    public PreguntaBancoDto obtenerPorId(UUID preguntaId) {
+    public PreguntaBancoDto obtenerPorId(Long preguntaId) {
         return preguntaBancoJpaRepository.findById(preguntaId)
                 .map(preguntaBancoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Pregunta no encontrada"));
     }
 
     @Override
-    public void eliminar(UUID preguntaId) {
+    public void eliminar(Long preguntaId) {
         preguntaBancoJpaRepository.deleteById(preguntaId);
     }
 }

@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface PreguntaBancoJpaRepository extends JpaRepository<PreguntaBancoEntity, UUID> {
+public interface PreguntaBancoJpaRepository extends JpaRepository<PreguntaBancoEntity, Long> {
 
-    List<PreguntaBancoEntity> findByTematicaId(UUID tematicaId);
+    List<PreguntaBancoEntity> findByTematicaId(Long tematicaId);
 }

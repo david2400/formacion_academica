@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Preguntas", description = "Gestiona las preguntas")
 @Description(value = "Gestiona las preguntas")
@@ -45,27 +44,27 @@ public class PreguntaController {
     
     @GetMapping("/{preguntaId}")
     @Operation(summary = "Obtener pregunta por ID", description = "Recupera una pregunta por su identificador único")
-    public ResponseEntity<QuestionResponse> consultar(@PathVariable UUID preguntaId) {
+    public ResponseEntity<QuestionResponse> consultar(@PathVariable Long preguntaId) {
         return ResponseEntity.ok(consultarPreguntaUseCase.consultarPorId(preguntaId));
     }
     
     @PutMapping("/{preguntaId}")
     @Operation(summary = "Actualizar una pregunta", description = "Actualiza una pregunta existente")
-    public ResponseEntity<QuestionResponse> actualizar(@PathVariable UUID preguntaId,
+    public ResponseEntity<QuestionResponse> actualizar(@PathVariable Long preguntaId,
                                                    @Valid @RequestBody UpdateQuestionCommand command) {
         return ResponseEntity.ok(actualizarPreguntaUseCase.actualizar(preguntaId, command));
     }
     
     @DeleteMapping("/{preguntaId}")
     @Operation(summary = "Eliminar una pregunta", description = "Elimina una pregunta (soft delete)")
-    public ResponseEntity<Void> eliminar(@PathVariable UUID preguntaId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long preguntaId) {
         eliminarPreguntaUseCase.eliminar(preguntaId);
         return ResponseEntity.noContent().build();
     }
     
     @PostMapping("/{preguntaId}/validar")
     @Operation(summary = "Validar una respuesta", description = "Valida la respuesta de un estudiante contra la pregunta")
-    public ResponseEntity<ValidationResult> validarRespuesta(@PathVariable UUID preguntaId,
+    public ResponseEntity<ValidationResult> validarRespuesta(@PathVariable Long preguntaId,
                                                            @RequestBody AnswerValidationRequest request) {
         ValidationResult result = validarRespuestaUseCase.validar(preguntaId, request);
         return ResponseEntity.ok(result);
@@ -73,15 +72,15 @@ public class PreguntaController {
     
     // Endpoints del PreguntaBancoController (integrados en el mismo controlador)
     @PostMapping("/banco/{tematicaId}")
-    public ResponseEntity<PreguntaBancoDto> crearEnBanco(@PathVariable UUID tematicaId,
+    public ResponseEntity<PreguntaBancoDto> crearEnBanco(@PathVariable Long tematicaId,
                                                         @Valid @RequestBody CrearPreguntaBancoDto request) {
         request.setTematicaId(tematicaId);
         return ResponseEntity.status(HttpStatus.CREATED).body(crearPreguntaBancoUseCase.crear(request));
     }
 
     @PutMapping("/banco/{tematicaId}/{preguntaId}")
-    public ResponseEntity<PreguntaBancoDto> actualizarEnBanco(@PathVariable UUID tematicaId,
-                                                             @PathVariable UUID preguntaId,
+    public ResponseEntity<PreguntaBancoDto> actualizarEnBanco(@PathVariable Long tematicaId,
+                                                             @PathVariable Long preguntaId,
                                                              @Valid @RequestBody ActualizarPreguntaBancoDto request) {
         request.setTematicaId(tematicaId);
         request.setId(preguntaId);
@@ -89,20 +88,20 @@ public class PreguntaController {
     }
 
     @GetMapping("/banco/{tematicaId}")
-    public ResponseEntity<List<PreguntaBancoDto>> listarPorTematica(@PathVariable UUID tematicaId) {
+    public ResponseEntity<List<PreguntaBancoDto>> listarPorTematica(@PathVariable Long tematicaId) {
         return ResponseEntity.ok(listarPreguntasPorTematicaUseCase.listar(tematicaId));
     }
 
     @GetMapping("/banco/{tematicaId}/{preguntaId}")
-    public ResponseEntity<PreguntaBancoDto> consultarEnBanco(@PathVariable UUID tematicaId,
-                                                            @PathVariable UUID preguntaId) {
+    public ResponseEntity<PreguntaBancoDto> consultarEnBanco(@PathVariable Long tematicaId,
+                                                            @PathVariable Long preguntaId) {
         return ResponseEntity.ok(consultarPreguntaBancoUseCase.consultarPreguntaBancoPorId(preguntaId));
     }
 
     @DeleteMapping("/banco/{tematicaId}/{preguntaId}")
-    public ResponseEntity<Void> eliminarDelBanco(@PathVariable UUID tematicaId,
-                                               @PathVariable UUID preguntaId) {
-        eliminarPreguntaBancoUseCase.eliminar(preguntaId);
+    public ResponseEntity<Void> eliminarDelBanco(@PathVariable Long tematicaId,
+                                               @PathVariable Long preguntaId) {
+        eliminarPreguntaBancoUseCase.eliminarPreguntaBanco(preguntaId);
         return ResponseEntity.noContent().build();
     }
 }

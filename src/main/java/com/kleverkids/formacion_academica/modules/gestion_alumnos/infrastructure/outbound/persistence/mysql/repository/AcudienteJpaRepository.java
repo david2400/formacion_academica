@@ -4,13 +4,12 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface AcudienteJpaRepository extends JpaRepository<AcudienteEntity, UUID> {
+public interface AcudienteJpaRepository extends JpaRepository<AcudienteEntity, Long> {
 
-    List<AcudienteEntity> findByEstudianteId(UUID estudianteId);
+    List<AcudienteEntity> findByEstudianteId(Long estudianteId);
 
-    boolean existsByEstudianteIdAndEsPrincipalIsTrue(UUID estudianteId);
+    boolean existsByEstudianteIdAndEsPrincipalIsTrue(Long estudianteId);
 
-    boolean existsByEstudianteIdAndEsPrincipalIsTrueAndIdNot(UUID estudianteId, UUID id);
+    boolean existsByEstudianteIdAndEsPrincipalIsTrueAndIdNot(Long estudianteId, Long id);
 }

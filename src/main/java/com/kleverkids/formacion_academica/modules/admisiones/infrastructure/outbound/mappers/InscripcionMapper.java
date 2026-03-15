@@ -7,7 +7,6 @@ import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outb
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface InscripcionMapper {
@@ -18,7 +17,6 @@ public interface InscripcionMapper {
 
     default InscripcionEntity toEntity(CrearInscripcionDto dto) {
         InscripcionEntity entity = new InscripcionEntity();
-        entity.setId(UUID.randomUUID());
         entity.setEstudianteId(dto.getEstudianteId());
         entity.setPeriodoAcademico(dto.getPeriodoAcademico());
         entity.setFechaSolicitud(dto.getFechaSolicitud());

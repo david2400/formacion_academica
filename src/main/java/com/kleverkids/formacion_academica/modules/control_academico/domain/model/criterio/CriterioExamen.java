@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model.criterio;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public record CriterioExamen(UUID id,
-                             UUID examenId,
+
+public record CriterioExamen(Long id,
+                             Long examenId,
                              String nombre,
                              String descripcion,
                              BigDecimal ponderacion,

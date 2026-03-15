@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface EstudianteGrupoJpaRepository extends JpaRepository<EstudianteGrupoEntity, UUID> {
+public interface EstudianteGrupoJpaRepository extends JpaRepository<EstudianteGrupoEntity, Long> {
 
-    List<EstudianteGrupoEntity> findByGrupoId(UUID grupoId);
+    List<EstudianteGrupoEntity> findByGrupoId(Long grupoId);
 }

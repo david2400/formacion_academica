@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -35,21 +34,21 @@ public class CriterioExamenJpaAdapter implements CriterioExamenRepositoryPort {
     }
 
     @Override
-    public List<CriterioExamenDto> listarPorExamen(UUID examenId) {
+    public List<CriterioExamenDto> listarPorExamen(Long examenId) {
         return criterioExamenMapper.toDtoList(
                 criterioExamenJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }
 
     @Override
-    public CriterioExamenDto obtenerPorId(UUID criterioId) {
+    public CriterioExamenDto obtenerPorId(Long criterioId) {
         return criterioExamenJpaRepository.findById(criterioId)
                 .map(criterioExamenMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Criterio no encontrado"));
     }
 
     @Override
-    public void eliminar(UUID criterioId) {
+    public void eliminar(Long criterioId) {
         criterioExamenJpaRepository.deleteById(criterioId);
     }
 }

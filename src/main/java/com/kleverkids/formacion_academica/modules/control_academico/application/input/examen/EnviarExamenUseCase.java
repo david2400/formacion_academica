@@ -3,9 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResultResponse;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand;
 
-import java.util.UUID;
-
 public interface EnviarExamenUseCase {
     
-    ExamResultResponse enviar(UUID examenId, SubmitExamCommand command);
+    ExamResultResponse enviar(Long examenId, SubmitExamCommand command);
 }

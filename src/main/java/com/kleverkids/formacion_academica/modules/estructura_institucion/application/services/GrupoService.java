@@ -12,7 +12,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
@@ -36,7 +35,7 @@ public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
     }
 
     @Override
-    public GrupoDto consultarPorId(UUID grupoId) {
+    public GrupoDto consultarPorId(Long grupoId) {
         return grupoRepositoryPort.obtenerPorId(grupoId);
     }
 
@@ -46,7 +45,7 @@ public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
     }
 
     @Override
-    public void eliminar(UUID grupoId) {
+    public void eliminar(Long grupoId) {
         grupoRepositoryPort.obtenerPorId(grupoId);
         grupoRepositoryPort.eliminar(grupoId);
     }

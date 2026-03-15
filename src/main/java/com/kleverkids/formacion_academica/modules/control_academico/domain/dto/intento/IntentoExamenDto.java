@@ -2,11 +2,11 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-public record IntentoExamenDto(UUID id,
-                               UUID examenId,
-                               UUID estudianteId,
+
+public record IntentoExamenDto(Long id,
+                               Long examenId,
+                               Long estudianteId,
                                String estado,
                                LocalDateTime iniciadoEn,
                                LocalDateTime finalizadoEn,

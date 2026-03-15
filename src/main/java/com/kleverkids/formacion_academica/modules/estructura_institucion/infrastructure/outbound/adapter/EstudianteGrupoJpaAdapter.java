@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort {
@@ -39,7 +38,7 @@ public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort 
     }
 
     @Override
-    public List<EstudianteGrupoDto> listarPorGrupo(UUID grupoId) {
+    public List<EstudianteGrupoDto> listarPorGrupo(Long grupoId) {
         return estudianteGrupoMapper.toDtoList(estudianteGrupoJpaRepository.findByGrupoId(grupoId));
     }
 }

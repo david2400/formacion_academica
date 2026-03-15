@@ -10,14 +10,14 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "exams")
 public class ExamEntity {
     
     @Id
-    private UUID id;
+    private Long id;
     
     @Column(nullable = false)
     private String name;
@@ -71,8 +71,8 @@ public class ExamEntity {
     @Version
     private Long version;
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

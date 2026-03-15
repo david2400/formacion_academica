@@ -5,15 +5,14 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricul
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface MatriculaRepositoryPort {
 
     MatriculaDto registrar(CrearMatriculaDto request);
 
-    Optional<MatriculaDto> obtenerPorId(UUID matriculaId);
+    Optional<MatriculaDto> obtenerPorId(Long matriculaId);
 
-    List<MatriculaDto> listarPorEstudiante(UUID estudianteId);
+    List<MatriculaDto> listarPorEstudiante(Long estudianteId);
 
-    void eliminar(UUID matriculaId);
+    void eliminar(Long matriculaId);
 }

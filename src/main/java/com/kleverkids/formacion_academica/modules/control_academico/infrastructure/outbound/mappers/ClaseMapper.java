@@ -7,12 +7,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class})
+@Mapper(componentModel = "spring")
 public interface ClaseMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     ClaseEntity toEntity(CrearClaseDto dto);
 
     ClaseDto toDto(ClaseEntity entity);

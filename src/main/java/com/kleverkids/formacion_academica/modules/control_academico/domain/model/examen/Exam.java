@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Exam extends AggregateRoot<UUID> {
+
+public class Exam extends AggregateRoot<Long> {
     
-    private UUID id;
+    private Long id;
     private String name;
     private String code;
     private String subject;
@@ -34,10 +34,10 @@ public class Exam extends AggregateRoot<UUID> {
         this.status = ExamStatus.DRAFT;
     }
     
-    public Exam(UUID id, String name, String code, String subject, String gradeLevel,
+    public Exam(Long id, String name, String code, String subject, String gradeLevel,
                 String instructions, ExamStatus status, TimeConfig timeConfig,
                 List<ExamQuestion> questions, List<EvaluationCriteria> criteria) {
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id ;
         this.name = name;
         this.code = code;
         this.subject = subject;
@@ -53,8 +53,8 @@ public class Exam extends AggregateRoot<UUID> {
     }
     
     @Override
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; this.updatedAt = Instant.now(); }
@@ -107,7 +107,7 @@ public class Exam extends AggregateRoot<UUID> {
         this.updatedAt = Instant.now();
     }
     
-    public void removeQuestion(UUID questionId) {
+    public void removeQuestion(Long questionId) {
         if (!status.canBeModified()) {
             throw new IllegalStateException("No se puede modificar el examen en estado: " + status);
         }

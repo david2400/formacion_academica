@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface GrupoJpaRepository extends JpaRepository<GrupoEntity, UUID> {
+public interface GrupoJpaRepository extends JpaRepository<GrupoEntity, Long> {
 
     Optional<GrupoEntity> findByCodigo(String codigo);
 

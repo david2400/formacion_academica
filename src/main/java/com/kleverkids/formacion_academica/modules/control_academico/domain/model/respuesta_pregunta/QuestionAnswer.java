@@ -3,12 +3,12 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 public class QuestionAnswer {
     
-    private UUID id;
-    private UUID questionId;
+    private Long id;
+    private Long questionId;
     private Object answer; // Flexible to hold different answer types
     private BigDecimal score;
     private boolean graded;
@@ -16,18 +16,18 @@ public class QuestionAnswer {
     
     public QuestionAnswer() {}
     
-    public QuestionAnswer(UUID id, UUID questionId, Object answer) {
-        this.id = id != null ? id : UUID.randomUUID();
+    public QuestionAnswer(Long id, Long questionId, Object answer) {
+        this.id = id ;
         this.questionId = questionId;
         this.answer = answer;
         this.graded = false;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getQuestionId() { return questionId; }
-    public void setQuestionId(UUID questionId) { this.questionId = questionId; }
+    public Long getQuestionId() { return questionId; }
+    public void setQuestionId(Long questionId) { this.questionId = questionId; }
     
     public Object getAnswer() { return answer; }
     public void setAnswer(Object answer) { this.answer = answer; }
@@ -48,13 +48,13 @@ public class QuestionAnswer {
     }
     
     // Type-safe answer getters
-    public UUID getSelectedOptionId() {
-        return answer instanceof UUID ? (UUID) answer : null;
+    public Long getSelectedOptionId() {
+        return answer instanceof Long ? (Long) answer : null;
     }
     
     @SuppressWarnings("unchecked")
-    public List<UUID> getSelectedOptionIds() {
-        return answer instanceof List ? (List<UUID>) answer : null;
+    public List<Long> getSelectedOptionIds() {
+        return answer instanceof List ? (List<Long>) answer : null;
     }
     
     public Boolean getBooleanAnswer() {
@@ -74,12 +74,12 @@ public class QuestionAnswer {
     }
     
     @SuppressWarnings("unchecked")
-    public List<UUID> getOrderedItemIds() {
-        return answer instanceof List ? (List<UUID>) answer : null;
+    public List<Long> getOrderedItemIds() {
+        return answer instanceof List ? (List<Long>) answer : null;
     }
     
     @SuppressWarnings("unchecked")
-    public Map<UUID, UUID> getMatchedPairs() {
-        return answer instanceof Map ? (Map<UUID, UUID>) answer : null;
+    public Map<Long, Long> getMatchedPairs() {
+        return answer instanceof Map ? (Map<Long, Long>) answer : null;
     }
 }

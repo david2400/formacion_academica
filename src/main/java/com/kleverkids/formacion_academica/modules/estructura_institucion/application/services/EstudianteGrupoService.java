@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
@@ -34,7 +33,7 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
     }
 
     @Override
-    public List<EstudianteGrupoDto> listar(UUID grupoId) {
+    public List<EstudianteGrupoDto> listar(Long grupoId) {
         return repositoryPort.listarPorGrupo(grupoId);
     }
 }

@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -16,9 +14,9 @@ import java.util.UUID;
 public class ActualizarTematicaDto extends CrearTematicaDto {
 
     @NotNull(message = "El identificador de la temática es obligatorio")
-    private UUID id;
+    private Long id;
 
-    public UUID id() {
+    public Long id() {
         return id;
     }
 

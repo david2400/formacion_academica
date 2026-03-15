@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -17,10 +17,10 @@ import java.util.UUID;
 public class RegistrarCalificacionPersonalizadaDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @NotBlank(message = "El criterio es obligatorio")
     private String criterio;
@@ -29,8 +29,8 @@ public class RegistrarCalificacionPersonalizadaDto {
     @DecimalMin(value = "0.0", inclusive = true, message = "El puntaje debe ser mayor o igual a cero")
     private BigDecimal puntajeOtorgado;
 
-    public RegistrarCalificacionPersonalizadaDto(UUID examenId,
-                                                 UUID estudianteId,
+    public RegistrarCalificacionPersonalizadaDto(Long examenId,
+                                                 Long estudianteId,
                                                  String criterio,
                                                  BigDecimal puntajeOtorgado) {
         this.examenId = Objects.requireNonNull(examenId, "El examen es obligatorio");

@@ -13,7 +13,6 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class InscripcionService implements RegistrarInscripcionUseCase,
@@ -34,7 +33,7 @@ public class InscripcionService implements RegistrarInscripcionUseCase,
     }
 
     @Override
-    public InscripcionDto consultarPorId(UUID inscripcionId) {
+    public InscripcionDto consultarPorId(Long inscripcionId) {
         return inscripcionRepositoryPort.obtenerPorId(inscripcionId)
                 .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
     }
@@ -51,7 +50,7 @@ public class InscripcionService implements RegistrarInscripcionUseCase,
     }
 
     @Override
-    public void eliminar(UUID inscripcionId) {
+    public void eliminar(Long inscripcionId) {
         consultarPorId(inscripcionId);
         inscripcionRepositoryPort.eliminar(inscripcionId);
     }

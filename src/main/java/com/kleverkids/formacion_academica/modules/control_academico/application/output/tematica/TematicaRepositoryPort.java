@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.t
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface TematicaRepositoryPort {
 
@@ -13,9 +12,9 @@ public interface TematicaRepositoryPort {
 
     TematicaDto actualizar(ActualizarTematicaDto request);
 
-    List<TematicaDto> listarPorExamen(UUID examenId);
+    List<TematicaDto> listarPorExamen(Long examenId);
 
-    TematicaDto obtenerPorId(UUID tematicaId);
+    TematicaDto obtenerPorId(Long tematicaId);
 
-    void eliminar(UUID tematicaId);
+    void eliminar(Long tematicaId);
 }

@@ -8,12 +8,10 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.InscripcionMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.InscripcionJpaRepository;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.GrupoMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
@@ -33,7 +31,7 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
     }
 
     @Override
-    public Optional<InscripcionDto> obtenerPorId(UUID inscripcionId) {
+    public Optional<InscripcionDto> obtenerPorId(Long inscripcionId) {
         return inscripcionJpaRepository.findById(inscripcionId).map(inscripcionMapper::toDto);
     }
 
@@ -63,7 +61,7 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID inscripcionId) {
+    public void eliminar(Long inscripcionId) {
         inscripcionJpaRepository.deleteById(inscripcionId);
     }
 }

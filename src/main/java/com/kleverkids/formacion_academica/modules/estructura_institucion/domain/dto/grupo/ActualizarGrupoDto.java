@@ -10,8 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -20,5 +18,5 @@ import java.util.UUID;
 public class ActualizarGrupoDto extends CrearGrupoDto {
 
     @NotNull(message = "El identificador del grupo es obligatorio")
-    private UUID id;
+    private Long id;
 }

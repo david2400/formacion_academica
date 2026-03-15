@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -36,17 +35,17 @@ public class CriterioExamenService implements CrearCriterioExamenUseCase,
     }
 
     @Override
-    public List<CriterioExamenDto> listar(UUID examenId) {
+    public List<CriterioExamenDto> listar(Long examenId) {
         return repositoryPort.listarPorExamen(examenId);
     }
 
     @Override
-    public CriterioExamenDto consultarPorId(UUID criterioId) {
+    public CriterioExamenDto consultarPorId(Long criterioId) {
         return repositoryPort.obtenerPorId(criterioId);
     }
 
     @Override
-    public void eliminar(UUID criterioId) {
+    public void eliminar(Long criterioId) {
         repositoryPort.obtenerPorId(criterioId);
         repositoryPort.eliminar(criterioId);
     }

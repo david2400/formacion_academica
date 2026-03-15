@@ -2,9 +2,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
 
-import java.util.UUID;
-
 public interface ConsultarAulaUseCase {
 
-    AulaDto consultarPorId(UUID aulaId);
+    AulaDto consultarPorId(Long aulaId);
 }

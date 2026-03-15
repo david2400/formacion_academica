@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.i
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.intento.RespuestaIntentoDto;
 
 import java.util.List;
-import java.util.UUID;
+
 
 public interface IntentoExamenRepositoryPort {
 
@@ -17,5 +17,5 @@ public interface IntentoExamenRepositoryPort {
 
     IntentoExamenDto finalizar(FinalizarIntentoExamenDto request);
 
-    List<IntentoExamenDto> listarPorEstudiante(UUID examenId, UUID estudianteId);
+    List<IntentoExamenDto> listarPorEstudiante(Long examenId, Long estudianteId);
 }

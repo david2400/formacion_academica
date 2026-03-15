@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -40,7 +40,7 @@ public sealed interface CreateQuestionCommand permits
     String questionType();
     String difficulty();
     int maxScore();
-    UUID themeId();
+    Long themeId();
     List<MediaDto> media();
     String hint();
     String explanation();
@@ -52,14 +52,14 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
         List<String> tags,
         Map<String, Object> metadata,
         List<OptionDto> options,
-        UUID correctOptionId
+        Long correctOptionId
     ) implements CreateQuestionCommand {}
     
     record MultipleChoiceMulti(
@@ -67,14 +67,14 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
         List<String> tags,
         Map<String, Object> metadata,
         List<OptionDto> options,
-        List<UUID> correctOptionIds,
+        List<Long> correctOptionIds,
         Integer minSelections,
         Integer maxSelections
     ) implements CreateQuestionCommand {}
@@ -84,7 +84,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -98,7 +98,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -114,7 +114,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -131,7 +131,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -148,7 +148,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -163,7 +163,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
@@ -178,7 +178,7 @@ public sealed interface CreateQuestionCommand permits
         String questionType,
         String difficulty,
         int maxScore,
-        UUID themeId,
+        Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,

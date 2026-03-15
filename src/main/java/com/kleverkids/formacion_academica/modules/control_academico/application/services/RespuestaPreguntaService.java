@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -32,8 +31,8 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
 
     @Override
     public RespuestaPreguntaDto registrar(RegistrarRespuestaPreguntaDto request) {
-        UUID examenId = request.examenId();
-        UUID estudianteId = request.estudianteId();
+        Long examenId = request.examenId();
+        Long estudianteId = request.estudianteId();
         EstudianteExamenDto relacion = estudianteExamenRepository.buscarPorExamenYEstudiante(examenId, estudianteId)
                 .orElseGet(() -> estudianteExamenRepository.registrar(new RegistrarEstudianteExamenDto(examenId, estudianteId)));
 
@@ -56,17 +55,17 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
     }
 
     @Override
-    public List<RespuestaPreguntaDto> listar(UUID examenId, UUID estudianteId) {
+    public List<RespuestaPreguntaDto> listar(Long examenId, Long estudianteId) {
         return respuestaRepository.listarPorEstudiante(examenId, estudianteId);
     }
 
     @Override
-    public RespuestaPreguntaDto consultarPorId(UUID respuestaId) {
+    public RespuestaPreguntaDto consultarPorId(Long respuestaId) {
         return respuestaRepository.obtenerPorId(respuestaId);
     }
 
     @Override
-    public void eliminar(UUID respuestaId) {
+    public void eliminar(Long respuestaId) {
         respuestaRepository.obtenerPorId(respuestaId);
         respuestaRepository.eliminar(respuestaId);
     }

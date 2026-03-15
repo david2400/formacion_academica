@@ -2,9 +2,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
 
-import java.util.UUID;
-
 public interface ConsultarGradoUseCase {
 
-    GradoDto consultarPorId(UUID gradoId);
+    GradoDto consultarPorId(Long gradoId);
 }

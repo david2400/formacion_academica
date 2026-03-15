@@ -1,10 +1,8 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta;
 
-import java.util.UUID;
-
 public class MatchingPairEmbeddable {
     
-    private UUID id;
+    private Long id;
     private String leftItem;
     private String rightItem;
     private MediaEmbeddable leftMedia;
@@ -12,7 +10,7 @@ public class MatchingPairEmbeddable {
     
     public MatchingPairEmbeddable() {}
     
-    public MatchingPairEmbeddable(UUID id, String leftItem, String rightItem, 
+    public MatchingPairEmbeddable(Long id, String leftItem, String rightItem, 
                                    MediaEmbeddable leftMedia, MediaEmbeddable rightMedia) {
         this.id = id;
         this.leftItem = leftItem;
@@ -21,8 +19,8 @@ public class MatchingPairEmbeddable {
         this.rightMedia = rightMedia;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getLeftItem() { return leftItem; }
     public void setLeftItem(String leftItem) { this.leftItem = leftItem; }

@@ -8,23 +8,23 @@ import org.hibernate.type.SqlTypes;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "exam_results")
 public class ExamResultEntity {
     
     @Id
-    private UUID id;
+    private Long id;
     
     @Column(name = "exam_id", nullable = false)
-    private UUID examId;
+    private Long examId;
     
     @Column(name = "student_id", nullable = false)
-    private UUID studentId;
+    private Long studentId;
     
     @Column(name = "submission_id", nullable = false)
-    private UUID submissionId;
+    private Long submissionId;
     
     @Column(name = "total_score", precision = 10, scale = 2)
     private BigDecimal totalScore;
@@ -45,19 +45,19 @@ public class ExamResultEntity {
     private Instant gradedAt;
     
     @Column(name = "graded_by")
-    private UUID gradedBy;
+    private Long gradedBy;
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getExamId() { return examId; }
-    public void setExamId(UUID examId) { this.examId = examId; }
+    public Long getExamId() { return examId; }
+    public void setExamId(Long examId) { this.examId = examId; }
     
-    public UUID getStudentId() { return studentId; }
-    public void setStudentId(UUID studentId) { this.studentId = studentId; }
+    public Long getStudentId() { return studentId; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
     
-    public UUID getSubmissionId() { return submissionId; }
-    public void setSubmissionId(UUID submissionId) { this.submissionId = submissionId; }
+    public Long getSubmissionId() { return submissionId; }
+    public void setSubmissionId(Long submissionId) { this.submissionId = submissionId; }
     
     public BigDecimal getTotalScore() { return totalScore; }
     public void setTotalScore(BigDecimal totalScore) { this.totalScore = totalScore; }
@@ -77,6 +77,6 @@ public class ExamResultEntity {
     public Instant getGradedAt() { return gradedAt; }
     public void setGradedAt(Instant gradedAt) { this.gradedAt = gradedAt; }
     
-    public UUID getGradedBy() { return gradedBy; }
-    public void setGradedBy(UUID gradedBy) { this.gradedBy = gradedBy; }
+    public Long getGradedBy() { return gradedBy; }
+    public void setGradedBy(Long gradedBy) { this.gradedBy = gradedBy; }
 }

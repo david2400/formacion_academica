@@ -8,7 +8,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class MatchingQuestion extends Question {
     
@@ -20,8 +19,8 @@ public class MatchingQuestion extends Question {
         this.questionType = QuestionType.MATCHING;
     }
     
-    public MatchingQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                             UUID themeId, List<Media> media, String hint, String explanation,
+    public MatchingQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                             Long themeId, List<Media> media, String hint, String explanation,
                              List<String> tags, Map<String, Object> metadata,
                              List<MatchingPair> pairs, boolean partialCredit) {
         super(id, questionText, QuestionType.MATCHING, difficulty, maxScore,

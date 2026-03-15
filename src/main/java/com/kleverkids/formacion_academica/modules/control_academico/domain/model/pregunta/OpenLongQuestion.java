@@ -7,7 +7,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class OpenLongQuestion extends Question {
     
@@ -21,8 +20,8 @@ public class OpenLongQuestion extends Question {
         this.questionType = QuestionType.OPEN_LONG;
     }
     
-    public OpenLongQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                             UUID themeId, List<Media> media, String hint, String explanation,
+    public OpenLongQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                             Long themeId, List<Media> media, String hint, String explanation,
                              List<String> tags, Map<String, Object> metadata,
                              Rubric rubric, Integer minWords, Integer maxWords, boolean allowAttachments) {
         super(id, questionText, QuestionType.OPEN_LONG, difficulty, maxScore,

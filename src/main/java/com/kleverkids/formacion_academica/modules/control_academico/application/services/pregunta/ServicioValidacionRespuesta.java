@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Service
@@ -162,12 +162,12 @@ public class ServicioValidacionRespuesta {
         if (question instanceof OrderingQuestion) {
             OrderingQuestion oq = (OrderingQuestion) question;
             // Para ordenamiento, necesitamos extraer el orden correcto de los items
-            List<UUID> correctOrder = oq.getItems().stream()
+            List<Long> correctOrder = oq.getItems().stream()
                 .filter(item -> item.getCorrectPosition() > 0)
                 .sorted((a, b) -> Integer.compare(a.getCorrectPosition(), b.getCorrectPosition()))
                 .map(OrderingItem::getId)
                 .toList();
-            List<UUID> userOrder = request.orderedItemIds();
+            List<Long> userOrder = request.orderedItemIds();
             
             if (correctOrder.equals(userOrder)) {
                 return ValidationResult.correct(maxScore);

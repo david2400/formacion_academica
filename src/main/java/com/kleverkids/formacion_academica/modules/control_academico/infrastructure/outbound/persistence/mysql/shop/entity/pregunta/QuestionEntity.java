@@ -7,7 +7,6 @@ import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Entity
 @Table(name = "questions")
@@ -16,7 +15,8 @@ import java.util.UUID;
 public abstract class QuestionEntity {
     
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     @Column(name = "question_text", nullable = false, length = 2000)
     private String questionText;
@@ -31,7 +31,7 @@ public abstract class QuestionEntity {
     private int maxScore;
     
     @Column(name = "theme_id")
-    private UUID themeId;
+    private Long themeId;
     
     @Column(name = "hint", length = 1000)
     private String hint;
@@ -66,7 +66,6 @@ public abstract class QuestionEntity {
     
     @PrePersist
     protected void onCreate() {
-        if (id == null) id = UUID.randomUUID();
         if (createdAt == null) createdAt = Instant.now();
     }
     
@@ -76,8 +75,8 @@ public abstract class QuestionEntity {
     }
     
     // Getters and Setters
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getQuestionText() { return questionText; }
     public void setQuestionText(String questionText) { this.questionText = questionText; }
@@ -91,8 +90,8 @@ public abstract class QuestionEntity {
     public int getMaxScore() { return maxScore; }
     public void setMaxScore(int maxScore) { this.maxScore = maxScore; }
     
-    public UUID getThemeId() { return themeId; }
-    public void setThemeId(UUID themeId) { this.themeId = themeId; }
+    public Long getThemeId() { return themeId; }
+    public void setThemeId(Long themeId) { this.themeId = themeId; }
     
     public String getHint() { return hint; }
     public void setHint(String hint) { this.hint = hint; }

@@ -11,14 +11,13 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class CrearCriterioExamenDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotBlank(message = "El nombre del criterio es obligatorio")
     private String nombre;
@@ -35,7 +34,7 @@ public class CrearCriterioExamenDto {
 
     private String recomendacionBase;
 
-    public CrearCriterioExamenDto(UUID examenId,
+    public CrearCriterioExamenDto(Long examenId,
                                   String nombre,
                                   String descripcion,
                                   BigDecimal ponderacion,

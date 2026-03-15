@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,25 +29,25 @@ public class ResultadoExamenJpaAdapter implements ExamResultRepositoryPort {
     }
     
     @Override
-    public Optional<ExamResult> findById(UUID id) {
+    public Optional<ExamResult> findById(Long id) {
         return jpaRepository.findById(id)
             .map(mapper::toDomain);
     }
     
     @Override
-    public List<ExamResult> findByExamId(UUID examId) {
+    public List<ExamResult> findByExamId(Long examId) {
         return jpaRepository.findByExamId(examId).stream()
             .map(mapper::toDomain)
             .collect(Collectors.toList());
     }
     
     @Override
-    public Optional<ExamResult> findByExamIdAndStudentId(UUID examId, UUID studentId) {
+    public Optional<ExamResult> findByExamIdAndStudentId(Long examId, Long studentId) {
         return jpaRepository.findByExamIdAndStudentId(examId, studentId)
             .map(mapper::toDomain);
     }
     
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         jpaRepository.deleteById(id);
     }
 }

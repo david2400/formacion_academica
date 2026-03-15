@@ -6,7 +6,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface EstudianteGrupoMapper {
@@ -17,7 +16,6 @@ public interface EstudianteGrupoMapper {
 
     default EstudianteGrupoEntity toEntity(AsignarEstudianteGrupoDto dto) {
         EstudianteGrupoEntity entity = new EstudianteGrupoEntity();
-        entity.setId(UUID.randomUUID());
         entity.setEstudianteId(dto.estudianteId());
         entity.setGrupoId(dto.grupoId());
         entity.setFechaAsignacion(dto.fechaAsignacion());

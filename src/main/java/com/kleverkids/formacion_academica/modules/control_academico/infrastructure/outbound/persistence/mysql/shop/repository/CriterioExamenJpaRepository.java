@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface CriterioExamenJpaRepository extends JpaRepository<CriterioExamenEntity, UUID> {
+public interface CriterioExamenJpaRepository extends JpaRepository<CriterioExamenEntity, Long> {
 
-    List<CriterioExamenEntity> findByExamenIdOrderByOrdenAsc(UUID examenId);
+    List<CriterioExamenEntity> findByExamenIdOrderByOrdenAsc(Long examenId);
 }

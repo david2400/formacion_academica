@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class CrearExamenDto {
 
     @NotNull(message = "La clase del examen es obligatoria")
-    private UUID claseId;
+    private Long claseId;
 
     @NotBlank(message = "El nombre del examen es obligatorio")
     private String nombre;
@@ -31,7 +31,7 @@ public class CrearExamenDto {
     @Valid
     private List<ReglaCalificacionDto> reglasCalificacion;
 
-    public CrearExamenDto(UUID claseId,
+    public CrearExamenDto(Long claseId,
                           String nombre,
                           LocalDate fecha,
                           List<ReglaCalificacionDto> reglasCalificacion) {

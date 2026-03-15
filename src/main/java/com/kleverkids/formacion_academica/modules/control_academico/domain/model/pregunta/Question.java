@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.shared.common.domain.AggregateRoot;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -29,14 +28,14 @@ import java.util.UUID;
     @JsonSubTypes.Type(value = OrderingQuestion.class, name = "ordering"),
     @JsonSubTypes.Type(value = MatchingQuestion.class, name = "matching")
 })
-public abstract class Question extends AggregateRoot<UUID> {
+public abstract class Question extends AggregateRoot<Long> {
     
-    protected UUID id;
+    protected Long id;
     protected String questionText;
     protected QuestionType questionType;
     protected Difficulty difficulty;
     protected int maxScore;
-    protected UUID themeId;
+    protected Long themeId;
     protected List<Media> media;
     protected String hint;
     protected String explanation;
@@ -49,8 +48,8 @@ public abstract class Question extends AggregateRoot<UUID> {
     
     protected Question() {}
     
-    protected Question(UUID id, String questionText, QuestionType questionType, Difficulty difficulty,
-                       int maxScore, UUID themeId, List<Media> media, String hint, String explanation,
+    protected Question(Long id, String questionText, QuestionType questionType, Difficulty difficulty,
+                       int maxScore, Long themeId, List<Media> media, String hint, String explanation,
                        List<String> tags, Map<String, Object> metadata) {
         if (questionText == null || questionText.isBlank()) {
             throw new IllegalArgumentException("Question text cannot be null or blank");
@@ -59,7 +58,7 @@ public abstract class Question extends AggregateRoot<UUID> {
             throw new IllegalArgumentException("Max score must be greater than 0");
         }
         
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id;
         this.questionText = questionText;
         this.questionType = questionType;
         this.difficulty = difficulty != null ? difficulty : Difficulty.BASIC;
@@ -76,7 +75,7 @@ public abstract class Question extends AggregateRoot<UUID> {
     }
     
     @Override
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     
@@ -96,7 +95,7 @@ public abstract class Question extends AggregateRoot<UUID> {
         return maxScore;
     }
     
-    public UUID getThemeId() {
+    public Long getThemeId() {
         return themeId;
     }
     
@@ -136,7 +135,7 @@ public abstract class Question extends AggregateRoot<UUID> {
         return version;
     }
     
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -155,7 +154,7 @@ public abstract class Question extends AggregateRoot<UUID> {
         this.updatedAt = Instant.now();
     }
     
-    public void setThemeId(UUID themeId) {
+    public void setThemeId(Long themeId) {
         this.themeId = themeId;
         this.updatedAt = Instant.now();
     }

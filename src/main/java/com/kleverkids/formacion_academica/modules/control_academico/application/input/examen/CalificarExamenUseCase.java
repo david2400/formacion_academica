@@ -3,9 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResultResponse;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand;
 
-import java.util.UUID;
-
 public interface CalificarExamenUseCase {
     
-    ExamResultResponse calificar(UUID examenId, UUID envioId, GradeExamCommand command);
+    ExamResultResponse calificar(Long examenId, Long envioId, GradeExamCommand command);
 }

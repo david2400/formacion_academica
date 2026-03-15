@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -43,21 +42,21 @@ public class RespuestaPreguntaJpaAdapter implements RespuestaPreguntaRepositoryP
     }
 
     @Override
-    public List<RespuestaPreguntaDto> listarPorEstudiante(UUID examenId, UUID estudianteId) {
+    public List<RespuestaPreguntaDto> listarPorEstudiante(Long examenId, Long estudianteId) {
         return respuestaPreguntaMapper.toDtoList(
                 respuestaPreguntaJpaRepository.findByExamenIdAndEstudianteIdOrderByRegistradaEnAsc(examenId, estudianteId)
         );
     }
 
     @Override
-    public RespuestaPreguntaDto obtenerPorId(UUID respuestaId) {
+    public RespuestaPreguntaDto obtenerPorId(Long respuestaId) {
         return respuestaPreguntaJpaRepository.findById(respuestaId)
                 .map(respuestaPreguntaMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Respuesta de pregunta no encontrada"));
     }
 
     @Override
-    public void eliminar(UUID respuestaId) {
+    public void eliminar(Long respuestaId) {
         respuestaPreguntaJpaRepository.deleteById(respuestaId);
     }
 }

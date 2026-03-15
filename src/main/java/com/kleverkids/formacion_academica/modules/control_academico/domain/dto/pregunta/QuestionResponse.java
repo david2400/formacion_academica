@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 public record QuestionResponse(
-    UUID id,
+    Long id,
     String questionText,
     String questionType,
     String difficulty,
     int maxScore,
-    UUID themeId,
+    Long themeId,
     List<MediaDto> media,
     String hint,
     String explanation,
@@ -27,8 +27,8 @@ public record QuestionResponse(
     Integer version,
     // Type-specific fields
     List<OptionDto> options,
-    UUID correctOptionId,
-    List<UUID> correctOptionIds,
+    Long correctOptionId,
+    List<Long> correctOptionIds,
     Integer minSelections,
     Integer maxSelections,
     Boolean correctAnswer,
@@ -160,12 +160,12 @@ public record QuestionResponse(
     }
     
     private static class QuestionResponseBuilder {
-        private UUID id;
+        private Long id;
         private String questionText;
         private String questionType;
         private String difficulty;
         private int maxScore;
-        private UUID themeId;
+        private Long themeId;
         private List<MediaDto> media;
         private String hint;
         private String explanation;
@@ -175,8 +175,8 @@ public record QuestionResponse(
         private Instant updatedAt;
         private Integer version;
         private List<OptionDto> options;
-        private UUID correctOptionId;
-        private List<UUID> correctOptionIds;
+        private Long correctOptionId;
+        private List<Long> correctOptionIds;
         private Integer minSelections;
         private Integer maxSelections;
         private Boolean correctAnswer;
@@ -197,12 +197,12 @@ public record QuestionResponse(
         private Boolean partialCredit;
         private List<MatchingPairDto> pairs;
         
-        QuestionResponseBuilder id(UUID id) { this.id = id; return this; }
+        QuestionResponseBuilder id(Long id) { this.id = id; return this; }
         QuestionResponseBuilder questionText(String questionText) { this.questionText = questionText; return this; }
         QuestionResponseBuilder questionType(String questionType) { this.questionType = questionType; return this; }
         QuestionResponseBuilder difficulty(String difficulty) { this.difficulty = difficulty; return this; }
         QuestionResponseBuilder maxScore(int maxScore) { this.maxScore = maxScore; return this; }
-        QuestionResponseBuilder themeId(UUID themeId) { this.themeId = themeId; return this; }
+        QuestionResponseBuilder themeId(Long themeId) { this.themeId = themeId; return this; }
         QuestionResponseBuilder media(List<MediaDto> media) { this.media = media; return this; }
         QuestionResponseBuilder hint(String hint) { this.hint = hint; return this; }
         QuestionResponseBuilder explanation(String explanation) { this.explanation = explanation; return this; }
@@ -212,8 +212,8 @@ public record QuestionResponse(
         QuestionResponseBuilder updatedAt(Instant updatedAt) { this.updatedAt = updatedAt; return this; }
         QuestionResponseBuilder version(Integer version) { this.version = version; return this; }
         QuestionResponseBuilder options(List<OptionDto> options) { this.options = options; return this; }
-        QuestionResponseBuilder correctOptionId(UUID correctOptionId) { this.correctOptionId = correctOptionId; return this; }
-        QuestionResponseBuilder correctOptionIds(List<UUID> correctOptionIds) { this.correctOptionIds = correctOptionIds; return this; }
+        QuestionResponseBuilder correctOptionId(Long correctOptionId) { this.correctOptionId = correctOptionId; return this; }
+        QuestionResponseBuilder correctOptionIds(List<Long> correctOptionIds) { this.correctOptionIds = correctOptionIds; return this; }
         QuestionResponseBuilder minSelections(Integer minSelections) { this.minSelections = minSelections; return this; }
         QuestionResponseBuilder maxSelections(Integer maxSelections) { this.maxSelections = maxSelections; return this; }
         QuestionResponseBuilder correctAnswer(Boolean correctAnswer) { this.correctAnswer = correctAnswer; return this; }

@@ -4,9 +4,9 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface ClaseJpaRepository extends JpaRepository<ClaseEntity, UUID> {
+
+public interface ClaseJpaRepository extends JpaRepository<ClaseEntity, Long> {
 
     Optional<ClaseEntity> findByCodigo(String codigo);
 

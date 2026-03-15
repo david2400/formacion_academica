@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -36,17 +35,17 @@ public class TematicaService implements CrearTematicaUseCase,
     }
 
     @Override
-    public List<TematicaDto> listar(UUID examenId) {
+    public List<TematicaDto> listar(Long examenId) {
         return repositoryPort.listarPorExamen(examenId);
     }
 
     @Override
-    public TematicaDto consultarPorId(UUID tematicaId) {
+    public TematicaDto consultarPorId(Long tematicaId) {
         return repositoryPort.obtenerPorId(tematicaId);
     }
 
     @Override
-    public void eliminar(UUID tematicaId) {
+    public void eliminar(Long tematicaId) {
         repositoryPort.obtenerPorId(tematicaId);
         repositoryPort.eliminar(tematicaId);
     }

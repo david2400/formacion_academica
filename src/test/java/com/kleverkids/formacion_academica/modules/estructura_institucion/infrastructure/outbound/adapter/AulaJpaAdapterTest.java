@@ -13,7 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,7 +47,7 @@ class AulaJpaAdapterTest {
 
     @Test
     void actualizar_debeAplicarCambios() {
-        UUID aulaId = UUID.randomUUID();
+        Long aulaId = ThreadLocalRandom.current().nextLong();
         AulaEntity entity = new AulaEntity();
         entity.setId(aulaId);
         entity.setNombre("Laboratorio");
@@ -79,7 +80,7 @@ class AulaJpaAdapterTest {
 
     @Test
     void obtenerPorId_debeRetornarDto() {
-        UUID aulaId = UUID.randomUUID();
+        Long aulaId = ThreadLocalRandom.current().nextLong();
         AulaEntity entity = new AulaEntity();
         entity.setId(aulaId);
         entity.setNombre("Laboratorio");
@@ -97,7 +98,7 @@ class AulaJpaAdapterTest {
     @Test
     void listar_debeRetornarTodasLasAulas() {
         AulaEntity entity = new AulaEntity();
-        entity.setId(UUID.randomUUID());
+        entity.setId(ThreadLocalRandom.current().nextLong());
         entity.setNombre("Laboratorio");
         entity.setActivo(true);
 

@@ -7,8 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -16,14 +14,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GrupoDto extends AuditInfoDto {
 
-    private UUID id;
+    private Long id;
     private String codigo;
     private String nombre;
-    private UUID gradoId;
+    private Long gradoId;
     private Integer capacidadMaxima;
-    private UUID tutorId;
-    private UUID aulaId;
+    private Long tutorId;
+    private Long aulaId;
     private boolean activo;
-    private AuditInfoDto audit;
 
 }

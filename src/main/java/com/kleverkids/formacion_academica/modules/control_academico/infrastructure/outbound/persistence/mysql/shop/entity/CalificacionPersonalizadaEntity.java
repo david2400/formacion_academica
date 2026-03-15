@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 @Data
 @Entity
@@ -15,13 +15,13 @@ import java.util.UUID;
 public class CalificacionPersonalizadaEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
-    private UUID examenId;
+    private Long examenId;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
     private String criterio;

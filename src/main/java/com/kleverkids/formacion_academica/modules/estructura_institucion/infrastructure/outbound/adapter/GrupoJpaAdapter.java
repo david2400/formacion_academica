@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class GrupoJpaAdapter implements GrupoRepositoryPort {
@@ -43,7 +42,7 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
     }
 
     @Override
-    public GrupoDto obtenerPorId(UUID id) {
+    public GrupoDto obtenerPorId(Long id) {
         return grupoJpaRepository.findById(id)
                 .map(grupoMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
@@ -55,7 +54,7 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID id) {
+    public void eliminar(Long id) {
         grupoJpaRepository.deleteById(id);
     }
 }

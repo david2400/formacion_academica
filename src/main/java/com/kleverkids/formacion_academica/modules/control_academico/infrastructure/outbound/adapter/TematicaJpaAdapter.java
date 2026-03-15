@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -36,21 +35,21 @@ public class TematicaJpaAdapter implements TematicaRepositoryPort {
     }
 
     @Override
-    public List<TematicaDto> listarPorExamen(UUID examenId) {
+    public List<TematicaDto> listarPorExamen(Long examenId) {
         return TematicaMapper.toDtoList(
                 TematicaJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
         );
     }
 
     @Override
-    public TematicaDto obtenerPorId(UUID tematicaId) {
+    public TematicaDto obtenerPorId(Long tematicaId) {
         return TematicaJpaRepository.findById(tematicaId)
                 .map(TematicaMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Temática no encontrada"));
     }
 
     @Override
-    public void eliminar(UUID tematicaId) {
+    public void eliminar(Long tematicaId) {
         TematicaJpaRepository.deleteById(tematicaId);
     }
 }

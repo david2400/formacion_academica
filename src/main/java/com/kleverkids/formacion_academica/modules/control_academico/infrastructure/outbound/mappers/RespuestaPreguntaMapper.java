@@ -13,17 +13,16 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class, LocalDateTime.class})
+@Mapper(componentModel = "spring", imports = {LocalDateTime.class})
 public interface RespuestaPreguntaMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "estudianteExamen", source = "relacion")
-    @Mapping(target = "examenId", source = "dto.examenId")
-    @Mapping(target = "estudianteId", source = "dto.estudianteId")
-    @Mapping(target = "preguntaId", source = "dto.preguntaId")
-    @Mapping(target = "respuestaBancoId", source = "dto.respuestaBancoId")
+    @Mapping(target = "examenId", ignore = true)
+    @Mapping(target = "estudianteId", ignore = true)
+    @Mapping(target = "preguntaId", ignore = true)
+    @Mapping(target = "respuestaBancoId", ignore = true)
     @Mapping(target = "respuestaTexto", source = "dto.respuestaTexto")
     @Mapping(target = "esCorrecta", source = "dto.esCorrecta")
     @Mapping(target = "puntajeObtenido", source = "dto.puntajeObtenido")
@@ -39,8 +38,19 @@ public interface RespuestaPreguntaMapper {
     @Mapping(target = "registradaEn", ignore = true)
     void applyUpdate(@MappingTarget RespuestaPreguntaEntity entity, ActualizarRespuestaPreguntaDto dto);
 
-    @Mapping(target = "estudianteExamenId", source = "estudianteExamen.id")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estudianteExamenId", ignore = true)
+    @Mapping(target = "examenId", ignore = true)
+    @Mapping(target = "estudianteId", ignore = true)
+    @Mapping(target = "preguntaId", ignore = true)
+    @Mapping(target = "respuestaBancoId", ignore = true)
     RespuestaPreguntaDto toDto(RespuestaPreguntaEntity entity);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estudianteExamenId", ignore = true)
+    @Mapping(target = "examenId", ignore = true)
+    @Mapping(target = "estudianteId", ignore = true)
+    @Mapping(target = "preguntaId", ignore = true)
+    @Mapping(target = "respuestaBancoId", ignore = true)
     List<RespuestaPreguntaDto> toDtoList(List<RespuestaPreguntaEntity> entities);
 }

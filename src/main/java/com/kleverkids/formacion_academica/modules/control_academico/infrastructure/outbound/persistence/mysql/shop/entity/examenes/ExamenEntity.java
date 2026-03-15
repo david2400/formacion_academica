@@ -13,17 +13,17 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "examenes")
 public class ExamenEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
-    private UUID claseId;
+    private Long claseId;
 
     @Column(nullable = false)
     private String nombre;
@@ -35,19 +35,19 @@ public class ExamenEntity {
     @CollectionTable(name = "examen_reglas", joinColumns = @JoinColumn(name = "examen_id"))
     private List<ReglaCalificacionEmbeddable> reglas;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getClaseId() {
+    public Long getClaseId() {
         return claseId;
     }
 
-    public void setClaseId(UUID claseId) {
+    public void setClaseId(Long claseId) {
         this.claseId = claseId;
     }
 

@@ -9,10 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface QuestionJpaRepository extends JpaRepository<QuestionEntity, UUID> {
+public interface QuestionJpaRepository extends JpaRepository<QuestionEntity, Long> {
     
     @Query("SELECT q FROM QuestionEntity q WHERE q.deleted = false " +
            "AND (:questionType IS NULL OR q.questionType = :questionType) " +
@@ -22,7 +21,7 @@ public interface QuestionJpaRepository extends JpaRepository<QuestionEntity, UUI
     Page<QuestionEntity> search(
         @Param("questionType") String questionType,
         @Param("difficulty") String difficulty,
-        @Param("themeId") UUID themeId,
+        @Param("themeId") Long themeId,
         @Param("searchText") String searchText,
         Pageable pageable
     );
@@ -35,13 +34,13 @@ public interface QuestionJpaRepository extends JpaRepository<QuestionEntity, UUI
     Page<QuestionEntity> searchWithDeleted(
         @Param("questionType") String questionType,
         @Param("difficulty") String difficulty,
-        @Param("themeId") UUID themeId,
+        @Param("themeId") Long themeId,
         @Param("searchText") String searchText,
         @Param("includeDeleted") boolean includeDeleted,
         Pageable pageable
     );
     
-    List<QuestionEntity> findByThemeIdAndDeletedFalse(UUID themeId);
+    List<QuestionEntity> findByThemeIdAndDeletedFalse(Long themeId);
     
-    List<QuestionEntity> findByIdInAndDeletedFalse(List<UUID> ids);
+    List<QuestionEntity> findByIdInAndDeletedFalse(List<Long> ids);
 }

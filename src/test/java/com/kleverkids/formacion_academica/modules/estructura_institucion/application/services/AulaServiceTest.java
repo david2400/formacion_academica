@@ -11,7 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,7 +32,7 @@ class AulaServiceTest {
     @Test
     void crear_debeGuardarCuandoNombreDisponible() {
         CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25, true);
-        AulaDto expected = new AulaDto(UUID.randomUUID(), "Laboratorio", "Ciencias", 25, true);
+        AulaDto expected = new AulaDto(ThreadLocalRandom.current().nextLong(), "Laboratorio", "Ciencias", 25, true);
 
         when(aulaRepositoryPort.existePorNombre("Laboratorio")).thenReturn(false);
         when(aulaRepositoryPort.guardar(request)).thenReturn(expected);
@@ -53,7 +54,7 @@ class AulaServiceTest {
 
     @Test
     void actualizar_debeActualizarCuandoNombreSinCambio() {
-//        UUID aulaId = UUID.randomUUID();
+//        Long aulaId = ThreadLocalRandom.current().nextLong();
 //        ActualizarAulaDto request = new ActualizarAulaDto(aulaId, "Laboratorio", "Ciencias", 30, true);
 //        AulaDto persisted = new AulaDto(aulaId, "Laboratorio", "Ciencias", 25, true);
 //        AulaDto updated = new AulaDto(aulaId, "Laboratorio", "Ciencias", 30, true);
@@ -71,7 +72,7 @@ class AulaServiceTest {
 
     @Test
     void actualizar_debeFallarCuandoAulaNoExiste() {
-//        UUID aulaId = UUID.randomUUID();
+//        Long aulaId = ThreadLocalRandom.current().nextLong();
 //        ActualizarAulaDto request = new ActualizarAulaDto(aulaId, "Laboratorio", null, null, null);
 //        when(aulaRepositoryPort.existePorId(aulaId)).thenReturn(false);
 //
@@ -81,7 +82,7 @@ class AulaServiceTest {
 
     @Test
     void listar_debeDelegarEnRepositorio() {
-        List<AulaDto> aulas = List.of(new AulaDto(UUID.randomUUID(), "Laboratorio", null, null, true));
+        List<AulaDto> aulas = List.of(new AulaDto(ThreadLocalRandom.current().nextLong(), "Laboratorio", null, null, true));
         when(aulaRepositoryPort.listar()).thenReturn(aulas);
 
         List<AulaDto> result = aulaService.listar();

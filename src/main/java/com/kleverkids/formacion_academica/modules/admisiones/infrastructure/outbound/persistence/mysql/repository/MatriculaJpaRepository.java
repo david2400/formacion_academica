@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outb
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface MatriculaJpaRepository extends JpaRepository<MatriculaEntity, UUID> {
+public interface MatriculaJpaRepository extends JpaRepository<MatriculaEntity, Long> {
 
-    List<MatriculaEntity> findByEstudianteId(UUID estudianteId);
+    List<MatriculaEntity> findByEstudianteId(Long estudianteId);
 }

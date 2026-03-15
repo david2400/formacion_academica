@@ -5,13 +5,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface EstudianteExamenRepositoryPort {
 
     EstudianteExamenDto registrar(RegistrarEstudianteExamenDto request);
 
-    List<EstudianteExamenDto> listarPorExamen(UUID examenId);
+    List<EstudianteExamenDto> listarPorExamen(Long examenId);
 
-    Optional<EstudianteExamenDto> buscarPorExamenYEstudiante(UUID examenId, UUID estudianteId);
+    Optional<EstudianteExamenDto> buscarPorExamenYEstudiante(Long examenId, Long estudianteId);
 }

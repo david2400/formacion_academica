@@ -1,19 +1,20 @@
 package com.kleverkids.formacion_academica.shared.common.domain;
 
 import java.time.Instant;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 public abstract class DomainEvent {
     
-    private final UUID eventId;
+    private final Long eventId;
     private final Instant occurredOn;
     
     protected DomainEvent() {
-        this.eventId = UUID.randomUUID();
+        this.eventId = ThreadLocalRandom.current().nextLong();
         this.occurredOn = Instant.now();
     }
     
-    public UUID getEventId() {
+    public Long getEventId() {
         return eventId;
     }
     

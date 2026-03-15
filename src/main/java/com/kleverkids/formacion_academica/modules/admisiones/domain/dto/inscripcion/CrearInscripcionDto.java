@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -17,7 +16,7 @@ import java.util.UUID;
 public class CrearInscripcionDto {
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @NotBlank(message = "El periodo académico es obligatorio")
     private String periodoAcademico;

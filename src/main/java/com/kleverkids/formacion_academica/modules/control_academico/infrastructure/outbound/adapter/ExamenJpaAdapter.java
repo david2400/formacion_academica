@@ -21,7 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Component
@@ -45,12 +45,12 @@ public class ExamenJpaAdapter implements ExamRepositoryPort, ExamenRepositoryPor
     }
     
     @Override
-    public Optional<Exam> findById(UUID id) {
+    public Optional<Exam> findById(Long id) {
         return examJpaRepository.findById(id).map(examPersistenceMapper::toDomain);
     }
     
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         examJpaRepository.deleteById(id);
     }
     
@@ -67,7 +67,7 @@ public class ExamenJpaAdapter implements ExamRepositoryPort, ExamenRepositoryPor
     }
     
     @Override
-    public boolean existsById(UUID id) {
+    public boolean existsById(Long id) {
         return examJpaRepository.existsById(id);
     }
 

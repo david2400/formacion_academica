@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 public class ExamSubmission {
     
-    private UUID id;
-    private UUID examId;
-    private UUID studentId;
+    private Long id;
+    private Long examId;
+    private Long studentId;
     private Instant startedAt;
     private Instant submittedAt;
     private List<QuestionAnswer> answers;
@@ -25,8 +25,8 @@ public class ExamSubmission {
         this.status = SubmissionStatus.IN_PROGRESS;
     }
     
-    public ExamSubmission(UUID id, UUID examId, UUID studentId) {
-        this.id = id != null ? id : UUID.randomUUID();
+    public ExamSubmission(Long id, Long examId, Long studentId) {
+        this.id = id ;
         this.examId = examId;
         this.studentId = studentId;
         this.startedAt = Instant.now();
@@ -35,14 +35,14 @@ public class ExamSubmission {
         this.graded = false;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getExamId() { return examId; }
-    public void setExamId(UUID examId) { this.examId = examId; }
+    public Long getExamId() { return examId; }
+    public void setExamId(Long examId) { this.examId = examId; }
     
-    public UUID getStudentId() { return studentId; }
-    public void setStudentId(UUID studentId) { this.studentId = studentId; }
+    public Long getStudentId() { return studentId; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
     
     public Instant getStartedAt() { return startedAt; }
     public void setStartedAt(Instant startedAt) { this.startedAt = startedAt; }

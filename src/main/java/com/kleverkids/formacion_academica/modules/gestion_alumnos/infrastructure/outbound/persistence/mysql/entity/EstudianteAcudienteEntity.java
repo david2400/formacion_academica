@@ -2,24 +2,26 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructur
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Table(name = "estudiante_acudiente")
 public class EstudianteAcudienteEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
-    private UUID acudienteId;
+    private Long acudienteId;
 
     @Column(nullable = false)
     private String parentesco;
@@ -35,27 +37,27 @@ public class EstudianteAcudienteEntity {
 
     private LocalDate fechaFin;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getEstudianteId() {
+    public Long getEstudianteId() {
         return estudianteId;
     }
 
-    public void setEstudianteId(UUID estudianteId) {
+    public void setEstudianteId(Long estudianteId) {
         this.estudianteId = estudianteId;
     }
 
-    public UUID getAcudienteId() {
+    public Long getAcudienteId() {
         return acudienteId;
     }
 
-    public void setAcudienteId(UUID acudienteId) {
+    public void setAcudienteId(Long acudienteId) {
         this.acudienteId = acudienteId;
     }
 

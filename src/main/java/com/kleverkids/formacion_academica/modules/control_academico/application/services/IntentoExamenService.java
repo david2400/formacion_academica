@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Service
@@ -42,7 +42,7 @@ public class IntentoExamenService implements IniciarIntentoExamenUseCase,
     }
 
     @Override
-    public List<IntentoExamenDto> listar(UUID examenId, UUID estudianteId) {
+    public List<IntentoExamenDto> listar(Long examenId, Long estudianteId) {
         return repositoryPort.listarPorEstudiante(examenId, estudianteId);
     }
 }

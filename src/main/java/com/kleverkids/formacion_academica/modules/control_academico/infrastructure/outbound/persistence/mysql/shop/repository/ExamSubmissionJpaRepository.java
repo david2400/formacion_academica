@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Repository
-public interface ExamSubmissionJpaRepository extends JpaRepository<ExamSubmissionEntity, UUID> {
+public interface ExamSubmissionJpaRepository extends JpaRepository<ExamSubmissionEntity, Long> {
     
-    Optional<ExamSubmissionEntity> findByExamIdAndStudentId(UUID examId, UUID studentId);
+    Optional<ExamSubmissionEntity> findByExamIdAndStudentId(Long examId, Long studentId);
     
-    List<ExamSubmissionEntity> findByExamId(UUID examId);
+    List<ExamSubmissionEntity> findByExamId(Long examId);
 }

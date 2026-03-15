@@ -4,23 +4,25 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "preguntas_banco")
 public class PreguntaBancoEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
-    private UUID tematicaId;
+    private Long tematicaId;
 
     @Column(nullable = false, length = 1000)
     private String enunciado;
@@ -36,19 +38,19 @@ public class PreguntaBancoEntity {
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<RespuestaBancoEntity> respuestas = new ArrayList<>();
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getTematicaId() {
+    public Long getTematicaId() {
         return tematicaId;
     }
 
-    public void setTematicaId(UUID tematicaId) {
+    public void setTematicaId(Long tematicaId) {
         this.tematicaId = tematicaId;
     }
 

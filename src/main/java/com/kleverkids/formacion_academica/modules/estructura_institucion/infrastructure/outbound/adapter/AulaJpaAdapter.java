@@ -10,7 +10,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class AulaJpaAdapter implements AulaRepositoryPort {
@@ -44,12 +43,12 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     }
 
     @Override
-    public boolean existePorId(UUID id) {
+    public boolean existePorId(Long id) {
         return aulaJpaRepository.existsById(id);
     }
 
     @Override
-    public AulaDto obtenerPorId(UUID id) {
+    public AulaDto obtenerPorId(Long id) {
         return aulaJpaRepository.findById(id)
                 .map(aulaMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
@@ -61,7 +60,7 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID id) {
+    public void eliminar(Long id) {
         aulaJpaRepository.deleteById(id);
     }
 }

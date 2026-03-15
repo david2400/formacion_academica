@@ -11,7 +11,6 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricul
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class MatriculaService implements RegistrarMatriculaUseCase,
@@ -35,18 +34,18 @@ public class MatriculaService implements RegistrarMatriculaUseCase,
     }
 
     @Override
-    public MatriculaDto consultarPorId(UUID matriculaId) {
+    public MatriculaDto consultarPorId(Long matriculaId) {
         return matriculaRepositoryPort.obtenerPorId(matriculaId)
                 .orElseThrow(() -> new IllegalArgumentException("Matrícula no encontrada"));
     }
 
     @Override
-    public List<MatriculaDto> listarPorEstudiante(UUID estudianteId) {
+    public List<MatriculaDto> listarPorEstudiante(Long estudianteId) {
         return matriculaRepositoryPort.listarPorEstudiante(estudianteId);
     }
 
     @Override
-    public void eliminar(UUID matriculaId) {
+    public void eliminar(Long matriculaId) {
         consultarPorId(matriculaId);
         matriculaRepositoryPort.eliminar(matriculaId);
     }

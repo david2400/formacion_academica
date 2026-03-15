@@ -4,27 +4,27 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
+
 
 public class ExamResult {
     
-    private UUID id;
-    private UUID examId;
-    private UUID studentId;
-    private UUID submissionId;
+    private Long id;
+    private Long examId;
+    private Long studentId;
+    private Long submissionId;
     private BigDecimal totalScore;
     private BigDecimal maxScore;
     private BigDecimal percentage;
     private String grade;
     private List<QuestionResult> questionResults;
     private Instant gradedAt;
-    private UUID gradedBy;
+    private Long gradedBy;
     
     public ExamResult() {}
     
-    public ExamResult(UUID id, UUID examId, UUID studentId, UUID submissionId,
+    public ExamResult(Long id, Long examId, Long studentId, Long submissionId,
                       BigDecimal totalScore, BigDecimal maxScore, List<QuestionResult> questionResults) {
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id ;
         this.examId = examId;
         this.studentId = studentId;
         this.submissionId = submissionId;
@@ -35,17 +35,17 @@ public class ExamResult {
         calculatePercentage();
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getExamId() { return examId; }
-    public void setExamId(UUID examId) { this.examId = examId; }
+    public Long getExamId() { return examId; }
+    public void setExamId(Long examId) { this.examId = examId; }
     
-    public UUID getStudentId() { return studentId; }
-    public void setStudentId(UUID studentId) { this.studentId = studentId; }
+    public Long getStudentId() { return studentId; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
     
-    public UUID getSubmissionId() { return submissionId; }
-    public void setSubmissionId(UUID submissionId) { this.submissionId = submissionId; }
+    public Long getSubmissionId() { return submissionId; }
+    public void setSubmissionId(Long submissionId) { this.submissionId = submissionId; }
     
     public BigDecimal getTotalScore() { return totalScore; }
     public void setTotalScore(BigDecimal totalScore) { 
@@ -70,8 +70,8 @@ public class ExamResult {
     public Instant getGradedAt() { return gradedAt; }
     public void setGradedAt(Instant gradedAt) { this.gradedAt = gradedAt; }
     
-    public UUID getGradedBy() { return gradedBy; }
-    public void setGradedBy(UUID gradedBy) { this.gradedBy = gradedBy; }
+    public Long getGradedBy() { return gradedBy; }
+    public void setGradedBy(Long gradedBy) { this.gradedBy = gradedBy; }
     
     private void calculatePercentage() {
         if (totalScore != null && maxScore != null && maxScore.compareTo(BigDecimal.ZERO) > 0) {
@@ -82,7 +82,7 @@ public class ExamResult {
     }
     
     public static class QuestionResult {
-        private UUID questionId;
+        private Long questionId;
         private BigDecimal score;
         private BigDecimal maxScore;
         private boolean correct;
@@ -90,7 +90,7 @@ public class ExamResult {
         
         public QuestionResult() {}
         
-        public QuestionResult(UUID questionId, BigDecimal score, BigDecimal maxScore, boolean correct, String feedback) {
+        public QuestionResult(Long questionId, BigDecimal score, BigDecimal maxScore, boolean correct, String feedback) {
             this.questionId = questionId;
             this.score = score;
             this.maxScore = maxScore;
@@ -98,8 +98,8 @@ public class ExamResult {
             this.feedback = feedback;
         }
         
-        public UUID getQuestionId() { return questionId; }
-        public void setQuestionId(UUID questionId) { this.questionId = questionId; }
+        public Long getQuestionId() { return questionId; }
+        public void setQuestionId(Long questionId) { this.questionId = questionId; }
         
         public BigDecimal getScore() { return score; }
         public void setScore(BigDecimal score) { this.score = score; }

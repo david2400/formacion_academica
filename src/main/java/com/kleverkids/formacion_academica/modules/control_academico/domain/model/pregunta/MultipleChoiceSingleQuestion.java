@@ -8,22 +8,21 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class MultipleChoiceSingleQuestion extends Question {
     
     private List<Option> options;
-    private UUID correctOptionId;
+    private Long correctOptionId;
     
     public MultipleChoiceSingleQuestion() {
         super();
         this.questionType = QuestionType.MULTIPLE_CHOICE_SINGLE;
     }
     
-    public MultipleChoiceSingleQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                                         UUID themeId, List<Media> media, String hint, String explanation,
+    public MultipleChoiceSingleQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                                         Long themeId, List<Media> media, String hint, String explanation,
                                          List<String> tags, Map<String, Object> metadata,
-                                         List<Option> options, UUID correctOptionId) {
+                                         List<Option> options, Long correctOptionId) {
         super(id, questionText, QuestionType.MULTIPLE_CHOICE_SINGLE, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.options = options;
@@ -39,11 +38,11 @@ public class MultipleChoiceSingleQuestion extends Question {
         this.options = options;
     }
     
-    public UUID getCorrectOptionId() {
+    public Long getCorrectOptionId() {
         return correctOptionId;
     }
     
-    public void setCorrectOptionId(UUID correctOptionId) {
+    public void setCorrectOptionId(Long correctOptionId) {
         this.correctOptionId = correctOptionId;
     }
     

@@ -1,19 +1,19 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 public class ExamQuestionEmbeddable {
     
-    private UUID id;
-    private UUID questionId;
+    private Long id;
+    private Long questionId;
     private int order;
     private BigDecimal points;
     private boolean required;
     
     public ExamQuestionEmbeddable() {}
     
-    public ExamQuestionEmbeddable(UUID id, UUID questionId, int order, BigDecimal points, boolean required) {
+    public ExamQuestionEmbeddable(Long id, Long questionId, int order, BigDecimal points, boolean required) {
         this.id = id;
         this.questionId = questionId;
         this.order = order;
@@ -21,11 +21,11 @@ public class ExamQuestionEmbeddable {
         this.required = required;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getQuestionId() { return questionId; }
-    public void setQuestionId(UUID questionId) { this.questionId = questionId; }
+    public Long getQuestionId() { return questionId; }
+    public void setQuestionId(Long questionId) { this.questionId = questionId; }
     
     public int getOrder() { return order; }
     public void setOrder(int order) { this.order = order; }

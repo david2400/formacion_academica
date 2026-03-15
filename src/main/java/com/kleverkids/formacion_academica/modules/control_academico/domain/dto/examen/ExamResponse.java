@@ -8,11 +8,11 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 public record ExamResponse(
-    UUID id,
+    Long id,
     String name,
     String code,
     String subject,

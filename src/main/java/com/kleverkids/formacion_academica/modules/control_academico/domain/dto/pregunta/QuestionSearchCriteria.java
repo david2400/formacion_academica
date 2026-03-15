@@ -1,12 +1,11 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
 import java.util.List;
-import java.util.UUID;
 
 public record QuestionSearchCriteria(
     String questionType,
     String difficulty,
-    UUID themeId,
+    Long themeId,
     List<String> tags,
     String searchText,
     Boolean includeDeleted

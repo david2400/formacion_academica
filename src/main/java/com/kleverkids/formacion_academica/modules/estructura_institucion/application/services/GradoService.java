@@ -12,7 +12,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GradoService implements CrearGradoUseCase, ActualizarGradoUseCase,
@@ -35,7 +34,7 @@ public class GradoService implements CrearGradoUseCase, ActualizarGradoUseCase,
     }
 
     @Override
-    public GradoDto consultarPorId(UUID gradoId) {
+    public GradoDto consultarPorId(Long gradoId) {
         return gradoRepositoryPort.obtenerPorId(gradoId);
     }
 
@@ -45,7 +44,7 @@ public class GradoService implements CrearGradoUseCase, ActualizarGradoUseCase,
     }
 
     @Override
-    public void eliminar(UUID gradoId) {
+    public void eliminar(Long gradoId) {
         gradoRepositoryPort.obtenerPorId(gradoId);
         gradoRepositoryPort.eliminar(gradoId);
     }

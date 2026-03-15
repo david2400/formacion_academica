@@ -6,7 +6,6 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.est
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface EstudianteAcudienteRepositoryPort {
 
@@ -14,13 +13,13 @@ public interface EstudianteAcudienteRepositoryPort {
 
     EstudianteAcudienteDto actualizar(ActualizarEstudianteAcudienteDto request);
 
-    Optional<EstudianteAcudienteDto> obtenerPorId(UUID relacionId);
+    Optional<EstudianteAcudienteDto> obtenerPorId(Long relacionId);
 
-    List<EstudianteAcudienteDto> listarPorEstudiante(UUID estudianteId);
+    List<EstudianteAcudienteDto> listarPorEstudiante(Long estudianteId);
 
-    List<EstudianteAcudienteDto> listarPorAcudiente(UUID acudienteId);
+    List<EstudianteAcudienteDto> listarPorAcudiente(Long acudienteId);
 
-    boolean existeRelacionPrincipal(UUID estudianteId, UUID excluirRelacionId);
+    boolean existeRelacionPrincipal(Long estudianteId, Long excluirRelacionId);
 
-    void eliminar(UUID relacionId);
+    void eliminar(Long relacionId);
 }

@@ -9,21 +9,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "respuestas_intento_examen")
 public class RespuestaIntentoEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "intento_id", nullable = false)
     private IntentoExamenEntity intento;
 
     @Column(nullable = false)
-    private UUID preguntaId;
+    private Long preguntaId;
 
     @Column(nullable = false, length = 1000)
     private String respuesta;
@@ -33,11 +33,11 @@ public class RespuestaIntentoEntity {
 
     private Integer puntajeObtenido;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +49,11 @@ public class RespuestaIntentoEntity {
         this.intento = intento;
     }
 
-    public UUID getPreguntaId() {
+    public Long getPreguntaId() {
         return preguntaId;
     }
 
-    public void setPreguntaId(UUID preguntaId) {
+    public void setPreguntaId(Long preguntaId) {
         this.preguntaId = preguntaId;
     }
 

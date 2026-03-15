@@ -8,20 +8,20 @@ import org.hibernate.type.SqlTypes;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "exam_submissions")
 public class ExamSubmissionEntity {
     
     @Id
-    private UUID id;
+    private Long id;
     
     @Column(name = "exam_id", nullable = false)
-    private UUID examId;
+    private Long examId;
     
     @Column(name = "student_id", nullable = false)
-    private UUID studentId;
+    private Long studentId;
     
     @Column(name = "started_at")
     private Instant startedAt;
@@ -42,14 +42,14 @@ public class ExamSubmissionEntity {
     @Column(name = "graded")
     private boolean graded;
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getExamId() { return examId; }
-    public void setExamId(UUID examId) { this.examId = examId; }
+    public Long getExamId() { return examId; }
+    public void setExamId(Long examId) { this.examId = examId; }
     
-    public UUID getStudentId() { return studentId; }
-    public void setStudentId(UUID studentId) { this.studentId = studentId; }
+    public Long getStudentId() { return studentId; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
     
     public Instant getStartedAt() { return startedAt; }
     public void setStartedAt(Instant startedAt) { this.startedAt = startedAt; }

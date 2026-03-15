@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -36,22 +35,22 @@ public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteReposit
     }
 
     @Override
-    public Optional<EstudianteAcudienteDto> obtenerPorId(UUID relacionId) {
+    public Optional<EstudianteAcudienteDto> obtenerPorId(Long relacionId) {
         return relacionJpaRepository.findById(relacionId).map(relacionMapper::toDto);
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorEstudiante(UUID estudianteId) {
+    public List<EstudianteAcudienteDto> listarPorEstudiante(Long estudianteId) {
         return relacionMapper.toDtoList(relacionJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorAcudiente(UUID acudienteId) {
+    public List<EstudianteAcudienteDto> listarPorAcudiente(Long acudienteId) {
         return relacionMapper.toDtoList(relacionJpaRepository.findByAcudienteId(acudienteId));
     }
 
     @Override
-    public boolean existeRelacionPrincipal(UUID estudianteId, UUID excluirRelacionId) {
+    public boolean existeRelacionPrincipal(Long estudianteId, Long excluirRelacionId) {
         if (excluirRelacionId == null) {
             return relacionJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrue(estudianteId);
         }
@@ -59,7 +58,7 @@ public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteReposit
     }
 
     @Override
-    public void eliminar(UUID relacionId) {
+    public void eliminar(Long relacionId) {
         relacionJpaRepository.deleteById(relacionId);
     }
 }

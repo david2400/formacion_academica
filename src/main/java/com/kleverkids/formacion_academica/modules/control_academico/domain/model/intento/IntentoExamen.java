@@ -2,11 +2,11 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-public record IntentoExamen(UUID id,
-                             UUID examenId,
-                             UUID estudianteId,
+
+public record IntentoExamen(Long id,
+                             Long examenId,
+                             Long estudianteId,
                              String estado,
                              LocalDateTime iniciadoEn,
                              LocalDateTime finalizadoEn,

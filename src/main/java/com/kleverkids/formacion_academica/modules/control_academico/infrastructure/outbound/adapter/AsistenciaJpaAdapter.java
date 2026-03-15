@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Component
@@ -43,8 +43,8 @@ public class AsistenciaJpaAdapter implements AsistenciaRepositoryPort {
     }
 
     private List<AsistenciaEntity> filtrarEntidades(HistorialAsistenciaFiltroDto filtro) {
-        UUID estudianteId = filtro.estudianteId();
-        UUID claseId = filtro.claseId();
+        Long estudianteId = filtro.estudianteId();
+        Long claseId = filtro.claseId();
         LocalDate desde = filtro.desde();
         LocalDate hasta = filtro.hasta();
 

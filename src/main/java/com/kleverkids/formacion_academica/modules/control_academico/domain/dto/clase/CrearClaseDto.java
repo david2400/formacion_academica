@@ -11,7 +11,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +25,7 @@ public class CrearClaseDto {
 
     private LocalDate fechaFin;
 
-    private List<UUID> profesoresIds;
+    private List<Long> profesoresIds;
 
 
 }

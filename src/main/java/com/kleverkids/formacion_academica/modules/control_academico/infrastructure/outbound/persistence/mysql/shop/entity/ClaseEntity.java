@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
@@ -12,7 +14,6 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -20,7 +21,8 @@ import java.util.UUID;
 public class ClaseEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String codigo;
@@ -35,5 +37,5 @@ public class ClaseEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"))
     @Column(name = "profesor_id")
-    private List<UUID> profesoresIds;
+    private List<Long> profesoresIds;
 }

@@ -2,18 +2,18 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.even
 
 import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 
-import java.util.UUID;
+
 
 public class QuestionUpdatedEvent extends DomainEvent {
     
-    private final UUID questionId;
+    private final Long questionId;
     
-    public QuestionUpdatedEvent(UUID questionId) {
+    public QuestionUpdatedEvent(Long questionId) {
         super();
         this.questionId = questionId;
     }
     
-    public UUID getQuestionId() {
+    public Long getQuestionId() {
         return questionId;
     }
     

@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -17,7 +16,7 @@ import java.util.UUID;
 public class UpdateEstudianteDto {
 
     @NotNull(message = "El identificador del estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
     private String tipoDocumento;
     private String numeroDocumento;
     private String nombres;
@@ -29,5 +28,5 @@ public class UpdateEstudianteDto {
     private String correo;
     private String telefono;
     private String direccion;
-
+    private Boolean activo;
 }

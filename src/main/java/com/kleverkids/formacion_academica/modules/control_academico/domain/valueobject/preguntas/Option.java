@@ -3,17 +3,16 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.valu
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public final class Option extends ValueObject {
     
-    private final UUID id;
+    private final Long id;
     private final String text;
     private final Media media;
     private final boolean isCorrect;
     
-    private Option(UUID id, String text, Media media, boolean isCorrect) {
-        this.id = id != null ? id : UUID.randomUUID();
+    private Option(Long id, String text, Media media, boolean isCorrect) {
+        this.id = id;
         this.text = Objects.requireNonNull(text, "Option text cannot be null");
         this.media = media;
         this.isCorrect = isCorrect;
@@ -23,11 +22,11 @@ public final class Option extends ValueObject {
         return new Option(null, text, null, isCorrect);
     }
     
-    public static Option create(UUID id, String text, Media media, boolean isCorrect) {
+    public static Option create(Long id, String text, Media media, boolean isCorrect) {
         return new Option(id, text, media, isCorrect);
     }
     
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     

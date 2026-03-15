@@ -11,6 +11,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.a
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.HistorialAsistenciaFiltroDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.RegistrarAsistenciaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.ActualizarAsistenciaDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Description(value = "Gestiona la asistencia de los estudiantes")
 @Tag(name = "Asistencias", description = "Gestiona la asistencia de los estudiantes")
@@ -43,23 +48,56 @@ public class AsistenciaController {
     private final RegistrarAsistenciaUseCase registrarAsistenciaUseCase;
     private final ConsultarHistorialAsistenciaUseCase historialAsistenciaUseCase;
 
+    @Operation(summary = "Registrar asistencia", description = "Registra una nueva asistencia")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Asistencia registrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AsistenciaDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PostMapping
     public ResponseEntity<AsistenciaDto> registrar(@Valid @RequestBody RegistrarAsistenciaDto request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(registrarAsistenciaUseCase.registrar(request));
+        AsistenciaDto asistencia = registrarAsistenciaUseCase.registrar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(asistencia);
     }
 
+    @Operation(summary = "Consultar asistencia", description = "Obtiene los detalles de una asistencia específica")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Asistencia encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AsistenciaDto.class))),
+            @ApiResponse(responseCode = "404", description = "Asistencia no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/{asistenciaId}")
-    public ResponseEntity<AsistenciaDto> consultar(@PathVariable UUID asistenciaId) {
+    public ResponseEntity<AsistenciaDto> consultar(@PathVariable Long asistenciaId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(asistenciaId));
     }
 
+    @Operation(summary = "Listar asistencias", description = "Obtiene el listado completo de asistencias")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Listado de asistencias",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = AsistenciaDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping
     public ResponseEntity<List<AsistenciaDto>> listar() {
         return ResponseEntity.ok(listarUseCase.listar());
     }
 
+    @Operation(summary = "Actualizar asistencia", description = "Actualiza la información de una asistencia existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Asistencia actualizada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AsistenciaDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Asistencia no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PutMapping("/{asistenciaId}")
-    public ResponseEntity<AsistenciaDto> actualizar(@PathVariable UUID asistenciaId,
+    public ResponseEntity<AsistenciaDto> actualizar(@PathVariable Long asistenciaId,
                                                     @RequestBody ActualizarAsistenciaDto request) {
         request = new ActualizarAsistenciaDto(
             asistenciaId,
@@ -72,12 +110,26 @@ public class AsistenciaController {
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
+    @Operation(summary = "Eliminar asistencia", description = "Elimina un registro de asistencia")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Asistencia eliminada", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Asistencia no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @DeleteMapping("/{asistenciaId}")
-    public ResponseEntity<Void> eliminar(@PathVariable UUID asistenciaId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long asistenciaId) {
         eliminarUseCase.eliminar(asistenciaId);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Consultar historial", description = "Devuelve el historial de asistencia filtrado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Historial obtenido",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = HistorialAsistenciaDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/historial")
     public ResponseEntity<HistorialAsistenciaDto> consultarHistorial(@RequestBody HistorialAsistenciaFiltroDto filtro) {
         return ResponseEntity.ok(historialAsistenciaUseCase.consultar(filtro));

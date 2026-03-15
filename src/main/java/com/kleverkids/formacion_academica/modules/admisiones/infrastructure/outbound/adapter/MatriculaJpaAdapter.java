@@ -3,7 +3,6 @@ package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.out
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.matricula.MatriculaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
-import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.InscripcionMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.MatriculaMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.MatriculaEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.MatriculaJpaRepository;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class MatriculaJpaAdapter implements MatriculaRepositoryPort {
@@ -31,17 +29,17 @@ public class MatriculaJpaAdapter implements MatriculaRepositoryPort {
     }
 
     @Override
-    public Optional<MatriculaDto> obtenerPorId(UUID matriculaId) {
+    public Optional<MatriculaDto> obtenerPorId(Long matriculaId) {
         return matriculaJpaRepository.findById(matriculaId).map(matriculaMapper::toDto);
     }
 
     @Override
-    public List<MatriculaDto> listarPorEstudiante(UUID estudianteId) {
+    public List<MatriculaDto> listarPorEstudiante(Long estudianteId) {
         return matriculaMapper.toDtoList(matriculaJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override
-    public void eliminar(UUID matriculaId) {
+    public void eliminar(Long matriculaId) {
         matriculaJpaRepository.deleteById(matriculaId);
     }
 }

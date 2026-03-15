@@ -4,7 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 
 import java.util.List;
-import java.util.UUID;
+
 
 public interface ClaseRepositoryPort {
 
@@ -12,5 +12,5 @@ public interface ClaseRepositoryPort {
 
     List<ClaseDto> guardarTodas(List<CrearClaseDto> clases);
 
-    ClaseDto getClaseById(UUID id);
+    ClaseDto getClaseById(Long id);
 }

@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,13 +40,13 @@ class ExamTest {
     @Test
     void addQuestion_toDraftExam_updatesQuestionsList() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.DRAFT);
         exam.setTimeConfig(TimeConfig.create(30, null, null, null));
         exam.setQuestions(new ArrayList<>());
         
-        ExamQuestion question = ExamQuestion.create(UUID.randomUUID(), 1, BigDecimal.TEN, true);
+        ExamQuestion question = ExamQuestion.create(ThreadLocalRandom.current().nextLong(), 1, BigDecimal.TEN, true);
         exam.addQuestion(question);
         
         assertEquals(1, exam.getQuestions().size());
@@ -55,12 +56,12 @@ class ExamTest {
     @Test
     void addQuestion_toActiveExam_throwsException() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.ACTIVE);
         exam.setQuestions(new ArrayList<>());
         
-        ExamQuestion question = ExamQuestion.create(UUID.randomUUID(), 1, BigDecimal.TEN, true);
+        ExamQuestion question = ExamQuestion.create(ThreadLocalRandom.current().nextLong(), 1, BigDecimal.TEN, true);
         
         assertThrows(IllegalStateException.class, () -> exam.addQuestion(question));
     }
@@ -68,12 +69,12 @@ class ExamTest {
     @Test
     void schedule_draftExamWithQuestions_changesStatusToScheduled() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.DRAFT);
         exam.setTimeConfig(TimeConfig.create(30, null, null, null));
         exam.setQuestions(new ArrayList<>());
-        exam.addQuestion(ExamQuestion.create(UUID.randomUUID(), 1, BigDecimal.TEN, true));
+        exam.addQuestion(ExamQuestion.create(ThreadLocalRandom.current().nextLong(), 1, BigDecimal.TEN, true));
         
         exam.schedule();
         
@@ -83,7 +84,7 @@ class ExamTest {
     @Test
     void schedule_draftExamWithoutQuestions_throwsException() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.DRAFT);
         exam.setQuestions(new ArrayList<>());
@@ -94,7 +95,7 @@ class ExamTest {
     @Test
     void activate_scheduledExam_changesStatusToActive() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.SCHEDULED);
         
@@ -106,7 +107,7 @@ class ExamTest {
     @Test
     void complete_activeExam_changesStatusToCompleted() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         exam.setStatus(ExamStatus.ACTIVE);
         
@@ -118,7 +119,7 @@ class ExamTest {
     @Test
     void validate_examWithoutName_throwsException() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setTimeConfig(TimeConfig.create(30, null, null, null));
         
         assertThrows(IllegalArgumentException.class, exam::validate);
@@ -127,7 +128,7 @@ class ExamTest {
     @Test
     void validate_examWithoutTimeConfig_throwsException() {
         Exam exam = new Exam();
-        exam.setId(UUID.randomUUID());
+        exam.setId(ThreadLocalRandom.current().nextLong());
         exam.setName("Test Exam");
         
         assertThrows(IllegalArgumentException.class, exam::validate);

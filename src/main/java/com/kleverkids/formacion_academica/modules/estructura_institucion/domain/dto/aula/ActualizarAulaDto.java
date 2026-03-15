@@ -4,21 +4,21 @@ import com.kleverkids.formacion_academica.shared.common.domain.dto.AuditInfoDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.UUID;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class ActualizarAulaDto extends CrearAulaDto {
 
     @NotNull(message = "El identificador del aula es obligatorio")
-    private UUID id;
+    private Long id;
 
-    public UUID id() {
+    public Long id() {
         return id;
     }
 

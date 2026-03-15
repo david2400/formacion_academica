@@ -9,13 +9,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class MultipleChoiceMultiQuestion extends Question {
     
     private List<Option> options;
-    private List<UUID> correctOptionIds;
+    private List<Long> correctOptionIds;
     private Integer minSelections;
     private Integer maxSelections;
     
@@ -24,10 +23,10 @@ public class MultipleChoiceMultiQuestion extends Question {
         this.questionType = QuestionType.MULTIPLE_CHOICE_MULTI;
     }
     
-    public MultipleChoiceMultiQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                                        UUID themeId, List<Media> media, String hint, String explanation,
+    public MultipleChoiceMultiQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                                        Long themeId, List<Media> media, String hint, String explanation,
                                         List<String> tags, Map<String, Object> metadata,
-                                        List<Option> options, List<UUID> correctOptionIds,
+                                        List<Option> options, List<Long> correctOptionIds,
                                         Integer minSelections, Integer maxSelections) {
         super(id, questionText, QuestionType.MULTIPLE_CHOICE_MULTI, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
@@ -46,11 +45,11 @@ public class MultipleChoiceMultiQuestion extends Question {
         this.options = options;
     }
     
-    public List<UUID> getCorrectOptionIds() {
+    public List<Long> getCorrectOptionIds() {
         return correctOptionIds;
     }
     
-    public void setCorrectOptionIds(List<UUID> correctOptionIds) {
+    public void setCorrectOptionIds(List<Long> correctOptionIds) {
         this.correctOptionIds = correctOptionIds;
     }
     
@@ -79,11 +78,11 @@ public class MultipleChoiceMultiQuestion extends Question {
             throw new InvalidQuestionException("At least one correct option ID is required");
         }
         
-        Set<UUID> optionIds = options.stream()
+        Set<Long> optionIds = options.stream()
             .map(Option::getId)
             .collect(Collectors.toSet());
         
-        for (UUID correctId : correctOptionIds) {
+        for (Long correctId : correctOptionIds) {
             if (!optionIds.contains(correctId)) {
                 throw new InvalidQuestionException("All correct option IDs must exist in options");
             }

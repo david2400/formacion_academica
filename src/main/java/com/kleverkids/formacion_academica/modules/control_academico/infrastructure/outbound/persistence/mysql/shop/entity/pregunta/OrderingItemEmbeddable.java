@@ -1,25 +1,23 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta;
 
-import java.util.UUID;
-
 public class OrderingItemEmbeddable {
     
-    private UUID id;
+    private Long id;
     private String text;
     private int correctPosition;
     private MediaEmbeddable media;
     
     public OrderingItemEmbeddable() {}
     
-    public OrderingItemEmbeddable(UUID id, String text, int correctPosition, MediaEmbeddable media) {
+    public OrderingItemEmbeddable(Long id, String text, int correctPosition, MediaEmbeddable media) {
         this.id = id;
         this.text = text;
         this.correctPosition = correctPosition;
         this.media = media;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }

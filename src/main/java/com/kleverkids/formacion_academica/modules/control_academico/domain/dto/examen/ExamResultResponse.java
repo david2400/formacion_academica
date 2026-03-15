@@ -3,23 +3,23 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
 
 public record ExamResultResponse(
-    UUID id,
-    UUID examId,
-    UUID studentId,
-    UUID submissionId,
+    Long id,
+    Long examId,
+    Long studentId,
+    Long submissionId,
     BigDecimal totalScore,
     BigDecimal maxScore,
     BigDecimal percentage,
     String grade,
     List<QuestionResultDto> questionResults,
     Instant gradedAt,
-    UUID gradedBy
+    Long gradedBy
 ) {
     public static ExamResultResponse fromDomain(ExamResult result) {
         return new ExamResultResponse(
@@ -40,7 +40,7 @@ public record ExamResultResponse(
     }
     
     public record QuestionResultDto(
-        UUID questionId,
+        Long questionId,
         BigDecimal score,
         BigDecimal maxScore,
         boolean correct,

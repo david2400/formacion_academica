@@ -1,8 +1,6 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.aula;
 
-import java.util.UUID;
-
-public record Aula(UUID id,
+public record Aula(Long id,
                    String nombre,
                    String descripcion,
                    Integer capacidad,

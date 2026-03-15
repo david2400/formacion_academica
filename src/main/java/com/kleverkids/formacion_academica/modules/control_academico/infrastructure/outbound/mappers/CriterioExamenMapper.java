@@ -11,12 +11,11 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class})
+@Mapper(componentModel = "spring")
 public interface CriterioExamenMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     CriterioExamenEntity toEntity(CrearCriterioExamenDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

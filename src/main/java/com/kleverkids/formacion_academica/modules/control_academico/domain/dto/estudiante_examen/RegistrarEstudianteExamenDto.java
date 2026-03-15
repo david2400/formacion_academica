@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,9 +13,9 @@ import java.util.UUID;
 public class RegistrarEstudianteExamenDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
 }

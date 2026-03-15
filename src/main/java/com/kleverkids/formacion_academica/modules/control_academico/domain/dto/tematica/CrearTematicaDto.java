@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -22,7 +20,7 @@ public class CrearTematicaDto {
     private String descripcion;
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "El orden es obligatorio")
     @Min(value = 1, message = "El orden debe ser mayor o igual a 1")

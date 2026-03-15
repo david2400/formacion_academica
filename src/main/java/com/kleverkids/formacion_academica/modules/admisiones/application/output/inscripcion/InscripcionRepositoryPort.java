@@ -7,17 +7,16 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface InscripcionRepositoryPort {
 
     InscripcionDto registrar(CrearInscripcionDto request);
 
-    Optional<InscripcionDto> obtenerPorId(UUID inscripcionId);
+    Optional<InscripcionDto> obtenerPorId(Long inscripcionId);
 
     List<InscripcionDto> listar(ListarInscripcionesFiltroDto filtro);
 
     InscripcionDto actualizarEstado(ActualizarEstadoInscripcionDto request);
 
-    void eliminar(UUID inscripcionId);
+    void eliminar(Long inscripcionId);
 }

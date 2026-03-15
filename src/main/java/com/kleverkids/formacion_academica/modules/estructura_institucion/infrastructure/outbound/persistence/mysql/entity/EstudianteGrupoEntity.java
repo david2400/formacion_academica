@@ -3,12 +3,13 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -16,13 +17,14 @@ import java.util.UUID;
 public class EstudianteGrupoEntity extends AuditInfo {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
-    private UUID grupoId;
+    private Long grupoId;
 
     private LocalDate fechaAsignacion;
 

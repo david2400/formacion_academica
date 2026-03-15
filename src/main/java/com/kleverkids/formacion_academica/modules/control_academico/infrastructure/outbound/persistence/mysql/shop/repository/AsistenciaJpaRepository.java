@@ -5,15 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-public interface AsistenciaJpaRepository extends JpaRepository<AsistenciaEntity, UUID> {
 
-    List<AsistenciaEntity> findByEstudianteId(UUID estudianteId);
+public interface AsistenciaJpaRepository extends JpaRepository<AsistenciaEntity, Long> {
 
-    List<AsistenciaEntity> findByClaseId(UUID claseId);
+    List<AsistenciaEntity> findByEstudianteId(Long estudianteId);
 
-    List<AsistenciaEntity> findByEstudianteIdAndClaseId(UUID estudianteId, UUID claseId);
+    List<AsistenciaEntity> findByClaseId(Long claseId);
 
-    List<AsistenciaEntity> findByClaseIdAndFechaRegistroBetween(UUID claseId, LocalDateTime desde, LocalDateTime hasta);
+    List<AsistenciaEntity> findByEstudianteIdAndClaseId(Long estudianteId, Long claseId);
+
+    List<AsistenciaEntity> findByClaseIdAndFechaRegistroBetween(Long claseId, LocalDateTime desde, LocalDateTime hasta);
 }

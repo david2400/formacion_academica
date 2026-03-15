@@ -1,14 +1,13 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public record RespuestaPreguntaDto(UUID id,
-                                   UUID estudianteExamenId,
-                                   UUID examenId,
-                                   UUID estudianteId,
-                                   UUID preguntaId,
-                                   UUID respuestaBancoId,
+public record RespuestaPreguntaDto(Long id,
+                                   Long estudianteExamenId,
+                                   Long examenId,
+                                   Long estudianteId,
+                                   Long preguntaId,
+                                   Long respuestaBancoId,
                                    String respuestaTexto,
                                    Boolean esCorrecta,
                                    Integer puntajeObtenido,

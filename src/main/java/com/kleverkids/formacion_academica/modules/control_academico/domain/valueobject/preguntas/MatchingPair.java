@@ -3,18 +3,17 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.valu
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public final class MatchingPair extends ValueObject {
     
-    private final UUID id;
+    private final Long id;
     private final String leftItem;
     private final String rightItem;
     private final Media leftMedia;
     private final Media rightMedia;
     
-    private MatchingPair(UUID id, String leftItem, String rightItem, Media leftMedia, Media rightMedia) {
-        this.id = id != null ? id : UUID.randomUUID();
+    private MatchingPair(Long id, String leftItem, String rightItem, Media leftMedia, Media rightMedia) {
+        this.id = id;
         this.leftItem = Objects.requireNonNull(leftItem, "Left item cannot be null");
         this.rightItem = Objects.requireNonNull(rightItem, "Right item cannot be null");
         this.leftMedia = leftMedia;
@@ -25,11 +24,11 @@ public final class MatchingPair extends ValueObject {
         return new MatchingPair(null, leftItem, rightItem, null, null);
     }
     
-    public static MatchingPair create(UUID id, String leftItem, String rightItem, Media leftMedia, Media rightMedia) {
+    public static MatchingPair create(Long id, String leftItem, String rightItem, Media leftMedia, Media rightMedia) {
         return new MatchingPair(id, leftItem, rightItem, leftMedia, rightMedia);
     }
     
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     

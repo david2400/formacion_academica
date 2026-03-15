@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.p
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface PreguntaBancoRepositoryPort {
 
@@ -13,9 +12,9 @@ public interface PreguntaBancoRepositoryPort {
 
     PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request);
 
-    List<PreguntaBancoDto> listarPorTematica(UUID tematicaId);
+    List<PreguntaBancoDto> listarPorTematica(Long tematicaId);
 
-    PreguntaBancoDto obtenerPorId(UUID preguntaId);
+    PreguntaBancoDto obtenerPorId(Long preguntaId);
 
-    void eliminar(UUID preguntaId);
+    void eliminar(Long preguntaId);
 }

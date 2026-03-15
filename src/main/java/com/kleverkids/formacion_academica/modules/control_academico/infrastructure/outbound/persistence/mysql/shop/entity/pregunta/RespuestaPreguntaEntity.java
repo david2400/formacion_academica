@@ -4,35 +4,37 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "respuestas_pregunta_examen")
 public class RespuestaPreguntaEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estudiante_examen_id", nullable = false)
     private EstudianteExamenEntity estudianteExamen;
 
     @Column(nullable = false)
-    private UUID examenId;
+    private Long examenId;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
-    private UUID preguntaId;
+    private Long preguntaId;
 
-    private UUID respuestaBancoId;
+    private Long respuestaBancoId;
 
     @Column(length = 1000)
     private String respuestaTexto;
@@ -44,11 +46,11 @@ public class RespuestaPreguntaEntity {
     @Column(nullable = false)
     private LocalDateTime registradaEn;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,35 +62,35 @@ public class RespuestaPreguntaEntity {
         this.estudianteExamen = estudianteExamen;
     }
 
-    public UUID getExamenId() {
+    public Long getExamenId() {
         return examenId;
     }
 
-    public void setExamenId(UUID examenId) {
+    public void setExamenId(Long examenId) {
         this.examenId = examenId;
     }
 
-    public UUID getEstudianteId() {
+    public Long getEstudianteId() {
         return estudianteId;
     }
 
-    public void setEstudianteId(UUID estudianteId) {
+    public void setEstudianteId(Long estudianteId) {
         this.estudianteId = estudianteId;
     }
 
-    public UUID getPreguntaId() {
+    public Long getPreguntaId() {
         return preguntaId;
     }
 
-    public void setPreguntaId(UUID preguntaId) {
+    public void setPreguntaId(Long preguntaId) {
         this.preguntaId = preguntaId;
     }
 
-    public UUID getRespuestaBancoId() {
+    public Long getRespuestaBancoId() {
         return respuestaBancoId;
     }
 
-    public void setRespuestaBancoId(UUID respuestaBancoId) {
+    public void setRespuestaBancoId(Long respuestaBancoId) {
         this.respuestaBancoId = respuestaBancoId;
     }
 

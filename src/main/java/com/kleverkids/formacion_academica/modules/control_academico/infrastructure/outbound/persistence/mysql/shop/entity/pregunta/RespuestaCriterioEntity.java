@@ -11,27 +11,27 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "respuestas_criterio_examen")
 public class RespuestaCriterioEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estudiante_examen_id", nullable = false)
     private EstudianteExamenEntity estudianteExamen;
 
     @Column(nullable = false)
-    private UUID examenId;
+    private Long examenId;
 
     @Column(nullable = false)
-    private UUID criterioId;
+    private Long criterioId;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
     private String respuesta;
@@ -41,11 +41,11 @@ public class RespuestaCriterioEntity {
     @Column(nullable = false)
     private LocalDateTime registradaEn;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,27 +57,27 @@ public class RespuestaCriterioEntity {
         this.estudianteExamen = estudianteExamen;
     }
 
-    public UUID getExamenId() {
+    public Long getExamenId() {
         return examenId;
     }
 
-    public void setExamenId(UUID examenId) {
+    public void setExamenId(Long examenId) {
         this.examenId = examenId;
     }
 
-    public UUID getCriterioId() {
+    public Long getCriterioId() {
         return criterioId;
     }
 
-    public void setCriterioId(UUID criterioId) {
+    public void setCriterioId(Long criterioId) {
         this.criterioId = criterioId;
     }
 
-    public UUID getEstudianteId() {
+    public Long getEstudianteId() {
         return estudianteId;
     }
 
-    public void setEstudianteId(UUID estudianteId) {
+    public void setEstudianteId(Long estudianteId) {
         this.estudianteId = estudianteId;
     }
 

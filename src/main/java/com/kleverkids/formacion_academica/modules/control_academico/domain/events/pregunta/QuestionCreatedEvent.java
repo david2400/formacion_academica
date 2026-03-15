@@ -3,22 +3,22 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.even
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
 import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 
-import java.util.UUID;
+
 
 public class QuestionCreatedEvent extends DomainEvent {
     
-    private final UUID questionId;
+    private final Long questionId;
     private final QuestionType questionType;
-    private final UUID themeId;
+    private final Long themeId;
     
-    public QuestionCreatedEvent(UUID questionId, QuestionType questionType, UUID themeId) {
+    public QuestionCreatedEvent(Long questionId, QuestionType questionType, Long themeId) {
         super();
         this.questionId = questionId;
         this.questionType = questionType;
         this.themeId = themeId;
     }
     
-    public UUID getQuestionId() {
+    public Long getQuestionId() {
         return questionId;
     }
     
@@ -26,7 +26,7 @@ public class QuestionCreatedEvent extends DomainEvent {
         return questionType;
     }
     
-    public UUID getThemeId() {
+    public Long getThemeId() {
         return themeId;
     }
     

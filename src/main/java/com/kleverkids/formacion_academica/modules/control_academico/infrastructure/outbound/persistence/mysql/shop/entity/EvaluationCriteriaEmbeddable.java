@@ -1,11 +1,11 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 public class EvaluationCriteriaEmbeddable {
     
-    private UUID id;
+    private Long id;
     private String name;
     private String description;
     private BigDecimal weight;
@@ -13,7 +13,7 @@ public class EvaluationCriteriaEmbeddable {
     
     public EvaluationCriteriaEmbeddable() {}
     
-    public EvaluationCriteriaEmbeddable(UUID id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
+    public EvaluationCriteriaEmbeddable(Long id, String name, String description, BigDecimal weight, BigDecimal maxScore) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,8 +21,8 @@ public class EvaluationCriteriaEmbeddable {
         this.maxScore = maxScore;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

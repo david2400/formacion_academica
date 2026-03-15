@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -16,14 +15,14 @@ import java.util.UUID;
 public class CrearMatriculaDto {
 
     @NotNull(message = "La inscripción es obligatoria")
-    private UUID inscripcionId;
+    private Long inscripcionId;
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
-    private UUID gradoId;
+    private Long gradoId;
 
-    private UUID grupoId;
+    private Long grupoId;
 
     @NotNull(message = "La fecha de matrícula es obligatoria")
     private LocalDate fechaMatricula;

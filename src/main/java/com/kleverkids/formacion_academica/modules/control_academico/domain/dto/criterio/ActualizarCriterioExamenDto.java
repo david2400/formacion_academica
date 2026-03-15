@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,6 +16,6 @@ import java.util.UUID;
 public class ActualizarCriterioExamenDto extends CrearCriterioExamenDto {
 
     @NotNull(message = "El identificador del criterio es obligatorio")
-    private UUID id;
+    private Long id;
 
 }

@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,17 +27,17 @@ class AnswerValidationServiceTest {
     
     @Test
     void validateMultipleChoiceSingle_correctAnswer_returnsCorrect() {
-        UUID correctOptionId = UUID.randomUUID();
+        Long correctOptionId = ThreadLocalRandom.current().nextLong();
         
         MultipleChoiceSingleQuestion question = new MultipleChoiceSingleQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("What is 2+2?");
         question.setDifficulty(Difficulty.BASIC);
         question.setMaxScore(10);
         question.setCorrectOptionId(correctOptionId);
         question.setOptions(List.of(
             Option.create(correctOptionId, "4", null, true),
-            Option.create(UUID.randomUUID(), "5", null, false)
+            Option.create(ThreadLocalRandom.current().nextLong(), "5", null, false)
         ));
         
         AnswerValidationRequest request = new AnswerValidationRequest(
@@ -51,11 +52,11 @@ class AnswerValidationServiceTest {
     
     @Test
     void validateMultipleChoiceSingle_incorrectAnswer_returnsIncorrect() {
-        UUID correctOptionId = UUID.randomUUID();
-        UUID wrongOptionId = UUID.randomUUID();
+        Long correctOptionId = ThreadLocalRandom.current().nextLong();
+        Long wrongOptionId = ThreadLocalRandom.current().nextLong();
         
         MultipleChoiceSingleQuestion question = new MultipleChoiceSingleQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("What is 2+2?");
         question.setDifficulty(Difficulty.BASIC);
         question.setMaxScore(10);
@@ -74,7 +75,7 @@ class AnswerValidationServiceTest {
     @Test
     void validateTrueFalse_correctAnswer_returnsCorrect() {
         TrueFalseQuestion question = new TrueFalseQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("The sky is blue");
         question.setDifficulty(Difficulty.BASIC);
         question.setMaxScore(5);
@@ -93,7 +94,7 @@ class AnswerValidationServiceTest {
     @Test
     void validateNumeric_withinTolerance_returnsCorrect() {
         NumericQuestion question = new NumericQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("What is pi to 2 decimal places?");
         question.setDifficulty(Difficulty.INTERMEDIATE);
         question.setMaxScore(10);
@@ -113,7 +114,7 @@ class AnswerValidationServiceTest {
     @Test
     void validateNumeric_outsideTolerance_returnsIncorrect() {
         NumericQuestion question = new NumericQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("What is pi to 2 decimal places?");
         question.setDifficulty(Difficulty.INTERMEDIATE);
         question.setMaxScore(10);
@@ -133,7 +134,7 @@ class AnswerValidationServiceTest {
     @Test
     void validateOpenShort_exactMatch_returnsCorrect() {
         OpenShortQuestion question = new OpenShortQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("What is the capital of France?");
         question.setDifficulty(Difficulty.BASIC);
         question.setMaxScore(5);
@@ -153,7 +154,7 @@ class AnswerValidationServiceTest {
     @Test
     void validateOpenLong_requiresManualGrading() {
         OpenLongQuestion question = new OpenLongQuestion();
-        question.setId(UUID.randomUUID());
+        question.setId(ThreadLocalRandom.current().nextLong());
         question.setQuestionText("Explain the theory of relativity");
         question.setDifficulty(Difficulty.ADVANCED);
         question.setMaxScore(20);

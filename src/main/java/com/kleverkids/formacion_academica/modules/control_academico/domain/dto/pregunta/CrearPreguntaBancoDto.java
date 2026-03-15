@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class CrearPreguntaBancoDto {
 
     @NotNull(message = "La temática es obligatoria")
-    private UUID tematicaId;
+    private Long tematicaId;
 
     @NotBlank(message = "El enunciado es obligatorio")
     private String enunciado;

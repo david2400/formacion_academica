@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -16,18 +15,18 @@ import java.util.UUID;
 public class AsignarEstudianteGrupoDto {
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @NotNull(message = "El grupo es obligatorio")
-    private UUID grupoId;
+    private Long grupoId;
 
     private LocalDate fechaAsignacion;
 
-    public UUID estudianteId() {
+    public Long estudianteId() {
         return estudianteId;
     }
 
-    public UUID grupoId() {
+    public Long grupoId() {
         return grupoId;
     }
 

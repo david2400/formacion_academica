@@ -8,14 +8,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "respuestas_banco")
 public class RespuestaBancoEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pregunta_id", nullable = false)
@@ -27,11 +27,11 @@ public class RespuestaBancoEntity {
     @Column(nullable = false)
     private boolean esCorrecta;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

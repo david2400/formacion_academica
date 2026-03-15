@@ -3,13 +3,13 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 public record AnswerValidationRequest(
     // For multiple choice single
-    UUID selectedOptionId,
+    Long selectedOptionId,
     // For multiple choice multi
-    List<UUID> selectedOptionIds,
+    List<Long> selectedOptionIds,
     // For true/false
     Boolean booleanAnswer,
     // For open short/long
@@ -19,7 +19,7 @@ public record AnswerValidationRequest(
     // For scale
     Integer scaleValue,
     // For ordering
-    List<UUID> orderedItemIds,
+    List<Long> orderedItemIds,
     // For matching
-    Map<UUID, UUID> matchedPairs
+    Map<Long, Long> matchedPairs
 ) {}

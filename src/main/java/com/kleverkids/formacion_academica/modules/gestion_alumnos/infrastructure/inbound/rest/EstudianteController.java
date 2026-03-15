@@ -9,6 +9,12 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.context.annotation.Description;
@@ -26,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Description(value = "Gestiona los estudiantes")
 @Tag(name = "Estudiantes", description = "Gestiona los estudiantes")
@@ -55,35 +60,80 @@ public class EstudianteController {
         this.eliminarUseCase = eliminarUseCase;
     }
 
+    @Operation(summary = "Crear estudiante", description = "Registra un nuevo estudiante")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Estudiante creado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EstudianteDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PostMapping
     public ResponseEntity<EstudianteDto> crear(@Valid @RequestBody CrearEstudianteDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
+    @Operation(summary = "Actualizar estudiante", description = "Actualiza los datos de un estudiante existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Estudiante actualizado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EstudianteDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PutMapping("/{estudianteId}")
-    public ResponseEntity<EstudianteDto> actualizar(@PathVariable UUID estudianteId,
+    public ResponseEntity<EstudianteDto> actualizar(@PathVariable Long estudianteId,
                                                     @Valid @RequestBody UpdateEstudianteDto request) {
         request.setEstudianteId(estudianteId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
+    @Operation(summary = "Consultar estudiante", description = "Obtiene la información de un estudiante por su identificador")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Estudiante encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EstudianteDto.class))),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/{estudianteId}")
-    public ResponseEntity<EstudianteDto> consultar(@PathVariable UUID estudianteId) {
+    public ResponseEntity<EstudianteDto> consultar(@PathVariable Long estudianteId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(estudianteId));
     }
 
+    @Operation(summary = "Listar estudiantes", description = "Obtiene el catálogo completo de estudiantes")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Listado de estudiantes",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = EstudianteDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping
     public ResponseEntity<List<EstudianteDto>> listar() {
         return ResponseEntity.ok(listarUseCase.listar());
     }
 
+    @Operation(summary = "Listar estudiantes paginados", description = "Obtiene estudiantes paginados según el pageable recibido")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Página de estudiantes",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Page.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/paged")
     public ResponseEntity<Page<EstudianteDto>> listar(Pageable pageable) {
         return ResponseEntity.ok(listarPaginadoUseCase.listar(pageable));
     }
 
+    @Operation(summary = "Eliminar estudiante", description = "Elimina un estudiante")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Estudiante eliminado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @DeleteMapping("/{estudianteId}")
-    public ResponseEntity<Void> eliminar(@PathVariable UUID estudianteId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long estudianteId) {
         eliminarUseCase.eliminar(estudianteId);
         return ResponseEntity.noContent().build();
     }

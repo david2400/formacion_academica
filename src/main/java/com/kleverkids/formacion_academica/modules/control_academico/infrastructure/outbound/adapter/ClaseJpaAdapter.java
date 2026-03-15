@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Component
@@ -33,7 +33,7 @@ public class ClaseJpaAdapter implements ClaseRepositoryPort {
 
 
     @Override
-    public ClaseDto getClaseById(UUID id) {
+    public ClaseDto getClaseById(Long id) {
         return claseJpaRepository.findById(id)
                 .map(claseMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));

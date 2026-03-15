@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,10 +14,10 @@ import java.util.UUID;
 public class ActualizarPreguntaBancoDto {
 
     @NotNull(message = "El identificador de la pregunta es obligatorio")
-    private UUID id;
+    private Long id;
 
     @NotNull(message = "La temática de la pregunta es obligatoria")
-    private UUID tematicaId;
+    private Long tematicaId;
 
     private String enunciado;
 
@@ -30,11 +28,11 @@ public class ActualizarPreguntaBancoDto {
     @Min(value = 1, message = "El puntaje debe ser mayor o igual a 1")
     private Integer puntaje;
 
-    public UUID id() {
+    public Long id() {
         return id;
     }
 
-    public UUID tematicaId() {
+    public Long tematicaId() {
         return tematicaId;
     }
 

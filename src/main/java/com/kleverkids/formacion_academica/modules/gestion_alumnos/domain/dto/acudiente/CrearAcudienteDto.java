@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,7 +15,7 @@ import java.util.UUID;
 public class CrearAcudienteDto {
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
     private String tipoDocumento;
 
     @NotBlank(message = "El número de documento es obligatorio")
@@ -35,7 +33,7 @@ public class CrearAcudienteDto {
     private String correo;
     private boolean esPrincipal;
 
-    public UUID estudianteId() {
+    public Long estudianteId() {
         return estudianteId;
     }
 

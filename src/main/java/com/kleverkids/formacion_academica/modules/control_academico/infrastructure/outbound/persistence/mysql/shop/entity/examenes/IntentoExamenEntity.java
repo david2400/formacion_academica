@@ -12,20 +12,20 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "intentos_examen")
 public class IntentoExamenEntity {
 
     @Id
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
-    private UUID examenId;
+    private Long examenId;
 
     @Column(nullable = false)
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @Column(nullable = false)
     private String estado;
@@ -40,27 +40,27 @@ public class IntentoExamenEntity {
     @OneToMany(mappedBy = "intento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<RespuestaIntentoEntity> respuestas = new ArrayList<>();
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getExamenId() {
+    public Long getExamenId() {
         return examenId;
     }
 
-    public void setExamenId(UUID examenId) {
+    public void setExamenId(Long examenId) {
         this.examenId = examenId;
     }
 
-    public UUID getEstudianteId() {
+    public Long getEstudianteId() {
         return estudianteId;
     }
 
-    public void setEstudianteId(UUID estudianteId) {
+    public void setEstudianteId(Long estudianteId) {
         this.estudianteId = estudianteId;
     }
 

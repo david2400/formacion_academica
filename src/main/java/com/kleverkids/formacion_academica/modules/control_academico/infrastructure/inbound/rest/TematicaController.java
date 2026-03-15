@@ -8,6 +8,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Description(value = "Gestiona las temáticas asociadas a un examen")
 @Tag(name = "Temáticas", description = "Gestiona las temáticas asociadas a un examen")
@@ -39,17 +44,35 @@ public class TematicaController {
     private final ConsultarTematicaUseCase consultarUseCase;
     private final EliminarTematicaUseCase eliminarUseCase;
 
+    @Operation(summary = "Crear temática", description = "Registra una nueva temática asociada al examen")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Temática creada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TematicaDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Examen no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PostMapping
-    public ResponseEntity<TematicaDto> crear(@PathVariable UUID examenId,
+    public ResponseEntity<TematicaDto> crear(@PathVariable Long examenId,
                                                    @Valid @RequestBody CrearTematicaDto request) {
 
         request.setExamenId(examenId);
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
+    @Operation(summary = "Actualizar temática", description = "Actualiza los datos de una temática existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Temática actualizada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TematicaDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Temática no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PutMapping("/{tematicaId}")
-    public ResponseEntity<TematicaDto> actualizar(@PathVariable UUID examenId,
-                                                        @PathVariable UUID tematicaId,
+    public ResponseEntity<TematicaDto> actualizar(@PathVariable Long examenId,
+                                                        @PathVariable Long tematicaId,
                                                         @Valid @RequestBody ActualizarTematicaDto request) {
 
         request.setExamenId(examenId);
@@ -57,20 +80,42 @@ public class TematicaController {
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
+    @Operation(summary = "Listar temáticas", description = "Obtiene todas las temáticas asociadas al examen")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Listado de temáticas",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = TematicaDto.class)))),
+            @ApiResponse(responseCode = "404", description = "Examen no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping
-    public ResponseEntity<List<TematicaDto>> listar(@PathVariable UUID examenId) {
+    public ResponseEntity<List<TematicaDto>> listar(@PathVariable Long examenId) {
         return ResponseEntity.ok(listarUseCase.listar(examenId));
     }
 
+    @Operation(summary = "Consultar temática", description = "Obtiene los detalles de una temática específica")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Temática encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TematicaDto.class))),
+            @ApiResponse(responseCode = "404", description = "Temática no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/{tematicaId}")
-    public ResponseEntity<TematicaDto> consultar(@PathVariable UUID examenId,
-                                                 @PathVariable UUID tematicaId) {
+    public ResponseEntity<TematicaDto> consultar(@PathVariable Long examenId,
+                                                 @PathVariable Long tematicaId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(tematicaId));
     }
 
+    @Operation(summary = "Eliminar temática", description = "Elimina una temática asociada al examen")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Temática eliminada", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Temática no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @DeleteMapping("/{tematicaId}")
-    public ResponseEntity<Void> eliminar(@PathVariable UUID examenId,
-                                         @PathVariable UUID tematicaId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long examenId,
+                                         @PathVariable Long tematicaId) {
         eliminarUseCase.eliminar(tematicaId);
         return ResponseEntity.noContent().build();
     }

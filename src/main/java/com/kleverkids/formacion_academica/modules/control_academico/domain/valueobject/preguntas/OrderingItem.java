@@ -3,17 +3,16 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.valu
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public final class OrderingItem extends ValueObject {
     
-    private final UUID id;
+    private final Long id;
     private final String text;
     private final int correctPosition;
     private final Media media;
     
-    private OrderingItem(UUID id, String text, int correctPosition, Media media) {
-        this.id = id != null ? id : UUID.randomUUID();
+    private OrderingItem(Long id, String text, int correctPosition, Media media) {
+        this.id = id;
         this.text = Objects.requireNonNull(text, "Item text cannot be null");
         if (correctPosition < 0) {
             throw new IllegalArgumentException("Correct position must be >= 0");
@@ -26,11 +25,11 @@ public final class OrderingItem extends ValueObject {
         return new OrderingItem(null, text, correctPosition, null);
     }
     
-    public static OrderingItem create(UUID id, String text, int correctPosition, Media media) {
+    public static OrderingItem create(Long id, String text, int correctPosition, Media media) {
         return new OrderingItem(id, text, correctPosition, media);
     }
     
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     

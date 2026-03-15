@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 @Data
 @SuperBuilder
@@ -18,13 +18,13 @@ import java.util.UUID;
 public class RegistrarRespuestaCriterioDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "El criterio es obligatorio")
-    private UUID criterioId;
+    private Long criterioId;
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @NotBlank(message = "La respuesta del criterio es obligatoria")
     private String respuesta;

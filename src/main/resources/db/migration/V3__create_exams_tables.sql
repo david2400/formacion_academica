@@ -2,7 +2,7 @@
 -- V3__create_exams_tables.sql
 
 CREATE TABLE exams (
-    id UUID PRIMARY KEY,
+    id Long PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     code VARCHAR(100) UNIQUE,
     subject VARCHAR(100),
@@ -29,9 +29,9 @@ CREATE INDEX idx_exams_scheduled_date ON exams(scheduled_date);
 CREATE INDEX idx_exams_deleted ON exams(deleted);
 
 CREATE TABLE exam_submissions (
-    id UUID PRIMARY KEY,
-    exam_id UUID NOT NULL REFERENCES exams(id),
-    student_id UUID NOT NULL,
+    id Long PRIMARY KEY,
+    exam_id Long NOT NULL REFERENCES exams(id),
+    student_id Long NOT NULL,
     started_at TIMESTAMP WITH TIME ZONE,
     submitted_at TIMESTAMP WITH TIME ZONE,
     answers JSON,
@@ -46,17 +46,17 @@ CREATE INDEX idx_exam_submissions_status ON exam_submissions(status);
 CREATE UNIQUE INDEX idx_exam_submissions_exam_student ON exam_submissions(exam_id, student_id);
 
 CREATE TABLE exam_results (
-    id UUID PRIMARY KEY,
-    exam_id UUID NOT NULL REFERENCES exams(id),
-    student_id UUID NOT NULL,
-    submission_id UUID NOT NULL REFERENCES exam_submissions(id),
+    id Long PRIMARY KEY,
+    exam_id Long NOT NULL REFERENCES exams(id),
+    student_id Long NOT NULL,
+    submission_id Long NOT NULL REFERENCES exam_submissions(id),
     total_score DECIMAL(10, 2),
     max_score DECIMAL(10, 2),
     percentage DECIMAL(5, 2),
     grade VARCHAR(10),
     question_results JSON,
     graded_at TIMESTAMP WITH TIME ZONE,
-    graded_by UUID
+    graded_by Long
 );
 
 CREATE INDEX idx_exam_results_exam_id ON exam_results(exam_id);

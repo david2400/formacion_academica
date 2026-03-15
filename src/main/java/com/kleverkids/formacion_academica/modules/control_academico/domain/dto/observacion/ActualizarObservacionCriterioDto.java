@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 @Data
 @SuperBuilder
@@ -17,9 +17,9 @@ import java.util.UUID;
 public class ActualizarObservacionCriterioDto extends RegistrarObservacionCriterioDto {
 
     @NotNull(message = "El identificador de la observación es obligatorio")
-    private UUID id;
+    private Long id;
 
-    public UUID id() {
+    public Long id() {
         return id;
     }
 

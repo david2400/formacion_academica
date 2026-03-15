@@ -6,7 +6,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class TrueFalseQuestion extends Question {
     
@@ -17,8 +16,8 @@ public class TrueFalseQuestion extends Question {
         this.questionType = QuestionType.TRUE_FALSE;
     }
     
-    public TrueFalseQuestion(UUID id, String questionText, Difficulty difficulty, int maxScore,
-                              UUID themeId, List<Media> media, String hint, String explanation,
+    public TrueFalseQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+                              Long themeId, List<Media> media, String hint, String explanation,
                               List<String> tags, Map<String, Object> metadata, boolean correctAnswer) {
         super(id, questionText, QuestionType.TRUE_FALSE, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);

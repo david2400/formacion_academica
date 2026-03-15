@@ -9,12 +9,11 @@ import org.mapstruct.Mapping;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class, LocalDateTime.class, ArrayList.class})
+@Mapper(componentModel = "spring", imports = {LocalDateTime.class, ArrayList.class})
 public interface EstudianteExamenMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "asignadoEn", expression = "java(LocalDateTime.now())")
     @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
     EstudianteExamenEntity toEntity(RegistrarEstudianteExamenDto dto);

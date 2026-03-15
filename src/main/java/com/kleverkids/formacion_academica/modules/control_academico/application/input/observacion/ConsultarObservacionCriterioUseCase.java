@@ -2,9 +2,9 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.ObservacionCriterioDto;
 
-import java.util.UUID;
+
 
 public interface ConsultarObservacionCriterioUseCase {
 
-    ObservacionCriterioDto consultarPorId(UUID observacionId);
+    ObservacionCriterioDto consultarPorId(Long observacionId);
 }

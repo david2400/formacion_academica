@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Service
@@ -37,17 +37,17 @@ public class ObservacionCriterioService implements RegistrarObservacionCriterioU
     }
 
     @Override
-    public List<ObservacionCriterioDto> listar(UUID examenId, UUID estudianteId) {
+    public List<ObservacionCriterioDto> listar(Long examenId, Long estudianteId) {
         return repositoryPort.listarPorEstudiante(examenId, estudianteId);
     }
 
     @Override
-    public ObservacionCriterioDto consultarPorId(UUID observacionId) {
+    public ObservacionCriterioDto consultarPorId(Long observacionId) {
         return repositoryPort.obtenerPorId(observacionId);
     }
 
     @Override
-    public void eliminar(UUID observacionId) {
+    public void eliminar(Long observacionId) {
         repositoryPort.obtenerPorId(observacionId);
         repositoryPort.eliminar(observacionId);
     }

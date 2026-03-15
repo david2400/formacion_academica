@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface GradoRepositoryPort {
 
@@ -15,9 +14,9 @@ public interface GradoRepositoryPort {
 
     boolean existePorNombreYNivel(String nombre, String nivelEducativo);
 
-    GradoDto obtenerPorId(UUID id);
+    GradoDto obtenerPorId(Long id);
 
     List<GradoDto> listar();
 
-    void eliminar(UUID id);
+    void eliminar(Long id);
 }

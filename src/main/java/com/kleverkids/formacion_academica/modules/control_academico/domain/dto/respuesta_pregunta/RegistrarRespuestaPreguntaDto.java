@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,15 +14,15 @@ import java.util.UUID;
 public class RegistrarRespuestaPreguntaDto {
 
     @NotNull(message = "El examen es obligatorio")
-    private UUID examenId;
+    private Long examenId;
 
     @NotNull(message = "El estudiante es obligatorio")
-    private UUID estudianteId;
+    private Long estudianteId;
 
     @NotNull(message = "La pregunta es obligatoria")
-    private UUID preguntaId;
+    private Long preguntaId;
 
-    private UUID respuestaBancoId;
+    private Long respuestaBancoId;
 
     private String respuestaTexto;
 
@@ -33,19 +31,19 @@ public class RegistrarRespuestaPreguntaDto {
     @Min(value = 0, message = "El puntaje debe ser mayor o igual a cero")
     private Integer puntajeObtenido;
 
-    public UUID examenId() {
+    public Long examenId() {
         return examenId;
     }
 
-    public UUID estudianteId() {
+    public Long estudianteId() {
         return estudianteId;
     }
 
-    public UUID preguntaId() {
+    public Long preguntaId() {
         return preguntaId;
     }
 
-    public UUID respuestaBancoId() {
+    public Long respuestaBancoId() {
         return respuestaBancoId;
     }
 

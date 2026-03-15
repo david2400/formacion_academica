@@ -7,15 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface EstudianteJpaRepository extends JpaRepository<EstudianteEntity, UUID> {
+public interface EstudianteJpaRepository extends JpaRepository<EstudianteEntity, Long> {
 
     boolean existsByTipoDocumentoAndNumeroDocumento(String tipoDocumento, String numeroDocumento);
 
     Optional<EstudianteEntity> findByTipoDocumentoAndNumeroDocumento(String tipoDocumento, String numeroDocumento);
 
-    Optional<EstudianteEntity> findByIdAndActivoTrue(UUID id);
+    Optional<EstudianteEntity> findByIdAndActivoTrue(Long id);
 
     List<EstudianteEntity> findByActivoTrue();
 

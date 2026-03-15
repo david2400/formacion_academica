@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -38,7 +37,7 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
     }
 
     @Override
-    public Optional<EstudianteDto> obtenerPorId(UUID estudianteId) {
+    public Optional<EstudianteDto> obtenerPorId(Long estudianteId) {
         return estudianteJpaRepository.findByIdAndActivoTrue(estudianteId).map(estudianteMapper::toDto);
     }
 
@@ -58,7 +57,7 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
     }
 
     @Override
-    public void eliminar(UUID estudianteId) {
+    public void eliminar(Long estudianteId) {
         EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(estudianteId)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
         entity.setActivo(false);

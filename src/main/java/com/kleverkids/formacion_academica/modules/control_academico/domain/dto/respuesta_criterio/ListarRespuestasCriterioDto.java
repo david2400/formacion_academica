@@ -1,9 +1,9 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_criterio;
 
-import java.util.UUID;
 
-public record ListarRespuestasCriterioDto(UUID examenId,
-                                          UUID estudianteId) {
+
+public record ListarRespuestasCriterioDto(Long examenId,
+                                          Long estudianteId) {
 
     public ListarRespuestasCriterioDto {
         if (examenId == null) {

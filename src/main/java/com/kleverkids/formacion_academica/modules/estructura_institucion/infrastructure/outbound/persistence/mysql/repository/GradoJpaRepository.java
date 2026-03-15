@@ -3,9 +3,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GradoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.UUID;
-
-public interface GradoJpaRepository extends JpaRepository<GradoEntity, UUID> {
+public interface GradoJpaRepository extends JpaRepository<GradoEntity, Long> {
 
     boolean existsByNombreAndNivelEducativo(String nombre, String nivelEducativo);
 }

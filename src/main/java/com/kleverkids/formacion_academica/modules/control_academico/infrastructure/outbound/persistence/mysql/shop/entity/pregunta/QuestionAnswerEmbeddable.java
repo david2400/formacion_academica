@@ -1,12 +1,12 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 public class QuestionAnswerEmbeddable {
     
-    private UUID id;
-    private UUID questionId;
+    private Long id;
+    private Long questionId;
     private Object answer;
     private BigDecimal score;
     private boolean graded;
@@ -14,7 +14,7 @@ public class QuestionAnswerEmbeddable {
     
     public QuestionAnswerEmbeddable() {}
     
-    public QuestionAnswerEmbeddable(UUID id, UUID questionId, Object answer, BigDecimal score, boolean graded, String feedback) {
+    public QuestionAnswerEmbeddable(Long id, Long questionId, Object answer, BigDecimal score, boolean graded, String feedback) {
         this.id = id;
         this.questionId = questionId;
         this.answer = answer;
@@ -23,11 +23,11 @@ public class QuestionAnswerEmbeddable {
         this.feedback = feedback;
     }
     
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public UUID getQuestionId() { return questionId; }
-    public void setQuestionId(UUID questionId) { this.questionId = questionId; }
+    public Long getQuestionId() { return questionId; }
+    public void setQuestionId(Long questionId) { this.questionId = questionId; }
     
     public Object getAnswer() { return answer; }
     public void setAnswer(Object answer) { this.answer = answer; }

@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,12 +14,12 @@ import java.util.UUID;
 public class CambiarEstadoEstudianteGrupoDto {
 
     @NotNull(message = "La asignación es obligatoria")
-    private UUID asignacionId;
+    private Long asignacionId;
 
     @NotBlank(message = "El nuevo estado es obligatorio")
     private String nuevoEstado;
 
-    public UUID asignacionId() {
+    public Long asignacionId() {
         return asignacionId;
     }
 

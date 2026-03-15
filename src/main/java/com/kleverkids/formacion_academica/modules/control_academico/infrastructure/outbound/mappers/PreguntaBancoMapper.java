@@ -16,12 +16,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class, ArrayList.class})
+@Mapper(componentModel = "spring", imports = {ArrayList.class})
 public interface PreguntaBancoMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "respuestas", ignore = true)
     PreguntaBancoEntity toEntity(CrearPreguntaBancoDto dto);
 
@@ -34,7 +33,7 @@ public interface PreguntaBancoMapper {
         List<RespuestaBancoEntity> respuestas = new ArrayList<>();
         for (CrearRespuestaBancoDto respuestaDto : dto.getRespuestas()) {
             RespuestaBancoEntity respuesta = new RespuestaBancoEntity();
-            respuesta.setId(UUID.randomUUID());
+            respuesta.setId(null);
             respuesta.setPregunta(entity);
             respuesta.setTexto(respuestaDto.texto());
             respuesta.setEsCorrecta(respuestaDto.esCorrecta());

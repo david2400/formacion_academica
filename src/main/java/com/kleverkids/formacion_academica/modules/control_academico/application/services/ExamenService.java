@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -63,13 +63,13 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
     }
     
     @Transactional(readOnly = true)
-    public ExamResponse getById(UUID id) {
+    public ExamResponse getById(Long id) {
         Exam exam = examRepository.findById(id)
             .orElseThrow(() -> new ExamNotFoundException(id));
         return ExamResponse.fromDomain(exam);
     }
     
-    public ExamResponse update(UUID id, UpdateExamCommand command) {
+    public ExamResponse update(Long id, UpdateExamCommand command) {
         Exam exam = examRepository.findById(id)
             .orElseThrow(() -> new ExamNotFoundException(id));
         
@@ -87,7 +87,7 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
         return ExamResponse.fromDomain(saved);
     }
     
-    public void delete(UUID id) {
+    public void delete(Long id) {
         Exam exam = examRepository.findById(id)
             .orElseThrow(() -> new ExamNotFoundException(id));
         exam.markAsDeleted();
@@ -100,7 +100,7 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
             .map(ExamResponse::fromDomain);
     }
     
-    public ExamSubmissionResponse start(UUID examId, UUID studentId) {
+    public ExamSubmissionResponse start(Long examId, Long studentId) {
         Exam exam = examRepository.findById(examId)
             .orElseThrow(() -> new ExamNotFoundException(examId));
         
@@ -113,7 +113,7 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
         return ExamSubmissionResponse.fromDomain(saved);
     }
     
-    public ExamResultResponse submit(UUID examId, SubmitExamCommand command) {
+    public ExamResultResponse submit(Long examId, SubmitExamCommand command) {
         Exam exam = examRepository.findById(examId)
             .orElseThrow(() -> new ExamNotFoundException(examId));
         
@@ -137,7 +137,7 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
         return ExamResultResponse.fromDomain(savedResult);
     }
     
-    public ExamResultResponse grade(UUID examId, UUID submissionId, GradeExamCommand command) {
+    public ExamResultResponse grade(Long examId, Long submissionId, GradeExamCommand command) {
         ExamSubmission submission = submissionRepository.findById(submissionId)
             .orElseThrow(() -> new IllegalArgumentException("Entrega no encontrada"));
         
@@ -166,14 +166,14 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
     }
     
     @Transactional(readOnly = true)
-    public List<ExamResultResponse> getResults(UUID examId) {
+    public List<ExamResultResponse> getResults(Long examId) {
         return resultRepository.findByExamId(examId).stream()
             .map(ExamResultResponse::fromDomain)
             .collect(Collectors.toList());
     }
     
     @Transactional(readOnly = true)
-    public ExamResultResponse getStudentResult(UUID examId, UUID studentId) {
+    public ExamResultResponse getStudentResult(Long examId, Long studentId) {
         ExamResult result = resultRepository.findByExamIdAndStudentId(examId, studentId)
             .orElseThrow(() -> new IllegalArgumentException("Resultado no encontrado"));
         return ExamResultResponse.fromDomain(result);
@@ -212,17 +212,17 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
     
     // Implementación de Use Cases en español
     @Override
-    public ExamResponse consultarPorId(UUID id) {
+    public ExamResponse consultarPorId(Long id) {
         return getById(id);
     }
     
     @Override
-    public ExamResponse actualizar(UUID id, UpdateExamCommand command) {
+    public ExamResponse actualizar(Long id, UpdateExamCommand command) {
         return update(id, command);
     }
     
     @Override
-    public void eliminar(UUID id) {
+    public void eliminar(Long id) {
         delete(id);
     }
     
@@ -232,27 +232,27 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
     }
     
     @Override
-    public ExamSubmissionResponse iniciar(UUID examenId, UUID estudianteId) {
+    public ExamSubmissionResponse iniciar(Long examenId, Long estudianteId) {
         return start(examenId, estudianteId);
     }
     
     @Override
-    public ExamResultResponse enviar(UUID examenId, SubmitExamCommand command) {
+    public ExamResultResponse enviar(Long examenId, SubmitExamCommand command) {
         return submit(examenId, command);
     }
     
     @Override
-    public ExamResultResponse calificar(UUID examenId, UUID envioId, GradeExamCommand command) {
+    public ExamResultResponse calificar(Long examenId, Long envioId, GradeExamCommand command) {
         return grade(examenId, envioId, command);
     }
     
     @Override
-    public List<ExamResultResponse> obtenerResultados(UUID examenId) {
+    public List<ExamResultResponse> obtenerResultados(Long examenId) {
         return getResults(examenId);
     }
     
     @Override
-    public ExamResultResponse obtenerResultadoEstudiante(UUID examenId, UUID estudianteId) {
+    public ExamResultResponse obtenerResultadoEstudiante(Long examenId, Long estudianteId) {
         return getStudentResult(examenId, estudianteId);
     }
     

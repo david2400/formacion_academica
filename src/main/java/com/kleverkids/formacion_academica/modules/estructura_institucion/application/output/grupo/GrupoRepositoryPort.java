@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.GrupoDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface GrupoRepositoryPort {
 
@@ -15,9 +14,9 @@ public interface GrupoRepositoryPort {
 
     boolean existePorCodigo(String codigo);
 
-    GrupoDto obtenerPorId(UUID id);
+    GrupoDto obtenerPorId(Long id);
 
     List<GrupoDto> listar();
 
-    void eliminar(UUID id);
+    void eliminar(Long id);
 }

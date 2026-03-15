@@ -3,17 +3,17 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.valu
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.util.Objects;
-import java.util.UUID;
+
 
 public final class Media extends ValueObject {
     
-    private final UUID id;
+    private final Long id;
     private final String type;
     private final String url;
     private final String altText;
     
-    private Media(UUID id, String type, String url, String altText) {
-        this.id = id != null ? id : UUID.randomUUID();
+    private Media(Long id, String type, String url, String altText) {
+        this.id = id ;
         this.type = Objects.requireNonNull(type, "Media type cannot be null");
         this.url = Objects.requireNonNull(url, "Media URL cannot be null");
         this.altText = altText;
@@ -23,11 +23,11 @@ public final class Media extends ValueObject {
         return new Media(null, type, url, altText);
     }
     
-    public static Media create(UUID id, String type, String url, String altText) {
+    public static Media create(Long id, String type, String url, String altText) {
         return new Media(id, type, url, altText);
     }
     
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
     

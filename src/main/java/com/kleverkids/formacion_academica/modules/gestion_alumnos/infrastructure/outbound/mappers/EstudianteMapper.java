@@ -6,11 +6,11 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.est
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface EstudianteMapper {
@@ -21,7 +21,6 @@ public interface EstudianteMapper {
 
     default EstudianteEntity toEntity(CrearEstudianteDto dto) {
         EstudianteEntity entity = new EstudianteEntity();
-        entity.setId(UUID.randomUUID());
         entity.setTipoDocumento(dto.tipoDocumento());
         entity.setNumeroDocumento(dto.numeroDocumento());
         entity.setNombres(dto.nombres());
@@ -36,6 +35,7 @@ public interface EstudianteMapper {
     }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
     void updateEntityFromDto(UpdateEstudianteDto dto, @MappingTarget EstudianteEntity entity);
 
 }

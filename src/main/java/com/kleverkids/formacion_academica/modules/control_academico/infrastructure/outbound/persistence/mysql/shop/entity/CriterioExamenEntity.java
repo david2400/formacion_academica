@@ -2,12 +2,13 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,10 +16,11 @@ import java.util.UUID;
 public class CriterioExamenEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
-    private UUID examenId;
+    private Long examenId;
 
     @Column(nullable = false)
     private String nombre;

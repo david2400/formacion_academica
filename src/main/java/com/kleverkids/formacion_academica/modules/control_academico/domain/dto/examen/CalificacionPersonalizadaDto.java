@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public record CalificacionPersonalizadaDto(UUID examenId,
-                                           UUID estudianteId,
+
+public record CalificacionPersonalizadaDto(Long examenId,
+                                           Long estudianteId,
                                            String criterio,
                                            BigDecimal puntajeOtorgado) {
 

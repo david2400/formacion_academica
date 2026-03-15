@@ -13,7 +13,6 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acu
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AcudienteService implements CrearAcudienteUseCase,
@@ -41,7 +40,7 @@ public class AcudienteService implements CrearAcudienteUseCase,
     @Override
     public AcudienteDto actualizar(ActualizarAcudienteDto request) {
         AcudienteDto existente = consultarPorId(request.acudienteId());
-        UUID estudianteId = request.estudianteId() != null ? request.estudianteId() : existente.estudianteId();
+        Long estudianteId = request.estudianteId() != null ? request.estudianteId() : existente.estudianteId();
         if (request.estudianteId() != null && !request.estudianteId().equals(existente.estudianteId())) {
             validarExistenciaEstudiante(request.estudianteId());
         }
@@ -50,29 +49,29 @@ public class AcudienteService implements CrearAcudienteUseCase,
     }
 
     @Override
-    public AcudienteDto consultarPorId(UUID acudienteId) {
+    public AcudienteDto consultarPorId(Long acudienteId) {
         return acudienteRepositoryPort.obtenerPorId(acudienteId)
                 .orElseThrow(() -> new IllegalArgumentException("Acudiente no encontrado"));
     }
 
     @Override
-    public List<AcudienteDto> listar(UUID estudianteId) {
+    public List<AcudienteDto> listar(Long estudianteId) {
         validarExistenciaEstudiante(estudianteId);
         return acudienteRepositoryPort.listarPorEstudiante(estudianteId);
     }
 
     @Override
-    public void eliminar(UUID acudienteId) {
+    public void eliminar(Long acudienteId) {
         consultarPorId(acudienteId);
         acudienteRepositoryPort.eliminar(acudienteId);
     }
 
-    private void validarExistenciaEstudiante(UUID estudianteId) {
+    private void validarExistenciaEstudiante(Long estudianteId) {
         estudianteRepositoryPort.obtenerPorId(estudianteId)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
     }
 
-    private void validarPrincipalUnico(UUID estudianteId, UUID excluirAcudienteId, Boolean esPrincipal) {
+    private void validarPrincipalUnico(Long estudianteId, Long excluirAcudienteId, Boolean esPrincipal) {
         if (Boolean.TRUE.equals(esPrincipal) &&
                 acudienteRepositoryPort.existePrincipalParaEstudiante(estudianteId, excluirAcudienteId)) {
             throw new IllegalArgumentException("El estudiante ya tiene un acudiente principal");

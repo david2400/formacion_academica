@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Service
@@ -55,7 +55,7 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     }
     
     @Override
-    public QuestionResponse actualizar(UUID id, UpdateQuestionCommand command) {
+    public QuestionResponse actualizar(Long id, UpdateQuestionCommand command) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
         
@@ -72,13 +72,13 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     
     @Override
     @Transactional(readOnly = true)
-    public QuestionResponse consultarPorId(UUID id) {
+    public QuestionResponse consultarPorId(Long id) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
         return QuestionResponse.fromDomain(question);
     }
     
-    public void delete(UUID id) {
+    public void delete(Long id) {
         Question question = questionRepository.findById(id)
             .orElseThrow(() -> new QuestionNotFoundException(id));
         
@@ -95,10 +95,21 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     }
     
     @Transactional(readOnly = true)
-    public ValidationResult validate(UUID questionId, AnswerValidationRequest request) {
+    public ValidationResult validate(Long questionId, AnswerValidationRequest request) {
         Question question = questionRepository.findById(questionId)
             .orElseThrow(() -> new QuestionNotFoundException(questionId));
         return validationService.validate(question, request);
+    }
+    
+    @Override
+    public void eliminar(Long id) {
+        Question question = questionRepository.findById(id)
+            .orElseThrow(() -> new QuestionNotFoundException(id));
+        
+        question.markAsDeleted();
+        questionRepository.save(question);
+        
+        eventPublisher.publish(new QuestionDeletedEvent(id));
     }
     
     // Implementación de Use Cases en español
@@ -113,19 +124,19 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     }
 
     @Override
-    public List<PreguntaBancoDto> listar(UUID tematicaId) {
+    public List<PreguntaBancoDto> listar(Long tematicaId) {
         return preguntaBancoRepositoryPort.listarPorTematica(tematicaId);
     }
 
     @Override
-    public void eliminar(UUID preguntaId) {
+    public void eliminarPreguntaBanco(Long preguntaId) {
         preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
         preguntaBancoRepositoryPort.eliminar(preguntaId);
     }
     
     // Implementación de ConsultarPreguntaBancoUseCase
     @Override
-    public PreguntaBancoDto consultarPreguntaBancoPorId(UUID preguntaId) {
+    public PreguntaBancoDto consultarPreguntaBancoPorId(Long preguntaId) {
         return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
     }
     
@@ -135,7 +146,7 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     }
     
     @Override
-    public ValidationResult validar(UUID preguntaId, AnswerValidationRequest request) {
+    public ValidationResult validar(Long preguntaId, AnswerValidationRequest request) {
         return validate(preguntaId, request);
     }
 }

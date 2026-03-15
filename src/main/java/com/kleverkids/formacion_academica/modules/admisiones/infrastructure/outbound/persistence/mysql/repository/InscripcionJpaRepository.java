@@ -4,9 +4,8 @@ import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outb
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface InscripcionJpaRepository extends JpaRepository<InscripcionEntity, UUID> {
+public interface InscripcionJpaRepository extends JpaRepository<InscripcionEntity, Long> {
 
     List<InscripcionEntity> findByPeriodoAcademico(String periodoAcademico);
 

@@ -5,7 +5,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.r
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RespuestaPreguntaDto;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface RespuestaPreguntaRepositoryPort {
 
@@ -13,9 +12,9 @@ public interface RespuestaPreguntaRepositoryPort {
 
     RespuestaPreguntaDto actualizar(ActualizarRespuestaPreguntaDto request);
 
-    List<RespuestaPreguntaDto> listarPorEstudiante(UUID examenId, UUID estudianteId);
+    List<RespuestaPreguntaDto> listarPorEstudiante(Long examenId, Long estudianteId);
 
-    RespuestaPreguntaDto obtenerPorId(UUID respuestaId);
+    RespuestaPreguntaDto obtenerPorId(Long respuestaId);
 
-    void eliminar(UUID respuestaId);
+    void eliminar(Long respuestaId);
 }

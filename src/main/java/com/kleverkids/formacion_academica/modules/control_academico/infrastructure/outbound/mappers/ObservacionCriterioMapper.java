@@ -11,12 +11,13 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Mapper(componentModel = "spring", imports = {UUID.class})
+
+@Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ObservacionCriterioMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     ObservacionCriterioEntity toEntity(RegistrarObservacionCriterioDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

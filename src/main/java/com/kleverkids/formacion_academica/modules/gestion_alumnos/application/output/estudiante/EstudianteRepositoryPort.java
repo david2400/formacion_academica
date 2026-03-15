@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface EstudianteRepositoryPort {
 
@@ -16,7 +15,7 @@ public interface EstudianteRepositoryPort {
 
     EstudianteDto actualizar(UpdateEstudianteDto request);
 
-    Optional<EstudianteDto> obtenerPorId(UUID estudianteId);
+    Optional<EstudianteDto> obtenerPorId(Long estudianteId);
 
     List<EstudianteDto> listar();
 
@@ -24,5 +23,5 @@ public interface EstudianteRepositoryPort {
 
     boolean existePorDocumento(String tipoDocumento, String numeroDocumento);
 
-    void eliminar(UUID estudianteId);
+    void eliminar(Long estudianteId);
 }

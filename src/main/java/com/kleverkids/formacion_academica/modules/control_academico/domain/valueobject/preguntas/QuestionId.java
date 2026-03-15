@@ -3,29 +3,30 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.valu
 import com.kleverkids.formacion_academica.shared.common.domain.ValueObject;
 
 import java.util.Objects;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 public final class QuestionId extends ValueObject {
     
-    private final UUID value;
+    private final Long value;
     
-    private QuestionId(UUID value) {
+    private QuestionId(Long value) {
         this.value = Objects.requireNonNull(value, "QuestionId cannot be null");
     }
     
-    public static QuestionId of(UUID value) {
+    public static QuestionId of(Long value) {
         return new QuestionId(value);
     }
     
     public static QuestionId of(String value) {
-        return new QuestionId(UUID.fromString(value));
+        return new QuestionId(Long.parseLong(value));
     }
     
     public static QuestionId generate() {
-        return new QuestionId(UUID.randomUUID());
+        return new QuestionId(ThreadLocalRandom.current().nextLong());
     }
     
-    public UUID getValue() {
+    public Long getValue() {
         return value;
     }
     

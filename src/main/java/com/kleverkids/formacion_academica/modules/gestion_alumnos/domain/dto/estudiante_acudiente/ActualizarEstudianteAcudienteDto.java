@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,7 +13,9 @@ import java.util.UUID;
 public class ActualizarEstudianteAcudienteDto {
 
     @NotNull(message = "El identificador de la relación es obligatorio")
-    private UUID relacionId;
+    private Long relacionId;
+
+    private Long estudianteId;
 
     private String parentesco;
 
@@ -23,8 +23,12 @@ public class ActualizarEstudianteAcudienteDto {
 
     private String estado;
 
-    public UUID relacionId() {
+    public Long relacionId() {
         return relacionId;
+    }
+
+    public Long estudianteId() {
+        return estudianteId;
     }
 
     public String parentesco() {

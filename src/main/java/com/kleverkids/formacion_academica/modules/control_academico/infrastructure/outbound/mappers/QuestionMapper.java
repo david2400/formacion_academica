@@ -6,7 +6,6 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.value
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -136,7 +135,7 @@ public interface QuestionMapper {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> Option.create(
-                d.id() != null ? d.id() : UUID.randomUUID(),
+                d.id() != null ? d.id() : null,
                 d.text(),
                 d.media() != null ? Media.create(d.media().id(), d.media().type(), d.media().url(), d.media().altText()) : null,
                 d.isCorrect()
@@ -165,7 +164,7 @@ public interface QuestionMapper {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> OrderingItem.create(
-                d.id() != null ? d.id() : UUID.randomUUID(),
+                d.id() != null ? d.id() : null,
                 d.text(), d.correctPosition(),
                 d.media() != null ? Media.create(d.media().id(), d.media().type(), d.media().url(), d.media().altText()) : null
             ))
@@ -176,7 +175,7 @@ public interface QuestionMapper {
         if (dtos == null) return null;
         return dtos.stream()
             .map(d -> MatchingPair.create(
-                d.id() != null ? d.id() : UUID.randomUUID(),
+                d.id() != null ? d.id() : null,
                 d.leftItem(), d.rightItem(),
                 d.leftMedia() != null ? Media.create(d.leftMedia().id(), d.leftMedia().type(), d.leftMedia().url(), d.leftMedia().altText()) : null,
                 d.rightMedia() != null ? Media.create(d.rightMedia().id(), d.rightMedia().type(), d.rightMedia().url(), d.rightMedia().altText()) : null

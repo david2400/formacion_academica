@@ -11,13 +11,12 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
-import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {UUID.class})
+@Mapper(componentModel = "spring")
 public interface TematicaMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
-    @Mapping(target = "examenId", source = "dto.examenId")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "examenId", ignore = true)
     TematicaEntity toEntity(CrearTematicaDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -25,7 +24,9 @@ public interface TematicaMapper {
     @Mapping(target = "id", ignore = true)
     void applyUpdate(@MappingTarget TematicaEntity entity, ActualizarTematicaDto dto);
 
+    @Mapping(target = "id", ignore = true)
     TematicaDto toDto(TematicaEntity entity);
 
+    @Mapping(target = "id", ignore = true)
     List<TematicaDto> toDtoList(List<TematicaEntity> entities);
 }

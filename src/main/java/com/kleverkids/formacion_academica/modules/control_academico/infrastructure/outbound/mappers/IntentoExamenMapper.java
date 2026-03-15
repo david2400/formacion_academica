@@ -14,12 +14,13 @@ import org.mapstruct.MappingTarget;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Mapper(componentModel = "spring", imports = {UUID.class, LocalDateTime.class, ArrayList.class})
+
+@Mapper(componentModel = "spring", imports = {Long.class, LocalDateTime.class, ArrayList.class, ThreadLocalRandom.class})
 public interface IntentoExamenMapper {
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "estado", constant = "EN_PROGRESO")
     @Mapping(target = "iniciadoEn", expression = "java(LocalDateTime.now())")
     @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
@@ -46,7 +47,7 @@ public interface IntentoExamenMapper {
     @Mapping(target = "intentoId", source = "intento.id")
     RespuestaIntentoDto toRespuestaDto(RespuestaIntentoEntity entity);
 
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "intento", source = "intento")
     @Mapping(target = "preguntaId", source = "dto.preguntaId")
     @Mapping(target = "respuesta", source = "dto.respuesta")

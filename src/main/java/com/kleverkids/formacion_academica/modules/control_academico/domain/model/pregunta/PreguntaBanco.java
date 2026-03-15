@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta;
 
 import java.util.List;
-import java.util.UUID;
 
-public record PreguntaBanco(UUID id,
-                            UUID tematicaId,
+
+public record PreguntaBanco(Long id,
+                            Long tematicaId,
                             String enunciado,
                             String tipo,
                             String nivelDificultad,

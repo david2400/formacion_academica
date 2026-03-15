@@ -9,6 +9,12 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.CrearAcudienteDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
@@ -23,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Description(value = "Gestiona los acudientes")
 @Tag(name = "Acudientes", description = "Gestiona los acudientes")
@@ -52,13 +57,30 @@ public class AcudienteController {
         this.eliminarUseCase = eliminarUseCase;
     }
 
+    @Operation(summary = "Crear acudiente", description = "Registra un nuevo acudiente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Acudiente creado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AcudienteDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PostMapping
     public ResponseEntity<AcudienteDto> crear(@RequestBody CrearAcudienteDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
+    @Operation(summary = "Actualizar acudiente", description = "Actualiza los datos de un acudiente existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Acudiente actualizado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AcudienteDto.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Acudiente no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @PutMapping("/{acudienteId}")
-    public ResponseEntity<AcudienteDto> actualizar(@PathVariable UUID acudienteId,
+    public ResponseEntity<AcudienteDto> actualizar(@PathVariable Long acudienteId,
                                                    @RequestBody ActualizarAcudienteDto request) {
         ActualizarAcudienteDto payload = new ActualizarAcudienteDto(
                 acudienteId,
@@ -75,23 +97,52 @@ public class AcudienteController {
         return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
     }
 
+    @Operation(summary = "Consultar acudiente", description = "Obtiene la información de un acudiente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Acudiente encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AcudienteDto.class))),
+            @ApiResponse(responseCode = "404", description = "Acudiente no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/{acudienteId}")
-    public ResponseEntity<AcudienteDto> consultar(@PathVariable UUID acudienteId) {
+    public ResponseEntity<AcudienteDto> consultar(@PathVariable Long acudienteId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(acudienteId));
     }
 
+    @Operation(summary = "Listar acudientes", description = "Obtiene todos los acudientes registrados")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Listado de acudientes",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = AcudienteDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping
     public ResponseEntity<List<AcudienteDto>> listar() {
         return ResponseEntity.ok(listarUseCase.listar());
     }
 
+    @Operation(summary = "Listar por estudiante", description = "Obtiene los acudientes asociados a un estudiante")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Acudientes del estudiante",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = AcudienteDto.class)))),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @GetMapping("/estudiante/{estudianteId}")
-    public ResponseEntity<List<AcudienteDto>> listarPorEstudiante(@PathVariable UUID estudianteId) {
+    public ResponseEntity<List<AcudienteDto>> listarPorEstudiante(@PathVariable Long estudianteId) {
         return ResponseEntity.ok(listarPorEstudianteUseCase.listar(estudianteId));
     }
 
+    @Operation(summary = "Eliminar acudiente", description = "Elimina un acudiente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Acudiente eliminado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Acudiente no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
     @DeleteMapping("/{acudienteId}")
-    public ResponseEntity<Void> eliminar(@PathVariable UUID acudienteId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long acudienteId) {
         eliminarUseCase.eliminar(acudienteId);
         return ResponseEntity.noContent().build();
     }

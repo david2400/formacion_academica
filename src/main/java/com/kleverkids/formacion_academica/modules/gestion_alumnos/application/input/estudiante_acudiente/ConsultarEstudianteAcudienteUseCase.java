@@ -2,9 +2,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.i
 
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.EstudianteAcudienteDto;
 
-import java.util.UUID;
-
 public interface ConsultarEstudianteAcudienteUseCase {
 
-    EstudianteAcudienteDto consultarPorId(UUID relacionId);
+    EstudianteAcudienteDto consultarPorId(Long relacionId);
 }

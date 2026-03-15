@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -27,12 +26,12 @@ public class EstudianteExamenJpaAdapter implements EstudianteExamenRepositoryPor
     }
 
     @Override
-    public List<EstudianteExamenDto> listarPorExamen(UUID examenId) {
+    public List<EstudianteExamenDto> listarPorExamen(Long examenId) {
         return mapper.toDtoList(repository.findByExamenIdOrderByAsignadoEnAsc(examenId));
     }
 
     @Override
-    public Optional<EstudianteExamenDto> buscarPorExamenYEstudiante(UUID examenId, UUID estudianteId) {
+    public Optional<EstudianteExamenDto> buscarPorExamenYEstudiante(Long examenId, Long estudianteId) {
         return repository.findByExamenIdAndEstudianteId(examenId, estudianteId)
                 .map(mapper::toDto);
     }

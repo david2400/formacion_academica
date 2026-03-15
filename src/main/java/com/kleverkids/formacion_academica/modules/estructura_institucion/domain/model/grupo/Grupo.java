@@ -1,13 +1,11 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.grupo;
 
-import java.util.UUID;
-
-public record Grupo(UUID id,
+public record Grupo(Long id,
                     String codigo,
                     String nombre,
-                    UUID gradoId,
+                    Long gradoId,
                     Integer capacidadMaxima,
-                    UUID tutorId,
-                    UUID aulaId,
+                    Long tutorId,
+                    Long aulaId,
                     boolean activo) {
 }

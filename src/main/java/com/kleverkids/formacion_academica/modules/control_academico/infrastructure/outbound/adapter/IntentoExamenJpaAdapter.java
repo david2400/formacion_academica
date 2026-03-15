@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Component
@@ -61,7 +61,7 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
     }
 
     @Override
-    public List<IntentoExamenDto> listarPorEstudiante(UUID examenId, UUID estudianteId) {
+    public List<IntentoExamenDto> listarPorEstudiante(Long examenId, Long estudianteId) {
         return intentoExamenMapper.toDtoList(
                 intentoExamenJpaRepository.findByExamenIdAndEstudianteIdOrderByIniciadoEnDesc(examenId, estudianteId)
         );

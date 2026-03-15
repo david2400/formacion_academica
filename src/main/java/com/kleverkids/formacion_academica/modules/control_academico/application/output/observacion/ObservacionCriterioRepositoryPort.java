@@ -5,7 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.o
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.observacion.RegistrarObservacionCriterioDto;
 
 import java.util.List;
-import java.util.UUID;
+
 
 public interface ObservacionCriterioRepositoryPort {
 
@@ -13,9 +13,9 @@ public interface ObservacionCriterioRepositoryPort {
 
     ObservacionCriterioDto actualizar(ActualizarObservacionCriterioDto request);
 
-    List<ObservacionCriterioDto> listarPorEstudiante(UUID examenId, UUID estudianteId);
+    List<ObservacionCriterioDto> listarPorEstudiante(Long examenId, Long estudianteId);
 
-    ObservacionCriterioDto obtenerPorId(UUID observacionId);
+    ObservacionCriterioDto obtenerPorId(Long observacionId);
 
-    void eliminar(UUID observacionId);
+    void eliminar(Long observacionId);
 }
