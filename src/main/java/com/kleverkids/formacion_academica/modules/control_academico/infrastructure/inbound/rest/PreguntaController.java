@@ -2,6 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -72,14 +73,14 @@ public class PreguntaController {
     
     // Endpoints del PreguntaBancoController (integrados en el mismo controlador)
     @PostMapping("/banco/{tematicaId}")
-    public ResponseEntity<PreguntaBancoDto> crearEnBanco(@PathVariable Long tematicaId,
+    public ResponseEntity<PreguntaBanco> crearEnBanco(@PathVariable Long tematicaId,
                                                         @Valid @RequestBody CrearPreguntaBancoDto request) {
         request.setTematicaId(tematicaId);
         return ResponseEntity.status(HttpStatus.CREATED).body(crearPreguntaBancoUseCase.crear(request));
     }
 
     @PutMapping("/banco/{tematicaId}/{preguntaId}")
-    public ResponseEntity<PreguntaBancoDto> actualizarEnBanco(@PathVariable Long tematicaId,
+    public ResponseEntity<PreguntaBanco> actualizarEnBanco(@PathVariable Long tematicaId,
                                                              @PathVariable Long preguntaId,
                                                              @Valid @RequestBody ActualizarPreguntaBancoDto request) {
         request.setTematicaId(tematicaId);
@@ -88,12 +89,12 @@ public class PreguntaController {
     }
 
     @GetMapping("/banco/{tematicaId}")
-    public ResponseEntity<List<PreguntaBancoDto>> listarPorTematica(@PathVariable Long tematicaId) {
+    public ResponseEntity<List<PreguntaBanco>> listarPorTematica(@PathVariable Long tematicaId) {
         return ResponseEntity.ok(listarPreguntasPorTematicaUseCase.listar(tematicaId));
     }
 
     @GetMapping("/banco/{tematicaId}/{preguntaId}")
-    public ResponseEntity<PreguntaBancoDto> consultarEnBanco(@PathVariable Long tematicaId,
+    public ResponseEntity<PreguntaBanco> consultarEnBanco(@PathVariable Long tematicaId,
                                                             @PathVariable Long preguntaId) {
         return ResponseEntity.ok(consultarPreguntaBancoUseCase.consultarPreguntaBancoPorId(preguntaId));
     }

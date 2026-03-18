@@ -119,7 +119,7 @@ public class MatriculaController {
 
     @Operation(summary = "Eliminar matrícula", description = "Elimina una matrícula existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Matrícula eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Matrícula eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Matrícula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

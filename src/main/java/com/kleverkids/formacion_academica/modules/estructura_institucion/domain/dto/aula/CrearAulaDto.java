@@ -14,23 +14,8 @@ public class CrearAulaDto {
 
     @NotBlank(message = "El nombre del aula es obligatorio")
     private String nombre;
+
     private String descripcion;
+
     private Integer capacidad;
-    private Boolean activo;
-
-    public String nombre() {
-        return nombre;
-    }
-
-    public String descripcion() {
-        return descripcion;
-    }
-
-    public Integer capacidad() {
-        return capacidad;
-    }
-
-    public Boolean activo() {
-        return activo;
-    }
 }

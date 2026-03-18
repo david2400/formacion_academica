@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.grado.GradoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grado;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,22 +24,22 @@ public class GradoService implements CrearGradoUseCase, ActualizarGradoUseCase,
     }
 
     @Override
-    public GradoDto crear(CrearGradoDto request) {
+    public Grado crear(CrearGradoDto request) {
         return gradoRepositoryPort.guardar(request);
     }
 
     @Override
-    public GradoDto actualizar(ActualizarGradoDto request) {
+    public Grado actualizar(ActualizarGradoDto request) {
         return gradoRepositoryPort.actualizar(request);
     }
 
     @Override
-    public GradoDto consultarPorId(Long gradoId) {
+    public Grado consultarPorId(Long gradoId) {
         return gradoRepositoryPort.obtenerPorId(gradoId);
     }
 
     @Override
-    public List<GradoDto> listar() {
+    public List<Grado> listar() {
         return gradoRepositoryPort.listar();
     }
 

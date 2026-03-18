@@ -20,7 +20,6 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, LocalDateTime.class, ArrayList.class, ThreadLocalRandom.class})
 public interface IntentoExamenMapper {
 
-    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "estado", constant = "EN_PROGRESO")
     @Mapping(target = "iniciadoEn", expression = "java(LocalDateTime.now())")
     @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
@@ -28,26 +27,11 @@ public interface IntentoExamenMapper {
     @Mapping(target = "puntajeTotal", ignore = true)
     IntentoExamenEntity toEntity(IniciarIntentoExamenDto dto);
 
-    default IntentoExamenDto toDto(IntentoExamenEntity entity) {
-        List<RespuestaIntentoDto> respuestas = entity.getRespuestas().stream()
-                .map(this::toRespuestaDto)
-                .toList();
-        return new IntentoExamenDto(
-                entity.getId(),
-                entity.getExamenId(),
-                entity.getEstudianteId(),
-                entity.getEstado(),
-                entity.getIniciadoEn(),
-                entity.getFinalizadoEn(),
-                entity.getPuntajeTotal(),
-                respuestas
-        );
-    }
+    IntentoExamenDto toDto(IntentoExamenEntity entity);
 
     @Mapping(target = "intentoId", source = "intento.id")
     RespuestaIntentoDto toRespuestaDto(RespuestaIntentoEntity entity);
 
-    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "intento", source = "intento")
     @Mapping(target = "preguntaId", source = "dto.preguntaId")
     @Mapping(target = "respuesta", source = "dto.respuesta")

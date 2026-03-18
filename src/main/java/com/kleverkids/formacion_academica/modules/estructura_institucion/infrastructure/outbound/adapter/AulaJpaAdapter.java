@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.aula.AulaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.AulaMapper;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.AulaEntity;
@@ -24,17 +24,17 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     }
 
     @Override
-    public AulaDto guardar(CrearAulaDto request) {
+    public Aula guardar(CrearAulaDto request) {
         AulaEntity entity = aulaMapper.toEntity(request);
-        return aulaMapper.toDto(aulaJpaRepository.save(entity));
+        return aulaMapper.toDomainModel(aulaJpaRepository.save(entity));
     }
 
     @Override
-    public AulaDto actualizar(ActualizarAulaDto request) {
+    public Aula actualizar(ActualizarAulaDto request) {
         AulaEntity entity = aulaJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
-        aulaMapper.updateEntityFromDto(request, entity);
-        return aulaMapper.toDto(aulaJpaRepository.save(entity));
+        aulaMapper.updateEntityFromDomain(request, entity);
+        return aulaMapper.toDomainModel(aulaJpaRepository.save(entity));
     }
 
     @Override
@@ -48,15 +48,15 @@ public class AulaJpaAdapter implements AulaRepositoryPort {
     }
 
     @Override
-    public AulaDto obtenerPorId(Long id) {
+    public Aula obtenerPorId(Long id) {
         return aulaJpaRepository.findById(id)
-                .map(aulaMapper::toDto)
+                .map(aulaMapper::toDomainModel)
                 .orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
     }
 
     @Override
-    public List<AulaDto> listar() {
-        return aulaMapper.toDtoList(aulaJpaRepository.findAll());
+    public List<Aula> listar() {
+        return aulaMapper.toDomainModelList(aulaJpaRepository.findAll());
     }
 
     @Override

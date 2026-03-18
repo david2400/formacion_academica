@@ -2,6 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,12 +43,12 @@ public class ExamenController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Examen creado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ExamenDto.class))),
+                            schema = @Schema(implementation = Examen.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<ExamenDto> crear(@Valid @RequestBody CrearExamenDto request) {
+    public ResponseEntity<Examen> crear(@Valid @RequestBody CrearExamenDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearExamenUseCase.crear(request));
     }
     
@@ -80,7 +81,7 @@ public class ExamenController {
     
     @Operation(summary = "Eliminar examen", description = "Elimina un examen")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Examen eliminado", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Examen eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Examen no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

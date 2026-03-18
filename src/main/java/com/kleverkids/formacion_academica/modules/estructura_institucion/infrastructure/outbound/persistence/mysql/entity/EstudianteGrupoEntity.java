@@ -1,12 +1,8 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity;
 
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteEntity;
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,16 +16,30 @@ public class EstudianteGrupoEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id", nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(name = "grupo_id", nullable = false)
     private Long grupoId;
+
+    // Relaciones opcionales para consultas (no afectan persistencia)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "estudiante_id", nullable = false, insertable = false, updatable = false)
+    private EstudianteEntity estudiante;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grupo_id", nullable = false, insertable = false, updatable = false)
+    private GrupoEntity grupo;
 
     private LocalDate fechaAsignacion;
 
-    @Column(nullable = false)
-    private String estado;
+    // Relación con EstadoEntity eliminada para evitar conflictos entre módulos
+    // Se usa estadoLegacy (String) para mantener compatibilidad
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "estado_id", nullable = false)
+    // private EstadoEntity estado;
 
-
+    // Campo temporal para compatibilidad durante migración
+    @Column(name = "estado_legacy", nullable = false)
+    private String estadoLegacy;
 }

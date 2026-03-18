@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.ListarAulasUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.aula.AulaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import org.springframework.stereotype.Service;
 
@@ -24,23 +24,23 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
     }
 
     @Override
-    public AulaDto crear(CrearAulaDto request) {
+    public Aula crear(CrearAulaDto request) {
         validarNombreDisponible(request.getNombre(), null);
         return aulaRepositoryPort.guardar(request);
     }
 
     @Override
-    public AulaDto actualizar(ActualizarAulaDto request) {
+    public Aula actualizar(ActualizarAulaDto request) {
         return aulaRepositoryPort.actualizar(request);
     }
 
     @Override
-    public List<AulaDto> listar() {
+    public List<Aula> listar() {
         return aulaRepositoryPort.listar();
     }
 
     @Override
-    public AulaDto consultarPorId(Long aulaId) {
+    public Aula consultarPorId(Long aulaId) {
         return aulaRepositoryPort.obtenerPorId(aulaId);
     }
 
@@ -60,7 +60,7 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
         if (aulaId == null) {
             throw new IllegalArgumentException("Ya existe un aula con el nombre " + nombre);
         }
-        AulaDto actual = aulaRepositoryPort.obtenerPorId(aulaId);
+        Aula actual = aulaRepositoryPort.obtenerPorId(aulaId);
         if (!actual.nombre().equalsIgnoreCase(nombre)) {
             throw new IllegalArgumentException("Ya existe un aula con el nombre " + nombre);
         }

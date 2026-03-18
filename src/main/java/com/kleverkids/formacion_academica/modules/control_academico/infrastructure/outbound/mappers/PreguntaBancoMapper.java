@@ -3,8 +3,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearRespuestaBancoDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.RespuestaBancoDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.RespuestaBanco;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.PreguntaBancoEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.RespuestaBancoEntity;
 import org.mapstruct.AfterMapping;
@@ -48,24 +48,7 @@ public interface PreguntaBancoMapper {
     @Mapping(target = "respuestas", ignore = true)
     void applyUpdate(@MappingTarget PreguntaBancoEntity entity, ActualizarPreguntaBancoDto dto);
 
-    default PreguntaBancoDto toDto(PreguntaBancoEntity entity) {
-        List<RespuestaBancoDto> respuestas = entity.getRespuestas().stream()
-                .map(r -> new RespuestaBancoDto(
-                        r.getId(),
-                        entity.getId(),
-                        r.getTexto(),
-                        r.isEsCorrecta()
-                )).toList();
-        return new PreguntaBancoDto(
-                entity.getId(),
-                entity.getTematicaId(),
-                entity.getEnunciado(),
-                entity.getTipo(),
-                entity.getNivelDificultad(),
-                entity.getPuntaje(),
-                respuestas
-        );
-    }
+    PreguntaBanco toDomainModel(PreguntaBancoEntity entity);
 
-    List<PreguntaBancoDto> toDtoList(List<PreguntaBancoEntity> entities);
+    List<PreguntaBanco> toDomainModelList(List<PreguntaBancoEntity> entities);
 }

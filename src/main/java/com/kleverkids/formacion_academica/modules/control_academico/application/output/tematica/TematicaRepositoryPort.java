@@ -2,19 +2,19 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
 
 import java.util.List;
 
 public interface TematicaRepositoryPort {
 
-    TematicaDto guardar(CrearTematicaDto request);
+    Tematica guardar(CrearTematicaDto request);
 
-    TematicaDto actualizar(ActualizarTematicaDto request);
+    Tematica actualizar(ActualizarTematicaDto request);
 
-    List<TematicaDto> listarPorExamen(Long examenId);
+    List<Tematica> listarPorExamen(Long examenId);
 
-    TematicaDto obtenerPorId(Long tematicaId);
+    Tematica obtenerPorId(Long tematicaId);
 
     void eliminar(Long tematicaId);
 }

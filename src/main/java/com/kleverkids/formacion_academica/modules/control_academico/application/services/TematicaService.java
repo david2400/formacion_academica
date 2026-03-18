@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.tematica.TematicaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,22 +25,22 @@ public class TematicaService implements CrearTematicaUseCase,
     private final TematicaRepositoryPort repositoryPort;
 
     @Override
-    public TematicaDto crear(CrearTematicaDto request) {
+    public Tematica crear(CrearTematicaDto request) {
         return repositoryPort.guardar(request);
     }
 
     @Override
-    public TematicaDto actualizar(ActualizarTematicaDto request) {
+    public Tematica actualizar(ActualizarTematicaDto request) {
         return repositoryPort.actualizar(request);
     }
 
     @Override
-    public List<TematicaDto> listar(Long examenId) {
+    public List<Tematica> listar(Long examenId) {
         return repositoryPort.listarPorExamen(examenId);
     }
 
     @Override
-    public TematicaDto consultarPorId(Long tematicaId) {
+    public Tematica consultarPorId(Long tematicaId) {
         return repositoryPort.obtenerPorId(tematicaId);
     }
 

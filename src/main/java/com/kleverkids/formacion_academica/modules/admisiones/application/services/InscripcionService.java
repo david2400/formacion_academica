@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.admisiones.application.input.i
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
 import org.springframework.stereotype.Service;
 
@@ -28,23 +28,23 @@ public class InscripcionService implements RegistrarInscripcionUseCase,
     }
 
     @Override
-    public InscripcionDto registrar(CrearInscripcionDto request) {
+    public Inscripcion registrar(CrearInscripcionDto request) {
         return inscripcionRepositoryPort.registrar(request);
     }
 
     @Override
-    public InscripcionDto consultarPorId(Long inscripcionId) {
+    public Inscripcion consultarPorId(Long inscripcionId) {
         return inscripcionRepositoryPort.obtenerPorId(inscripcionId)
                 .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
     }
 
     @Override
-    public List<InscripcionDto> listar(ListarInscripcionesFiltroDto filtro) {
+    public List<Inscripcion> listar(ListarInscripcionesFiltroDto filtro) {
         return inscripcionRepositoryPort.listar(filtro);
     }
 
     @Override
-    public InscripcionDto cambiarEstado(ActualizarEstadoInscripcionDto request) {
+    public Inscripcion cambiarEstado(ActualizarEstadoInscripcionDto request) {
         consultarPorId(request.getInscripcionId());
         return inscripcionRepositoryPort.actualizarEstado(request);
     }

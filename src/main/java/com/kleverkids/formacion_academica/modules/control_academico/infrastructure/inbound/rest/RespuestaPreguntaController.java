@@ -110,7 +110,7 @@ public class RespuestaPreguntaController {
 
     @Operation(summary = "Eliminar respuesta", description = "Elimina la respuesta registrada")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Respuesta eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Respuesta eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Respuesta no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

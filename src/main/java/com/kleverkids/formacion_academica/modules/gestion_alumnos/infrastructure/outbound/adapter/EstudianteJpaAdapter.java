@@ -1,8 +1,8 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.adapter;
 
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante.EstudianteRepositoryPort;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Estudiante;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.mappers.EstudianteMapper;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteEntity;
@@ -23,32 +23,32 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
     private final EstudianteMapper estudianteMapper;
 
     @Override
-    public EstudianteDto guardar(CrearEstudianteDto request) {
+    public Estudiante guardar(CrearEstudianteDto request) {
         EstudianteEntity entity = estudianteMapper.toEntity(request);
-        return estudianteMapper.toDto(estudianteJpaRepository.save(entity));
+        return estudianteMapper.toDomainModel(estudianteJpaRepository.save(entity));
     }
 
     @Override
-    public EstudianteDto actualizar(UpdateEstudianteDto request) {
+    public Estudiante actualizar(UpdateEstudianteDto request) {
         EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(request.getEstudianteId())
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
         estudianteMapper.updateEntityFromDto(request, entity);
-        return estudianteMapper.toDto(estudianteJpaRepository.save(entity));
+        return estudianteMapper.toDomainModel(estudianteJpaRepository.save(entity));
     }
 
     @Override
-    public Optional<EstudianteDto> obtenerPorId(Long estudianteId) {
-        return estudianteJpaRepository.findByIdAndActivoTrue(estudianteId).map(estudianteMapper::toDto);
+    public Optional<Estudiante> obtenerPorId(Long estudianteId) {
+        return estudianteJpaRepository.findByIdAndActivoTrue(estudianteId).map(estudianteMapper::toDomainModel);
     }
 
     @Override
-    public List<EstudianteDto> listar() {
-        return estudianteMapper.toDtoList(estudianteJpaRepository.findByActivoTrue());
+    public List<Estudiante> listar() {
+        return estudianteMapper.toDomainModelList(estudianteJpaRepository.findByActivoTrue());
     }
 
     @Override
-    public Page<EstudianteDto> listar(Pageable pageable) {
-        return estudianteJpaRepository.findByActivoTrue(pageable).map(estudianteMapper::toDto);
+    public Page<Estudiante> listar(Pageable pageable) {
+        return estudianteJpaRepository.findByActivoTrue(pageable).map(estudianteMapper::toDomainModel);
     }
 
     @Override

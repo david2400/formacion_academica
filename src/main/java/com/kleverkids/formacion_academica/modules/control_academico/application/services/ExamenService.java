@@ -6,6 +6,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamSubmissionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamenRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
@@ -181,7 +182,7 @@ public class ExamenService implements ConsultarExamenUseCase, ActualizarExamenUs
     
     // Implementación de Use Cases en español
     @Override
-    public ExamenDto crear(CrearExamenDto request) {
+    public Examen crear(CrearExamenDto request) {
         return examenRepositoryPort.guardar(request);
     }
 

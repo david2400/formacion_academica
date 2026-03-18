@@ -2,21 +2,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grado;
 
 import java.util.List;
 
 public interface GradoRepositoryPort {
 
-    GradoDto guardar(CrearGradoDto request);
+    Grado guardar(CrearGradoDto request);
 
-    GradoDto actualizar(ActualizarGradoDto request);
+    Grado actualizar(ActualizarGradoDto request);
 
     boolean existePorNombreYNivel(String nombre, String nivelEducativo);
 
-    GradoDto obtenerPorId(Long id);
+    Grado obtenerPorId(Long id);
 
-    List<GradoDto> listar();
+    List<Grado> listar();
 
     void eliminar(Long id);
 }

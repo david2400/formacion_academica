@@ -114,7 +114,7 @@ public class ObservacionCriterioController {
 
     @Operation(summary = "Eliminar observación", description = "Elimina una observación registrada")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Observación eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Observación eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Observación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

@@ -3,7 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.clase.ClaseRepositoryPort;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ClaseDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.clase.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
@@ -21,13 +21,13 @@ public class ClaseService implements CrearClaseUseCase, CrearClasesMasivasUseCas
 
 
     @Override
-    public ClaseDto crearClase(CrearClaseDto request) {
+    public Clase crearClase(CrearClaseDto request) {
         return claseRepositoryPort.guardar(request);
     }
 
     @Override
     public ResultadoClasesMasivasDto crearClases(CrearClasesMasivasDto request) {
-        List<ClaseDto> creadas = claseRepositoryPort.guardarTodas(request.getClases());
+        List<Clase> creadas = claseRepositoryPort.guardarTodas(request.getClases());
         return new ResultadoClasesMasivasDto(request.getClases().size(), creadas.size(), creadas);
     }
 

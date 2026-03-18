@@ -1,12 +1,7 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity;
 
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -21,8 +16,12 @@ public class GradoEntity extends AuditInfo {
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
-    private String nivelEducativo;
+    @Column(name = "nivel_educativo_id", nullable = false)
+    private Long nivelEducativoId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "nivel_educativo_id", nullable = false, insertable = false, updatable = false)
+    private NivelEducativoEntity nivelEducativo;
 
     private Integer orden;
 

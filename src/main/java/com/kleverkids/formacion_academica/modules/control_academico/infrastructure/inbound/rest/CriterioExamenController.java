@@ -105,7 +105,7 @@ public class CriterioExamenController {
 
     @Operation(summary = "Eliminar criterio", description = "Elimina un criterio del examen")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Criterio eliminado", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Criterio eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Criterio no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

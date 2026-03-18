@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ClaseDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.clase.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
@@ -38,12 +38,12 @@ public class ClaseController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Clase creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ClaseDto.class))),
+                            schema = @Schema(implementation = Clase.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<ClaseDto> crearClase(@Valid @RequestBody CrearClaseDto request) {
+    public ResponseEntity<Clase> crearClase(@Valid @RequestBody CrearClaseDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearClaseUseCase.crearClase(request));
     }
 

@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.adapter;
 
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.acudiente.AcudienteRepositoryPort;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Acudiente;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.ActualizarAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.CrearAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.mappers.AcudienteMapper;
@@ -21,27 +21,27 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
     private final AcudienteMapper acudienteMapper;
 
     @Override
-    public AcudienteDto guardar(CrearAcudienteDto request) {
+    public Acudiente guardar(CrearAcudienteDto request) {
         AcudienteEntity entity = acudienteMapper.toEntity(request);
-        return acudienteMapper.toDto(acudienteJpaRepository.save(entity));
+        return acudienteMapper.toDomainModel(acudienteJpaRepository.save(entity));
     }
 
     @Override
-    public AcudienteDto actualizar(ActualizarAcudienteDto request) {
+    public Acudiente actualizar(ActualizarAcudienteDto request) {
         AcudienteEntity entity = acudienteJpaRepository.findById(request.acudienteId())
                 .orElseThrow(() -> new IllegalArgumentException("Acudiente no encontrado"));
         acudienteMapper.updateEntityFromDto(request, entity);
-        return acudienteMapper.toDto(acudienteJpaRepository.save(entity));
+        return acudienteMapper.toDomainModel(acudienteJpaRepository.save(entity));
     }
 
     @Override
-    public Optional<AcudienteDto> obtenerPorId(Long acudienteId) {
-        return acudienteJpaRepository.findById(acudienteId).map(acudienteMapper::toDto);
+    public Optional<Acudiente> obtenerPorId(Long acudienteId) {
+        return acudienteJpaRepository.findById(acudienteId).map(acudienteMapper::toDomainModel);
     }
 
     @Override
-    public List<AcudienteDto> listarPorEstudiante(Long estudianteId) {
-        return acudienteMapper.toDtoList(acudienteJpaRepository.findByEstudianteId(estudianteId));
+    public List<Acudiente> listarPorEstudiante(Long estudianteId) {
+        return acudienteMapper.toDomainModelList(acudienteJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override

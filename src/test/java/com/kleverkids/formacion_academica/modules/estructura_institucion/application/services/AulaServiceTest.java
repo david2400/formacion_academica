@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.aula.AulaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,13 +31,13 @@ class AulaServiceTest {
 
     @Test
     void crear_debeGuardarCuandoNombreDisponible() {
-        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25, true);
-        AulaDto expected = new AulaDto(ThreadLocalRandom.current().nextLong(), "Laboratorio", "Ciencias", 25, true);
+        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25);
+        Aula expected = new Aula(ThreadLocalRandom.current().nextLong(), "Laboratorio", "Ciencias", 25);
 
         when(aulaRepositoryPort.existePorNombre("Laboratorio")).thenReturn(false);
         when(aulaRepositoryPort.guardar(request)).thenReturn(expected);
 
-        AulaDto result = aulaService.crear(request);
+        Aula result = aulaService.crear(request);
 
         assertEquals(expected, result);
         verify(aulaRepositoryPort).guardar(request);
@@ -45,7 +45,7 @@ class AulaServiceTest {
 
     @Test
     void crear_debeFallarCuandoNombreDuplicado() {
-        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25, true);
+        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25);
         when(aulaRepositoryPort.existePorNombre("Laboratorio")).thenReturn(true);
 
         assertThrows(IllegalArgumentException.class, () -> aulaService.crear(request));
@@ -55,16 +55,16 @@ class AulaServiceTest {
     @Test
     void actualizar_debeActualizarCuandoNombreSinCambio() {
 //        Long aulaId = ThreadLocalRandom.current().nextLong();
-//        ActualizarAulaDto request = new ActualizarAulaDto(aulaId, "Laboratorio", "Ciencias", 30, true);
-//        AulaDto persisted = new AulaDto(aulaId, "Laboratorio", "Ciencias", 25, true);
-//        AulaDto updated = new AulaDto(aulaId, "Laboratorio", "Ciencias", 30, true);
+//        ActualizarAula request = new ActualizarAula(aulaId, "Laboratorio", "Ciencias", 30, true);
+//        Aula persisted = new Aula(aulaId, "Laboratorio", "Ciencias", 25, true);
+//        Aula updated = new Aula(aulaId, "Laboratorio", "Ciencias", 30, true);
 //
 //        when(aulaRepositoryPort.existePorId(aulaId)).thenReturn(true);
 //        when(aulaRepositoryPort.existePorNombre("Laboratorio")).thenReturn(true);
 //        when(aulaRepositoryPort.obtenerPorId(aulaId)).thenReturn(persisted);
 //        when(aulaRepositoryPort.actualizar(request)).thenReturn(updated);
 //
-//        AulaDto result = aulaService.actualizar(request);
+//        Aula result = aulaService.actualizar(request);
 //
 //        assertEquals(updated, result);
 //        verify(aulaRepositoryPort).actualizar(request);
@@ -73,7 +73,7 @@ class AulaServiceTest {
     @Test
     void actualizar_debeFallarCuandoAulaNoExiste() {
 //        Long aulaId = ThreadLocalRandom.current().nextLong();
-//        ActualizarAulaDto request = new ActualizarAulaDto(aulaId, "Laboratorio", null, null, null);
+//        ActualizarAula request = new ActualizarAula(aulaId, "Laboratorio", null, null, null);
 //        when(aulaRepositoryPort.existePorId(aulaId)).thenReturn(false);
 //
 //        assertThrows(IllegalArgumentException.class, () -> aulaService.actualizar(request));
@@ -82,10 +82,10 @@ class AulaServiceTest {
 
     @Test
     void listar_debeDelegarEnRepositorio() {
-        List<AulaDto> aulas = List.of(new AulaDto(ThreadLocalRandom.current().nextLong(), "Laboratorio", null, null, true));
+        List<Aula> aulas = List.of(new Aula(ThreadLocalRandom.current().nextLong(), "Laboratorio", "Descripción", 25));
         when(aulaRepositoryPort.listar()).thenReturn(aulas);
 
-        List<AulaDto> result = aulaService.listar();
+        List<Aula> result = aulaService.listar();
 
         assertEquals(aulas, result);
         verify(aulaRepositoryPort).listar();

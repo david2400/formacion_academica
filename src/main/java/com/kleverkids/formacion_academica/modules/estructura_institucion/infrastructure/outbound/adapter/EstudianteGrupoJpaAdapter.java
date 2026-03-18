@@ -33,12 +33,31 @@ public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort 
     public EstudianteGrupoDto cambiarEstado(CambiarEstadoEstudianteGrupoDto request) {
         EstudianteGrupoEntity entity = estudianteGrupoJpaRepository.findById(request.asignacionId())
                 .orElseThrow(() -> new IllegalArgumentException("Asignación no encontrada"));
-        entity.setEstado(request.nuevoEstado());
+        entity.setEstadoLegacy(request.nuevoEstado()); // Usar campo legacy para String
+        // TODO: Buscar y asignar EstadoEntity basado en el código del estado
         return estudianteGrupoMapper.toDto(estudianteGrupoJpaRepository.save(entity));
     }
 
     @Override
     public List<EstudianteGrupoDto> listarPorGrupo(Long grupoId) {
         return estudianteGrupoMapper.toDtoList(estudianteGrupoJpaRepository.findByGrupoId(grupoId));
+    }
+
+    @Override
+    public EstudianteGrupoDto consultarPorId(Long estudianteGrupoId) {
+        return estudianteGrupoMapper.toDto(
+                estudianteGrupoJpaRepository.findById(estudianteGrupoId)
+                        .orElseThrow(() -> new IllegalArgumentException("Asignación de estudiante grupo no encontrada"))
+        );
+    }
+
+    @Override
+    public void eliminar(Long estudianteGrupoId) {
+        estudianteGrupoJpaRepository.deleteById(estudianteGrupoId);
+    }
+
+    @Override
+    public List<EstudianteGrupoDto> listar() {
+        return estudianteGrupoMapper.toDtoList(estudianteGrupoJpaRepository.findAll());
     }
 }

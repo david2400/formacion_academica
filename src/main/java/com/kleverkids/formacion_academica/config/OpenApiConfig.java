@@ -46,7 +46,7 @@ public class OpenApiConfig {
     public GroupedOpenApi gestionAlumnosApi() {
         return GroupedOpenApi.builder()
                 .group("gestion-alumnos")
-                .displayName("Estructura Institucion")
+                .displayName("Estructura Alumnos")
                 .packagesToScan("com.kleverkids.formacion_academica.modules.gestion_alumnos")
                 .pathsToMatch("/api/kleverkids/gestion-alumnos/**")
                 .build();
@@ -59,6 +59,16 @@ public class OpenApiConfig {
                 .displayName("Admisiones")
                 .packagesToScan("com.kleverkids.formacion_academica.modules.admisiones")
                 .pathsToMatch("/api/kleverkids/admisiones/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi estadoApi() {
+        return GroupedOpenApi.builder()
+                .group("estados")
+                .displayName("Estados")
+                .packagesToScan("com.kleverkids.formacion_academica.modules.estados")
+                .pathsToMatch("/api/kleverkids/estados/**")
                 .build();
     }
 

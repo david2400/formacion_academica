@@ -1,13 +1,11 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity;
 
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -25,7 +23,6 @@ public class AulaEntity extends AuditInfo {
 
     private Integer capacidad;
 
-    @Column(nullable = false)
-    private boolean activo;
-
+    @ManyToMany(mappedBy = "aulas", fetch = FetchType.LAZY)
+    private Set<GrupoEntity> grupos = new HashSet<>();
 }

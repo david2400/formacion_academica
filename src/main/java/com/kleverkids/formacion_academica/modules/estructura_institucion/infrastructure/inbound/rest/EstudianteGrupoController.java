@@ -124,7 +124,7 @@ public class EstudianteGrupoController {
 
     @Operation(summary = "Eliminar asignación", description = "Elimina la asignación de un estudiante a un grupo")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Asignación eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Asignación eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Asignación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

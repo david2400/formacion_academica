@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
 
 import java.util.List;
 
 public interface ListarPreguntasPorTematicaUseCase {
 
-    List<PreguntaBancoDto> listar(Long tematicaId);
+    List<PreguntaBanco> listar(Long tematicaId);
 }

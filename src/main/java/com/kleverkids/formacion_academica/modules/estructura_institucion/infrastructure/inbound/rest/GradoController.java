@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.grado.ListarGradosUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grado;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -58,12 +58,12 @@ public class GradoController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Grado creado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GradoDto.class))),
+                            schema = @Schema(implementation = Grado.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<GradoDto> crear(@Valid @RequestBody CrearGradoDto request) {
+    public ResponseEntity<Grado> crear(@Valid @RequestBody CrearGradoDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearGradoUseCase.crear(request));
     }
 
@@ -71,13 +71,13 @@ public class GradoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Grado actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GradoDto.class))),
+                            schema = @Schema(implementation = Grado.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Grado no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{gradoId}")
-    public ResponseEntity<GradoDto> actualizar(@PathVariable Long gradoId,
+    public ResponseEntity<Grado> actualizar(@PathVariable Long gradoId,
                                                @Valid @RequestBody ActualizarGradoDto request) {
         request.setId(gradoId);
         return ResponseEntity.ok(actualizarGradoUseCase.actualizar(request));
@@ -87,12 +87,12 @@ public class GradoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Grado encontrado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GradoDto.class))),
+                            schema = @Schema(implementation = Grado.class))),
             @ApiResponse(responseCode = "404", description = "Grado no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{gradoId}")
-    public ResponseEntity<GradoDto> consultar(@PathVariable Long gradoId) {
+    public ResponseEntity<Grado> consultar(@PathVariable Long gradoId) {
         return ResponseEntity.ok(consultarGradoUseCase.consultarPorId(gradoId));
     }
 
@@ -100,23 +100,23 @@ public class GradoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de grados",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GradoDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Grado.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<GradoDto>> listar() {
+    public ResponseEntity<List<Grado>> listar() {
         return ResponseEntity.ok(listarGradosUseCase.listar());
     }
 
     @Operation(summary = "Eliminar grado", description = "Elimina un grado existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Grado eliminado", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Grado eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Grado no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @DeleteMapping("/{gradoId}")
     public ResponseEntity<Void> eliminar(@PathVariable Long gradoId) {
         eliminarGradoUseCase.eliminar(gradoId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

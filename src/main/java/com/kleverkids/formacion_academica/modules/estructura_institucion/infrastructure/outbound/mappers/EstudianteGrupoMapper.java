@@ -4,12 +4,14 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.EstudianteGrupoEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EstudianteGrupoMapper {
 
+    @Mapping(target = "estado", source = "estadoLegacy")
     EstudianteGrupoDto toDto(EstudianteGrupoEntity entity);
 
     List<EstudianteGrupoDto> toDtoList(List<EstudianteGrupoEntity> entities);
@@ -19,7 +21,7 @@ public interface EstudianteGrupoMapper {
         entity.setEstudianteId(dto.estudianteId());
         entity.setGrupoId(dto.grupoId());
         entity.setFechaAsignacion(dto.fechaAsignacion());
-        entity.setEstado("ASIGNADO");
+        entity.setEstadoLegacy("ASIGNADO");
         return entity;
     }
 }

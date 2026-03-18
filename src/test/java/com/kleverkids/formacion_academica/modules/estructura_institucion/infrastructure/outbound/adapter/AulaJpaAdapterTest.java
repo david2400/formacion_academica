@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.adapter;
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.AulaEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.AulaJpaRepository;
@@ -33,15 +33,14 @@ class AulaJpaAdapterTest {
 
     @Test
     void guardar_debePersistirYRetornarDto() {
-        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25, true);
+        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25);
         when(aulaJpaRepository.save(any(AulaEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        AulaDto result = aulaJpaAdapter.guardar(request);
+        Aula result = aulaJpaAdapter.guardar(request);
 
         assertEquals("Laboratorio", result.nombre());
         assertEquals("Ciencias", result.descripcion());
         assertEquals(25, result.capacidad());
-        assertTrue(result.activo());
         verify(aulaJpaRepository).save(any(AulaEntity.class));
     }
 
@@ -53,13 +52,12 @@ class AulaJpaAdapterTest {
         entity.setNombre("Laboratorio");
         entity.setDescripcion("Ciencias");
         entity.setCapacidad(25);
-        entity.setActivo(true);
 
         when(aulaJpaRepository.findById(aulaId)).thenReturn(Optional.of(entity));
         when(aulaJpaRepository.save(entity)).thenReturn(entity);
 
-//        ActualizarAulaDto request = new ActualizarAulaDto(aulaId, "Laboratorio 2", "Matemáticas", 30, false);
-//        AulaDto result = aulaJpaAdapter.actualizar(request);
+//        ActualizarAula request = new ActualizarAula(aulaId, "Laboratorio 2", "Matemáticas", 30, false);
+//        Aula result = aulaJpaAdapter.actualizar(request);
 
 //        assertEquals("Laboratorio 2", result.nombre());
 //        assertEquals("Matemáticas", result.descripcion());
@@ -84,11 +82,10 @@ class AulaJpaAdapterTest {
         AulaEntity entity = new AulaEntity();
         entity.setId(aulaId);
         entity.setNombre("Laboratorio");
-        entity.setActivo(true);
 
         when(aulaJpaRepository.findById(aulaId)).thenReturn(Optional.of(entity));
 
-        AulaDto result = aulaJpaAdapter.obtenerPorId(aulaId);
+        Aula result = aulaJpaAdapter.obtenerPorId(aulaId);
 
         assertEquals(aulaId, result.id());
         assertEquals("Laboratorio", result.nombre());
@@ -100,11 +97,10 @@ class AulaJpaAdapterTest {
         AulaEntity entity = new AulaEntity();
         entity.setId(ThreadLocalRandom.current().nextLong());
         entity.setNombre("Laboratorio");
-        entity.setActivo(true);
 
         when(aulaJpaRepository.findAll()).thenReturn(List.of(entity));
 
-        List<AulaDto> result = aulaJpaAdapter.listar();
+        List<Aula> result = aulaJpaAdapter.listar();
 
         assertEquals(1, result.size());
         assertEquals("Laboratorio", result.get(0).nombre());

@@ -17,7 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ObservacionCriterioMapper {
 
-    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     ObservacionCriterioEntity toEntity(RegistrarObservacionCriterioDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

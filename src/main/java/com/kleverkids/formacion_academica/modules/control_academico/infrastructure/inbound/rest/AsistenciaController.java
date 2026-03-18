@@ -112,7 +112,7 @@ public class AsistenciaController {
 
     @Operation(summary = "Eliminar asistencia", description = "Elimina un registro de asistencia")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Asistencia eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Asistencia eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Asistencia no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

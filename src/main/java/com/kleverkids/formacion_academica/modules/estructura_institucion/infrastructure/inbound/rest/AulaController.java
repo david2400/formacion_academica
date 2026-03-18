@@ -6,7 +6,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.EliminarAulaUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.aula.ListarAulasUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.AulaDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -57,12 +57,12 @@ public class AulaController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Aula creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AulaDto.class))),
+                            schema = @Schema(implementation = Aula.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<AulaDto> crear(@RequestBody CrearAulaDto request) {
+    public ResponseEntity<Aula> crear(@RequestBody CrearAulaDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearAulaUseCase.crear(request));
     }
 
@@ -70,13 +70,13 @@ public class AulaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Aula actualizada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AulaDto.class))),
+                            schema = @Schema(implementation = Aula.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Aula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{aulaId}")
-    public ResponseEntity<AulaDto> actualizar(@PathVariable Long aulaId,
+    public ResponseEntity<Aula> actualizar(@PathVariable Long aulaId,
                                               @RequestBody ActualizarAulaDto request) {
         request.setId(aulaId);
         return ResponseEntity.ok(actualizarAulaUseCase.actualizar(request));
@@ -86,11 +86,11 @@ public class AulaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de aulas",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = AulaDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Aula.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<AulaDto>> listar() {
+    public ResponseEntity<List<Aula>> listar() {
         return ResponseEntity.ok(listarAulasUseCase.listar());
     }
 
@@ -98,18 +98,18 @@ public class AulaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Aula encontrada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AulaDto.class))),
+                            schema = @Schema(implementation = Aula.class))),
             @ApiResponse(responseCode = "404", description = "Aula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{aulaId}")
-    public ResponseEntity<AulaDto> consultar(@PathVariable Long aulaId) {
+    public ResponseEntity<Aula> consultar(@PathVariable Long aulaId) {
         return ResponseEntity.ok(consultarAulaUseCase.consultarPorId(aulaId));
     }
 
     @Operation(summary = "Eliminar aula", description = "Elimina una aula existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Aula eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Aula eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Aula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

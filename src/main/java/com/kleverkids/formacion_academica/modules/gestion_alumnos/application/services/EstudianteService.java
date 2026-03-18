@@ -7,8 +7,8 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante.ListarEstudiantesUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante.ListarEstudiantesPaginadoUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante.EstudianteRepositoryPort;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Estudiante;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,29 +31,29 @@ public class EstudianteService implements CrearEstudianteUseCase,
     }
 
     @Override
-    public EstudianteDto crear(CrearEstudianteDto request) {
+    public Estudiante crear(CrearEstudianteDto request) {
         validarDocumentoUnico(request.tipoDocumento(), request.numeroDocumento());
         return repositoryPort.guardar(request);
     }
 
     @Override
-    public EstudianteDto actualizar(UpdateEstudianteDto request) {
+    public Estudiante actualizar(UpdateEstudianteDto request) {
         return repositoryPort.actualizar(request);
     }
 
     @Override
-    public EstudianteDto consultarPorId(Long estudianteId) {
+    public Estudiante consultarPorId(Long estudianteId) {
         return repositoryPort.obtenerPorId(estudianteId)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
     }
 
     @Override
-    public List<EstudianteDto> listar() {
+    public List<Estudiante> listar() {
         return repositoryPort.listar();
     }
 
     @Override
-    public Page<EstudianteDto> listar(Pageable pageable) {
+    public Page<Estudiante> listar(Pageable pageable) {
         return repositoryPort.listar(pageable);
     }
 

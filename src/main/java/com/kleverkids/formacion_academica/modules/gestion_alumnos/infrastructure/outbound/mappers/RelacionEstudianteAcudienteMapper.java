@@ -19,16 +19,7 @@ public interface RelacionEstudianteAcudienteMapper {
 
     List<EstudianteAcudienteDto> toDtoList(List<EstudianteAcudienteEntity> entities);
 
-    default EstudianteAcudienteEntity toEntity(CrearEstudianteAcudienteDto dto) {
-        EstudianteAcudienteEntity entity = new EstudianteAcudienteEntity();
-        entity.setEstudianteId(dto.estudianteId());
-        entity.setAcudienteId(dto.acudienteId());
-        entity.setParentesco(dto.parentesco());
-        entity.setEsPrincipal(dto.esPrincipal());
-        entity.setEstado("ACTIVA");
-        entity.setFechaVinculacion(LocalDate.now());
-        return entity;
-    }
+    EstudianteAcudienteEntity toEntity(CrearEstudianteAcudienteDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(ActualizarEstudianteAcudienteDto dto, @MappingTarget EstudianteAcudienteEntity entity);

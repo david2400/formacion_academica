@@ -17,9 +17,4 @@ public class ActualizarAulaDto extends CrearAulaDto {
 
     @NotNull(message = "El identificador del aula es obligatorio")
     private Long id;
-
-    public Long id() {
-        return id;
-    }
-
 }

@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.TematicaDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.TematicaEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -25,8 +25,8 @@ public interface TematicaMapper {
     void applyUpdate(@MappingTarget TematicaEntity entity, ActualizarTematicaDto dto);
 
     @Mapping(target = "id", ignore = true)
-    TematicaDto toDto(TematicaEntity entity);
+    Tematica toDomainModel(TematicaEntity entity);
 
     @Mapping(target = "id", ignore = true)
-    List<TematicaDto> toDtoList(List<TematicaEntity> entities);
+    List<Tematica> toDomainModelList(List<TematicaEntity> entities);
 }

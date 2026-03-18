@@ -2,39 +2,46 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grado;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GradoEntity;
-import org.mapstruct.BeanMapping;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.NivelEducativoEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface GradoMapper {
 
-    GradoDto toDto(GradoEntity entity);
+    @Mapping(target = "nivelEducativoId", source = "nivelEducativoId")
+    Grado toDomainModel(GradoEntity entity);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "usrCrea", ignore = true)
-    @Mapping(target = "usrMod", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
     default GradoEntity toEntity(CrearGradoDto dto) {
         GradoEntity entity = new GradoEntity();
         entity.setNombre(dto.getNombre());
-        entity.setNivelEducativo(dto.getNivelEducativo());
+        entity.setNivelEducativoId((dto.getNivelEducativoId()));
         entity.setOrden(dto.getOrden());
+        // Audit fields are handled by JPA @PrePersist
         return entity;
     }
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "usrCrea", ignore = true)
-    @Mapping(target = "usrMod", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
-    void updateEntityFromDto(ActualizarGradoDto dto, @MappingTarget GradoEntity entity);
+    default void updateEntityFromDto(ActualizarGradoDto dto, GradoEntity entity) {
+        if (dto == null || entity == null) {
+            return;
+        }
+        
+        if (dto.getNombre() != null) {
+            entity.setNombre(dto.getNombre());
+        }
+        
+        if (dto.getNivelEducativoId() != null) {
+            entity.setNivelEducativoId((dto.getNivelEducativoId()));
+        }
+        
+        if (dto.getOrden() != null) {
+            entity.setOrden(dto.getOrden());
+        }
+        
+        // Audit fields are handled by JPA @PreUpdate
+    }
+
 }

@@ -13,4 +13,10 @@ public interface EstudianteGrupoRepositoryPort {
     EstudianteGrupoDto cambiarEstado(CambiarEstadoEstudianteGrupoDto request);
 
     List<EstudianteGrupoDto> listarPorGrupo(Long grupoId);
+
+    EstudianteGrupoDto consultarPorId(Long estudianteGrupoId);
+
+    void eliminar(Long estudianteGrupoId);
+
+    List<EstudianteGrupoDto> listar();
 }

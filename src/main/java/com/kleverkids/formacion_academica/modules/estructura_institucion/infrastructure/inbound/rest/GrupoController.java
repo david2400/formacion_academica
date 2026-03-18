@@ -115,7 +115,7 @@ public class GrupoController {
 
     @Operation(summary = "Eliminar grupo", description = "Elimina un grupo existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Grupo eliminado", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Grupo eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Grupo no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

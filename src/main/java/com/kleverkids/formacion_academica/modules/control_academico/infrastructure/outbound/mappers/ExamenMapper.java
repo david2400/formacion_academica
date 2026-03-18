@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.CalificacionPersonalizadaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.CrearExamenDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamenDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ReglaCalificacionDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.CalificacionPersonalizadaEntity;
@@ -17,20 +17,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ExamenMapper {
 
-    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     @Mapping(target = "reglas", source = "reglasCalificacion")
     ExamenEntity toEntity(CrearExamenDto dto);
 
+    @Mapping(target = "reglasCalificacion", source = "reglas")
+    Examen toDomainModel(ExamenEntity entity);
+
     ExamenEntity.ReglaCalificacionEmbeddable toEmbeddable(ReglaCalificacionDto dto);
 
-    default ExamenDto toDto(ExamenEntity entity) {
-        List<ReglaCalificacionDto> reglas = entity.getReglas().stream()
-                .map(r -> new ReglaCalificacionDto(r.getCriterio(), r.getPonderacion(), r.getPuntajeMaximo()))
-                .toList();
-        return new ExamenDto(entity.getId(), entity.getClaseId(), entity.getNombre(), entity.getFecha(), reglas);
-    }
-
-    @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong())")
     CalificacionPersonalizadaEntity toCalificacionEntity(RegistrarCalificacionPersonalizadaDto dto);
 
     CalificacionPersonalizadaDto toCalificacionDto(CalificacionPersonalizadaEntity entity);

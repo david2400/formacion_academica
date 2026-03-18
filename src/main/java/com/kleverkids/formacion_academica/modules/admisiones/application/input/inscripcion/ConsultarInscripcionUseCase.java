@@ -1,8 +1,8 @@
 package com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion;
 
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 
 public interface ConsultarInscripcionUseCase {
 
-    InscripcionDto consultarPorId(Long inscripcionId);
+    Inscripcion consultarPorId(Long inscripcionId);
 }

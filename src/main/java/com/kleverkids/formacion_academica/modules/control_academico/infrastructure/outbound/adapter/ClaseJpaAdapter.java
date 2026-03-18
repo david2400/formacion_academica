@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.adapter;
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.clase.ClaseRepositoryPort;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ClaseDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.clase.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ClaseMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.ClaseEntity;
@@ -20,22 +20,22 @@ public class ClaseJpaAdapter implements ClaseRepositoryPort {
     private final ClaseMapper claseMapper;
 
     @Override
-    public ClaseDto guardar(CrearClaseDto clase) {
+    public Clase guardar(CrearClaseDto clase) {
         ClaseEntity entity = claseMapper.toEntity(clase);
-        return claseMapper.toDto(claseJpaRepository.save(entity));
+        return claseMapper.toDomainModel(claseJpaRepository.save(entity));
     }
 
     @Override
-    public List<ClaseDto> guardarTodas(List<CrearClaseDto> clases) {
+    public List<Clase> guardarTodas(List<CrearClaseDto> clases) {
         List<ClaseEntity> entities = claseMapper.toEntityList(clases);
-        return claseMapper.toDtoList(claseJpaRepository.saveAll(entities));
+        return claseMapper.toDomainModelList(claseJpaRepository.saveAll(entities));
     }
 
 
     @Override
-    public ClaseDto getClaseById(Long id) {
+    public Clase getClaseById(Long id) {
         return claseJpaRepository.findById(id)
-                .map(claseMapper::toDto)
+                .map(claseMapper::toDomainModel)
                 .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));
     }
 }

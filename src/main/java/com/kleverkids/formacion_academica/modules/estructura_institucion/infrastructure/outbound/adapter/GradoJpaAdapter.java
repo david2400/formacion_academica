@@ -3,7 +3,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.grado.GradoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.ActualizarGradoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.CrearGradoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grado.GradoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grado;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.GradoMapper;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GradoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GradoJpaRepository;
@@ -24,16 +24,16 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     }
 
     @Override
-    public GradoDto guardar(CrearGradoDto request) {
-        return gradoMapper.toDto(gradoJpaRepository.save(gradoMapper.toEntity(request)));
+    public Grado guardar(CrearGradoDto request) {
+        return gradoMapper.toDomainModel(gradoJpaRepository.save(gradoMapper.toEntity(request)));
     }
 
     @Override
-    public GradoDto actualizar(ActualizarGradoDto request) {
+    public Grado actualizar(ActualizarGradoDto request) {
         GradoEntity entity = gradoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
         gradoMapper.updateEntityFromDto(request, entity);
-        return gradoMapper.toDto(gradoJpaRepository.save(entity));
+        return gradoMapper.toDomainModel(gradoJpaRepository.save(entity));
     }
 
     @Override
@@ -42,15 +42,15 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
     }
 
     @Override
-    public GradoDto obtenerPorId(Long id) {
+    public Grado obtenerPorId(Long id) {
         return gradoJpaRepository.findById(id)
-                .map(gradoMapper::toDto)
+                .map(gradoMapper::toDomainModel)
                 .orElseThrow(() -> new IllegalArgumentException("Grado no encontrado"));
     }
 
     @Override
-    public List<GradoDto> listar() {
-        return gradoJpaRepository.findAll().stream().map(gradoMapper::toDto).toList();
+    public List<Grado> listar() {
+        return gradoJpaRepository.findAll().stream().map(gradoMapper::toDomainModel).toList();
     }
 
     @Override

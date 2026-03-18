@@ -3,8 +3,8 @@ package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.out
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.InscripcionMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.InscripcionJpaRepository;
@@ -25,39 +25,39 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
     }
 
     @Override
-    public InscripcionDto registrar(CrearInscripcionDto request) {
+    public Inscripcion registrar(CrearInscripcionDto request) {
         InscripcionEntity entity = inscripcionMapper.toEntity(request);
-        return inscripcionMapper.toDto(inscripcionJpaRepository.save(entity));
+        return inscripcionMapper.toDomainModel(inscripcionJpaRepository.save(entity));
     }
 
     @Override
-    public Optional<InscripcionDto> obtenerPorId(Long inscripcionId) {
-        return inscripcionJpaRepository.findById(inscripcionId).map(inscripcionMapper::toDto);
+    public Optional<Inscripcion> obtenerPorId(Long inscripcionId) {
+        return inscripcionJpaRepository.findById(inscripcionId).map(inscripcionMapper::toDomainModel);
     }
 
     @Override
-    public List<InscripcionDto> listar(ListarInscripcionesFiltroDto filtro) {
+    public List<Inscripcion> listar(ListarInscripcionesFiltroDto filtro) {
         if (filtro == null) {
-            return inscripcionMapper.toDtoList(inscripcionJpaRepository.findAll());
+            return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findAll());
         }
 
         if (filtro.periodoAcademico() != null && !filtro.periodoAcademico().isBlank()) {
-            return inscripcionMapper.toDtoList(inscripcionJpaRepository.findByPeriodoAcademico(filtro.periodoAcademico()));
+            return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findByPeriodoAcademico(filtro.periodoAcademico()));
         }
 
         if (filtro.estado() != null && !filtro.estado().isBlank()) {
-            return inscripcionMapper.toDtoList(inscripcionJpaRepository.findByEstado(filtro.estado()));
+            return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findByEstado(filtro.estado()));
         }
 
-        return inscripcionMapper.toDtoList(inscripcionJpaRepository.findAll());
+        return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findAll());
     }
 
     @Override
-    public InscripcionDto actualizarEstado(ActualizarEstadoInscripcionDto request) {
+    public Inscripcion actualizarEstado(ActualizarEstadoInscripcionDto request) {
         InscripcionEntity entity = inscripcionJpaRepository.findById(request.getInscripcionId())
                 .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
         inscripcionMapper.applyEstado(entity, request);
-        return inscripcionMapper.toDto(inscripcionJpaRepository.save(entity));
+        return inscripcionMapper.toDomainModel(inscripcionJpaRepository.save(entity));
     }
 
     @Override

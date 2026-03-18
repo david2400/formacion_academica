@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.admisiones.application.input.i
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.inscripcion.RegistrarInscripcionUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -58,12 +58,12 @@ public class InscripcionController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Inscripción creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InscripcionDto.class))),
+                            schema = @Schema(implementation = Inscripcion.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<InscripcionDto> registrar(@RequestBody CrearInscripcionDto request) {
+    public ResponseEntity<Inscripcion> registrar(@RequestBody CrearInscripcionDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(request));
     }
 
@@ -71,12 +71,12 @@ public class InscripcionController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Inscripción encontrada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InscripcionDto.class))),
+                            schema = @Schema(implementation = Inscripcion.class))),
             @ApiResponse(responseCode = "404", description = "Inscripción no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{inscripcionId}")
-    public ResponseEntity<InscripcionDto> consultar(@PathVariable Long inscripcionId) {
+    public ResponseEntity<Inscripcion> consultar(@PathVariable Long inscripcionId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(inscripcionId));
     }
 
@@ -84,11 +84,11 @@ public class InscripcionController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de inscripciones",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = InscripcionDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Inscripcion.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<InscripcionDto>> listar(@RequestBody(required = false) ListarInscripcionesFiltroDto filtro) {
+    public ResponseEntity<List<Inscripcion>> listar(@RequestBody(required = false) ListarInscripcionesFiltroDto filtro) {
         return ResponseEntity.ok(listarUseCase.listar(filtro));
     }
 
@@ -96,13 +96,13 @@ public class InscripcionController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Estado actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InscripcionDto.class))),
+                            schema = @Schema(implementation = Inscripcion.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Inscripción no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{inscripcionId}/estado")
-    public ResponseEntity<InscripcionDto> cambiarEstado(@PathVariable Long inscripcionId,
+    public ResponseEntity<Inscripcion> cambiarEstado(@PathVariable Long inscripcionId,
                                                         @RequestBody ActualizarEstadoInscripcionDto request) {
         request.setInscripcionId(inscripcionId);
         return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(request));
@@ -110,7 +110,7 @@ public class InscripcionController {
 
     @Operation(summary = "Eliminar inscripción", description = "Elimina una inscripción existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Inscripción eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Inscripción eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Inscripción no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

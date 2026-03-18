@@ -4,9 +4,9 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamenRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.CalificacionPersonalizadaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.CrearExamenDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamSearchCriteria;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamPersistenceMapper;
@@ -73,8 +73,8 @@ public class ExamenJpaAdapter implements ExamRepositoryPort, ExamenRepositoryPor
 
     // Implementación de ExamenRepositoryPort (español)
     @Override
-    public ExamenDto guardar(CrearExamenDto request) {
-        return examenMapper.toDto(examenJpaRepository.save(examenMapper.toEntity(request)));
+    public Examen guardar(CrearExamenDto request) {
+        return examenMapper.toDomainModel(examenJpaRepository.save(examenMapper.toEntity(request)));
     }
 
     @Override

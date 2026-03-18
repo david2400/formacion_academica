@@ -4,7 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.ActualizarPreguntaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearPreguntaBancoDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaBancoDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.QuestionSearchCriteria;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.PreguntaBancoMapper;
@@ -85,28 +85,28 @@ public class PreguntaJpaAdapter implements QuestionRepository, PreguntaBancoRepo
 
     // Implementación de PreguntaBancoRepositoryPort (español)
     @Override
-    public PreguntaBancoDto guardar(CrearPreguntaBancoDto request) {
+    public PreguntaBanco guardar(CrearPreguntaBancoDto request) {
         PreguntaBancoEntity entity = preguntaBancoMapper.toEntity(request);
-        return preguntaBancoMapper.toDto(preguntaBancoJpaRepository.save(entity));
+        return preguntaBancoMapper.toDomainModel(preguntaBancoJpaRepository.save(entity));
     }
 
     @Override
-    public PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request) {
+    public PreguntaBanco actualizar(ActualizarPreguntaBancoDto request) {
         PreguntaBancoEntity entity = preguntaBancoJpaRepository.findById(request.id())
                 .orElseThrow(() -> new IllegalArgumentException("Pregunta no encontrada"));
         preguntaBancoMapper.applyUpdate(entity, request);
-        return preguntaBancoMapper.toDto(preguntaBancoJpaRepository.save(entity));
+        return preguntaBancoMapper.toDomainModel(preguntaBancoJpaRepository.save(entity));
     }
 
     @Override
-    public List<PreguntaBancoDto> listarPorTematica(Long tematicaId) {
-        return preguntaBancoMapper.toDtoList(preguntaBancoJpaRepository.findByTematicaId(tematicaId));
+    public List<PreguntaBanco> listarPorTematica(Long tematicaId) {
+        return preguntaBancoMapper.toDomainModelList(preguntaBancoJpaRepository.findByTematicaId(tematicaId));
     }
 
     @Override
-    public PreguntaBancoDto obtenerPorId(Long preguntaId) {
+    public PreguntaBanco obtenerPorId(Long preguntaId) {
         return preguntaBancoJpaRepository.findById(preguntaId)
-                .map(preguntaBancoMapper::toDto)
+                .map(preguntaBancoMapper::toDomainModel)
                 .orElseThrow(() -> new IllegalArgumentException("Pregunta no encontrada"));
     }
 

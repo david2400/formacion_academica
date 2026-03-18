@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.admisiones.application.output
 
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.InscripcionDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
 
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public interface InscripcionRepositoryPort {
 
-    InscripcionDto registrar(CrearInscripcionDto request);
+    Inscripcion registrar(CrearInscripcionDto request);
 
-    Optional<InscripcionDto> obtenerPorId(Long inscripcionId);
+    Optional<Inscripcion> obtenerPorId(Long inscripcionId);
 
-    List<InscripcionDto> listar(ListarInscripcionesFiltroDto filtro);
+    List<Inscripcion> listar(ListarInscripcionesFiltroDto filtro);
 
-    InscripcionDto actualizarEstado(ActualizarEstadoInscripcionDto request);
+    Inscripcion actualizarEstado(ActualizarEstadoInscripcionDto request);
 
     void eliminar(Long inscripcionId);
 }

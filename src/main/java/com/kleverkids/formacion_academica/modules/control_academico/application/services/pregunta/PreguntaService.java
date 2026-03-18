@@ -2,6 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionEventPublisher;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionRepository;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
@@ -114,17 +115,17 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     
     // Implementación de Use Cases en español
     @Override
-    public PreguntaBancoDto crear(CrearPreguntaBancoDto request) {
+    public PreguntaBanco crear(CrearPreguntaBancoDto request) {
         return preguntaBancoRepositoryPort.guardar(request);
     }
 
     @Override
-    public PreguntaBancoDto actualizar(ActualizarPreguntaBancoDto request) {
+    public PreguntaBanco actualizar(ActualizarPreguntaBancoDto request) {
         return preguntaBancoRepositoryPort.actualizar(request);
     }
 
     @Override
-    public List<PreguntaBancoDto> listar(Long tematicaId) {
+    public List<PreguntaBanco> listar(Long tematicaId) {
         return preguntaBancoRepositoryPort.listarPorTematica(tematicaId);
     }
 
@@ -136,7 +137,7 @@ public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaU
     
     // Implementación de ConsultarPreguntaBancoUseCase
     @Override
-    public PreguntaBancoDto consultarPreguntaBancoPorId(Long preguntaId) {
+    public PreguntaBanco consultarPreguntaBancoPorId(Long preguntaId) {
         return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
     }
     

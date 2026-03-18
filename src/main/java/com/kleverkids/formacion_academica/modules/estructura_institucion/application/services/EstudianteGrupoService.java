@@ -2,6 +2,9 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.AsignarEstudianteGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.CambiarEstadoEstudianteGrupoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ConsultarEstudianteGrupoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.EliminarEstudianteGrupoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudianteGruposUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudiantesPorGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.estudiantegrupo.EstudianteGrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
@@ -14,6 +17,9 @@ import java.util.List;
 @Service
 public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
         CambiarEstadoEstudianteGrupoUseCase,
+        ConsultarEstudianteGrupoUseCase,
+        EliminarEstudianteGrupoUseCase,
+        ListarEstudianteGruposUseCase,
         ListarEstudiantesPorGrupoUseCase {
 
     private final EstudianteGrupoRepositoryPort repositoryPort;
@@ -35,5 +41,20 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
     @Override
     public List<EstudianteGrupoDto> listar(Long grupoId) {
         return repositoryPort.listarPorGrupo(grupoId);
+    }
+
+    @Override
+    public EstudianteGrupoDto consultarPorId(Long estudianteGrupoId) {
+        return repositoryPort.consultarPorId(estudianteGrupoId);
+    }
+
+    @Override
+    public void eliminar(Long estudianteGrupoId) {
+        repositoryPort.eliminar(estudianteGrupoId);
+    }
+
+    @Override
+    public List<EstudianteGrupoDto> listar() {
+        return repositoryPort.listar();
     }
 }

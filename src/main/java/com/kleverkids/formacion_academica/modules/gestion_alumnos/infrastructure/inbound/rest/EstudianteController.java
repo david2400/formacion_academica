@@ -6,8 +6,8 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante.EliminarEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante.ListarEstudiantesPaginadoUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante.ListarEstudiantesUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Estudiante;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -64,12 +64,12 @@ public class EstudianteController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Estudiante creado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteDto.class))),
+                            schema = @Schema(implementation = Estudiante.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EstudianteDto> crear(@Valid @RequestBody CrearEstudianteDto request) {
+    public ResponseEntity<Estudiante> crear(@Valid @RequestBody CrearEstudianteDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
@@ -77,13 +77,13 @@ public class EstudianteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Estudiante actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteDto.class))),
+                            schema = @Schema(implementation = Estudiante.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{estudianteId}")
-    public ResponseEntity<EstudianteDto> actualizar(@PathVariable Long estudianteId,
+    public ResponseEntity<Estudiante> actualizar(@PathVariable Long estudianteId,
                                                     @Valid @RequestBody UpdateEstudianteDto request) {
         request.setEstudianteId(estudianteId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
@@ -93,12 +93,12 @@ public class EstudianteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Estudiante encontrado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteDto.class))),
+                            schema = @Schema(implementation = Estudiante.class))),
             @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{estudianteId}")
-    public ResponseEntity<EstudianteDto> consultar(@PathVariable Long estudianteId) {
+    public ResponseEntity<Estudiante> consultar(@PathVariable Long estudianteId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(estudianteId));
     }
 
@@ -106,11 +106,11 @@ public class EstudianteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de estudiantes",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EstudianteDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Estudiante.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<EstudianteDto>> listar() {
+    public ResponseEntity<List<Estudiante>> listar() {
         return ResponseEntity.ok(listarUseCase.listar());
     }
 
@@ -122,13 +122,13 @@ public class EstudianteController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/paged")
-    public ResponseEntity<Page<EstudianteDto>> listar(Pageable pageable) {
+    public ResponseEntity<Page<Estudiante>> listar(Pageable pageable) {
         return ResponseEntity.ok(listarPaginadoUseCase.listar(pageable));
     }
 
     @Operation(summary = "Eliminar estudiante", description = "Elimina un estudiante")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Estudiante eliminado", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Estudiante eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

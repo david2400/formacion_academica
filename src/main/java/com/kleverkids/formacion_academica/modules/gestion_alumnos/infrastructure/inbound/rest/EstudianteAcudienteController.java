@@ -134,7 +134,7 @@ public class EstudianteAcudienteController {
 
     @Operation(summary = "Eliminar relación", description = "Elimina una relación estudiante-acudiente")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Relación eliminada", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Relación eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Relación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })

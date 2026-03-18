@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante;
 
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Estudiante;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.EstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.UpdateEstudianteDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,15 +11,15 @@ import java.util.Optional;
 
 public interface EstudianteRepositoryPort {
 
-    EstudianteDto guardar(CrearEstudianteDto request);
+    Estudiante guardar(CrearEstudianteDto request);
 
-    EstudianteDto actualizar(UpdateEstudianteDto request);
+    Estudiante actualizar(UpdateEstudianteDto request);
 
-    Optional<EstudianteDto> obtenerPorId(Long estudianteId);
+    Optional<Estudiante> obtenerPorId(Long estudianteId);
 
-    List<EstudianteDto> listar();
+    List<Estudiante> listar();
 
-    Page<EstudianteDto> listar(Pageable pageable);
+    Page<Estudiante> listar(Pageable pageable);
 
     boolean existePorDocumento(String tipoDocumento, String numeroDocumento);
 

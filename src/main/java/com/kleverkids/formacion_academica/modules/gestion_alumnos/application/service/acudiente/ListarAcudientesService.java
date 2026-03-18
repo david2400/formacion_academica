@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.application.service.acudiente;
 
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.acudiente.ListarAcudientesUseCase;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.AcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Acudiente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ListarAcudientesService implements ListarAcudientesUseCase {
     
     @Override
-    public List<AcudienteDto> listar() {
+    public List<Acudiente> listar() {
         // TODO: Implementar la lógica de listado de acudientes
         // Por ahora, retornamos una lista vacía para que la aplicación inicie
         return new ArrayList<>();
