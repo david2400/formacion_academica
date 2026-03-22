@@ -30,7 +30,7 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
 
     @Override
     public Estudiante actualizar(UpdateEstudianteDto request) {
-        EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(request.getEstudianteId())
+        EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
         estudianteMapper.updateEntityFromDto(request, entity);
         return estudianteMapper.toDomainModel(estudianteJpaRepository.save(entity));

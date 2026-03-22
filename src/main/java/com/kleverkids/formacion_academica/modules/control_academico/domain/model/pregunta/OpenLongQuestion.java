@@ -2,29 +2,29 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Rubric;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Rubrica;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.util.List;
 import java.util.Map;
 
-public class OpenLongQuestion extends Question {
+public class OpenLongQuestion extends Pregunta {
     
-    private Rubric rubric;
+    private Rubrica rubric;
     private Integer minWords;
     private Integer maxWords;
     private boolean allowAttachments;
     
     public OpenLongQuestion() {
         super();
-        this.questionType = QuestionType.OPEN_LONG;
+        this.tipoPregunta = TipoPregunta.ABIERTA_LARGA;
     }
     
     public OpenLongQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
                              Long themeId, List<Media> media, String hint, String explanation,
                              List<String> tags, Map<String, Object> metadata,
-                             Rubric rubric, Integer minWords, Integer maxWords, boolean allowAttachments) {
-        super(id, questionText, QuestionType.OPEN_LONG, difficulty, maxScore,
+                             Rubrica rubric, Integer minWords, Integer maxWords, boolean allowAttachments) {
+        super(id, questionText, TipoPregunta.ABIERTA_LARGA, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.rubric = rubric;
         this.minWords = minWords;
@@ -32,11 +32,11 @@ public class OpenLongQuestion extends Question {
         this.allowAttachments = allowAttachments;
     }
     
-    public Rubric getRubric() {
+    public Rubrica getRubric() {
         return rubric;
     }
     
-    public void setRubric(Rubric rubric) {
+    public void setRubric(Rubrica rubric) {
         this.rubric = rubric;
     }
     
@@ -65,7 +65,7 @@ public class OpenLongQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         // Open long questions require manual grading with rubric
     }
 }

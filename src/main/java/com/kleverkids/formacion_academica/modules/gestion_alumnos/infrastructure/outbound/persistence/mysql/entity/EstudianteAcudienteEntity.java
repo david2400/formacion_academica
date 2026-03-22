@@ -1,17 +1,23 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity;
 
+import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
+@Data
 @Entity
+@SuperBuilder
 @Table(name = "estudiante_acudiente")
-public class EstudianteAcudienteEntity {
+public class EstudianteAcudienteEntity extends AuditInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,69 +41,8 @@ public class EstudianteAcudienteEntity {
     @Column(nullable = false)
     private LocalDate fechaVinculacion;
 
+    @Column(nullable = false)
     private LocalDate fechaFin;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getEstudianteId() {
-        return estudianteId;
-    }
-
-    public void setEstudianteId(Long estudianteId) {
-        this.estudianteId = estudianteId;
-    }
-
-    public Long getAcudienteId() {
-        return acudienteId;
-    }
-
-    public void setAcudienteId(Long acudienteId) {
-        this.acudienteId = acudienteId;
-    }
-
-    public String getParentesco() {
-        return parentesco;
-    }
-
-    public void setParentesco(String parentesco) {
-        this.parentesco = parentesco;
-    }
-
-    public boolean isEsPrincipal() {
-        return esPrincipal;
-    }
-
-    public void setEsPrincipal(boolean esPrincipal) {
-        this.esPrincipal = esPrincipal;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public LocalDate getFechaVinculacion() {
-        return fechaVinculacion;
-    }
-
-    public void setFechaVinculacion(LocalDate fechaVinculacion) {
-        this.fechaVinculacion = fechaVinculacion;
-    }
-
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
 }

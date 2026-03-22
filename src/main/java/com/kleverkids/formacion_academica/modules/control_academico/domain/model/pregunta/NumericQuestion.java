@@ -3,13 +3,13 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.InvalidQuestionException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-public class NumericQuestion extends Question {
+public class NumericQuestion extends Pregunta {
     
     private BigDecimal correctValue;
     private BigDecimal tolerance;
@@ -18,20 +18,20 @@ public class NumericQuestion extends Question {
     
     public NumericQuestion() {
         super();
-        this.questionType = QuestionType.NUMERIC;
+        this.tipoPregunta = TipoPregunta.NUMERICA;
     }
     
     public NumericQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
                             Long themeId, List<Media> media, String hint, String explanation,
                             List<String> tags, Map<String, Object> metadata,
                             BigDecimal correctValue, BigDecimal tolerance, String unit, Integer decimalPlaces) {
-        super(id, questionText, QuestionType.NUMERIC, difficulty, maxScore,
+        super(id, questionText, TipoPregunta.NUMERICA, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.correctValue = correctValue;
         this.tolerance = tolerance;
         this.unit = unit;
         this.decimalPlaces = decimalPlaces;
-        validate();
+        validar();
     }
     
     public BigDecimal getCorrectValue() {
@@ -67,7 +67,7 @@ public class NumericQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         if (correctValue == null) {
             throw new InvalidQuestionException("Correct value is required for numeric questions");
         }

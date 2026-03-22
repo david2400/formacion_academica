@@ -4,30 +4,30 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Option;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.util.List;
 import java.util.Map;
 
-public class MultipleChoiceSingleQuestion extends Question {
+public class MultipleChoiceSingleQuestion extends Pregunta {
     
     private List<Option> options;
     private Long correctOptionId;
     
     public MultipleChoiceSingleQuestion() {
         super();
-        this.questionType = QuestionType.MULTIPLE_CHOICE_SINGLE;
+        this.tipoPregunta = TipoPregunta.OPCION_MULTIPLE_UNICA;
     }
     
-    public MultipleChoiceSingleQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
+    public MultipleChoiceSingleQuestion(Long id, String textoPregunta, Difficulty dificultad, int puntajeMaximo,
                                          Long themeId, List<Media> media, String hint, String explanation,
                                          List<String> tags, Map<String, Object> metadata,
                                          List<Option> options, Long correctOptionId) {
-        super(id, questionText, QuestionType.MULTIPLE_CHOICE_SINGLE, difficulty, maxScore,
+        super(id, textoPregunta, TipoPregunta.OPCION_MULTIPLE_UNICA, dificultad, puntajeMaximo,
               themeId, media, hint, explanation, tags, metadata);
         this.options = options;
         this.correctOptionId = correctOptionId;
-        validate();
+        validar();
     }
     
     public List<Option> getOptions() {
@@ -47,7 +47,7 @@ public class MultipleChoiceSingleQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         if (options == null || options.size() < 2) {
             throw new InvalidQuestionException("Multiple choice question must have at least 2 options");
         }

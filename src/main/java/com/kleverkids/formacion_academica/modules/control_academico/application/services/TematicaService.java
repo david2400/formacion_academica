@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.tematica.TematicaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Tematica;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

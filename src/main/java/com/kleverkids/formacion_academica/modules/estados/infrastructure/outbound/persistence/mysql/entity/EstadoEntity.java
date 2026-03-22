@@ -19,7 +19,8 @@ public class EstadoEntity extends AuditInfo {
     private Long id;
 
     @Column(name = "uuid", nullable = false, unique = true, length = 36)
-    private String uuid;
+    private String uuid = UUID.randomUUID().toString();
+
 
     @Column(nullable = false, length = 50)
     private String codigo;
@@ -69,10 +70,5 @@ public class EstadoEntity extends AuditInfo {
     @OneToMany(mappedBy = "estadoDestino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EstadoTransicionEntity> transicionesDestino;
 
-    @PrePersist
-    public void prePersist() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-    }
+
 }

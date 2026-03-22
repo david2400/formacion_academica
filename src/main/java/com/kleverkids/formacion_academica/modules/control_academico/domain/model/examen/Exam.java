@@ -21,12 +21,12 @@ public class Exam extends AggregateRoot<Long> {
     private String instructions;
     private ExamStatus status;
     private TimeConfig timeConfig;
-    private List<ExamQuestion> questions;
+    private List<PreguntaExamen> questions;
     private List<EvaluationCriteria> criteria;
     private BigDecimal totalPoints;
     private Instant createdAt;
     private Instant updatedAt;
-    private boolean deleted;
+    private boolean activo;
     
     public Exam() {
         this.questions = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Exam extends AggregateRoot<Long> {
     
     public Exam(Long id, String name, String code, String subject, String gradeLevel,
                 String instructions, ExamStatus status, TimeConfig timeConfig,
-                List<ExamQuestion> questions, List<EvaluationCriteria> criteria) {
+                List<PreguntaExamen> questions, List<EvaluationCriteria> criteria) {
         this.id = id ;
         this.name = name;
         this.code = code;
@@ -48,7 +48,7 @@ public class Exam extends AggregateRoot<Long> {
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
         this.criteria = criteria != null ? new ArrayList<>(criteria) : new ArrayList<>();
         this.createdAt = Instant.now();
-        this.deleted = false;
+        this.activo = false;
         calculateTotalPoints();
     }
     
@@ -77,8 +77,8 @@ public class Exam extends AggregateRoot<Long> {
     public TimeConfig getTimeConfig() { return timeConfig; }
     public void setTimeConfig(TimeConfig timeConfig) { this.timeConfig = timeConfig; this.updatedAt = Instant.now(); }
     
-    public List<ExamQuestion> getQuestions() { return questions; }
-    public void setQuestions(List<ExamQuestion> questions) { 
+    public List<PreguntaExamen> getQuestions() { return questions; }
+    public void setQuestions(List<PreguntaExamen> questions) { 
         this.questions = questions; 
         calculateTotalPoints();
         this.updatedAt = Instant.now(); 
@@ -95,10 +95,10 @@ public class Exam extends AggregateRoot<Long> {
     public Instant getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
     
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted = deleted; }
+    public boolean isDeleted() { return activo; }
+    public void setDeleted(boolean activo) { this.activo = activo; }
     
-    public void addQuestion(ExamQuestion question) {
+    public void addQuestion(PreguntaExamen question) {
         if (!status.canBeModified()) {
             throw new IllegalStateException("No se puede modificar el examen en estado: " + status);
         }
@@ -111,7 +111,7 @@ public class Exam extends AggregateRoot<Long> {
         if (!status.canBeModified()) {
             throw new IllegalStateException("No se puede modificar el examen en estado: " + status);
         }
-        this.questions.removeIf(q -> q.getQuestionId().equals(questionId));
+        this.questions.removeIf(q -> q.getPreguntaId().equals(questionId));
         calculateTotalPoints();
         this.updatedAt = Instant.now();
     }
@@ -152,13 +152,13 @@ public class Exam extends AggregateRoot<Long> {
     }
     
     public void markAsDeleted() {
-        this.deleted = true;
+        this.activo = true;
         this.updatedAt = Instant.now();
     }
     
     private void calculateTotalPoints() {
         this.totalPoints = questions.stream()
-            .map(ExamQuestion::getPoints)
+            .map(PreguntaExamen::getPuntos)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     

@@ -3,14 +3,14 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.es
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrearEstudianteDto {
@@ -24,7 +24,10 @@ public class CrearEstudianteDto {
     private String nombres;
 
     @NotBlank(message = "El apellido del estudiante es obligatorio")
-    private String apellidos;
+    private String primerApellido;
+
+    @NotBlank(message = "El apellido del estudiante es obligatorio")
+    private String segundoApellido;
 
     private LocalDate fechaNacimiento;
     private String genero;
@@ -33,40 +36,4 @@ public class CrearEstudianteDto {
     private String correo;
     private String telefono;
     private String direccion;
-
-    public String tipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public String numeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public String nombres() {
-        return nombres;
-    }
-
-    public String apellidos() {
-        return apellidos;
-    }
-
-    public LocalDate fechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public String genero() {
-        return genero;
-    }
-
-    public String correo() {
-        return correo;
-    }
-
-    public String telefono() {
-        return telefono;
-    }
-
-    public String direccion() {
-        return direccion;
-    }
 }

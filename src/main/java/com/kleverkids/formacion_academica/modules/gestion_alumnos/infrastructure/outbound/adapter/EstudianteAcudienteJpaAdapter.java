@@ -3,7 +3,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructur
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante_acudiente.EstudianteAcudienteRepositoryPort;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.ActualizarEstudianteAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.CrearEstudianteAcudienteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.EstudianteAcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.EstudianteAcudiente;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.mappers.RelacionEstudianteAcudienteMapper;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteAcudienteEntity;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.EstudianteAcudienteJpaRepository;
@@ -21,32 +21,32 @@ public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteReposit
     private final RelacionEstudianteAcudienteMapper relacionMapper;
 
     @Override
-    public EstudianteAcudienteDto crear(CrearEstudianteAcudienteDto request) {
+    public EstudianteAcudiente crear(CrearEstudianteAcudienteDto request) {
         EstudianteAcudienteEntity entity = relacionMapper.toEntity(request);
-        return relacionMapper.toDto(relacionJpaRepository.save(entity));
+        return relacionMapper.toDomain(relacionJpaRepository.save(entity));
     }
 
     @Override
-    public EstudianteAcudienteDto actualizar(ActualizarEstudianteAcudienteDto request) {
-        EstudianteAcudienteEntity entity = relacionJpaRepository.findById(request.relacionId())
+    public EstudianteAcudiente actualizar(ActualizarEstudianteAcudienteDto request) {
+        EstudianteAcudienteEntity entity = relacionJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Relación no encontrada"));
         relacionMapper.updateEntityFromDto(request, entity);
-        return relacionMapper.toDto(relacionJpaRepository.save(entity));
+        return relacionMapper.toDomain(relacionJpaRepository.save(entity));
     }
 
     @Override
-    public Optional<EstudianteAcudienteDto> obtenerPorId(Long relacionId) {
-        return relacionJpaRepository.findById(relacionId).map(relacionMapper::toDto);
+    public Optional<EstudianteAcudiente> obtenerPorId(Long relacionId) {
+        return relacionJpaRepository.findById(relacionId).map(relacionMapper::toDomain);
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorEstudiante(Long estudianteId) {
-        return relacionMapper.toDtoList(relacionJpaRepository.findByEstudianteId(estudianteId));
+    public List<EstudianteAcudiente> listarPorEstudiante(Long estudianteId) {
+        return relacionMapper.toDomainList(relacionJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorAcudiente(Long acudienteId) {
-        return relacionMapper.toDtoList(relacionJpaRepository.findByAcudienteId(acudienteId));
+    public List<EstudianteAcudiente> listarPorAcudiente(Long acudienteId) {
+        return relacionMapper.toDomainList(relacionJpaRepository.findByAcudienteId(acudienteId));
     }
 
     @Override

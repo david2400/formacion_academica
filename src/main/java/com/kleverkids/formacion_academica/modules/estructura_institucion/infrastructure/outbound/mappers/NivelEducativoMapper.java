@@ -34,16 +34,12 @@ public interface NivelEducativoMapper {
     // Update partial (para actualizaciones)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "codigo", ignore = true)
-    @Mapping(target = "nombre", source = "nombre")
-    @Mapping(target = "descripcion", source = "descripcion")
-    @Mapping(target = "orden", source = "orden")
-    @Mapping(target = "categoria", source = "categoria")
     @Mapping(target = "nivelSuperior", ignore = true)
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "activo", ignore = true)
     void updateEntity(@MappingTarget NivelEducativoEntity entity, ActualizarNivelEducativoDto dto);
     
     // Entity a DTO

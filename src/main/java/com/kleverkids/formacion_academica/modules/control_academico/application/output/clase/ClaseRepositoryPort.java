@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.output.clase;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.clase.Clase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 
 import java.util.List;

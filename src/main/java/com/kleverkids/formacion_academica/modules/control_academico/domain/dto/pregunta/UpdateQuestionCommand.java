@@ -27,7 +27,7 @@ public record UpdateQuestionCommand(
     Boolean caseSensitive,
     Integer maxLength,
     // Open long fields
-    RubricDto rubric,
+    RubricaDto rubric,
     Integer minWords,
     Integer maxWords,
     Boolean allowAttachments,

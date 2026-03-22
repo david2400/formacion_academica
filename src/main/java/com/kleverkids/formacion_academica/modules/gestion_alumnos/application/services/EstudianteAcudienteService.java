@@ -11,7 +11,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.ou
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante_acudiente.EstudianteAcudienteRepositoryPort;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.ActualizarEstudianteAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.CrearEstudianteAcudienteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.EstudianteAcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.EstudianteAcudiente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,38 +37,38 @@ public class EstudianteAcudienteService implements CrearEstudianteAcudienteUseCa
     }
 
     @Override
-    public EstudianteAcudienteDto crear(CrearEstudianteAcudienteDto request) {
-        validarExistenciaEstudiante(request.estudianteId());
-        validarExistenciaAcudiente(request.acudienteId());
-        validarPrincipalUnico(request.estudianteId(), null, request.esPrincipal());
+    public EstudianteAcudiente crear(CrearEstudianteAcudienteDto request) {
+        validarExistenciaEstudiante(request.getEstudianteId());
+        validarExistenciaAcudiente(request.getAcudienteId());
+        validarPrincipalUnico(request.getEstudianteId(), null, request.isEsPrincipal());
         return relacionRepositoryPort.crear(request);
     }
 
     @Override
-    public EstudianteAcudienteDto actualizar(ActualizarEstudianteAcudienteDto request) {
-        EstudianteAcudienteDto actual = consultarPorId(request.relacionId());
-        Long estudianteId = request.estudianteId() != null ? request.estudianteId() : actual.estudianteId();
-        if (request.estudianteId() != null && !request.estudianteId().equals(actual.estudianteId())) {
-            validarExistenciaEstudiante(request.estudianteId());
-        }
-        validarPrincipalUnico(estudianteId, request.relacionId(), request.esPrincipal());
+    public EstudianteAcudiente actualizar(ActualizarEstudianteAcudienteDto request) {
+//        EstudianteAcudiente actual = consultarPorId(request.relacionId());
+//        Long estudianteId = request.estudianteId() != null ? request.estudianteId() : actual.estudianteId();
+//        if (request.estudianteId() != null && !request.getEstudianteId().equals(actual.estudianteId())) {
+//            validarExistenciaEstudiante(request.estudianteId());
+//        }
+//        validarPrincipalUnico(estudianteId, request.relacionId(), request.esPrincipal());
         return relacionRepositoryPort.actualizar(request);
     }
 
     @Override
-    public EstudianteAcudienteDto consultarPorId(Long relacionId) {
+    public EstudianteAcudiente consultarPorId(Long relacionId) {
         return relacionRepositoryPort.obtenerPorId(relacionId)
                 .orElseThrow(() -> new IllegalArgumentException("Relación estudiante-acudiente no encontrada"));
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorEstudiante(Long estudianteId) {
+    public List<EstudianteAcudiente> listarPorEstudiante(Long estudianteId) {
         validarExistenciaEstudiante(estudianteId);
         return relacionRepositoryPort.listarPorEstudiante(estudianteId);
     }
 
     @Override
-    public List<EstudianteAcudienteDto> listarPorAcudiente(Long acudienteId) {
+    public List<EstudianteAcudiente> listarPorAcudiente(Long acudienteId) {
         validarExistenciaAcudiente(acudienteId);
         return relacionRepositoryPort.listarPorAcudiente(acudienteId);
     }

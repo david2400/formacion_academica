@@ -59,12 +59,12 @@ CREATE TABLE questions (
     updated_at TIMESTAMP WITH TIME ZONE,
     created_by Long,
     updated_by Long,
-    deleted BOOLEAN DEFAULT FALSE,
+    activo BOOLEAN DEFAULT FALSE,
     version BIGINT DEFAULT 0
 );
 
 CREATE INDEX idx_questions_type ON questions(question_type);
 CREATE INDEX idx_questions_difficulty ON questions(difficulty);
 CREATE INDEX idx_questions_theme_id ON questions(theme_id);
-CREATE INDEX idx_questions_deleted ON questions(deleted);
+CREATE INDEX idx_questions_deleted ON questions(activo);
 CREATE INDEX idx_questions_created_at ON questions(created_at);

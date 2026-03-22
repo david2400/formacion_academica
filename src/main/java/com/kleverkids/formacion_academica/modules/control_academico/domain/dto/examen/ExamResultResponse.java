@@ -1,12 +1,13 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ResultadoExamen;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
 import java.util.stream.Collectors;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
 
 public record ExamResultResponse(
     Long id,
@@ -21,21 +22,22 @@ public record ExamResultResponse(
     Instant gradedAt,
     Long gradedBy
 ) {
-    public static ExamResultResponse fromDomain(ExamResult result) {
+    public static ExamResultResponse fromDomain(ResultadoExamen result) {
         return new ExamResultResponse(
             result.getId(),
-            result.getExamId(),
-            result.getStudentId(),
-            result.getSubmissionId(),
-            result.getTotalScore(),
-            result.getMaxScore(),
-            result.getPercentage(),
-            result.getGrade(),
-            result.getQuestionResults() != null ? result.getQuestionResults().stream()
-                .map(qr -> new QuestionResultDto(qr.getQuestionId(), qr.getScore(), qr.getMaxScore(), qr.isCorrect(), qr.getFeedback()))
+            result.getExamenId(),
+            result.getEstudianteId(),
+            result.getEnvioId(),
+            result.getPuntajeTotal(),
+            result.getPuntajeMaximo(),
+            result.getPorcentaje(),
+            result.getCalificacion(),
+            result.getResultadosPreguntas() != null ? result.getResultadosPreguntas().stream()
+                .map(qr -> new QuestionResultDto(qr.getPreguntaId(), qr.getPuntaje(), qr.getPuntajeMaximo(),
+                        qr.isCorrecto(), qr.getRetroalimentacion()))
                 .collect(Collectors.toList()) : null,
-            result.getGradedAt(),
-            result.getGradedBy()
+            result.getCalificadoEn(),
+            result.getCalificadoPor()
         );
     }
     

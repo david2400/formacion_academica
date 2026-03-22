@@ -2,12 +2,12 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.util.List;
 import java.util.Map;
 
-public class OpenShortQuestion extends Question {
+public class OpenShortQuestion extends Pregunta {
     
     private List<String> acceptedAnswers;
     private boolean caseSensitive;
@@ -15,14 +15,14 @@ public class OpenShortQuestion extends Question {
     
     public OpenShortQuestion() {
         super();
-        this.questionType = QuestionType.OPEN_SHORT;
+        this.tipoPregunta = TipoPregunta.ABIERTA_CORTA;
     }
     
     public OpenShortQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
                               Long themeId, List<Media> media, String hint, String explanation,
                               List<String> tags, Map<String, Object> metadata,
                               List<String> acceptedAnswers, boolean caseSensitive, Integer maxLength) {
-        super(id, questionText, QuestionType.OPEN_SHORT, difficulty, maxScore,
+        super(id, questionText, TipoPregunta.ABIERTA_CORTA, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.acceptedAnswers = acceptedAnswers;
         this.caseSensitive = caseSensitive;
@@ -54,7 +54,7 @@ public class OpenShortQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         // Open short questions can have optional accepted answers for auto-grading
     }
 }

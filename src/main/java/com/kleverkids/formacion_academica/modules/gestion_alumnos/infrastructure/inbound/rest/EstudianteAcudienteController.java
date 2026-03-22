@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.in
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.estudiante_acudiente.ListarPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.ActualizarEstudianteAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.CrearEstudianteAcudienteDto;
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante_acudiente.EstudianteAcudienteDto;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.EstudianteAcudiente;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -62,12 +62,12 @@ public class EstudianteAcudienteController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Relación creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteAcudienteDto.class))),
+                            schema = @Schema(implementation = EstudianteAcudiente.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EstudianteAcudienteDto> crear(@RequestBody CrearEstudianteAcudienteDto request) {
+    public ResponseEntity<EstudianteAcudiente> crear(@RequestBody CrearEstudianteAcudienteDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
@@ -75,34 +75,28 @@ public class EstudianteAcudienteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Relación actualizada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteAcudienteDto.class))),
+                            schema = @Schema(implementation = EstudianteAcudiente.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Relación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{relacionId}")
-    public ResponseEntity<EstudianteAcudienteDto> actualizar(@PathVariable Long relacionId,
+    public ResponseEntity<EstudianteAcudiente> actualizar(@PathVariable Long relacionId,
                                                                      @RequestBody ActualizarEstudianteAcudienteDto request) {
-        ActualizarEstudianteAcudienteDto payload = new ActualizarEstudianteAcudienteDto(
-                relacionId,
-                request.estudianteId(),
-                request.parentesco(),
-                request.esPrincipal(),
-                request.estado()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @Operation(summary = "Consultar relación", description = "Obtiene la información de una relación específica")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Relación encontrada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteAcudienteDto.class))),
+                            schema = @Schema(implementation = EstudianteAcudiente.class))),
             @ApiResponse(responseCode = "404", description = "Relación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{relacionId}")
-    public ResponseEntity<EstudianteAcudienteDto> consultar(@PathVariable Long relacionId) {
+    public ResponseEntity<EstudianteAcudiente> consultar(@PathVariable Long relacionId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(relacionId));
     }
 
@@ -110,12 +104,12 @@ public class EstudianteAcudienteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Relaciones del estudiante",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EstudianteAcudienteDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = EstudianteAcudiente.class)))),
             @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/estudiante/{estudianteId}")
-    public ResponseEntity<List<EstudianteAcudienteDto>> listarPorEstudiante(@PathVariable Long estudianteId) {
+    public ResponseEntity<List<EstudianteAcudiente>> listarPorEstudiante(@PathVariable Long estudianteId) {
         return ResponseEntity.ok(listarPorEstudianteUseCase.listarPorEstudiante(estudianteId));
     }
 
@@ -123,12 +117,12 @@ public class EstudianteAcudienteController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Relaciones del acudiente",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EstudianteAcudienteDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = EstudianteAcudiente.class)))),
             @ApiResponse(responseCode = "404", description = "Acudiente no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<EstudianteAcudienteDto>> listarPorAcudiente(@RequestParam Long acudienteId) {
+    public ResponseEntity<List<EstudianteAcudiente>> listarPorAcudiente(@RequestParam Long acudienteId) {
         return ResponseEntity.ok(listarPorAcudienteUseCase.listarPorAcudiente(acudienteId));
     }
 

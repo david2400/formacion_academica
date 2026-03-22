@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.config;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.ExamNotFoundException;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.QuestionNotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.ExcepcionPreguntaNoEncontrada;
 import com.kleverkids.formacion_academica.shared.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(QuestionNotFoundException.class)
-    public ResponseEntity<ProblemDetail> handleQuestionNotFound(QuestionNotFoundException ex, HttpServletRequest request) {
+    @ExceptionHandler(ExcepcionPreguntaNoEncontrada.class)
+    public ResponseEntity<ProblemDetail> handleQuestionNotFound(ExcepcionPreguntaNoEncontrada ex, HttpServletRequest request) {
         return notFound(ex, request);
     }
 

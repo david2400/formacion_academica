@@ -85,7 +85,7 @@ public class EstudianteController {
     @PutMapping("/{estudianteId}")
     public ResponseEntity<Estudiante> actualizar(@PathVariable Long estudianteId,
                                                     @Valid @RequestBody UpdateEstudianteDto request) {
-        request.setEstudianteId(estudianteId);
+        request.setId(estudianteId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 

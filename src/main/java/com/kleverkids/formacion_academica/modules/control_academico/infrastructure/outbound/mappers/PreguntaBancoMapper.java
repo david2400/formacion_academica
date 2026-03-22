@@ -5,8 +5,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.p
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.CrearRespuestaBancoDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.RespuestaBanco;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.PreguntaBancoEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.pregunta.RespuestaBancoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.pregunta.PreguntaBancoEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.pregunta.RespuestaBancoEntity;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

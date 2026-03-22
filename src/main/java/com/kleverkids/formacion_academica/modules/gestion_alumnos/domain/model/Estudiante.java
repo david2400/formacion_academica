@@ -6,11 +6,11 @@ public record Estudiante(Long id,
                          String tipoDocumento,
                          String numeroDocumento,
                          String nombres,
-                         String apellidos,
+                         String primerApellido,
+                         String segundoApellido,
                          LocalDate fechaNacimiento,
                          String genero,
                          String correo,
                          String telefono,
-                         String direccion,
-                         boolean activo) {
+                         String direccion) {
 }

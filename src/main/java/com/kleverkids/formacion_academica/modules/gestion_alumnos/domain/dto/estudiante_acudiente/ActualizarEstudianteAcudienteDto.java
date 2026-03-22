@@ -2,44 +2,17 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.es
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActualizarEstudianteAcudienteDto {
-
-    @NotNull(message = "El identificador de la relación es obligatorio")
-    private Long relacionId;
-
-    private Long estudianteId;
-
-    private String parentesco;
-
-    private Boolean esPrincipal;
-
-    private String estado;
-
-    public Long relacionId() {
-        return relacionId;
-    }
-
-    public Long estudianteId() {
-        return estudianteId;
-    }
-
-    public String parentesco() {
-        return parentesco;
-    }
-
-    public Boolean esPrincipal() {
-        return esPrincipal;
-    }
-
-    public String estado() {
-        return estado;
-    }
+public class ActualizarEstudianteAcudienteDto extends CrearEstudianteAcudienteDto {
+    @NotNull(message = "El identificador del registro es obligatorio")
+    private Long id;
 }

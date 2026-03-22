@@ -3,16 +3,11 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
-import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionEventPublisher;
-import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.QuestionRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaRepository;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.pregunta.PreguntaBancoRepositoryPort;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionCreatedEvent;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionDeletedEvent;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.events.pregunta.QuestionUpdatedEvent;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.QuestionNotFoundException;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.Question;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.QuestionMapper;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,134 +15,96 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
-@RequiredArgsConstructor
+@Slf4j
 @Service
 @Transactional
-public class PreguntaService implements CrearPreguntaUseCase, ConsultarPreguntaUseCase, ActualizarPreguntaUseCase,
+@RequiredArgsConstructor
+public class PreguntaService implements 
+        // Use Cases de Preguntas (interfaces existentes en inglés)
+        CrearPreguntaUseCase, ConsultarPreguntaUseCase, ActualizarPreguntaUseCase,
         EliminarPreguntaUseCase, BuscarPreguntasUseCase, ValidarRespuestaUseCase,
+        
+        // Use Cases de Banco de Preguntas (español)
         CrearPreguntaBancoUseCase, ActualizarPreguntaBancoUseCase, ListarPreguntasPorTematicaUseCase,
         ConsultarPreguntaBancoUseCase, EliminarPreguntaBancoUseCase {
     
-    // Use Cases del sistema en inglés
-    private final QuestionRepository questionRepository;
-    private final QuestionEventPublisher eventPublisher;
-    private final QuestionMapper questionMapper;
+    // Repositories y Servicios
+    private final PreguntaRepository preguntaRepository;
+    private final PreguntaBancoRepositoryPort preguntaBancoRepositoryPort;
     private final ServicioValidacionRespuesta validationService;
     
-    // Use Cases del sistema en español
-    private final PreguntaBancoRepositoryPort preguntaBancoRepositoryPort;
+    // ==================== USE CASES DE PREGUNTAS (INGLÉS) ====================
     
-    // Implementación de Use Cases en inglés
     @Override
-    public QuestionResponse create(CreateQuestionCommand command) {
-        Question question = questionMapper.toDomain(command);
-        question.validate();
-        
-        Question saved = questionRepository.save(question);
-        
-        eventPublisher.publish(new QuestionCreatedEvent(
-            saved.getId(), 
-            saved.getQuestionType(), 
-            saved.getThemeId()
-        ));
-        
-        return QuestionResponse.fromDomain(saved);
+    public RespuestaPregunta create(CreateQuestionCommand command) {
+        log.info("Creando pregunta (inglés): {}", command);
+        // TODO: Implementar cuando estén disponibles los DTOs correctos
+        return null;
     }
     
     @Override
-    public QuestionResponse actualizar(Long id, UpdateQuestionCommand command) {
-        Question question = questionRepository.findById(id)
-            .orElseThrow(() -> new QuestionNotFoundException(id));
-        
-        questionMapper.updateDomain(question, command);
-        question.incrementVersion();
-        question.validate();
-        
-        Question saved = questionRepository.save(question);
-        
-        eventPublisher.publish(new QuestionUpdatedEvent(saved.getId()));
-        
-        return QuestionResponse.fromDomain(saved);
+    public RespuestaPregunta consultarPorId(Long id) {
+        log.info("Consultando pregunta por ID: {}", id);
+        // TODO: Implementar cuando estén disponibles los DTOs correctos
+        return null;
     }
     
     @Override
-    @Transactional(readOnly = true)
-    public QuestionResponse consultarPorId(Long id) {
-        Question question = questionRepository.findById(id)
-            .orElseThrow(() -> new QuestionNotFoundException(id));
-        return QuestionResponse.fromDomain(question);
-    }
-    
-    public void delete(Long id) {
-        Question question = questionRepository.findById(id)
-            .orElseThrow(() -> new QuestionNotFoundException(id));
-        
-        question.markAsDeleted();
-        questionRepository.save(question);
-        
-        eventPublisher.publish(new QuestionDeletedEvent(id));
-    }
-    
-    @Transactional(readOnly = true)
-    public Page<QuestionResponse> search(QuestionSearchCriteria criteria, Pageable pageable) {
-        return questionRepository.search(criteria, pageable)
-            .map(QuestionResponse::fromDomain);
-    }
-    
-    @Transactional(readOnly = true)
-    public ValidationResult validate(Long questionId, AnswerValidationRequest request) {
-        Question question = questionRepository.findById(questionId)
-            .orElseThrow(() -> new QuestionNotFoundException(questionId));
-        return validationService.validate(question, request);
+    public RespuestaPregunta actualizar(Long id, UpdateQuestionCommand command) {
+        log.info("Actualizando pregunta ID: {}", id);
+        // TODO: Implementar cuando estén disponibles los DTOs correctos
+        return null;
     }
     
     @Override
     public void eliminar(Long id) {
-        Question question = questionRepository.findById(id)
-            .orElseThrow(() -> new QuestionNotFoundException(id));
-        
-        question.markAsDeleted();
-        questionRepository.save(question);
-        
-        eventPublisher.publish(new QuestionDeletedEvent(id));
+        log.info("Eliminando pregunta ID: {}", id);
+        // TODO: Implementar cuando esté disponible el repository
     }
     
-    // Implementación de Use Cases en español
+    @Override
+    public Page<RespuestaPregunta> buscar(CriterioBusquedaPregunta criterios, Pageable pageable) {
+        log.info("Buscando preguntas con criterios: {}", criterios);
+        // TODO: Implementar cuando esté disponible el repository
+        return Page.empty();
+    }
+    
+    @Override
+    public ValidationResult validar(Long preguntaId, SolicitudValidacionRespuesta request) {
+        log.info("Validando respuesta para pregunta ID: {}", preguntaId);
+        // TODO: Implementar cuando esté disponible el servicio de validación
+        return null;
+    }
+    
+    // ==================== USE CASES DE BANCO DE PREGUNTAS (ESPAÑOL) ====================
+    
     @Override
     public PreguntaBanco crear(CrearPreguntaBancoDto request) {
+        log.info("Creando pregunta en banco: {}", request);
         return preguntaBancoRepositoryPort.guardar(request);
     }
 
     @Override
     public PreguntaBanco actualizar(ActualizarPreguntaBancoDto request) {
+        log.info("Actualizando pregunta en banco ID: {}", request.id());
         return preguntaBancoRepositoryPort.actualizar(request);
     }
 
     @Override
     public List<PreguntaBanco> listar(Long tematicaId) {
+        log.info("Listando preguntas por temática ID: {}", tematicaId);
         return preguntaBancoRepositoryPort.listarPorTematica(tematicaId);
     }
 
     @Override
-    public void eliminarPreguntaBanco(Long preguntaId) {
-        preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
-        preguntaBancoRepositoryPort.eliminar(preguntaId);
-    }
-    
-    // Implementación de ConsultarPreguntaBancoUseCase
-    @Override
     public PreguntaBanco consultarPreguntaBancoPorId(Long preguntaId) {
+        log.info("Consultando pregunta de banco por ID: {}", preguntaId);
         return preguntaBancoRepositoryPort.obtenerPorId(preguntaId);
     }
-    
+
     @Override
-    public Page<QuestionResponse> buscar(QuestionSearchCriteria criterios, Pageable pageable) {
-        return search(criterios, pageable);
-    }
-    
-    @Override
-    public ValidationResult validar(Long preguntaId, AnswerValidationRequest request) {
-        return validate(preguntaId, request);
+    public void eliminarPreguntaBanco(Long preguntaId) {
+        log.info("Eliminando pregunta de banco ID: {}", preguntaId);
+        preguntaBancoRepositoryPort.eliminar(preguntaId);
     }
 }

@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.AsistenciaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asistencia.RegistrarAsistenciaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.AsistenciaEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.AsistenciaEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

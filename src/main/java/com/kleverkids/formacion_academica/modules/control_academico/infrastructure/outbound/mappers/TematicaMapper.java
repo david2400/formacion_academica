@@ -2,8 +2,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.TematicaEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Tematica;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.TematicaEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

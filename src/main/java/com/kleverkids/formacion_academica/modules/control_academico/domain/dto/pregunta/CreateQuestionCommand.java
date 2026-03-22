@@ -120,7 +120,7 @@ public sealed interface CreateQuestionCommand permits
         String explanation,
         List<String> tags,
         Map<String, Object> metadata,
-        RubricDto rubric,
+        RubricaDto rubric,
         Integer minWords,
         Integer maxWords,
         boolean allowAttachments

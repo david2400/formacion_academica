@@ -1,8 +1,8 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamResult;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.QuestionAnswer;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ResultadoExamen;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,28 +17,28 @@ import java.util.List;
 @Service
 public class ServicioCalificacionExamen {
     
-    public ExamResult calculateResult(Long examId, ExamSubmission submission, BigDecimal maxScore) {
-        List<ExamResult.QuestionResult> questionResults = new ArrayList<>();
+    public ResultadoExamen calculateResult(Long examId, EnvioExamen submission, BigDecimal maxScore) {
+        List<ResultadoExamen.ResultadoPregunta> questionResults = new ArrayList<>();
         
         BigDecimal totalScore = BigDecimal.ZERO;
         
-        for (QuestionAnswer answer : submission.getAnswers()) {
+        for (RespuestaPregunta answer : submission.getAnswers()) {
             BigDecimal questionScore = calculateQuestionScore(answer);
             totalScore = totalScore.add(questionScore);
             
             boolean isCorrect = questionScore.compareTo(BigDecimal.ZERO) > 0;
             BigDecimal questionMaxScore = getQuestionMaxScore(answer);
             
-            questionResults.add(new ExamResult.QuestionResult(
-                answer.getQuestionId(),
+            questionResults.add(new ResultadoExamen.ResultadoPregunta(
+                answer.getPreguntaId(),
                 questionScore,
                 questionMaxScore,
                 isCorrect,
-                answer.getFeedback()
+                answer.getRespuestaTexto()
             ));
         }
         
-        return new ExamResult(
+        return new ResultadoExamen(
             null,
             examId,
             submission.getStudentId(),
@@ -57,18 +57,18 @@ public class ServicioCalificacionExamen {
         return "F";
     }
     
-    private BigDecimal calculateQuestionScore(QuestionAnswer answer) {
-        if (answer.getScore() != null) {
-            return answer.getScore();
+    private BigDecimal calculateQuestionScore(RespuestaPregunta answer) {
+        if (answer.getPuntaje() != null) {
+            return answer.getPuntaje();
         }
         
         // Default scoring logic - if answer has a positive score, it's correct
-        return answer.getScore() != null && answer.getScore().compareTo(BigDecimal.ZERO) > 0 
-            ? answer.getScore() 
+        return answer.getPuntaje() != null && answer.getPuntaje().compareTo(BigDecimal.ZERO) > 0 
+            ? answer.getPuntaje() 
             : BigDecimal.ZERO;
     }
     
-    private BigDecimal getQuestionMaxScore(QuestionAnswer answer) {
+    private BigDecimal getQuestionMaxScore(RespuestaPregunta answer) {
         // For now, return a default max score of 1 point per question
         // This could be enhanced to get the actual max score from the question
         return BigDecimal.ONE;

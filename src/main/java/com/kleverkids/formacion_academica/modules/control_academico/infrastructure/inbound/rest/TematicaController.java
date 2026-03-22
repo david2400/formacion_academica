@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.tematica.ListarTematicasUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.ActualizarTematicaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.tematica.CrearTematicaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.tematica.Tematica;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Tematica;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

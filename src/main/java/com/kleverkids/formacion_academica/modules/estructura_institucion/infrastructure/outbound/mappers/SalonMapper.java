@@ -20,7 +20,7 @@ public interface SalonMapper {
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "activo", ignore = true)
     default SalonEntity toEntity(CrearSalonDto dto) {
         if (dto == null) {
             return null;

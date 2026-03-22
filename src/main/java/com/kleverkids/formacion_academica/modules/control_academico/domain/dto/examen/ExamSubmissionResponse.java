@@ -3,7 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 import java.time.Instant;
 
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamSubmission;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen;
 
 public record ExamSubmissionResponse(
     Long id,
@@ -13,14 +13,14 @@ public record ExamSubmissionResponse(
     Instant submittedAt,
     String status
 ) {
-    public static ExamSubmissionResponse fromDomain(ExamSubmission submission) {
+    public static ExamSubmissionResponse fromDomain(EnvioExamen submission) {
         return new ExamSubmissionResponse(
             submission.getId(),
-            submission.getExamId(),
-            submission.getStudentId(),
-            submission.getStartedAt(),
-            submission.getSubmittedAt(),
-            submission.getStatus().name()
+            submission.getExamenId(),
+            submission.getEstudianteId(),
+            submission.getIniciadoEn(),
+            submission.getIniciadoEn(),
+            submission.getEstado().name()
         );
     }
 }

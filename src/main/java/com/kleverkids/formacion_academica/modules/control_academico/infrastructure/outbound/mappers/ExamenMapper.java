@@ -5,8 +5,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ReglaCalificacionDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.CalificacionPersonalizadaEntity;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.shop.entity.examenes.ExamenEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.CalificacionPersonalizadaEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.ExamenEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

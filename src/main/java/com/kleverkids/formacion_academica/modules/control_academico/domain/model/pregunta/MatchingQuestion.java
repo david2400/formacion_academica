@@ -4,30 +4,30 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.MatchingPair;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.util.List;
 import java.util.Map;
 
-public class MatchingQuestion extends Question {
+public class MatchingQuestion extends Pregunta {
     
     private List<MatchingPair> pairs;
     private boolean partialCredit;
     
     public MatchingQuestion() {
         super();
-        this.questionType = QuestionType.MATCHING;
+        this.tipoPregunta = TipoPregunta.EMPAREJAMIENTO;
     }
     
     public MatchingQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
                              Long themeId, List<Media> media, String hint, String explanation,
                              List<String> tags, Map<String, Object> metadata,
                              List<MatchingPair> pairs, boolean partialCredit) {
-        super(id, questionText, QuestionType.MATCHING, difficulty, maxScore,
+        super(id, questionText, TipoPregunta.EMPAREJAMIENTO, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.pairs = pairs;
         this.partialCredit = partialCredit;
-        validate();
+        validar();
     }
     
     public List<MatchingPair> getPairs() {
@@ -47,7 +47,7 @@ public class MatchingQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         if (pairs == null || pairs.size() < 2) {
             throw new InvalidQuestionException("Matching question must have at least 2 pairs");
         }

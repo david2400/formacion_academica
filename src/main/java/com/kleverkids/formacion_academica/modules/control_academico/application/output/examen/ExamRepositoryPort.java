@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-
 public interface ExamRepositoryPort {
     
     Exam save(Exam exam);
@@ -20,4 +19,15 @@ public interface ExamRepositoryPort {
     Page<Exam> search(ExamSearchCriteria criteria, Pageable pageable);
     
     boolean existsById(Long id);
+    
+    // Métodos adicionales para compatibilidad con el servicio - implementaciones básicas
+    default Exam guardar(Object request) {
+        // Implementación por defecto - lanzar excepción para que el servicio lo maneje
+        throw new UnsupportedOperationException("Método guardar no implementado en este adaptador");
+    }
+    
+    default Object registrarCalificacion(Object request) {
+        // Implementación por defecto - lanzar excepción para que el servicio lo maneje
+        throw new UnsupportedOperationException("Método registrarCalificacion no implementado en este adaptador");
+    }
 }

@@ -32,7 +32,7 @@ public class EstudianteService implements CrearEstudianteUseCase,
 
     @Override
     public Estudiante crear(CrearEstudianteDto request) {
-        validarDocumentoUnico(request.tipoDocumento(), request.numeroDocumento());
+        validarDocumentoUnico(request.getTipoDocumento(), request.getNumeroDocumento());
         return repositoryPort.guardar(request);
     }
 

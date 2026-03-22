@@ -45,6 +45,6 @@ public interface GrupoMapper {
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "activo", ignore = true)
     void updateEntityFromDto(ActualizarGrupoDto dto, @MappingTarget GrupoEntity entity);
 }

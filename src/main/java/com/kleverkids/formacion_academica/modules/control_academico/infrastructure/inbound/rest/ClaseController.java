@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.clase.Clase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;

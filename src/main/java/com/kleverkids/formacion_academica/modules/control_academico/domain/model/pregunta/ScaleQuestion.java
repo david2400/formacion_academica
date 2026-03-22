@@ -3,31 +3,31 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.InvalidQuestionException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.ScaleConfig;
 
 import java.util.List;
 import java.util.Map;
 
-public class ScaleQuestion extends Question {
+public class ScaleQuestion extends Pregunta {
     
     private ScaleConfig scaleConfig;
     private Integer expectedValue;
     
     public ScaleQuestion() {
         super();
-        this.questionType = QuestionType.SCALE;
+        this.tipoPregunta = TipoPregunta.ESCALA;
     }
     
     public ScaleQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
                           Long themeId, List<Media> media, String hint, String explanation,
                           List<String> tags, Map<String, Object> metadata,
                           ScaleConfig scaleConfig, Integer expectedValue) {
-        super(id, questionText, QuestionType.SCALE, difficulty, maxScore,
+        super(id, questionText, TipoPregunta.ESCALA, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.scaleConfig = scaleConfig;
         this.expectedValue = expectedValue;
-        validate();
+        validar();
     }
     
     public ScaleConfig getScaleConfig() {
@@ -47,7 +47,7 @@ public class ScaleQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         if (scaleConfig == null) {
             throw new InvalidQuestionException("Scale configuration is required");
         }

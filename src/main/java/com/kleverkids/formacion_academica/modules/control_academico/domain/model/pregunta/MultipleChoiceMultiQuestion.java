@@ -4,14 +4,14 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Difficulty;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Media;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Option;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.QuestionType;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.TipoPregunta;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MultipleChoiceMultiQuestion extends Question {
+public class MultipleChoiceMultiQuestion extends Pregunta {
     
     private List<Option> options;
     private List<Long> correctOptionIds;
@@ -20,7 +20,7 @@ public class MultipleChoiceMultiQuestion extends Question {
     
     public MultipleChoiceMultiQuestion() {
         super();
-        this.questionType = QuestionType.MULTIPLE_CHOICE_MULTI;
+        this.tipoPregunta = TipoPregunta.OPCION_MULTIPLE;
     }
     
     public MultipleChoiceMultiQuestion(Long id, String questionText, Difficulty difficulty, int maxScore,
@@ -28,13 +28,13 @@ public class MultipleChoiceMultiQuestion extends Question {
                                         List<String> tags, Map<String, Object> metadata,
                                         List<Option> options, List<Long> correctOptionIds,
                                         Integer minSelections, Integer maxSelections) {
-        super(id, questionText, QuestionType.MULTIPLE_CHOICE_MULTI, difficulty, maxScore,
+        super(id, questionText, TipoPregunta.OPCION_MULTIPLE, difficulty, maxScore,
               themeId, media, hint, explanation, tags, metadata);
         this.options = options;
         this.correctOptionIds = correctOptionIds;
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
-        validate();
+        validar();
     }
     
     public List<Option> getOptions() {
@@ -70,7 +70,7 @@ public class MultipleChoiceMultiQuestion extends Question {
     }
     
     @Override
-    public void validate() {
+    public void validar() {
         if (options == null || options.size() < 2) {
             throw new InvalidQuestionException("Multiple choice question must have at least 2 options");
         }

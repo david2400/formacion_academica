@@ -3,12 +3,12 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.es
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrearEstudianteAcudienteDto {
@@ -24,19 +24,5 @@ public class CrearEstudianteAcudienteDto {
 
     private boolean esPrincipal;
 
-    public Long estudianteId() {
-        return estudianteId;
-    }
-
-    public Long acudienteId() {
-        return acudienteId;
-    }
-
-    public String parentesco() {
-        return parentesco;
-    }
-
-    public boolean esPrincipal() {
-        return esPrincipal;
-    }
+    private String estado;
 }

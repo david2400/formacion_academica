@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ExamQuestion;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.PreguntaExamen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
 
@@ -49,10 +49,10 @@ public record ExamResponse(
         return new TimeConfigDto(tc.getDuration(), tc.getScheduledDate(), tc.getStartTime(), tc.getEndTime());
     }
     
-    private static List<ExamQuestionDto> mapQuestions(List<ExamQuestion> questions) {
+    private static List<ExamQuestionDto> mapQuestions(List<PreguntaExamen> questions) {
         if (questions == null) return null;
         return questions.stream()
-            .map(q -> new ExamQuestionDto(q.getId(), q.getQuestionId(), q.getOrder(), q.getPoints(), q.isRequired()))
+            .map(q -> new ExamQuestionDto(q.getId(), q.getPreguntaId(), q.getOrden(), q.getPuntos(), q.isObligatoria()))
             .collect(Collectors.toList());
     }
     

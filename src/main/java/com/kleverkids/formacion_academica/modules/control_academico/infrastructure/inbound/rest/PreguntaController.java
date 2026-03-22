@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.pregunta.PreguntaBanco;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -39,19 +40,19 @@ public class PreguntaController {
     // Endpoints CRUD básicos (del QuestionController)
     @PostMapping
     @Operation(summary = "Crear una nueva pregunta", description = "Crea una pregunta de cualquier tipo usando JSON polimórfico")
-    public ResponseEntity<QuestionResponse> crear(@Valid @RequestBody CreateQuestionCommand command) {
+    public ResponseEntity<RespuestaPregunta> crear(@Valid @RequestBody CreateQuestionCommand command) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearPreguntaUseCase.create(command));
     }
     
     @GetMapping("/{preguntaId}")
     @Operation(summary = "Obtener pregunta por ID", description = "Recupera una pregunta por su identificador único")
-    public ResponseEntity<QuestionResponse> consultar(@PathVariable Long preguntaId) {
+    public ResponseEntity<RespuestaPregunta> consultar(@PathVariable Long preguntaId) {
         return ResponseEntity.ok(consultarPreguntaUseCase.consultarPorId(preguntaId));
     }
     
     @PutMapping("/{preguntaId}")
     @Operation(summary = "Actualizar una pregunta", description = "Actualiza una pregunta existente")
-    public ResponseEntity<QuestionResponse> actualizar(@PathVariable Long preguntaId,
+    public ResponseEntity<RespuestaPregunta> actualizar(@PathVariable Long preguntaId,
                                                    @Valid @RequestBody UpdateQuestionCommand command) {
         return ResponseEntity.ok(actualizarPreguntaUseCase.actualizar(preguntaId, command));
     }
@@ -66,7 +67,7 @@ public class PreguntaController {
     @PostMapping("/{preguntaId}/validar")
     @Operation(summary = "Validar una respuesta", description = "Valida la respuesta de un estudiante contra la pregunta")
     public ResponseEntity<ValidationResult> validarRespuesta(@PathVariable Long preguntaId,
-                                                           @RequestBody AnswerValidationRequest request) {
+                                                           @RequestBody SolicitudValidacionRespuesta request) {
         ValidationResult result = validarRespuestaUseCase.validar(preguntaId, request);
         return ResponseEntity.ok(result);
     }
