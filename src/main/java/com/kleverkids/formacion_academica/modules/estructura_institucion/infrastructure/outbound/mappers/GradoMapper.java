@@ -19,7 +19,6 @@ public interface GradoMapper {
         GradoEntity entity = new GradoEntity();
         entity.setNombre(dto.getNombre());
         entity.setNivelEducativoId((dto.getNivelEducativoId()));
-        entity.setOrden(dto.getOrden());
         // Audit fields are handled by JPA @PrePersist
         return entity;
     }
@@ -36,11 +35,7 @@ public interface GradoMapper {
         if (dto.getNivelEducativoId() != null) {
             entity.setNivelEducativoId((dto.getNivelEducativoId()));
         }
-        
-        if (dto.getOrden() != null) {
-            entity.setOrden(dto.getOrden());
-        }
-        
+
         // Audit fields are handled by JPA @PreUpdate
     }
 

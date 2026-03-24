@@ -28,7 +28,7 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
 
     @Override
     public Acudiente actualizar(ActualizarAcudienteDto request) {
-        AcudienteEntity entity = acudienteJpaRepository.findById(request.acudienteId())
+        AcudienteEntity entity = acudienteJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Acudiente no encontrado"));
         acudienteMapper.updateEntityFromDto(request, entity);
         return acudienteMapper.toDomainModel(acudienteJpaRepository.save(entity));
@@ -46,10 +46,7 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
 
     @Override
     public boolean existePrincipalParaEstudiante(Long estudianteId, Long excluirAcudienteId) {
-        if (excluirAcudienteId == null) {
-            return acudienteJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrue(estudianteId);
-        }
-        return acudienteJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrueAndIdNot(estudianteId, excluirAcudienteId);
+        return acudienteJpaRepository.existsByEstudianteIdAndEsPrincipalIsTrue(estudianteId, excluirAcudienteId);
     }
 
     @Override

@@ -48,7 +48,9 @@ public interface PreguntaBancoMapper {
     @Mapping(target = "respuestas", ignore = true)
     void applyUpdate(@MappingTarget PreguntaBancoEntity entity, ActualizarPreguntaBancoDto dto);
 
+    @Mapping(target = "respuestas", source = "respuestas")
     PreguntaBanco toDomainModel(PreguntaBancoEntity entity);
 
+    @Mapping(target = "respuestas", source = "respuestas")
     List<PreguntaBanco> toDomainModelList(List<PreguntaBancoEntity> entities);
 }

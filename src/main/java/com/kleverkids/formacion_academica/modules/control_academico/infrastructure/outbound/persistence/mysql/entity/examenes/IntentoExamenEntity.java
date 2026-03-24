@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "intentos_examen")
 public class IntentoExamenEntity extends AuditInfo {
 
@@ -42,7 +44,7 @@ public class IntentoExamenEntity extends AuditInfo {
     @Column(nullable = false)
     private Integer puntajeTotal;
 
-    @OneToMany(mappedBy = "intento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "intento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RespuestaIntentoEntity> respuestas = new ArrayList<>();
 
 }

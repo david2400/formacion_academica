@@ -20,11 +20,11 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, LocalDateTime.class, ArrayList.class, ThreadLocalRandom.class})
 public interface IntentoExamenMapper {
 
-    @Mapping(target = "estado", constant = "EN_PROGRESO")
-    @Mapping(target = "iniciadoEn", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
-    @Mapping(target = "finalizadoEn", ignore = true)
-    @Mapping(target = "puntajeTotal", ignore = true)
+//    @Mapping(target = "estado", constant = "EN_PROGRESO")
+//    @Mapping(target = "iniciadoEn", expression = "java(LocalDateTime.now())")
+//    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
+//    @Mapping(target = "finalizadoEn", ignore = true)
+//    @Mapping(target = "puntajeTotal", ignore = true)
     IntentoExamenEntity toEntity(IniciarIntentoExamenDto dto);
 
     IntentoExamenDto toDto(IntentoExamenEntity entity);

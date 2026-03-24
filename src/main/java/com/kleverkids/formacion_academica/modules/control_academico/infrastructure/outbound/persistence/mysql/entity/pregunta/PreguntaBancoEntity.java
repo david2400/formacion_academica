@@ -35,7 +35,7 @@ public class PreguntaBancoEntity {
     @Column(nullable = false)
     private Integer puntaje;
 
-    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RespuestaBancoEntity> respuestas = new ArrayList<>();
 
     public Long getId() {

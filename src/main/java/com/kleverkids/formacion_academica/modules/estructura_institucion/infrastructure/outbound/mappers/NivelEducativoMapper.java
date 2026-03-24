@@ -25,7 +25,6 @@ public interface NivelEducativoMapper {
         entity.setDescripcion(dto.descripcion());
         entity.setOrden(dto.orden());
         entity.setActivo(true);
-        entity.setCategoria(dto.categoria());
         // nivelSuperior se maneja por separado si es necesario
         // Las propiedades de auditoría son manejadas por JPA
         return entity;

@@ -20,7 +20,4 @@ public class CrearGradoDto {
     @NotNull(message = "El nivel educativo es obligatorio")
     private Long nivelEducativoId;
 
-    @PositiveOrZero(message = "El orden debe ser positivo")
-    private Integer orden;
-
 }

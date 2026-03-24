@@ -4,18 +4,16 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrearAcudienteDto {
-
-    @NotNull(message = "El estudiante es obligatorio")
-    private Long estudianteId;
+    
     private String tipoDocumento;
 
     @NotBlank(message = "El número de documento es obligatorio")
@@ -33,39 +31,4 @@ public class CrearAcudienteDto {
     private String correo;
     private boolean esPrincipal;
 
-    public Long estudianteId() {
-        return estudianteId;
-    }
-
-    public String tipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public String numeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public String nombres() {
-        return nombres;
-    }
-
-    public String apellidos() {
-        return apellidos;
-    }
-
-    public String parentesco() {
-        return parentesco;
-    }
-
-    public String telefono() {
-        return telefono;
-    }
-
-    public String correo() {
-        return correo;
-    }
-
-    public boolean esPrincipal() {
-        return esPrincipal;
-    }
 }

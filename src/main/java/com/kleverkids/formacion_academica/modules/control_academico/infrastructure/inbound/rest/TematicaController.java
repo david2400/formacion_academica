@@ -57,7 +57,6 @@ public class TematicaController {
     public ResponseEntity<Tematica> crear(@PathVariable Long examenId,
                                                    @Valid @RequestBody CrearTematicaDto request) {
 
-        request.setExamenId(examenId);
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
@@ -74,8 +73,6 @@ public class TematicaController {
     public ResponseEntity<Tematica> actualizar(@PathVariable Long examenId,
                                                         @PathVariable Long tematicaId,
                                                         @Valid @RequestBody ActualizarTematicaDto request) {
-
-        request.setExamenId(examenId);
         request.setId(tematicaId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }

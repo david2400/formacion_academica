@@ -8,11 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "asistencias")
 public class AsistenciaEntity extends AuditInfo {
 

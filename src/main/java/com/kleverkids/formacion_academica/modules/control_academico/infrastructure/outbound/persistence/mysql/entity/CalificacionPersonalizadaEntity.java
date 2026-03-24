@@ -6,12 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "calificaciones_personalizadas")
 public class CalificacionPersonalizadaEntity extends AuditInfo {
 

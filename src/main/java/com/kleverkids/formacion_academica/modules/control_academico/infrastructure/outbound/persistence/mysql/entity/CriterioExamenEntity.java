@@ -8,11 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "criterios_examen")
 public class CriterioExamenEntity extends AuditInfo {
 
@@ -26,6 +28,7 @@ public class CriterioExamenEntity extends AuditInfo {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private String descripcion;
 
     @Column(nullable = false)
@@ -34,6 +37,7 @@ public class CriterioExamenEntity extends AuditInfo {
     @Column(nullable = false)
     private Integer orden;
 
+    @Column(nullable = false)
     private String recomendacionBase;
 
 }

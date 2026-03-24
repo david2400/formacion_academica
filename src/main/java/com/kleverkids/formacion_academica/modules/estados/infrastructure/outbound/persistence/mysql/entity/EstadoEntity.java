@@ -58,16 +58,16 @@ public class EstadoEntity extends AuditInfo {
     @Column(columnDefinition = "JSON")
     private String metadata;
 
-    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EntidadEstadoEntity> entidadesEstado;
 
     // Removed historial mapping as EstadoHistorialEntity doesn't have a 'estado' property
     // It has estadoAnterior and estadoNuevo instead
 
-    @OneToMany(mappedBy = "estadoOrigen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estadoOrigen", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EstadoTransicionEntity> transicionesOrigen;
 
-    @OneToMany(mappedBy = "estadoDestino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estadoDestino", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EstadoTransicionEntity> transicionesDestino;
 
 

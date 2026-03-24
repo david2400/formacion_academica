@@ -51,7 +51,7 @@ public class EntidadEstadoEntity extends AuditInfo {
     @Column(nullable = false)
     private Boolean activo = true;
 
-    @OneToMany(mappedBy = "entidadEstado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "entidadEstado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EstadoHistorialEntity> historial;
 
     @PrePersist

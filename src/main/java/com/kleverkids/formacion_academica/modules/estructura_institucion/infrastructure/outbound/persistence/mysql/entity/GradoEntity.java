@@ -23,7 +23,4 @@ public class GradoEntity extends AuditInfo {
     @JoinColumn(name = "nivel_educativo_id", nullable = false, insertable = false, updatable = false)
     private NivelEducativoEntity nivelEducativo;
 
-    private Integer orden;
-
-
 }

@@ -17,7 +17,7 @@ public class RespuestaBancoEntity {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pregunta_id", nullable = false)
     private PreguntaBancoEntity pregunta;
 

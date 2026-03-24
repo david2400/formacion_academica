@@ -17,10 +17,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ExamenMapper {
 
-    @Mapping(target = "reglas", source = "reglasCalificacion")
     ExamenEntity toEntity(CrearExamenDto dto);
 
-    @Mapping(target = "reglasCalificacion", source = "reglas")
     Examen toDomainModel(ExamenEntity entity);
 
     ExamenEntity.ReglaCalificacionEmbeddable toEmbeddable(ReglaCalificacionDto dto);

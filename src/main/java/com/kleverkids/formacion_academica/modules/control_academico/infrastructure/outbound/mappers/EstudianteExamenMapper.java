@@ -13,9 +13,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", imports = {LocalDateTime.class, ArrayList.class})
 public interface EstudianteExamenMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "asignadoEn", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
+//    @Mapping(target = "asignadoEn", expression = "java(LocalDateTime.now())")
+//    @Mapping(target = "respuestas", expression = "java(new ArrayList<>())")
     EstudianteExamenEntity toEntity(RegistrarEstudianteExamenDto dto);
 
     EstudianteExamenDto toDto(EstudianteExamenEntity entity);

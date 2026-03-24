@@ -15,7 +15,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CriterioExamenMapper {
 
-    @Mapping(target = "id", ignore = true)
     CriterioExamenEntity toEntity(CrearCriterioExamenDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

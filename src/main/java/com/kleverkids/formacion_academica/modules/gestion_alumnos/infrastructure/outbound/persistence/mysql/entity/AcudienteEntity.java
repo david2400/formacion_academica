@@ -22,9 +22,6 @@ public class AcudienteEntity extends AuditInfo {
     private Long id;
 
     @Column(nullable = false)
-    private Long estudianteId;
-
-    @Column(nullable = false)
     private String tipoDocumento;
 
     @Column(nullable = false)
@@ -39,8 +36,10 @@ public class AcudienteEntity extends AuditInfo {
     @Column(nullable = false)
     private String parentesco;
 
+    @Column(nullable = false)
     private String telefono;
 
+    @Column(nullable = false)
     private String correo;
 
     @Column(nullable = false)

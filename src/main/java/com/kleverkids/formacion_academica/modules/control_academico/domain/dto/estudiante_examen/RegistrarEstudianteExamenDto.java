@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class RegistrarEstudianteExamenDto {
     @NotNull(message = "El estudiante es obligatorio")
     private Long estudianteId;
 
+    private LocalDateTime asignadoEn;
 }

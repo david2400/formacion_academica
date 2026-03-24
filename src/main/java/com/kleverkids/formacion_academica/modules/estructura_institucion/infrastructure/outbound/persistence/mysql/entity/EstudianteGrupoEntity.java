@@ -19,13 +19,13 @@ public class EstudianteGrupoEntity extends AuditInfo {
     @Column(name = "estudiante_id", nullable = false)
     private Long estudianteId;
 
-    @Column(name = "grupo_id", nullable = false)
-    private Long grupoId;
-
     // Relaciones opcionales para consultas (no afectan persistencia)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "estudiante_id", nullable = false, insertable = false, updatable = false)
     private EstudianteEntity estudiante;
+
+    @Column(name = "grupo_id", nullable = false)
+    private Long grupoId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "grupo_id", nullable = false, insertable = false, updatable = false)
@@ -35,7 +35,7 @@ public class EstudianteGrupoEntity extends AuditInfo {
 
     // Relación con EstadoEntity eliminada para evitar conflictos entre módulos
     // Se usa estadoLegacy (String) para mantener compatibilidad
-    // @ManyToOne(fetch = FetchType.LAZY)
+    // @ManyToOne(fetch = FetchType.EAGER)
     // @JoinColumn(name = "estado_id", nullable = false)
     // private EstadoEntity estado;
 

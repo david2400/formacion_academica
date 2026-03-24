@@ -21,7 +21,7 @@ public class RespuestaPreguntaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "estudiante_examen_id", nullable = false)
     private EstudianteExamenEntity estudianteExamen;
 
@@ -34,7 +34,7 @@ public class RespuestaPreguntaEntity {
     @Column(nullable = false,name = "pregunta_id")
     private Long preguntaId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pregunta_id", referencedColumnName = "id", insertable = false, updatable = false)
     private PreguntaEntity pregunta;
 

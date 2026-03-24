@@ -42,20 +42,20 @@ public class AcudienteController {
     private final CrearAcudienteUseCase crearUseCase;
     private final ActualizarAcudienteUseCase actualizarUseCase;
     private final ConsultarAcudienteUseCase consultarUseCase;
-    private final ListarAcudientesUseCase listarUseCase;
+//    private final ListarAcudientesUseCase listarUseCase;
     private final ListarAcudientesPorEstudianteUseCase listarPorEstudianteUseCase;
     private final EliminarAcudienteUseCase eliminarUseCase;
 
     public AcudienteController(CrearAcudienteUseCase crearUseCase,
                                ActualizarAcudienteUseCase actualizarUseCase,
                                ConsultarAcudienteUseCase consultarUseCase,
-                               ListarAcudientesUseCase listarUseCase,
+//                               ListarAcudientesUseCase listarUseCase,
                                ListarAcudientesPorEstudianteUseCase listarPorEstudianteUseCase,
                                EliminarAcudienteUseCase eliminarUseCase) {
         this.crearUseCase = crearUseCase;
         this.actualizarUseCase = actualizarUseCase;
         this.consultarUseCase = consultarUseCase;
-        this.listarUseCase = listarUseCase;
+//        this.listarUseCase = listarUseCase;
         this.listarPorEstudianteUseCase = listarPorEstudianteUseCase;
         this.eliminarUseCase = eliminarUseCase;
     }
@@ -85,19 +85,8 @@ public class AcudienteController {
     @PutMapping("/{acudienteId}")
     public ResponseEntity<Acudiente> actualizar(@PathVariable Long acudienteId,
                                                    @RequestBody ActualizarAcudienteDto request) {
-        ActualizarAcudienteDto payload = new ActualizarAcudienteDto(
-                acudienteId,
-                request.estudianteId(),
-                request.tipoDocumento(),
-                request.numeroDocumento(),
-                request.nombres(),
-                request.apellidos(),
-                request.parentesco(),
-                request.telefono(),
-                request.correo(),
-                request.esPrincipal()
-        );
-        return ResponseEntity.ok(actualizarUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
     @Operation(summary = "Consultar acudiente", description = "Obtiene la información de un acudiente")
@@ -113,17 +102,17 @@ public class AcudienteController {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(acudienteId));
     }
 
-    @Operation(summary = "Listar acudientes", description = "Obtiene todos los acudientes registrados")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Listado de acudientes",
-                    content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Acudiente.class)))),
-            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
-    })
-    @GetMapping
-    public ResponseEntity<List<Acudiente>> listar() {
-        return ResponseEntity.ok(listarUseCase.listar());
-    }
+//    @Operation(summary = "Listar acudientes", description = "Obtiene todos los acudientes registrados")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "200", description = "Listado de acudientes",
+//                    content = @Content(mediaType = "application/json",
+//                            array = @ArraySchema(schema = @Schema(implementation = Acudiente.class)))),
+//            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+//    })
+//    @GetMapping
+//    public ResponseEntity<List<Acudiente>> listar() {
+//        return ResponseEntity.ok(listarUseCase.listar());
+//    }
 
     @Operation(summary = "Listar por estudiante", description = "Obtiene los acudientes asociados a un estudiante")
     @ApiResponses({

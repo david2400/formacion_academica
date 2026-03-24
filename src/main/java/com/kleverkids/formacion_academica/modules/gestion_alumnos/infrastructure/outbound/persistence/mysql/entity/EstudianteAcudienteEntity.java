@@ -1,12 +1,8 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity;
 
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.EstudianteExamenEntity;
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
@@ -29,8 +25,12 @@ public class EstudianteAcudienteEntity extends AuditInfo {
     @Column(nullable = false)
     private Long acudienteId;
 
-    @Column(nullable = false)
-    private String parentesco;
+    @Column(name = "parentesco_id", nullable = false)
+    private Long parentescoId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parentesco_id", nullable = false, insertable = false, updatable = false)
+    private ParentescoEntity parentesco;
 
     @Column(nullable = false)
     private boolean esPrincipal;

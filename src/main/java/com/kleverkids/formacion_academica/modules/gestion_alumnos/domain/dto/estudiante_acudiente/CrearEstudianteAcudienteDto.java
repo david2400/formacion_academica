@@ -20,7 +20,7 @@ public class CrearEstudianteAcudienteDto {
     private Long acudienteId;
 
     @NotBlank(message = "El parentesco es obligatorio")
-    private String parentesco;
+    private Long parentescoId;
 
     private boolean esPrincipal;
 

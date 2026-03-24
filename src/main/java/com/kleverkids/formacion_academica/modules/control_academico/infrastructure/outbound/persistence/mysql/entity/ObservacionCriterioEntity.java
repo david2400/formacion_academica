@@ -1,36 +1,38 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity;
 
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-
 @Data
+@SuperBuilder
 @Entity
 @Table(name = "observaciones_criterio_examen")
 public class ObservacionCriterioEntity extends AuditInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private Long examenId;
 
-    @Column(nullable = false)
-    private Long criterioId;
+    @Column(name = "criterio_examen_id", nullable = false)
+    private Long criterioExamenId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "criterio_examen_id", nullable = false, insertable = false, updatable = false)
+    private CriterioExamenEntity criterioExamen;
 
     @Column(nullable = false)
     private Long estudianteId;
 
     @Column(nullable = false)
-    private BigDecimal puntaje;
-
     private String observacion;
 
+    @Column(nullable = false)
     private String recomendacion;
 }

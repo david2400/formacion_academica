@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.admisiones.domain.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record Matricula(Long id,
                         Long inscripcionId,
@@ -10,5 +11,10 @@ public record Matricula(Long id,
                         LocalDate fechaMatricula,
                         boolean renovacion,
                         String estado,
-                        String observaciones) {
+                        String observaciones,
+                        boolean activo,
+                        Integer usrCrea,
+                        Integer usrMod,
+                        LocalDateTime createdAt,
+                        LocalDateTime updatedAt) {
 }

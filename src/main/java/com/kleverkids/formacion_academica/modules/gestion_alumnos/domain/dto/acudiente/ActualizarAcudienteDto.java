@@ -12,59 +12,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActualizarAcudienteDto {
+public class ActualizarAcudienteDto extends CrearAcudienteDto {
 
-    @NotNull(message = "El identificador del acudiente es obligatorio")
-    private Long acudienteId;
-    private Long estudianteId;
-    private String tipoDocumento;
-    private String numeroDocumento;
-    private String nombres;
-    private String apellidos;
-    private String parentesco;
-    private String telefono;
-
-    @Email(message = "El correo debe ser válido")
-    private String correo;
-    private Boolean esPrincipal;
-
-    public Long acudienteId() {
-        return acudienteId;
-    }
-
-    public Long estudianteId() {
-        return estudianteId;
-    }
-
-    public String tipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public String numeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public String nombres() {
-        return nombres;
-    }
-
-    public String apellidos() {
-        return apellidos;
-    }
-
-    public String parentesco() {
-        return parentesco;
-    }
-
-    public String telefono() {
-        return telefono;
-    }
-
-    public String correo() {
-        return correo;
-    }
-
-    public Boolean esPrincipal() {
-        return esPrincipal;
-    }
+    @NotNull(message = "El identificador del registro es obligatorio")
+    private Long id;
 }

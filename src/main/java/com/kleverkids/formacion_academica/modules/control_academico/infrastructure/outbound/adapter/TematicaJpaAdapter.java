@@ -28,7 +28,7 @@ public class TematicaJpaAdapter implements TematicaRepositoryPort {
 
     @Override
     public Tematica actualizar(ActualizarTematicaDto request) {
-        TematicaEntity entity = TematicaJpaRepository.findById(request.id())
+        TematicaEntity entity = TematicaJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Temática no encontrada"));
         TematicaMapper.applyUpdate(entity, request);
         return TematicaMapper.toDomainModel(TematicaJpaRepository.save(entity));
@@ -36,10 +36,15 @@ public class TematicaJpaAdapter implements TematicaRepositoryPort {
 
     @Override
     public List<Tematica> listarPorExamen(Long examenId) {
-        return TematicaMapper.toDomainModelList(
-                TematicaJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
-        );
+        return List.of();
     }
+
+//    @Override
+//    public List<Tematica> listarPorExamen(Long examenId) {
+//        return TematicaMapper.toDomainModelList(
+//                TematicaJpaRepository.findByExamenIdOrderByOrdenAsc(examenId)
+//        );
+//    }
 
     @Override
     public Tematica obtenerPorId(Long tematicaId) {

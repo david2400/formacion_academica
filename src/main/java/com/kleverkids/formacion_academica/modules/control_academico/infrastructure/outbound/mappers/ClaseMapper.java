@@ -6,17 +6,38 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ClaseMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     ClaseEntity toEntity(CrearClaseDto dto);
 
+    @Mapping(target = "activo", source = "activo")
+    @Mapping(target = "usrCrea", source = "usrCrea")
+    @Mapping(target = "usrMod", source = "usrMod")
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "updatedAt", source = "updatedAt")
     Clase toDomainModel(ClaseEntity entity);
 
     List<ClaseEntity> toEntityList(List<CrearClaseDto> dtos);
 
     List<Clase> toDomainModelList(List<ClaseEntity> entities);
+
+    // Método de conversión de Instant a LocalDateTime
+    default LocalDateTime instantToLocalDateTime(Instant instant) {
+        if (instant == null) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }
 }

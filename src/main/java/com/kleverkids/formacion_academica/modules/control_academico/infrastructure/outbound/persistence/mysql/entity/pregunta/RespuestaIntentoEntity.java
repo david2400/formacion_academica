@@ -18,7 +18,7 @@ public class RespuestaIntentoEntity {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "intento_id", nullable = false)
     private IntentoExamenEntity intento;
 

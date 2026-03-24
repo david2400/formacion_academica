@@ -11,8 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AsistenciaMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "presente", ignore = true)
     AsistenciaEntity toEntity(RegistrarAsistenciaDto dto);
 
     AsistenciaDto toDto(AsistenciaEntity entity);

@@ -43,7 +43,7 @@ public class GrupoEntity extends AuditInfo {
     @Column(nullable = false)
     private boolean estado;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "grupo_aula",
             joinColumns = @JoinColumn(name = "grupo_id"),

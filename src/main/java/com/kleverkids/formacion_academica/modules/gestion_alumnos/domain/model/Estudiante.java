@@ -1,5 +1,6 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 public record Estudiante(Long id,
@@ -12,5 +13,10 @@ public record Estudiante(Long id,
                          String genero,
                          String correo,
                          String telefono,
-                         String direccion) {
+                         String direccion,
+                         boolean activo,
+                         Integer usrCrea,
+                         Integer usrMod,
+                         Instant createdAt,
+                         Instant updatedAt) {
 }

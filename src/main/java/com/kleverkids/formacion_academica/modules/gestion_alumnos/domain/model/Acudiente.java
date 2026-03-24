@@ -1,7 +1,8 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model;
 
+import java.time.Instant;
+
 public record Acudiente(Long id,
-                        Long estudianteId,
                         String tipoDocumento,
                         String numeroDocumento,
                         String nombres,
@@ -10,5 +11,9 @@ public record Acudiente(Long id,
                         String telefono,
                         String correo,
                         boolean esPrincipal,
-                        boolean activo) {
+                        boolean activo,
+                        Integer usrCrea,
+                        Integer usrMod,
+                        Instant createdAt,
+                        Instant updatedAt) {
 }

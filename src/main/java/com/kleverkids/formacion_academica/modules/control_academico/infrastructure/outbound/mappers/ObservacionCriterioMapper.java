@@ -17,12 +17,13 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mapper(componentModel = "spring", imports = {Long.class, ThreadLocalRandom.class})
 public interface ObservacionCriterioMapper {
 
+
     ObservacionCriterioEntity toEntity(RegistrarObservacionCriterioDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "examenId", ignore = true)
-    @Mapping(target = "criterioId", ignore = true)
+    @Mapping(target = "criterioExamenId", ignore = true)
     @Mapping(target = "estudianteId", ignore = true)
     void applyUpdate(@MappingTarget ObservacionCriterioEntity entity, ActualizarObservacionCriterioDto dto);
 

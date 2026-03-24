@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "clases")
 public class ClaseEntity extends AuditInfo {
 
@@ -31,11 +33,13 @@ public class ClaseEntity extends AuditInfo {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private LocalDate fechaInicio;
 
+    @Column(nullable = false)
     private LocalDate fechaFin;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"))
     @Column(name = "profesor_id")
     private List<Long> profesoresIds;

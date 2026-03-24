@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@SuperBuilder
 @Entity
 @Table(name = "tematicas")
 public class TematicaEntity extends AuditInfo {
@@ -19,14 +21,9 @@ public class TematicaEntity extends AuditInfo {
     private Long id;
 
     @Column(nullable = false)
-    private Long examenId;
-
-    @Column(nullable = false)
     private String titulo;
 
-    private String descripcion;
-
     @Column(nullable = false)
-    private Integer orden;
+    private String descripcion;
 
 }

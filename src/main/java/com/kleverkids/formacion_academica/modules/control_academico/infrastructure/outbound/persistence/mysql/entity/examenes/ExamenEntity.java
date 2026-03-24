@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Data
 @Entity
+@SuperBuilder
 @Table(name = "examenes")
 public class ExamenEntity extends AuditInfo {
 
@@ -33,7 +35,7 @@ public class ExamenEntity extends AuditInfo {
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "examen_reglas", joinColumns = @JoinColumn(name = "examen_id"))
     private List<ReglaCalificacionEmbeddable> reglas;
 

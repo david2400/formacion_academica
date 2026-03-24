@@ -8,11 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@Data
 @Entity
 @Table(name = "respuestas_criterio_examen")
 public class RespuestaCriterioEntity {
@@ -20,7 +21,7 @@ public class RespuestaCriterioEntity {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "estudiante_examen_id", nullable = false)
     private EstudianteExamenEntity estudianteExamen;
 
@@ -41,67 +42,5 @@ public class RespuestaCriterioEntity {
     @Column(nullable = false)
     private LocalDateTime registradaEn;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public EstudianteExamenEntity getEstudianteExamen() {
-        return estudianteExamen;
-    }
-
-    public void setEstudianteExamen(EstudianteExamenEntity estudianteExamen) {
-        this.estudianteExamen = estudianteExamen;
-    }
-
-    public Long getExamenId() {
-        return examenId;
-    }
-
-    public void setExamenId(Long examenId) {
-        this.examenId = examenId;
-    }
-
-    public Long getCriterioId() {
-        return criterioId;
-    }
-
-    public void setCriterioId(Long criterioId) {
-        this.criterioId = criterioId;
-    }
-
-    public Long getEstudianteId() {
-        return estudianteId;
-    }
-
-    public void setEstudianteId(Long estudianteId) {
-        this.estudianteId = estudianteId;
-    }
-
-    public String getRespuesta() {
-        return respuesta;
-    }
-
-    public void setRespuesta(String respuesta) {
-        this.respuesta = respuesta;
-    }
-
-    public BigDecimal getPuntajeObtenido() {
-        return puntajeObtenido;
-    }
-
-    public void setPuntajeObtenido(BigDecimal puntajeObtenido) {
-        this.puntajeObtenido = puntajeObtenido;
-    }
-
-    public LocalDateTime getRegistradaEn() {
-        return registradaEn;
-    }
-
-    public void setRegistradaEn(LocalDateTime registradaEn) {
-        this.registradaEn = registradaEn;
-    }
 }

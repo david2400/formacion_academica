@@ -1,13 +1,17 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
 
 import java.math.BigDecimal;
-
+import java.time.LocalDateTime;
 
 public record ObservacionCriterio(Long id,
                                   Long examenId,
-                                  Long criterioId,
+                                  Long criterioExamenId,
                                   Long estudianteId,
-                                  BigDecimal puntaje,
                                   String observacion,
-                                  String recomendacion) {
+                                  String recomendacion,
+                                  boolean activo,
+                                  Integer usrCrea,
+                                  Integer usrMod,
+                                  LocalDateTime createdAt,
+                                  LocalDateTime updatedAt) {
 }

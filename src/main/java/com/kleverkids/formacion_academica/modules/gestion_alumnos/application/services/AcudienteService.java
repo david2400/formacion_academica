@@ -33,19 +33,13 @@ public class AcudienteService implements CrearAcudienteUseCase,
 
     @Override
     public Acudiente crear(CrearAcudienteDto request) {
-        validarExistenciaEstudiante(request.estudianteId());
-        validarPrincipalUnico(request.estudianteId(), null, request.esPrincipal());
         return acudienteRepositoryPort.guardar(request);
     }
 
     @Override
     public Acudiente actualizar(ActualizarAcudienteDto request) {
-        Acudiente existente = consultarPorId(request.acudienteId());
-        Long estudianteId = request.estudianteId() != null ? request.estudianteId() : existente.estudianteId();
-        if (request.estudianteId() != null && !request.estudianteId().equals(existente.estudianteId())) {
-            validarExistenciaEstudiante(request.estudianteId());
-        }
-        validarPrincipalUnico(estudianteId, request.acudienteId(), request.esPrincipal());
+        Acudiente existente = consultarPorId(request.getId());
+
         return acudienteRepositoryPort.actualizar(request);
     }
 

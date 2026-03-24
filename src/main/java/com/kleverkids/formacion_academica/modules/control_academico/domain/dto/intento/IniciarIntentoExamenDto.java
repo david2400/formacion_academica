@@ -3,7 +3,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 
 
 public record IniciarIntentoExamenDto(Long examenId,
-                                      Long estudianteId) {
+                                      Long estudianteId
+) {
 
     public IniciarIntentoExamenDto {
         if (examenId == null) {

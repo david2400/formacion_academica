@@ -29,9 +29,6 @@ public class NivelEducativoEntity extends AuditInfo {
     @JoinColumn(name = "nivel_superior_id")
     private NivelEducativoEntity nivelSuperior;
 
-    @Column(nullable = false)
-    private boolean activo;
-
-    @Column(nullable = false)
-    private String categoria; // PREESCOLAR, BASICA, MEDIA, SUPERIOR
+//    @Column(nullable = false)
+//    private String categoria; // PREESCOLAR, BASICA, MEDIA, SUPERIOR
 }

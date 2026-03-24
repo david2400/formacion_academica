@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@SuperBuilder
 @Entity
 @Table(name = "estudiantes_examen")
 public class EstudianteExamenEntity extends AuditInfo {
@@ -35,7 +37,7 @@ public class EstudianteExamenEntity extends AuditInfo {
     @Column(nullable = false)
     private LocalDateTime asignadoEn;
 
-    @OneToMany(mappedBy = "estudianteExamen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estudianteExamen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RespuestaCriterioEntity> respuestas = new ArrayList<>();
 
 

@@ -19,10 +19,12 @@ public class AulaEntity extends AuditInfo {
     @Column(nullable = false, unique = true)
     private String nombre;
 
+    @Column(nullable = false)
     private String descripcion;
 
+    @Column(nullable = false)
     private Integer capacidad;
 
-    @ManyToMany(mappedBy = "aulas", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "aulas", fetch = FetchType.EAGER)
     private Set<GrupoEntity> grupos = new HashSet<>();
 }

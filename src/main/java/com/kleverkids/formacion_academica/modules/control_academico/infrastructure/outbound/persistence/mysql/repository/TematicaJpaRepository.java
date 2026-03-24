@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TematicaJpaRepository extends JpaRepository<TematicaEntity, Long> {
 
-    List<TematicaEntity> findByExamenIdOrderByOrdenAsc(Long examenId);
+//    List<TematicaEntity> findByExamenIdOrderByOrdenAsc(Long examenId);
 }

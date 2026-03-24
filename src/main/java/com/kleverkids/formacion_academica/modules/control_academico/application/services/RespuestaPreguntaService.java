@@ -16,6 +16,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.r
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
         Long examenId = request.examenId();
         Long estudianteId = request.estudianteId();
         EstudianteExamenDto relacion = estudianteExamenRepository.buscarPorExamenYEstudiante(examenId, estudianteId)
-                .orElseGet(() -> estudianteExamenRepository.registrar(new RegistrarEstudianteExamenDto(examenId, estudianteId)));
+                .orElseGet(() -> estudianteExamenRepository.registrar(new RegistrarEstudianteExamenDto(examenId, estudianteId, LocalDateTime.now())));
 
         RegistrarRespuestaPreguntaPersistenceDto payload = new RegistrarRespuestaPreguntaPersistenceDto(
                 relacion.id(),

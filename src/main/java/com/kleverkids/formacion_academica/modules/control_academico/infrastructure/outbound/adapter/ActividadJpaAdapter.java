@@ -6,7 +6,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.model
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarActividadDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.FiltroActividadDto;
-import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ActividadMapperBasico;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ActividadMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.ActividadEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.ActividadJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class ActividadJpaAdapter implements ActividadRepositoryPort {
 
     private final ActividadJpaRepository actividadJpaRepository;
-    private final ActividadMapperBasico actividadMapper;
+    private final ActividadMapper actividadMapper;
 
     @Override
     public Actividad guardar(CrearActividadDto request) {
@@ -58,7 +58,7 @@ public class ActividadJpaAdapter implements ActividadRepositoryPort {
         }
         
         ActividadEntity entity = existing.get();
-        entity = actividadMapper.updateEntityFromDto(request, entity);
+        actividadMapper.updateEntityFromDto(request, entity);
         
         ActividadEntity updated = actividadJpaRepository.save(entity);
         log.debug("Actividad actualizada: {}", updated.getId());

@@ -20,14 +20,10 @@ public class RegistrarObservacionCriterioDto {
     private Long examenId;
 
     @NotNull(message = "El criterio es obligatorio")
-    private Long criterioId;
+    private Long criterioExamenId;
 
     @NotNull(message = "El estudiante es obligatorio")
     private Long estudianteId;
-
-    @NotNull(message = "El puntaje es obligatorio")
-    @DecimalMin(value = "0.0", message = "El puntaje debe ser mayor o igual a cero")
-    private BigDecimal puntaje;
 
     private String observacion;
 
