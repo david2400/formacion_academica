@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel;
+package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -72,8 +72,21 @@ public class SalonController {
     @PutMapping("/{salonId}")
     public ResponseEntity<Salon> actualizar(@PathVariable Long salonId,
                                               @Valid @RequestBody ActualizarSalonDto request) {
-        request.setId(salonId);
-        return ResponseEntity.ok(actualizarSalonUseCase.actualizar(request));
+        // Crear un nuevo DTO con el ID del path y mantener los demás valores
+        ActualizarSalonDto requestConId = new ActualizarSalonDto(
+            salonId,
+            request.codigo(),
+            request.nombre(),
+            request.descripcion(),
+            request.capacidadMaxima(),
+            request.numeroPiso(),
+            request.tieneProyector(),
+            request.tienePizarronBlanco(),
+            request.tieneAireAcondicionado(),
+            request.nombreEdificio(),
+            request.activo()
+        );
+        return ResponseEntity.ok(actualizarSalonUseCase.actualizar(requestConId));
     }
 
     @Operation(summary = "Listar salones", description = "Retorna todos los salones registrados y activos")

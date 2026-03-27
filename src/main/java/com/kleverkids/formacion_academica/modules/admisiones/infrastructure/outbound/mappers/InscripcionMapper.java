@@ -1,30 +1,41 @@
 package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers;
 
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface InscripcionMapper {
 
+    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Inscripcion toDomainModel(InscripcionEntity entity);
 
     List<Inscripcion> toDomainModelList(List<InscripcionEntity> entities);
 
-    default InscripcionEntity toEntity(CrearInscripcionDto dto) {
-        InscripcionEntity entity = new InscripcionEntity();
-        entity.setEstudianteId(dto.getEstudianteId());
-        entity.setPeriodoAcademico(dto.getPeriodoAcademico());
-        entity.setFechaSolicitud(dto.getFechaSolicitud());
-        entity.setEstado("PENDIENTE");
-        entity.setObservaciones(dto.getObservaciones());
-        return entity;
+    @Mapping(target = "estudianteId", source = "estudianteId")
+    @Mapping(target = "periodoAcademico", source = "periodoAcademico")
+    @Mapping(target = "fechaSolicitud", source = "fechaSolicitud")
+    @Mapping(target = "observaciones", source = "observaciones")
+    InscripcionEntity toEntity(CrearInscripcionDto dto);
+
+    @Named("instantToLocalDateTime")
+    static LocalDateTime instantToLocalDateTime(Instant instant) {
+        return instant != null ? LocalDateTime.ofInstant(instant, java.time.ZoneId.systemDefault()) : null;
     }
 
-    default void applyEstado(InscripcionEntity entity, ActualizarEstadoInscripcionDto dto) {
+    @Named("localDateTimeToInstant")
+    static Instant localDateTimeToInstant(LocalDateTime localDateTime) {
+        return localDateTime != null ? localDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant() : null;
     }
 }

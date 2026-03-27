@@ -1,8 +1,8 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers;
 
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.ActualizarNivelEducativoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.CrearNivelEducativoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.NivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.ActualizarNivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.CrearNivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.NivelEducativo;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.NivelEducativoEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -41,18 +41,21 @@ public interface NivelEducativoMapper {
     @Mapping(target = "activo", ignore = true)
     void updateEntity(@MappingTarget NivelEducativoEntity entity, ActualizarNivelEducativoDto dto);
     
-    // Entity a DTO
+    // Entity a Domain Model
     @Mapping(target = "id", source = "id")
     @Mapping(target = "codigo", source = "codigo")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "descripcion", source = "descripcion")
     @Mapping(target = "orden", source = "orden")
     @Mapping(target = "nivelSuperiorId", source = "nivelSuperior", qualifiedByName = "mapNivelSuperiorToId")
-    @Mapping(target = "creadoEn", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
-    @Mapping(target = "actualizadoEn", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
-    NivelEducativoDto toDto(NivelEducativoEntity entity);
+    @Mapping(target = "activo", source = "activo")
+    @Mapping(target = "usrCrea", source = "usrCrea")
+    @Mapping(target = "usrMod", source = "usrMod")
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
+    @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
+    NivelEducativo toDomainModel(NivelEducativoEntity entity);
     
-    List<NivelEducativoDto> toDtoList(List<NivelEducativoEntity> entities);
+    List<NivelEducativo> toDomainModelList(List<NivelEducativoEntity> entities);
 
     // Métodos personalizados para conversión de tipos
     @Named("instantToLocalDateTime")

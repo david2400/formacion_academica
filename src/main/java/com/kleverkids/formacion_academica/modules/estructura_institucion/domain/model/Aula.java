@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record Aula(Long id,
                    String nombre,
@@ -9,6 +9,6 @@ public record Aula(Long id,
                    boolean activo,
                    Integer usrCrea,
                    Integer usrMod,
-                   Instant createdAt,
-                   Instant updatedAt) {
+                   LocalDateTime createdAt,
+                   LocalDateTime updatedAt) {
 }

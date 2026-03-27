@@ -2,21 +2,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.EstudianteGrupo;
 
 import java.util.List;
 
 public interface EstudianteGrupoRepositoryPort {
 
-    EstudianteGrupoDto asignar(AsignarEstudianteGrupoDto request);
+    EstudianteGrupo asignar(AsignarEstudianteGrupoDto request);
 
-    EstudianteGrupoDto cambiarEstado(CambiarEstadoEstudianteGrupoDto request);
+    EstudianteGrupo cambiarEstado(CambiarEstadoEstudianteGrupoDto request);
 
-    List<EstudianteGrupoDto> listarPorGrupo(Long grupoId);
+    List<EstudianteGrupo> listarPorGrupo(Long grupoId);
 
-    EstudianteGrupoDto consultarPorId(Long estudianteGrupoId);
+    EstudianteGrupo consultarPorId(Long estudianteGrupoId);
 
     void eliminar(Long estudianteGrupoId);
 
-    List<EstudianteGrupoDto> listar();
+    List<EstudianteGrupo> listar();
 }

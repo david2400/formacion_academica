@@ -1,10 +1,10 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.application.services;
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.nivel.NivelEducativoRepositoryPort;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.ActualizarNivelEducativoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.CrearNivelEducativoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.NivelEducativoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.NivelEducativoEstadisticasDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.ActualizarNivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.CrearNivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.NivelEducativo;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.NivelEducativoEstadisticasDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ public class NivelEducativoService {
     private final NivelEducativoRepositoryPort repository;
 
     @Transactional
-    public NivelEducativoDto crear(CrearNivelEducativoDto dto) {
+    public NivelEducativo crear(CrearNivelEducativoDto dto) {
         validarCodigoUnico(dto.codigo());
         validarNivelSuperior(dto.nivelSuperiorId());
         
@@ -28,52 +28,52 @@ public class NivelEducativoService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<NivelEducativoDto> buscarPorId(Long id) {
+    public Optional<NivelEducativo> buscarPorId(Long id) {
         return repository.buscarPorId(id);
     }
 
     @Transactional(readOnly = true)
-    public Optional<NivelEducativoDto> buscarPorCodigo(String codigo) {
+    public Optional<NivelEducativo> buscarPorCodigo(String codigo) {
         return repository.buscarPorCodigo(codigo);
     }
 
     @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarTodos() {
+    public List<NivelEducativo> listarTodos() {
         return repository.listarTodos();
     }
 
-    @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarPorCategoria(String categoria) {
-        return repository.listarPorCategoria(categoria);
-    }
+//    @Transactional(readOnly = true)
+//    public List<NivelEducativo> listarPorCategoria(String categoria) {
+//        return repository.listarPorCategoria(categoria);
+//    }
 
     @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarPorNivelSuperior(Long nivelSuperiorId) {
+    public List<NivelEducativo> listarPorNivelSuperior(Long nivelSuperiorId) {
         return repository.listarPorNivelSuperior(nivelSuperiorId);
     }
 
     @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarActivos() {
+    public List<NivelEducativo> listarActivos() {
         return repository.listarActivos();
     }
 
-    @Transactional(readOnly = true)
-    public NivelEducativoEstadisticasDto obtenerEstadisticas() {
-        return repository.obtenerEstadisticas();
-    }
+//    @Transactional(readOnly = true)
+//    public NivelEducativoEstadisticasDto obtenerEstadisticas() {
+//        return repository.obtenerEstadisticas();
+//    }
+
+//    @Transactional(readOnly = true)
+//    public List<NivelEducativo> listarPorCategoriaActivos(String categoria) {
+//        return repository.listarPorCategoriaActivos(categoria);
+//    }
 
     @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarPorCategoriaActivos(String categoria) {
-        return repository.listarPorCategoriaActivos(categoria);
-    }
-
-    @Transactional(readOnly = true)
-    public List<NivelEducativoDto> listarNivelesPrincipales() {
+    public List<NivelEducativo> listarNivelesPrincipales() {
         return repository.listarNivelesPrincipales();
     }
 
     @Transactional
-    public Optional<NivelEducativoDto> actualizar(Long id, ActualizarNivelEducativoDto dto) {
+    public Optional<NivelEducativo> actualizar(Long id, ActualizarNivelEducativoDto dto) {
         if (dto.nivelSuperiorId() != null) {
             validarNivelSuperior(dto.nivelSuperiorId());
         }
@@ -83,10 +83,10 @@ public class NivelEducativoService {
 
     @Transactional
     public boolean eliminar(Long id) {
-        Optional<NivelEducativoDto> nivel = repository.buscarPorId(id);
+        Optional<NivelEducativo> nivel = repository.buscarPorId(id);
         if (nivel.isPresent()) {
             // Verificar si tiene niveles dependientes
-            List<NivelEducativoDto> dependientes = repository.listarPorNivelSuperior(id);
+            List<NivelEducativo> dependientes = repository.listarPorNivelSuperior(id);
             if (!dependientes.isEmpty()) {
                 throw new IllegalStateException("No se puede eliminar el nivel educativo porque tiene niveles dependientes");
             }
@@ -104,7 +104,7 @@ public class NivelEducativoService {
 
     private void validarNivelSuperior(Long nivelSuperiorId) {
         if (nivelSuperiorId != null) {
-            Optional<NivelEducativoDto> nivelSuperior = repository.buscarPorId(nivelSuperiorId);
+            Optional<NivelEducativo> nivelSuperior = repository.buscarPorId(nivelSuperiorId);
             if (nivelSuperior.isEmpty()) {
                 throw new IllegalArgumentException("El nivel superior especificado no existe");
             }

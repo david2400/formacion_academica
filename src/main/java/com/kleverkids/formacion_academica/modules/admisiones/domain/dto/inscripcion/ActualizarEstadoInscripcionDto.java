@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -16,4 +18,17 @@ public class ActualizarEstadoInscripcionDto extends CrearInscripcionDto {
     @NotNull(message = "La inscripción es obligatoria")
     private Long inscripcionId;
 
+    @NotNull(message = "El estudiante es obligatorio")
+    private Long estudianteId;
+
+    @NotBlank(message = "El periodo académico es obligatorio")
+    private String periodoAcademico;
+
+    @NotNull(message = "La fecha de solicitud es obligatoria")
+    private LocalDate fechaSolicitud;
+
+    private String observaciones;
+
+    @NotBlank(message = "El estado es obligatorio")
+    private String estado;
 }

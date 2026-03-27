@@ -2,21 +2,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.applic
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.ActualizarGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.CrearGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.GrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grupo;
 
 import java.util.List;
 
 public interface GrupoRepositoryPort {
 
-    GrupoDto guardar(CrearGrupoDto request);
+    Grupo guardar(CrearGrupoDto request);
 
-    GrupoDto actualizar(ActualizarGrupoDto request);
+    Grupo actualizar(ActualizarGrupoDto request);
 
     boolean existePorCodigo(String codigo);
 
-    GrupoDto obtenerPorId(Long id);
+    Grupo obtenerPorId(Long id);
 
-    List<GrupoDto> listar();
+    List<Grupo> listar();
 
     void eliminar(Long id);
 }

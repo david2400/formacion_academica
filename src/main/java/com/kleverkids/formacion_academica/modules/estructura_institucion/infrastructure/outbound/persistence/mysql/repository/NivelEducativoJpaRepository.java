@@ -14,7 +14,7 @@ public interface NivelEducativoJpaRepository extends JpaRepository<NivelEducativ
     
     Optional<NivelEducativoEntity> findByCodigo(String codigo);
     
-    List<NivelEducativoEntity> findByCategoria(String categoria);
+    // List<NivelEducativoEntity> findByCategoria(String categoria);
     
     List<NivelEducativoEntity> findByNivelSuperiorId(Long nivelSuperiorId);
     
@@ -22,15 +22,15 @@ public interface NivelEducativoJpaRepository extends JpaRepository<NivelEducativ
     
     List<NivelEducativoEntity> findByActivoTrueOrderByOrdenAsc();
     
-    List<NivelEducativoEntity> findByCategoriaAndActivoTrueOrderByOrdenAsc(String categoria);
+    // List<NivelEducativoEntity> findByCategoriaAndActivoTrueOrderByOrdenAsc(String categoria);
     
     boolean existsByCodigo(String codigo);
     
     @Query("SELECT n FROM NivelEducativoEntity n WHERE n.activo = true ORDER BY n.orden ASC")
     List<NivelEducativoEntity> findActivosOrdenados();
     
-    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.activo = true ORDER BY n.orden ASC")
-    List<NivelEducativoEntity> findPorCategoriaActivosOrdenados(@Param("categoria") String categoria);
+    // @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.activo = true ORDER BY n.orden ASC")
+    // List<NivelEducativoEntity> findPorCategoriaActivosOrdenados(@Param("categoria") String categoria);
     
     @Query("SELECT n FROM NivelEducativoEntity n WHERE n.nivelSuperior IS NULL AND n.activo = true ORDER BY n.orden ASC")
     List<NivelEducativoEntity> findNivelesPrincipalesActivos();

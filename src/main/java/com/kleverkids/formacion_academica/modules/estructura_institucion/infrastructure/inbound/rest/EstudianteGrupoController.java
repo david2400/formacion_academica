@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudianteGruposUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.EstudianteGrupo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -61,12 +61,12 @@ public class EstudianteGrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Asignación creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteGrupoDto.class))),
+                            schema = @Schema(implementation = EstudianteGrupo.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<EstudianteGrupoDto> asignar(@RequestBody AsignarEstudianteGrupoDto request) {
+    public ResponseEntity<EstudianteGrupo> asignar(@RequestBody AsignarEstudianteGrupoDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(asignarUseCase.asignar(request));
     }
 
@@ -74,12 +74,12 @@ public class EstudianteGrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Asignación encontrada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteGrupoDto.class))),
+                            schema = @Schema(implementation = EstudianteGrupo.class))),
             @ApiResponse(responseCode = "404", description = "Asignación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{estudianteGrupoId}")
-    public ResponseEntity<EstudianteGrupoDto> consultar(@PathVariable Long estudianteGrupoId) {
+    public ResponseEntity<EstudianteGrupo> consultar(@PathVariable Long estudianteGrupoId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(estudianteGrupoId));
     }
 
@@ -87,11 +87,11 @@ public class EstudianteGrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de asignaciones",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EstudianteGrupoDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = EstudianteGrupo.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<EstudianteGrupoDto>> listar() {
+    public ResponseEntity<List<EstudianteGrupo>> listar() {
         return ResponseEntity.ok(listarTodosUseCase.listar());
     }
 
@@ -99,12 +99,12 @@ public class EstudianteGrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Asignaciones del grupo",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = EstudianteGrupoDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = EstudianteGrupo.class)))),
             @ApiResponse(responseCode = "404", description = "Grupo no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/grupo/{grupoId}")
-    public ResponseEntity<List<EstudianteGrupoDto>> listarPorGrupo(@PathVariable Long grupoId) {
+    public ResponseEntity<List<EstudianteGrupo>> listarPorGrupo(@PathVariable Long grupoId) {
         return ResponseEntity.ok(listarPorGrupoUseCase.listar(grupoId));
     }
 
@@ -112,13 +112,13 @@ public class EstudianteGrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Estado actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudianteGrupoDto.class))),
+                            schema = @Schema(implementation = EstudianteGrupo.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Asignación no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/estado")
-    public ResponseEntity<EstudianteGrupoDto> cambiarEstado(@RequestBody CambiarEstadoEstudianteGrupoDto request) {
+    public ResponseEntity<EstudianteGrupo> cambiarEstado(@RequestBody CambiarEstadoEstudianteGrupoDto request) {
         return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(request));
     }
 

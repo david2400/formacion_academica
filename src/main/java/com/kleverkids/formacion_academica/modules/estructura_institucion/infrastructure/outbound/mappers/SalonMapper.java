@@ -6,8 +6,12 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.infrast
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -40,6 +44,11 @@ public interface SalonMapper {
         return entity;
     }
     
+    @Mapping(target = "activo", source = "activo")
+    @Mapping(target = "usrCrea", source = "usrCrea")
+    @Mapping(target = "usrMod", source = "usrMod")
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
+    @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
     Salon toDomainModel(SalonEntity entity);
     
     List<Salon> toDomainModelList(List<SalonEntity> entities);
@@ -58,5 +67,14 @@ public interface SalonMapper {
         entity.setTienePizarronBlanco(domain.tienePizarronBlanco());
         entity.setTieneAireAcondicionado(domain.tieneAireAcondicionado());
         entity.setNombreEdificio(domain.nombreEdificio());
+    }
+
+    // Método de conversión de Instant a LocalDateTime
+    @Named("instantToLocalDateTime")
+    default LocalDateTime instantToLocalDateTime(Instant instant) {
+        if (instant == null) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 }

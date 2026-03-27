@@ -104,7 +104,6 @@ public class InscripcionController {
     @PutMapping("/{inscripcionId}/estado")
     public ResponseEntity<Inscripcion> cambiarEstado(@PathVariable Long inscripcionId,
                                                         @RequestBody ActualizarEstadoInscripcionDto request) {
-        request.setInscripcionId(inscripcionId);
         return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(request));
     }
 

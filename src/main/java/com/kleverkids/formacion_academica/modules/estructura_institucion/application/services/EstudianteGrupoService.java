@@ -9,7 +9,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.estudiantegrupo.EstudianteGrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.EstudianteGrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.EstudianteGrupo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,22 +29,22 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
     }
 
     @Override
-    public EstudianteGrupoDto asignar(AsignarEstudianteGrupoDto request) {
+    public EstudianteGrupo asignar(AsignarEstudianteGrupoDto request) {
         return repositoryPort.asignar(request);
     }
 
     @Override
-    public EstudianteGrupoDto cambiarEstado(CambiarEstadoEstudianteGrupoDto request) {
+    public EstudianteGrupo cambiarEstado(CambiarEstadoEstudianteGrupoDto request) {
         return repositoryPort.cambiarEstado(request);
     }
 
     @Override
-    public List<EstudianteGrupoDto> listar(Long grupoId) {
+    public List<EstudianteGrupo> listar(Long grupoId) {
         return repositoryPort.listarPorGrupo(grupoId);
     }
 
     @Override
-    public EstudianteGrupoDto consultarPorId(Long estudianteGrupoId) {
+    public EstudianteGrupo consultarPorId(Long estudianteGrupoId) {
         return repositoryPort.consultarPorId(estudianteGrupoId);
     }
 
@@ -54,7 +54,7 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
     }
 
     @Override
-    public List<EstudianteGrupoDto> listar() {
+    public List<EstudianteGrupo> listar() {
         return repositoryPort.listar();
     }
 }

@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record Grupo(Long id,
                     String codigo,
@@ -12,6 +12,6 @@ public record Grupo(Long id,
                     boolean activo,
                     Integer usrCrea,
                     Integer usrMod,
-                    Instant createdAt,
-                    Instant updatedAt) {
+                    LocalDateTime createdAt,
+                    LocalDateTime updatedAt) {
 }

@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.admisiones.application.input.m
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.ActualizarMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -58,12 +58,12 @@ public class MatriculaController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Matrícula creada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MatriculaDto.class))),
+                            schema = @Schema(implementation = Matricula.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<MatriculaDto> registrar(@RequestBody CrearMatriculaDto request) {
+    public ResponseEntity<Matricula> registrar(@RequestBody CrearMatriculaDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(registrarUseCase.registrar(request));
     }
 
@@ -71,23 +71,15 @@ public class MatriculaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Matrícula actualizada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MatriculaDto.class))),
+                            schema = @Schema(implementation = Matricula.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Matrícula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{matriculaId}")
-    public ResponseEntity<MatriculaDto> actualizar(@PathVariable Long matriculaId,
+    public ResponseEntity<Matricula> actualizar(@PathVariable Long matriculaId,
                                                   @RequestBody ActualizarMatriculaDto request) {
-        request = new ActualizarMatriculaDto(
-            matriculaId,
-            request.estudianteId(),
-            request.gradoId(),
-            request.grupoId(),
-            request.fechaMatricula(),
-            request.estado(),
-            request.observaciones()
-        );
+
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 
@@ -95,25 +87,27 @@ public class MatriculaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Matrícula encontrada",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MatriculaDto.class))),
+                            schema = @Schema(implementation = Matricula.class))),
             @ApiResponse(responseCode = "404", description = "Matrícula no encontrada", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{matriculaId}")
-    public ResponseEntity<MatriculaDto> consultar(@PathVariable Long matriculaId) {
-        return ResponseEntity.ok(consultarUseCase.consultarPorId(matriculaId));
+    public ResponseEntity<Matricula> consultar(@PathVariable Long matriculaId) {
+        return consultarUseCase.consultarPorId(matriculaId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Listar matrículas por estudiante", description = "Obtiene las matrículas de un estudiante")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de matrículas",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = MatriculaDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Matricula.class)))),
             @ApiResponse(responseCode = "404", description = "Estudiante no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<MatriculaDto>> listarPorEstudiante(@RequestParam Long estudianteId) {
+    public ResponseEntity<List<Matricula>> listarPorEstudiante(@RequestParam Long estudianteId) {
         return ResponseEntity.ok(listarUseCase.listarPorEstudiante(estudianteId));
     }
 

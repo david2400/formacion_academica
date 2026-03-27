@@ -9,16 +9,29 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface GradoMapper {
 
     @Mapping(target = "nivelEducativoId", source = "nivelEducativoId")
+    @Mapping(target = "activo", source = "activo")
+    @Mapping(target = "usrCrea", source = "usrCrea")
+    @Mapping(target = "usrMod", source = "usrMod")
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
+    @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
     Grado toDomainModel(GradoEntity entity);
+
+    List<Grado> toDomainModelList(List<GradoEntity> entities);
 
     default GradoEntity toEntity(CrearGradoDto dto) {
         GradoEntity entity = new GradoEntity();
         entity.setNombre(dto.getNombre());
         entity.setNivelEducativoId((dto.getNivelEducativoId()));
+        entity.setActivo(true);
         // Audit fields are handled by JPA @PrePersist
         return entity;
     }
@@ -37,6 +50,15 @@ public interface GradoMapper {
         }
 
         // Audit fields are handled by JPA @PreUpdate
+    }
+
+    // Método de conversión de Instant a LocalDateTime
+    @Named("instantToLocalDateTime")
+    default LocalDateTime instantToLocalDateTime(Instant instant) {
+        if (instant == null) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 
 }

@@ -2,7 +2,7 @@ package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.out
 
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.matricula.MatriculaRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.MatriculaMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.MatriculaEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.MatriculaJpaRepository;
@@ -23,19 +23,19 @@ public class MatriculaJpaAdapter implements MatriculaRepositoryPort {
     }
 
     @Override
-    public MatriculaDto registrar(CrearMatriculaDto request) {
+    public Matricula registrar(CrearMatriculaDto request) {
         MatriculaEntity entity = matriculaMapper.toEntity(request);
-        return matriculaMapper.toDto(matriculaJpaRepository.save(entity));
+        return matriculaMapper.toDomainModel(matriculaJpaRepository.save(entity));
     }
 
     @Override
-    public Optional<MatriculaDto> obtenerPorId(Long matriculaId) {
-        return matriculaJpaRepository.findById(matriculaId).map(matriculaMapper::toDto);
+    public Optional<Matricula> obtenerPorId(Long matriculaId) {
+        return matriculaJpaRepository.findById(matriculaId).map(matriculaMapper::toDomainModel);
     }
 
     @Override
-    public List<MatriculaDto> listarPorEstudiante(Long estudianteId) {
-        return matriculaMapper.toDtoList(matriculaJpaRepository.findByEstudianteId(estudianteId));
+    public List<Matricula> listarPorEstudiante(Long estudianteId) {
+        return matriculaMapper.toDomainModelList(matriculaJpaRepository.findByEstudianteId(estudianteId));
     }
 
     @Override

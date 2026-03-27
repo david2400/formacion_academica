@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel;
+package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico;
 
 import java.util.List;
 

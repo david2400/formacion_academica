@@ -1,7 +1,7 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.config;
 
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.services.NivelEducativoService;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel.CrearNivelEducativoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.CrearNivelEducativoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

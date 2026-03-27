@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.grupo.ListarGruposUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.ActualizarGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.CrearGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.GrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grupo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -57,12 +57,12 @@ public class GrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Grupo creado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GrupoDto.class))),
+                            schema = @Schema(implementation = Grupo.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<GrupoDto> crear(@RequestBody CrearGrupoDto request) {
+    public ResponseEntity<Grupo> crear(@RequestBody CrearGrupoDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearGrupoUseCase.crear(request));
     }
 
@@ -70,13 +70,13 @@ public class GrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Grupo actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GrupoDto.class))),
+                            schema = @Schema(implementation = Grupo.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Grupo no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{grupoId}")
-    public ResponseEntity<GrupoDto> actualizar(@PathVariable Long grupoId,
+    public ResponseEntity<Grupo> actualizar(@PathVariable Long grupoId,
                                                @RequestBody ActualizarGrupoDto request) {
         ActualizarGrupoDto payload = ActualizarGrupoDto.builder()
                 .id(grupoId)
@@ -92,12 +92,12 @@ public class GrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Grupo encontrado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GrupoDto.class))),
+                            schema = @Schema(implementation = Grupo.class))),
             @ApiResponse(responseCode = "404", description = "Grupo no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{grupoId}")
-    public ResponseEntity<GrupoDto> consultar(@PathVariable Long grupoId) {
+    public ResponseEntity<Grupo> consultar(@PathVariable Long grupoId) {
         return ResponseEntity.ok(consultarGrupoUseCase.consultarPorId(grupoId));
     }
 
@@ -105,11 +105,11 @@ public class GrupoController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de grupos",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GrupoDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = Grupo.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<GrupoDto>> listar() {
+    public ResponseEntity<List<Grupo>> listar() {
         return ResponseEntity.ok(listarGruposUseCase.listar());
     }
 

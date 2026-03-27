@@ -33,7 +33,5 @@ public record ActualizarSalonDto(
         
         Boolean activo
 ) {
-    public void setId(Long id) {
-        // Setter para poder establecer el ID desde el controller
-    }
+
 }

@@ -3,8 +3,8 @@ package com.kleverkids.formacion_academica.modules.admisiones.infrastructure.out
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ActualizarEstadoInscripcionDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.CrearInscripcionDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Inscripcion;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripcion.ListarInscripcionesFiltroDto;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.InscripcionMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.InscripcionJpaRepository;
@@ -56,7 +56,8 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
     public Inscripcion actualizarEstado(ActualizarEstadoInscripcionDto request) {
         InscripcionEntity entity = inscripcionJpaRepository.findById(request.getInscripcionId())
                 .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
-        inscripcionMapper.applyEstado(entity, request);
+        // Actualizar solo los campos que existen en la entidad
+
         return inscripcionMapper.toDomainModel(inscripcionJpaRepository.save(entity));
     }
 

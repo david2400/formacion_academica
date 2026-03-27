@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.grupo.GrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.ActualizarGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.CrearGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.GrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grupo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,23 +24,23 @@ public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
     }
 
     @Override
-    public GrupoDto crear(CrearGrupoDto request) {
-        validarCodigoUnico(request.codigo());
+    public Grupo crear(CrearGrupoDto request) {
+//        validarCodigoUnico(request.codigo());
         return grupoRepositoryPort.guardar(request);
     }
 
     @Override
-    public GrupoDto actualizar(ActualizarGrupoDto request) {
+    public Grupo actualizar(ActualizarGrupoDto request) {
         return grupoRepositoryPort.actualizar(request);
     }
 
     @Override
-    public GrupoDto consultarPorId(Long grupoId) {
+    public Grupo consultarPorId(Long grupoId) {
         return grupoRepositoryPort.obtenerPorId(grupoId);
     }
 
     @Override
-    public List<GrupoDto> listar() {
+    public List<Grupo> listar() {
         return grupoRepositoryPort.listar();
     }
 

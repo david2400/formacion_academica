@@ -1,18 +1,18 @@
 package com.kleverkids.formacion_academica.modules.admisiones.application.output.matricula;
 
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MatriculaRepositoryPort {
 
-    MatriculaDto registrar(CrearMatriculaDto request);
+    Matricula registrar(CrearMatriculaDto request);
 
-    Optional<MatriculaDto> obtenerPorId(Long matriculaId);
+    Optional<Matricula> obtenerPorId(Long matriculaId);
 
-    List<MatriculaDto> listarPorEstudiante(Long estudianteId);
+    List<Matricula> listarPorEstudiante(Long estudianteId);
 
     void eliminar(Long matriculaId);
 }

@@ -28,28 +28,4 @@ public class CrearGrupoDto {
 
     private Long tutorId;
     private Long aulaId;
-
-    public String codigo() {
-        return codigo;
-    }
-
-    public String nombre() {
-        return nombre;
-    }
-
-    public Long gradoId() {
-        return gradoId;
-    }
-
-    public Integer capacidadMaxima() {
-        return capacidadMaxima;
-    }
-
-    public Long tutorId() {
-        return tutorId;
-    }
-
-    public Long aulaId() {
-        return aulaId;
-    }
 }

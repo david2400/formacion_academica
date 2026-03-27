@@ -3,7 +3,7 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.grupo.GrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.ActualizarGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.CrearGrupoDto;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.grupo.GrupoDto;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Grupo;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.GrupoMapper;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GrupoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GrupoJpaRepository;
@@ -24,16 +24,16 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
     }
 
     @Override
-    public GrupoDto guardar(CrearGrupoDto request) {
-        return grupoMapper.toDto(grupoJpaRepository.save(grupoMapper.toEntity(request)));
+    public Grupo guardar(CrearGrupoDto request) {
+        return grupoMapper.toDomainModel(grupoJpaRepository.save(grupoMapper.toEntity(request)));
     }
 
     @Override
-    public GrupoDto actualizar(ActualizarGrupoDto request) {
+    public Grupo actualizar(ActualizarGrupoDto request) {
         GrupoEntity entity = grupoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
         grupoMapper.updateEntityFromDto(request, entity);
-        return grupoMapper.toDto(grupoJpaRepository.save(entity));
+        return grupoMapper.toDomainModel(grupoJpaRepository.save(entity));
     }
 
     @Override
@@ -42,15 +42,15 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
     }
 
     @Override
-    public GrupoDto obtenerPorId(Long id) {
+    public Grupo obtenerPorId(Long id) {
         return grupoJpaRepository.findById(id)
-                .map(grupoMapper::toDto)
+                .map(grupoMapper::toDomainModel)
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
     }
 
     @Override
-    public List<GrupoDto> listar() {
-        return grupoMapper.toDtoList(grupoJpaRepository.findAll());
+    public List<Grupo> listar() {
+        return grupoMapper.toDomainModelList(grupoJpaRepository.findAll());
     }
 
     @Override

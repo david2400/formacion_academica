@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record Salon(
         Long id,
@@ -16,6 +16,6 @@ public record Salon(
         Boolean activo,
         Integer usrCrea,
         Integer usrMod,
-        Instant createdAt,
-        Instant updatedAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {}

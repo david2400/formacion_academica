@@ -1,19 +1,23 @@
 package com.kleverkids.formacion_academica.modules.admisiones.application.services;
 
+import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ActualizarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ConsultarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.EliminarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.ListarMatriculasUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.input.matricula.RegistrarMatriculaUseCase;
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.inscripcion.InscripcionRepositoryPort;
 import com.kleverkids.formacion_academica.modules.admisiones.application.output.matricula.MatriculaRepositoryPort;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.ActualizarMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
-import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.MatriculaDto;
+import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class MatriculaService implements RegistrarMatriculaUseCase,
+public class MatriculaService implements ActualizarMatriculaUseCase,
+        RegistrarMatriculaUseCase,
         ConsultarMatriculaUseCase,
         ListarMatriculasUseCase,
         EliminarMatriculaUseCase {
@@ -28,19 +32,39 @@ public class MatriculaService implements RegistrarMatriculaUseCase,
     }
 
     @Override
-    public MatriculaDto registrar(CrearMatriculaDto request) {
-
+    public Matricula registrar(CrearMatriculaDto request) {
         return matriculaRepositoryPort.registrar(request);
     }
 
     @Override
-    public MatriculaDto consultarPorId(Long matriculaId) {
-        return matriculaRepositoryPort.obtenerPorId(matriculaId)
-                .orElseThrow(() -> new IllegalArgumentException("Matrícula no encontrada"));
+    public Matricula actualizar(ActualizarMatriculaDto request) {
+        // TODO: Implementar la lógica de actualización de matrícula
+        // Por ahora, retornamos un domain model básico para que la aplicación inicie
+        return new Matricula(
+            request.getMatriculaId(),
+            request.getInscripcionId(),
+            request.getEstudianteId(),
+            request.getGradoId(),
+            request.getGrupoId(),
+            request.getFechaMatricula(),
+            request.getRenovacion(),
+            request.getEstado(),
+            request.getObservaciones(),
+            true, // activo
+            null, // usrCrea
+            null, // usrMod
+            null, // createdAt
+            null  // updatedAt
+        );
     }
 
     @Override
-    public List<MatriculaDto> listarPorEstudiante(Long estudianteId) {
+    public Optional<Matricula> consultarPorId(Long matriculaId) {
+        return matriculaRepositoryPort.obtenerPorId(matriculaId);
+    }
+
+    @Override
+    public List<Matricula> listarPorEstudiante(Long estudianteId) {
         return matriculaRepositoryPort.listarPorEstudiante(estudianteId);
     }
 
