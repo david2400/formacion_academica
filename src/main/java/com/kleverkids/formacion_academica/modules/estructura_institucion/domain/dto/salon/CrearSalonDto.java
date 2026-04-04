@@ -20,11 +20,11 @@ public record CrearSalonDto(
         
         Integer numeroPiso,
         
-        Boolean tieneProyector,
+        Boolean proyector,
         
-        Boolean tienePizarronBlanco,
+        Boolean pizarronBlanco,
         
-        Boolean tieneAireAcondicionado,
+        Boolean aireAcondicionado,
         
         @NotBlank(message = "El nombre del edificio es obligatorio")
         String nombreEdificio

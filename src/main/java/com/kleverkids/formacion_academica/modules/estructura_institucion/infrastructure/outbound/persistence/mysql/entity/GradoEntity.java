@@ -16,6 +16,9 @@ public class GradoEntity extends AuditInfo {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String descripcion;
+
     @Column(name = "nivel_educativo_id", nullable = false)
     private Long nivelEducativoId;
 

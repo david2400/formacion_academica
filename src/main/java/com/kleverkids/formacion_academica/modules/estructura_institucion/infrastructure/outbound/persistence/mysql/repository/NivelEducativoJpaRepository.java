@@ -3,7 +3,6 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.NivelEducativoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,19 +18,18 @@ public interface NivelEducativoJpaRepository extends JpaRepository<NivelEducativ
     List<NivelEducativoEntity> findByNivelSuperiorId(Long nivelSuperiorId);
     
     List<NivelEducativoEntity> findByActivoTrue();
+
     
-    List<NivelEducativoEntity> findByActivoTrueOrderByOrdenAsc();
-    
-    // List<NivelEducativoEntity> findByCategoriaAndActivoTrueOrderByOrdenAsc(String categoria);
+    // List<NivelEducativoEntity> findByCategoriaAndActivoTrue(String categoria);
     
     boolean existsByCodigo(String codigo);
     
-    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.activo = true ORDER BY n.orden ASC")
+    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.activo = true")
     List<NivelEducativoEntity> findActivosOrdenados();
     
-    // @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.activo = true ORDER BY n.orden ASC")
+    // @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.activo = true")
     // List<NivelEducativoEntity> findPorCategoriaActivosOrdenados(@Param("categoria") String categoria);
     
-    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.nivelSuperior IS NULL AND n.activo = true ORDER BY n.orden ASC")
+    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.nivelSuperior IS NULL AND n.activo = true")
     List<NivelEducativoEntity> findNivelesPrincipalesActivos();
 }

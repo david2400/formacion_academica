@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 public record Grado(Long id,
                     String nombre,
+                    String descripcion,
                     Long nivelEducativoId,
+                    NivelEducativo nivelEducativo,
                     boolean activo,
                     Integer usrCrea,
                     Integer usrMod,

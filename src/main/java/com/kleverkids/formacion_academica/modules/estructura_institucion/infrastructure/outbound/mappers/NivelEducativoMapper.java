@@ -23,7 +23,7 @@ public interface NivelEducativoMapper {
         entity.setCodigo(dto.codigo());
         entity.setNombre(dto.nombre());
         entity.setDescripcion(dto.descripcion());
-        entity.setOrden(dto.orden());
+//        entity.setOrden(dto.orden());
         entity.setActivo(true);
         // nivelSuperior se maneja por separado si es necesario
         // Las propiedades de auditoría son manejadas por JPA
@@ -46,7 +46,7 @@ public interface NivelEducativoMapper {
     @Mapping(target = "codigo", source = "codigo")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "descripcion", source = "descripcion")
-    @Mapping(target = "orden", source = "orden")
+//    @Mapping(target = "orden", source = "orden")
     @Mapping(target = "nivelSuperiorId", source = "nivelSuperior", qualifiedByName = "mapNivelSuperiorToId")
     @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")

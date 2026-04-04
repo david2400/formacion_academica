@@ -17,6 +17,8 @@ public class CrearGradoDto {
     @NotBlank(message = "El nombre del grado es obligatorio")
     private String nombre;
 
+    String descripcion;
+
     @NotNull(message = "El nivel educativo es obligatorio")
     private Long nivelEducativoId;
 

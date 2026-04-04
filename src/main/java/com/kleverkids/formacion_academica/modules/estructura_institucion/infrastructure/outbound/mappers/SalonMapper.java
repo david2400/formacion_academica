@@ -36,9 +36,9 @@ public interface SalonMapper {
         entity.setDescripcion(dto.descripcion());
         entity.setCapacidadMaxima(dto.capacidadMaxima());
         entity.setNumeroPiso(dto.numeroPiso());
-        entity.setTieneProyector(dto.tieneProyector());
-        entity.setTienePizarronBlanco(dto.tienePizarronBlanco());
-        entity.setTieneAireAcondicionado(dto.tieneAireAcondicionado());
+        entity.setTieneProyector(dto.proyector());
+        entity.setTienePizarronBlanco(dto.pizarronBlanco());
+        entity.setTieneAireAcondicionado(dto.aireAcondicionado());
         entity.setNombreEdificio(dto.nombreEdificio());
         
         return entity;
@@ -63,9 +63,9 @@ public interface SalonMapper {
         entity.setDescripcion(domain.descripcion());
         entity.setCapacidadMaxima(domain.capacidadMaxima());
         entity.setNumeroPiso(domain.numeroPiso());
-        entity.setTieneProyector(domain.tieneProyector());
-        entity.setTienePizarronBlanco(domain.tienePizarronBlanco());
-        entity.setTieneAireAcondicionado(domain.tieneAireAcondicionado());
+        entity.setTieneProyector(domain.proyector());
+        entity.setTienePizarronBlanco(domain.pizarronBlanco());
+        entity.setTieneAireAcondicionado(domain.aireAcondicionado());
         entity.setNombreEdificio(domain.nombreEdificio());
     }
 

@@ -4,11 +4,13 @@ import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "salones")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true, exclude = {"sede"})
+@ToString(exclude = {"sede"})
 public class SalonEntity extends AuditInfo {
 
     @Id
@@ -41,4 +43,12 @@ public class SalonEntity extends AuditInfo {
 
     @Column(name = "nombre_edificio", nullable = false)
     private String nombreEdificio;
+
+    @Column(name = "activo", nullable = false)
+    private Boolean activo = true;
+
+    // Relación con sede
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sede_id", nullable = false)
+    private SedeEntity sede;
 }

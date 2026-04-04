@@ -12,8 +12,8 @@ public record ActualizarNivelEducativoDto(
 
     Integer orden,
 
-    Long nivelSuperiorId,
+    Long nivelSuperiorId
 
-    @Pattern(regexp = "^(PREESCOLAR|BASICA|MEDIA|SUPERIOR)$", message = "La categoría debe ser una de: PREESCOLAR, BASICA, MEDIA, SUPERIOR")
-    String categoria
+    // @Pattern(regexp = "^(PREESCOLAR|BASICA|MEDIA|SUPERIOR)$", message = "La categoría debe ser una de: PREESCOLAR, BASICA, MEDIA, SUPERIOR")
+    // String categoria
 ) {}

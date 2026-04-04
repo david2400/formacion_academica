@@ -2,19 +2,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 
 import java.time.LocalDateTime;
 
-public record Salon(
+public record Sede(
         Long id,
-        String codigo,
+//        String codigo,
         String nombre,
         String descripcion,
-        Integer capacidadMaxima,
-        Integer numeroPiso,
-
-        String nombreEdificio,
-        Boolean proyector,
-        Boolean pizarronBlanco,
-        Boolean aireAcondicionado,
-
+        String direccion,
+        String ciudadId,
+        String departamentoId,
+        String pais,
+        String telefono,
+        String email,
+        String contactoPrincipal,
+        String telefonoContacto,
+        String emailContacto,
+        
         Boolean activo,
         Integer usrCrea,
         Integer usrMod,
