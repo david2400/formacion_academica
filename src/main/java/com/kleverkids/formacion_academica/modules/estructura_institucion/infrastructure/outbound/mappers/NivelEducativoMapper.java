@@ -16,19 +16,14 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface NivelEducativoMapper {
-    
-    // DTO a Entity
-    default NivelEducativoEntity toEntity(CrearNivelEducativoDto dto) {
-        NivelEducativoEntity entity = new NivelEducativoEntity();
-        entity.setCodigo(dto.codigo());
-        entity.setNombre(dto.nombre());
-        entity.setDescripcion(dto.descripcion());
-//        entity.setOrden(dto.orden());
-        entity.setActivo(true);
-        // nivelSuperior se maneja por separado si es necesario
-        // Las propiedades de auditoría son manejadas por JPA
-        return entity;
-    }
+
+    @Mapping(target = "nivelSuperior", ignore = true)
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    NivelEducativoEntity toEntity(CrearNivelEducativoDto dto);
     
     // Update partial (para actualizaciones)
     @Mapping(target = "id", ignore = true)
@@ -42,12 +37,12 @@ public interface NivelEducativoMapper {
     void updateEntity(@MappingTarget NivelEducativoEntity entity, ActualizarNivelEducativoDto dto);
     
     // Entity a Domain Model
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "codigo", source = "codigo")
-    @Mapping(target = "nombre", source = "nombre")
-    @Mapping(target = "descripcion", source = "descripcion")
+//    @Mapping(target = "id", source = "id")
+//    @Mapping(target = "codigo", source = "codigo")
+//    @Mapping(target = "nombre", source = "nombre")
+//    @Mapping(target = "descripcion", source = "descripcion")
 //    @Mapping(target = "orden", source = "orden")
-    @Mapping(target = "nivelSuperiorId", source = "nivelSuperior", qualifiedByName = "mapNivelSuperiorToId")
+//    @Mapping(target = "nivelSuperiorId", source = "nivelSuperior", qualifiedByName = "mapNivelSuperiorToId")
     @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")

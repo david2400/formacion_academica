@@ -23,14 +23,14 @@ public class NivelEducativoJpaAdapter implements NivelEducativoRepositoryPort {
 
     @Override
     public NivelEducativo crear(CrearNivelEducativoDto dto) {
-        if (existePorCodigo(dto.codigo())) {
-            throw new IllegalArgumentException("Ya existe un nivel educativo con el código: " + dto.codigo());
+        if (existePorCodigo(dto.getCodigo())) {
+            throw new IllegalArgumentException("Ya existe un nivel educativo con el código: " + dto.getCodigo());
         }
         
         NivelEducativoEntity entity = mapper.toEntity(dto);
         
-        if (dto.nivelSuperiorId() != null) {
-            repository.findById(dto.nivelSuperiorId())
+        if (dto.getNivelSuperiorId() != null) {
+            repository.findById(dto.getNivelSuperiorId())
                     .ifPresent(entity::setNivelSuperior);
         }
         
@@ -71,8 +71,8 @@ public class NivelEducativoJpaAdapter implements NivelEducativoRepositoryPort {
                 .map(entity -> {
                     mapper.updateEntity(entity, dto);
                     
-                    if (dto.nivelSuperiorId() != null) {
-                        repository.findById(dto.nivelSuperiorId())
+                    if (dto.getNivelSuperiorId() != null) {
+                        repository.findById(dto.getNivelSuperiorId())
                                 .ifPresent(entity::setNivelSuperior);
                     } else {
                         entity.setNivelSuperior(null);

@@ -60,9 +60,6 @@ public abstract class PreguntaBaseEntity {
     @Column(name = "updated_at")
     private Instant updatedAt;
     
-    @Column(name = "activo", nullable = false)
-    private boolean eliminado = false;
-    
     @Column(name = "version")
     private Integer version = 1;
     
@@ -115,9 +112,6 @@ public abstract class PreguntaBaseEntity {
     
     public Instant getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
-    
-    public boolean isEliminado() { return eliminado; }
-    public void setEliminado(boolean eliminado) { this.eliminado = eliminado; }
     
     public Integer getVersion() { return version; }
     public void setVersion(Integer version) { this.version = version; }

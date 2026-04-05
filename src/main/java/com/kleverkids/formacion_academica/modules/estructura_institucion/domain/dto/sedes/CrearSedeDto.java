@@ -15,11 +15,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class CrearSedeDto {
     
-//    @NotBlank(message = "El código es obligatorio")
-//    @Size(max = 10, message = "El código no puede exceder 10 caracteres")
-//    @Pattern(regexp = "^[A-Z0-9-_]+$", message = "El código solo puede contener letras mayúsculas, números, guiones y guiones bajos")
-//    private String codigo;
-    
     @NotBlank(message = "El nombre es obligatorio")
     @Size(max = 100, message = "El nombre no puede exceder 100 caracteres")
     private String nombre;
@@ -62,4 +57,6 @@ public class CrearSedeDto {
     @Email(message = "El email del contacto debe ser válido")
     @Size(max = 100, message = "El email del contacto no puede exceder 100 caracteres")
     private String emailContacto;
+
+    private Boolean activo;
 }

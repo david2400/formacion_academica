@@ -21,8 +21,8 @@ public class NivelEducativoService {
 
     @Transactional
     public NivelEducativo crear(CrearNivelEducativoDto dto) {
-        validarCodigoUnico(dto.codigo());
-        validarNivelSuperior(dto.nivelSuperiorId());
+        validarCodigoUnico(dto.getCodigo());
+        validarNivelSuperior(dto.getNivelSuperiorId());
         
         return repository.crear(dto);
     }
@@ -74,8 +74,8 @@ public class NivelEducativoService {
 
     @Transactional
     public Optional<NivelEducativo> actualizar(Long id, ActualizarNivelEducativoDto dto) {
-        if (dto.nivelSuperiorId() != null) {
-            validarNivelSuperior(dto.nivelSuperiorId());
+        if (dto.getNivelSuperiorId() != null) {
+            validarNivelSuperior(dto.getNivelSuperiorId());
         }
         
         return repository.actualizar(id, dto);

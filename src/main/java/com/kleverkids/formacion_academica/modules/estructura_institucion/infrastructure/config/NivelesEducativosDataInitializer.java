@@ -36,9 +36,9 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
         for (CrearNivelEducativoDto nivel : niveles) {
             try {
                 nivelEducativoService.crear(nivel);
-                log.debug("📚 Nivel educativo creado: {}", nivel.nombre());
+                log.debug("📚 Nivel educativo creado: {}", nivel.getNombre());
             } catch (Exception e) {
-                log.error("❌ Error creando nivel educativo {}: {}", nivel.codigo(), e.getMessage());
+                log.error("❌ Error creando nivel educativo {}: {}", nivel.getCodigo(), e.getMessage());
             }
         }
     }
@@ -51,7 +51,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Prejardín", 
                 "Primer nivel de preescolar para niños de 3 años", 
 //                1,
-                null
+                null,
+                    true
 //                "PREESCOLAR"
             ),
             new CrearNivelEducativoDto(
@@ -59,7 +60,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Jardín", 
                 "Segundo nivel de preescolar para niños de 4 años", 
 //                2,
-                null
+                null,
+                    true
 //                "PREESCOLAR"
             ),
             new CrearNivelEducativoDto(
@@ -67,7 +69,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Transición", 
                 "Tercer nivel de preescolar para niños de 5 años", 
 //                3,
-                null
+                null,
+                    true
 //                "PREESCOLAR"
             ),
             
@@ -77,7 +80,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Primero de Primaria", 
                 "Primer grado de educación básica primaria", 
 //                1,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -85,7 +89,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Segundo de Primaria", 
                 "Segundo grado de educación básica primaria", 
 //                2,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -93,7 +98,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Tercero de Primaria", 
                 "Tercer grado de educación básica primaria", 
 //                3,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -101,7 +107,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Cuarto de Primaria", 
                 "Cuarto grado de educación básica primaria", 
 //                4,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -109,7 +116,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Quinto de Primaria", 
                 "Quinto grado de educación básica primaria", 
 //                5,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             
@@ -119,7 +127,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Sexto de Básica", 
                 "Primer grado de educación básica secundaria", 
 //                6,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -127,7 +136,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Séptimo de Básica", 
                 "Segundo grado de educación básica secundaria", 
 //                7,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -135,7 +145,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Octavo de Básica", 
                 "Tercer grado de educación básica secundaria", 
 //                8,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             new CrearNivelEducativoDto(
@@ -143,7 +154,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Noveno de Básica", 
                 "Cuarto grado de educación básica secundaria", 
 //                9,
-                null
+                null,
+                    true
 //                "BASICA"
             ),
             
@@ -153,7 +165,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Décimo", 
                 "Primer grado de educación media", 
 //                10,
-                null
+                null,
+                    true
 //                "MEDIA"
             ),
             new CrearNivelEducativoDto(
@@ -161,7 +174,8 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 "Once", 
                 "Segundo grado de educación media", 
 //                11,
-                null
+                null,
+                true
 //                "MEDIA"
             )
         );

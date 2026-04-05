@@ -22,6 +22,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @SoftDelete(columnName = "activo")
 public class AuditInfo {
+    @Builder.Default
+    @Column(name = "activo", nullable = false, insertable = false, updatable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    private boolean activo = true;
+
     @Column(name = "usr_crea", nullable = false, length = 50)
     private Integer usrCrea;
 
@@ -36,9 +40,6 @@ public class AuditInfo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    @Builder.Default
-    @Column(name = "activo", nullable = false, insertable = false, updatable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
-    private boolean activo = false;
 
     // @Column(name = "deleted_at")
     // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

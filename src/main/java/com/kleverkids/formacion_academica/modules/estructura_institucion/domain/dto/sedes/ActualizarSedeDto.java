@@ -19,5 +19,4 @@ public class ActualizarSedeDto extends CrearSedeDto {
     
     private Long id;
     
-    private Boolean activo;
 }

@@ -1,6 +1,5 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.adapter;
 
-import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.ActualizarAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.Aula;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.AulaEntity;
@@ -33,7 +32,11 @@ class AulaJpaAdapterTest {
 
     @Test
     void guardar_debePersistirYRetornarDto() {
-        CrearAulaDto request = new CrearAulaDto("Laboratorio", "Ciencias", 25);
+        CrearAulaDto request = CrearAulaDto.builder()
+                .nombre("Laboratorio")
+                .descripcion("Ciencias")
+                .capacidad(25)
+                .build();
         when(aulaJpaRepository.save(any(AulaEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Aula result = aulaJpaAdapter.guardar(request);

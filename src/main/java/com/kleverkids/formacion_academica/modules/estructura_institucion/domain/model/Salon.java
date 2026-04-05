@@ -10,7 +10,8 @@ public record Salon(
         Integer capacidadMaxima,
         Integer numeroPiso,
 
-        String nombreEdificio,
+        Long sedeId,
+        Sede sede,
         Boolean proyector,
         Boolean pizarronBlanco,
         Boolean aireAcondicionado,

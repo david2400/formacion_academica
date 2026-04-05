@@ -13,13 +13,6 @@ import java.util.List;
 @Repository
 public interface PreguntaJpaRepository extends JpaRepository<PreguntaEntity, Long> {
     
-    // Métodos simples usando naming convention de Spring Data
-    List<PreguntaEntity> findByDeletedFalse();
-    
-    List<PreguntaEntity> findByTemaIdAndDeletedFalse(Long themeId);
-    
-    List<PreguntaEntity> findByIdInAndDeletedFalse(List<Long> ids);
-    
     // Métodos de búsqueda básicos - implementaciones mínimas
     default Page<PreguntaEntity> buscar(
         String questionType, String difficulty, Long themeId, String searchText, Pageable pageable) {

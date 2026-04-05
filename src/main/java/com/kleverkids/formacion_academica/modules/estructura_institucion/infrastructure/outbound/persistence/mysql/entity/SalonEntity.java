@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "salones")
@@ -32,20 +34,17 @@ public class SalonEntity extends AuditInfo {
     @Column(name = "numero_piso")
     private Integer numeroPiso;
 
-    @Column(name = "tiene_proyector")
-    private Boolean tieneProyector;
+    @Column(name = "proyector")
+    private Boolean proyector;
 
-    @Column(name = "tiene_pizarron_blanco")
-    private Boolean tienePizarronBlanco;
+    @Column(name = "pizarron_blanco")
+    private Boolean pizarronBlanco;
 
-    @Column(name = "tiene_aire_acondicionado")
-    private Boolean tieneAireAcondicionado;
+    @Column(name = "aire_acondicionado")
+    private Boolean aireAcondicionado;
 
-    @Column(name = "nombre_edificio", nullable = false)
-    private String nombreEdificio;
-
-    @Column(name = "activo", nullable = false)
-    private Boolean activo = true;
+    @Column(name = "sede_id", nullable = false)
+    private Long sedeId;
 
     // Relación con sede
     @ManyToOne(fetch = FetchType.LAZY)

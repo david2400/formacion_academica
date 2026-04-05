@@ -42,10 +42,7 @@ public abstract class PreguntaEntity {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "tags", columnDefinition = "json")
     private List<String> tags;
-    
-    @Column(name = "activo", nullable = false)
-    private Boolean activo = false;
-    
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
     
@@ -148,15 +145,7 @@ public abstract class PreguntaEntity {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
-    
-    public Boolean getDeleted() {
-        return activo;
-    }
-    
-    public void setDeleted(Boolean activo) {
-        this.activo = activo;
-    }
-    
+
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -230,10 +219,6 @@ public abstract class PreguntaEntity {
     }
     
     // Getters adicionales para compatibilidad con nombres en español
-    public Boolean getEliminado() { return activo; }
-    
-    public void setEliminado(Boolean eliminado) { this.activo = eliminado; }
-    
     public Instant getFechaCreacion() { return createdAt; }
     public void setFechaCreacion(Instant fechaCreacion) { this.createdAt = fechaCreacion; }
     

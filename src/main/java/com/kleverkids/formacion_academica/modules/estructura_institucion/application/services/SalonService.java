@@ -25,14 +25,14 @@ public class SalonService implements CrearSalonUseCase, ActualizarSalonUseCase, 
 
     @Override
     public Salon crear(CrearSalonDto request) {
-        validarCodigoDisponible(request.codigo(), null);
+        validarCodigoDisponible(request.getCodigo(), null);
         return salonRepositoryPort.guardar(request);
     }
 
     @Override
     public Salon actualizar(ActualizarSalonDto request) {
-        validarExistencia(request.id());
-        validarCodigoDisponible(request.codigo(), request.id());
+        validarExistencia(request.getId());
+        validarCodigoDisponible(request.getCodigo(), request.getId());
         return salonRepositoryPort.actualizar(request);
     }
 

@@ -42,7 +42,6 @@ public interface SedeMapper {
         entity.setContactoPrincipal(dto.getContactoPrincipal());
         entity.setTelefonoContacto(dto.getTelefonoContacto());
         entity.setEmailContacto(dto.getEmailContacto());
-        entity.setActivo(true); // Valor por defecto para nuevas sedes
         return entity;
     }
 

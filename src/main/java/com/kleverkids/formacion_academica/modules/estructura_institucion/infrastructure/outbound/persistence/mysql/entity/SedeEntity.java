@@ -53,9 +53,6 @@ public class SedeEntity extends AuditInfo {
     @Column(name = "email_contacto", length = 100)
     private String emailContacto;
 
-    @Column(name = "activo", nullable = false)
-    private Boolean activo = true;
-
     // Relación con salones
     @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SalonEntity> salones = new HashSet<>();

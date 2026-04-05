@@ -23,6 +23,5 @@ public interface AcudienteMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "activo", ignore = true)
     void updateEntityFromDto(ActualizarAcudienteDto dto, @MappingTarget AcudienteEntity entity);
 }

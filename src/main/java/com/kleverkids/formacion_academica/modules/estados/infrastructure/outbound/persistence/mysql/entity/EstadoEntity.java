@@ -52,9 +52,6 @@ public class EstadoEntity extends AuditInfo {
     @Column(nullable = false)
     private Integer orden = 0;
 
-    @Column(nullable = false)
-    private Boolean activo = true;
-
     @Column(columnDefinition = "JSON")
     private String metadata;
 

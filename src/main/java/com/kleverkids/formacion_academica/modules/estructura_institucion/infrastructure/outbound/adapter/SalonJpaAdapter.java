@@ -30,20 +30,9 @@ public class SalonJpaAdapter implements SalonRepositoryPort {
 
     @Override
     public Salon actualizar(ActualizarSalonDto request) {
-        SalonEntity entity = salonJpaRepository.findById(request.id())
+        SalonEntity entity = salonJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Salón no encontrado"));
-        
-        // Actualizar campos
-        entity.setCodigo(request.codigo());
-        entity.setNombre(request.nombre());
-        entity.setDescripcion(request.descripcion());
-        entity.setCapacidadMaxima(request.capacidadMaxima());
-        entity.setNumeroPiso(request.numeroPiso());
-        entity.setTieneProyector(request.tieneProyector());
-        entity.setTienePizarronBlanco(request.tienePizarronBlanco());
-        entity.setTieneAireAcondicionado(request.tieneAireAcondicionado());
-        entity.setNombreEdificio(request.nombreEdificio());
-        
+
         return salonMapper.toDomainModel(salonJpaRepository.save(entity));
     }
 

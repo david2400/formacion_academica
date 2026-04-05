@@ -35,7 +35,6 @@ public interface EstadoMapper {
     @Mapping(target = "esInicial", source = "esInicial")
     @Mapping(target = "esFinal", source = "esFinal")
     @Mapping(target = "orden", source = "orden")
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "metadata", source = "metadata")
     @Mapping(target = "creadoEn", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
     @Mapping(target = "actualizadoEn", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
@@ -55,7 +54,6 @@ public interface EstadoMapper {
         entity.setEsInicial(dto.esInicial());
         entity.setEsFinal(dto.esFinal());
         entity.setOrden(dto.orden());
-        entity.setActivo(dto.activo());
         entity.setMetadata(dto.metadata());
         // Las relaciones y propiedades de auditoría son manejadas por JPA
         return entity;
