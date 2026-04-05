@@ -48,6 +48,6 @@ public class SalonEntity extends AuditInfo {
 
     // Relación con sede
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sede_id", nullable = false)
+    @JoinColumn(name = "sede_id", nullable = false, updatable = false, insertable = false)
     private SedeEntity sede;
 }

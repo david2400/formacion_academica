@@ -9,7 +9,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
-
 @Entity
 @Table(name = "respuestas_banco")
 public class RespuestaBancoEntity {
@@ -18,7 +17,7 @@ public class RespuestaBancoEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pregunta_id", nullable = false)
+    @JoinColumn(name = "pregunta_id", nullable = false, updatable = false, insertable = false)
     private PreguntaBancoEntity pregunta;
 
     @Column(nullable = false, length = 500)

@@ -22,7 +22,7 @@ public class RespuestaPreguntaEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "estudiante_examen_id", nullable = false)
+    @JoinColumn(name = "estudiante_examen_id", nullable = false, updatable = false, insertable = false)
     private EstudianteExamenEntity estudianteExamen;
 
     @Column(nullable = false)
@@ -31,7 +31,7 @@ public class RespuestaPreguntaEntity {
     @Column(nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false,name = "pregunta_id")
+    @Column(nullable = false, name = "pregunta_id")
     private Long preguntaId;
 
     @ManyToOne(fetch = FetchType.EAGER)

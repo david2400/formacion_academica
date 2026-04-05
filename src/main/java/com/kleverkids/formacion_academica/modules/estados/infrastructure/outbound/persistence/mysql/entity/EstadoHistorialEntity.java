@@ -21,7 +21,7 @@ public class EstadoHistorialEntity extends AuditInfo {
     private String uuid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_entidad_estado", nullable = false)
+    @JoinColumn(name = "id_entidad_estado", nullable = false, updatable = false, insertable = false)
     private EntidadEstadoEntity entidadEstado;
 
     @Column(name = "entidad_tipo", nullable = false, length = 50)
@@ -31,11 +31,11 @@ public class EstadoHistorialEntity extends AuditInfo {
     private Long entidadId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_estado_anterior")
+    @JoinColumn(name = "id_estado_anterior", nullable = false, updatable = false, insertable = false)
     private EstadoEntity estadoAnterior;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_estado_nuevo", nullable = false)
+    @JoinColumn(name = "id_estado_nuevo", nullable = false, updatable = false, insertable = false)
     private EstadoEntity estadoNuevo;
 
     @Column(name = "id_empresa")

@@ -22,11 +22,11 @@ public class EstadoTransicionEntity extends AuditInfo {
     private String uuid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_estado_origen", nullable = false)
+    @JoinColumn(name = "id_estado_origen", nullable = false, updatable = false, insertable = false)
     private EstadoEntity estadoOrigen;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_estado_destino", nullable = false)
+    @JoinColumn(name = "id_estado_destino", nullable = false, updatable = false, insertable = false)
     private EstadoEntity estadoDestino;
 
     @Column(name = "id_modulo", nullable = false)

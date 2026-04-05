@@ -22,7 +22,7 @@ public class RespuestaCriterioEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "estudiante_examen_id", nullable = false)
+    @JoinColumn(name = "estudiante_examen_id", nullable = false, updatable = false, insertable = false)
     private EstudianteExamenEntity estudianteExamen;
 
     @Column(nullable = false)

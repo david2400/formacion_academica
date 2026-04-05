@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
-
 @Entity
 @Table(name = "respuestas_intento_examen")
 public class RespuestaIntentoEntity {
@@ -19,7 +18,7 @@ public class RespuestaIntentoEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "intento_id", nullable = false)
+    @JoinColumn(name = "intento_id", nullable = false, updatable = false, insertable = false)
     private IntentoExamenEntity intento;
 
     @Column(nullable = false)
