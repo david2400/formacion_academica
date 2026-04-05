@@ -1,12 +1,10 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion;
 
-import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.AulaEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.EstudianteGrupoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GradoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GrupoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.SalonEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.SedeEntity;
-import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.AulaJpaRepository;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.EstudianteGrupoJpaRepository;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GradoJpaRepository;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GrupoJpaRepository;
@@ -19,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EntityScan(basePackageClasses = {
-        AulaEntity.class,
+        // AulaEntity.class,
         EstudianteGrupoEntity.class,
         GradoEntity.class,
         GrupoEntity.class,
@@ -27,7 +25,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         SedeEntity.class
 })
 @EnableJpaRepositories(basePackageClasses = {
-        AulaJpaRepository.class,
+        // AulaJpaRepository.class,
         EstudianteGrupoJpaRepository.class,
         GradoJpaRepository.class,
         GrupoJpaRepository.class,

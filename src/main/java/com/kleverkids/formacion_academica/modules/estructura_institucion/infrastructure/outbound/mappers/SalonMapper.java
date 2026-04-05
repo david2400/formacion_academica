@@ -21,15 +21,11 @@ public interface SalonMapper {
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "activo", ignore = true)
     SalonEntity toEntity(CrearSalonDto dto);
     
-    @Mapping(target = "activo", source = "activo")
-    @Mapping(target = "usrCrea", source = "usrCrea")
-    @Mapping(target = "usrMod", source = "usrMod")
+    @Mapping(target = "sede", ignore = true)
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
     @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
-    @Mapping(target = "sede", ignore = true)
     Salon toDomainModel(SalonEntity entity);
     
     List<Salon> toDomainModelList(List<SalonEntity> entities);

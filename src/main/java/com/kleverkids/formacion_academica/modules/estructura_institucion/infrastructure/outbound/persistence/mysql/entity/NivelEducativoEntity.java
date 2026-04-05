@@ -24,7 +24,7 @@ public class NivelEducativoEntity extends AuditInfo {
     @Column(nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
+    @Column(name = "nivel_superior_id")
     private Long nivelSuperiorId;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -14,7 +14,5 @@ public interface SalonJpaRepository extends JpaRepository<SalonEntity, Long> {
     
     List<SalonEntity> findAllByOrderByNombreAsc();
     
-    List<SalonEntity> findByNombreEdificio(String nombreEdificio);
-    
     boolean existsByCodigo(String codigo);
 }

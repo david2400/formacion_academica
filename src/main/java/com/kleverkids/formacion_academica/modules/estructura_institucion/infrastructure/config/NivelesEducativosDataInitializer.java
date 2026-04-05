@@ -46,138 +46,110 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
     private List<CrearNivelEducativoDto> getNivelesEducativosCircular2025() {
         return List.of(
             // PREESCOLAR
-            new CrearNivelEducativoDto(
-                "PRE_PREJARDIN", 
-                "Prejardín", 
-                "Primer nivel de preescolar para niños de 3 años", 
-//                1,
-                null,
-                    true
-//                "PREESCOLAR"
-            ),
-            new CrearNivelEducativoDto(
-                "PRE_JARDIN", 
-                "Jardín", 
-                "Segundo nivel de preescolar para niños de 4 años", 
-//                2,
-                null,
-                    true
-//                "PREESCOLAR"
-            ),
-            new CrearNivelEducativoDto(
-                "PRE_TRANSICION", 
-                "Transición", 
-                "Tercer nivel de preescolar para niños de 5 años", 
-//                3,
-                null,
-                    true
-//                "PREESCOLAR"
-            ),
+            CrearNivelEducativoDto.builder()
+                .codigo("PRE_PREJARDIN")
+                .nombre("Prejardín")
+                .descripcion("Primer nivel de preescolar para niños de 3 años")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("PRE_JARDIN")
+                .nombre("Jardín")
+                .descripcion("Segundo nivel de preescolar para niños de 4 años")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("PRE_TRANSICION")
+                .nombre("Transición")
+                .descripcion("Tercer nivel de preescolar para niños de 5 años")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
             
             // BÁSICA PRIMARIA
-            new CrearNivelEducativoDto(
-                "BAS_1_PRIMERO", 
-                "Primero de Primaria", 
-                "Primer grado de educación básica primaria", 
-//                1,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_2_SEGUNDO", 
-                "Segundo de Primaria", 
-                "Segundo grado de educación básica primaria", 
-//                2,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_3_TERCERO", 
-                "Tercero de Primaria", 
-                "Tercer grado de educación básica primaria", 
-//                3,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_4_CUARTO", 
-                "Cuarto de Primaria", 
-                "Cuarto grado de educación básica primaria", 
-//                4,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_5_QUINTO", 
-                "Quinto de Primaria", 
-                "Quinto grado de educación básica primaria", 
-//                5,
-                null,
-                    true
-//                "BASICA"
-            ),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_1_PRIMERO")
+                .nombre("Primero de Primaria")
+                .descripcion("Primer grado de educación básica primaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_2_SEGUNDO")
+                .nombre("Segundo de Primaria")
+                .descripcion("Segundo grado de educación básica primaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_3_TERCERO")
+                .nombre("Tercero de Primaria")
+                .descripcion("Tercer grado de educación básica primaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_4_CUARTO")
+                .nombre("Cuarto de Primaria")
+                .descripcion("Cuarto grado de educación básica primaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_5_QUINTO")
+                .nombre("Quinto de Primaria")
+                .descripcion("Quinto grado de educación básica primaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
             
             // BÁSICA SECUNDARIA
-            new CrearNivelEducativoDto(
-                "BAS_6_SEXTO", 
-                "Sexto de Básica", 
-                "Primer grado de educación básica secundaria", 
-//                6,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_7_SEPTIMO", 
-                "Séptimo de Básica", 
-                "Segundo grado de educación básica secundaria", 
-//                7,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_8_OCTAVO", 
-                "Octavo de Básica", 
-                "Tercer grado de educación básica secundaria", 
-//                8,
-                null,
-                    true
-//                "BASICA"
-            ),
-            new CrearNivelEducativoDto(
-                "BAS_9_NOVENO", 
-                "Noveno de Básica", 
-                "Cuarto grado de educación básica secundaria", 
-//                9,
-                null,
-                    true
-//                "BASICA"
-            ),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_6_SEXTO")
+                .nombre("Sexto de Básica")
+                .descripcion("Primer grado de educación básica secundaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_7_SEPTIMO")
+                .nombre("Séptimo de Básica")
+                .descripcion("Segundo grado de educación básica secundaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_8_OCTAVO")
+                .nombre("Octavo de Básica")
+                .descripcion("Tercer grado de educación básica secundaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("BAS_9_NOVENO")
+                .nombre("Noveno de Básica")
+                .descripcion("Cuarto grado de educación básica secundaria")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
             
             // MEDIA
-            new CrearNivelEducativoDto(
-                "MED_10_DECIMO", 
-                "Décimo", 
-                "Primer grado de educación media", 
-//                10,
-                null,
-                    true
-//                "MEDIA"
-            ),
-            new CrearNivelEducativoDto(
-                "MED_11_ONCE", 
-                "Once", 
-                "Segundo grado de educación media", 
-//                11,
-                null,
-                true
-//                "MEDIA"
-            )
+            CrearNivelEducativoDto.builder()
+                .codigo("MED_10_DECIMO")
+                .nombre("Décimo")
+                .descripcion("Primer grado de educación media")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build(),
+            CrearNivelEducativoDto.builder()
+                .codigo("MED_11_ONCE")
+                .nombre("Once")
+                .descripcion("Segundo grado de educación media")
+                .nivelSuperiorId(null)
+                .activo(true)
+                .build()
         );
     }
 }
