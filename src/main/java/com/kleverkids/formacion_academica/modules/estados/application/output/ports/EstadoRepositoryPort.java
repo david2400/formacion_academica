@@ -36,6 +36,6 @@ public interface EstadoRepositoryPort {
     // Consultas especializadas
     List<EstadoDto> listarEstadosIniciales(Long idModulo);
     List<EstadoDto> listarEstadosFinales(Long idModulo);
-    List<EstadoDto> listarEntidadesConEstado(Long estadoId);
-    Long contarEntidadesConEstado(Long estadoId);
+    List<EstadoDto> listarEntidadesConEstado(Integer estadoId);
+    Long contarEntidadesConEstado(Integer estadoId);
 }

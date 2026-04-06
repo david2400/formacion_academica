@@ -19,19 +19,19 @@ public class InscripcionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "estudiante_id")
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "periodo_academico")
     private String periodoAcademico;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "fecha_solicitud")
     private LocalDate fechaSolicitud;
 
+    @Column(nullable = false, name = "estado_id")
+    private Integer estadoId;
+
     @Column(nullable = false)
-    private String estado;
-
     private String observaciones;
-
 
 }

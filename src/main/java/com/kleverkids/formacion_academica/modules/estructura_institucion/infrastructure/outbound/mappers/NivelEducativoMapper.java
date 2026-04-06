@@ -8,21 +8,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface NivelEducativoMapper {
 
-    @Mapping(target = "nivelSuperior", ignore = true)
-    @Mapping(target = "usrCrea", ignore = true)
-    @Mapping(target = "usrMod", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "activo", constant = "true")
     NivelEducativoEntity toEntity(CrearNivelEducativoDto dto);
     
     // Update partial (para actualizaciones)
@@ -33,7 +29,6 @@ public interface NivelEducativoMapper {
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "activo", ignore = true)
     void updateEntity(@MappingTarget NivelEducativoEntity entity, ActualizarNivelEducativoDto dto);
     
     // Entity a Domain Model
@@ -43,7 +38,6 @@ public interface NivelEducativoMapper {
 //    @Mapping(target = "descripcion", source = "descripcion")
 //    @Mapping(target = "orden", source = "orden")
 //    @Mapping(target = "nivelSuperiorId", source = "nivelSuperior", qualifiedByName = "mapNivelSuperiorToId")
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")

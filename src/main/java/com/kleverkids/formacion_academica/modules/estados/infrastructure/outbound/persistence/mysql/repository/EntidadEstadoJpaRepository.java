@@ -20,9 +20,9 @@ public interface EntidadEstadoJpaRepository extends JpaRepository<EntidadEstadoE
     
     List<EntidadEstadoEntity> findByEntidadTipoAndActivoTrue(String entidadTipo);
     
-    List<EntidadEstadoEntity> findByEstadoId(Long estadoId);
+    List<EntidadEstadoEntity> findByEstadoId(Integer estadoId);
     
-    List<EntidadEstadoEntity> findByEstadoIdAndActivoTrue(Long estadoId);
+    List<EntidadEstadoEntity> findByEstadoIdAndActivoTrue(Integer estadoId);
     
     List<EntidadEstadoEntity> findByIdEmpresa(Long idEmpresa);
     
@@ -34,10 +34,10 @@ public interface EntidadEstadoJpaRepository extends JpaRepository<EntidadEstadoE
     Optional<EntidadEstadoEntity> findEstadoActual(@Param("entidadTipo") String entidadTipo, @Param("entidadId") Long entidadId);
     
     @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.activo = true")
-    List<EntidadEstadoEntity> findEntidadesConEstado(@Param("estadoId") Long estadoId);
+    List<EntidadEstadoEntity> findEntidadesConEstado(@Param("estadoId") Integer estadoId);
     
     @Query("SELECT COUNT(ee) FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.activo = true")
-    Long countEntidadesConEstado(@Param("estadoId") Long estadoId);
+    Long countEntidadesConEstado(@Param("estadoId") Integer estadoId);
     
     @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.estado.idModulo = :idModulo AND ee.activo = true")
     List<EntidadEstadoEntity> findEntidadesPorTipoYModulo(@Param("entidadTipo") String entidadTipo, @Param("idModulo") Long idModulo);

@@ -31,7 +31,7 @@ public interface EstadoHistorialJpaRepository extends JpaRepository<EstadoHistor
                                                         @Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin);
     
     @Query("SELECT COUNT(h) FROM EstadoHistorialEntity h WHERE h.estadoNuevo.id = :estadoId AND h.createdAt >= :fecha")
-    Long countCambiosEstadoDesde(@Param("estadoId") Long estadoId, @Param("fecha") LocalDateTime fecha);
+    Long countCambiosEstadoDesde(@Param("estadoId") Integer estadoId, @Param("fecha") LocalDateTime fecha);
     
     @Query("SELECT h FROM EstadoHistorialEntity h WHERE h.estadoNuevo.idModulo = :idModulo ORDER BY h.createdAt DESC")
     List<EstadoHistorialEntity> findHistorialPorModulo(@Param("idModulo") Long idModulo);

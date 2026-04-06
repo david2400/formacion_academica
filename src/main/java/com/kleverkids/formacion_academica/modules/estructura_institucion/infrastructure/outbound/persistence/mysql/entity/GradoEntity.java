@@ -3,10 +3,14 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "grados")
+@NoArgsConstructor
 public class GradoEntity extends AuditInfo {
 
     @Id

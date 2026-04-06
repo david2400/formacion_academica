@@ -17,12 +17,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface GrupoMapper {
 
     // Entity a Domain Model
     @Mapping(target = "aulaId", ignore = true) // No hay mapeo directo de Set<AulaEntity> a Long
-    @Mapping(target = "activo", source = "estado")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
@@ -32,28 +31,15 @@ public interface GrupoMapper {
     List<Grupo> toDomainModelList(List<GrupoEntity> entities);
 
     // DTO a Entity - método manual para evitar conflictos con AuditInfo
-    default GrupoEntity toEntity(CrearGrupoDto dto) {
-        GrupoEntity entity = new GrupoEntity();
-        entity.setCodigo(dto.getCodigo());
-        entity.setNombre(dto.getNombre());
-        entity.setGradoId(dto.getGradoId());
-        entity.setCapacidadMaxima(dto.getCapacidadMaxima());
-        entity.setTutorId(dto.getTutorId());
-        entity.setEstado(true); // Valor por defecto para nuevos grupos
-        // Las relaciones (grado, aulas) y propiedades de auditoría son manejadas por separado
-        return entity;
-    }
-
-    // Update partial
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "grado", ignore = true)
-    @Mapping(target = "aulas", ignore = true)
+    @Mapping(target = "activo", constant = "true")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "estado", ignore = true)
+    GrupoEntity toEntity(CrearGrupoDto dto);
+
+    // Update partial
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(ActualizarGrupoDto dto, @MappingTarget GrupoEntity entity);
 
     // Método de conversión de Instant a LocalDateTime

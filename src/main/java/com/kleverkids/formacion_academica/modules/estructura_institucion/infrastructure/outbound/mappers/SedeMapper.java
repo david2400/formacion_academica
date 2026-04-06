@@ -15,11 +15,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface SedeMapper {
 
     // Entity a Domain Model
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
@@ -28,23 +27,8 @@ public interface SedeMapper {
 
     List<Sede> toDomainModelList(List<SedeEntity> entities);
 
-    // DTO a Entity - método manual para evitar conflictos con AuditInfo
-    default SedeEntity toEntity(CrearSedeDto dto) {
-        SedeEntity entity = new SedeEntity();
-        entity.setNombre(dto.getNombre());
-        entity.setDescripcion(dto.getDescripcion());
-        entity.setDireccion(dto.getDireccion());
-        entity.setCiudadId(dto.getCiudadId());
-        entity.setDepartamentoId(dto.getDepartamentoId());
-        entity.setPais(dto.getPais());
-        entity.setTelefono(dto.getTelefono());
-        entity.setEmail(dto.getEmail());
-        entity.setContactoPrincipal(dto.getContactoPrincipal());
-        entity.setTelefonoContacto(dto.getTelefonoContacto());
-        entity.setEmailContacto(dto.getEmailContacto());
-        return entity;
-    }
-
+    @Mapping(target = "activo", constant = "true")
+    SedeEntity toEntity(CrearSedeDto dto);
     // Update partial
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "salones", ignore = true)

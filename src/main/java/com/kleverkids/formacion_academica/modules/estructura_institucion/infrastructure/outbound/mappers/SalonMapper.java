@@ -16,11 +16,8 @@ import java.util.List;
 public interface SalonMapper {
     
     SalonMapper INSTANCE = Mappers.getMapper(SalonMapper.class);
-    
-    @Mapping(target = "usrCrea", ignore = true)
-    @Mapping(target = "usrMod", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
+
+    @Mapping(target = "activo", constant = "true")
     SalonEntity toEntity(CrearSalonDto dto);
     
     @Mapping(target = "sede", ignore = true)

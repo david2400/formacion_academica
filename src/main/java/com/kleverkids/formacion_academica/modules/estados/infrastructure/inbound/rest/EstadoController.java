@@ -325,7 +325,7 @@ public class EstadoController {
             @ApiResponse(responseCode = "500", description = "Error interno")
     })
     public ResponseEntity<List<EstadoDto>> listarEntidadesConEstado(
-            @Parameter(description = "ID del estado") @PathVariable Long estadoId) {
+            @Parameter(description = "ID del estado") @PathVariable Integer estadoId) {
         List<EstadoDto> entidades = consultaEspecializadaUseCase.listarEntidadesConEstado(estadoId);
         return ResponseEntity.ok(entidades);
     }

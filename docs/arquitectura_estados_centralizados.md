@@ -298,7 +298,7 @@ public void handleEstadoCambiado(EstadoCambiadoEvent event) {
 
 ```java
 // Validar que un estado sea consistente con otros módulos
-public boolean validarEstadoConsistente(String entidadTipo, Long entidadId, Long estadoId) {
+public boolean validarEstadoConsistente(String entidadTipo, Long entidadId, Integer estadoId) {
     // Validar con reglas de otros módulos
     // Verificar dependencias
     // Confirmar integridad de datos

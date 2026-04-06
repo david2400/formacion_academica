@@ -30,5 +30,5 @@ public class ActualizarEstadoInscripcionDto extends CrearInscripcionDto {
     private String observaciones;
 
     @NotBlank(message = "El estado es obligatorio")
-    private String estado;
+    private Integer estadoId;
 }

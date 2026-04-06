@@ -9,13 +9,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface TematicaMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -35,7 +36,6 @@ public interface TematicaMapper {
     @Mapping(target = "updatedAt", ignore = true)
     void applyUpdate(@MappingTarget TematicaEntity entity, ActualizarTematicaDto dto);
 
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt")

@@ -3,17 +3,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "sedes")
 @EqualsAndHashCode(callSuper = true, exclude = {"salones"})
-@ToString(exclude = {"salones"})
+@ToString(callSuper = true)
+@NoArgsConstructor
 public class SedeEntity extends AuditInfo {
 
     @Id

@@ -9,5 +9,5 @@ public interface InscripcionJpaRepository extends JpaRepository<InscripcionEntit
 
     List<InscripcionEntity> findByPeriodoAcademico(String periodoAcademico);
 
-    List<InscripcionEntity> findByEstado(String estado);
+    List<InscripcionEntity> findByEstadoId(Integer estadoId);
 }

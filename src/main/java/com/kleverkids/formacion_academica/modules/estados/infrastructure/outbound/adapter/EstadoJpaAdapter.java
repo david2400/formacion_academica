@@ -157,7 +157,7 @@ public class EstadoJpaAdapter implements EstadoRepositoryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EstadoDto> listarEntidadesConEstado(Long estadoId) {
+    public List<EstadoDto> listarEntidadesConEstado(Integer estadoId) {
         List<EntidadEstadoEntity> entidades = entidadEstadoRepository.findByEstadoIdAndActivoTrue(estadoId);
         return entidades.stream()
                 .map(entidadEstado -> mapper.toDto(entidadEstado.getEstado()))
@@ -166,7 +166,7 @@ public class EstadoJpaAdapter implements EstadoRepositoryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public Long contarEntidadesConEstado(Long estadoId) {
+    public Long contarEntidadesConEstado(Integer estadoId) {
         return entidadEstadoRepository.countEntidadesConEstado(estadoId);
     }
 }

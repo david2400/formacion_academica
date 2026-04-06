@@ -5,16 +5,16 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.aula.CrearAulaDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.AulaEntity;
 import org.mapstruct.*;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface AulaMapper {
 
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")

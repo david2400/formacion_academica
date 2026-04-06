@@ -22,8 +22,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @SoftDelete(columnName = "activo")
 public class AuditInfo {
-    @Builder.Default
-    @Column(name = "activo", nullable = false, insertable = false, updatable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    @Column(name = "activo", insertable = false, updatable = false)
     private boolean activo = true;
 
     @Column(name = "usr_crea", nullable = false, length = 50)
@@ -40,30 +39,27 @@ public class AuditInfo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-
     // @Column(name = "deleted_at")
     // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     // @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
     // @JsonInclude(JsonInclude.Include.NON_EMPTY)
     // private Instant deletedAt;
 
-
-//    @PreRemove
-//    public void preRemove() {
-//        this.deletedAt = Instant.now();
-//    }
+    // @PreRemove
+    // public void preRemove() {
+    // this.deletedAt = Instant.now();
+    // }
 
     @PrePersist
     public void prePersist() {
-//        InformacionUsuarioDto helpersUsuarios = HelpersUsuarios.getInstance();
+        // InformacionUsuarioDto helpersUsuarios = HelpersUsuarios.getInstance();
         this.usrCrea = 1;
     }
 
     @PreUpdate
     public void prePersistUpdate() {
-//        InformacionUsuarioDto helpersUsuarios = HelpersUsuarios.getInstance();
+        // InformacionUsuarioDto helpersUsuarios = HelpersUsuarios.getInstance();
         this.usrMod = 1;
     }
-
 
 }

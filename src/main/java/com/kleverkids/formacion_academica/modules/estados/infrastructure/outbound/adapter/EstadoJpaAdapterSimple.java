@@ -134,14 +134,14 @@ public class EstadoJpaAdapterSimple implements EstadoRepositoryPort {
     }
 
     @Override
-    public List<EstadoDto> listarEntidadesConEstado(Long estadoId) {
+    public List<EstadoDto> listarEntidadesConEstado(Integer estadoId) {
         // TODO: Implementar con repositories reales
         log.info("Listando entidades con estado: {}", estadoId);
         return List.of();
     }
 
     @Override
-    public Long contarEntidadesConEstado(Long estadoId) {
+    public Long contarEntidadesConEstado(Integer estadoId) {
         // TODO: Implementar con repositories reales
         log.info("Contando entidades con estado: {}", estadoId);
         return 0L;

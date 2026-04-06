@@ -23,7 +23,7 @@ public class ConsultaEspecializadaService implements ConsultaEspecializadaUseCas
     private final EntidadEstadoJpaRepository entidadEstadoRepository;
 
     @Override
-    public List<EstadoDto> listarEntidadesConEstado(Long estadoId) {
+    public List<EstadoDto> listarEntidadesConEstado(Integer estadoId) {
         // Simplified implementation - return empty list for now
         // Need proper mapper for EntidadEstadoEntity -> EstadoDto
         return List.of();

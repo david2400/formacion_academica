@@ -4,12 +4,16 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "estudiantes_grupo")
+@NoArgsConstructor
 public class EstudianteGrupoEntity extends AuditInfo {
 
     @Id

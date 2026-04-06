@@ -5,13 +5,14 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.c
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.ClaseEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface ClaseMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -22,7 +23,6 @@ public interface ClaseMapper {
     @Mapping(target = "updatedAt", ignore = true)
     ClaseEntity toEntity(CrearClaseDto dto);
 
-    @Mapping(target = "activo", source = "activo")
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt")

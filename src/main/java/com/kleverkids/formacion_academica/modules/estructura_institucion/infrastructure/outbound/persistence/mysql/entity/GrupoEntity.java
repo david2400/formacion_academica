@@ -3,13 +3,17 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "grupos")
+@NoArgsConstructor
 public class GrupoEntity extends AuditInfo {
 
     @Id
@@ -40,15 +44,11 @@ public class GrupoEntity extends AuditInfo {
 
     private Long tutorId;
 
-    @Column(nullable = false)
-    private boolean estado;
+    @Column(name = "estado_id", nullable = false)
+    private Integer estadoId;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "grupo_aula",
-            joinColumns = @JoinColumn(name = "grupo_id"),
-            inverseJoinColumns = @JoinColumn(name = "aula_id")
-    )
+    @JoinTable(name = "grupo_aula", joinColumns = @JoinColumn(name = "grupo_id"), inverseJoinColumns = @JoinColumn(name = "aula_id"))
     private Set<AulaEntity> aulas = new HashSet<>();
 
 }

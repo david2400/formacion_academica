@@ -46,7 +46,12 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
         }
 
         if (filtro.estado() != null && !filtro.estado().isBlank()) {
-            return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findByEstado(filtro.estado()));
+            try {
+                Integer estadoId = Integer.parseInt(filtro.estado());
+                return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findByEstadoId(estadoId));
+            } catch (NumberFormatException e) {
+                return List.of(); // Return empty list if estado is not a valid integer
+            }
         }
 
         return inscripcionMapper.toDomainModelList(inscripcionJpaRepository.findAll());

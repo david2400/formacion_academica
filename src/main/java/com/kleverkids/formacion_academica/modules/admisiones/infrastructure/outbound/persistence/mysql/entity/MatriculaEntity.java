@@ -36,7 +36,7 @@ public class MatriculaEntity {
     private boolean renovacion;
 
     @Column(nullable = false)
-    private String estado;
+    private Integer estadoId;
 
     private String observaciones;
 }

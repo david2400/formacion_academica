@@ -33,6 +33,6 @@ public class ActualizarMatriculaDto {
     private LocalDate fechaMatricula;
 
     private Boolean renovacion;
-    private String estado;
+    private Integer estadoId;
     private String observaciones;
 }

@@ -33,7 +33,7 @@ public interface MatriculaMapper {
     @Mapping(target = "grupoId", source = "dto.grupoId")
     @Mapping(target = "fechaMatricula", source = "dto.fechaMatricula")
     @Mapping(target = "renovacion", source = "dto.renovacion")
-    @Mapping(target = "estado", source = "dto.estado")
+    @Mapping(target = "estadoId", source = "dto.estadoId")
     @Mapping(target = "observaciones", source = "dto.observaciones")
     MatriculaEntity applyEstado(MatriculaEntity entity, ActualizarMatriculaDto dto);
 

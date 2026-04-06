@@ -164,12 +164,12 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
     }
 
     @Transactional(readOnly = true)
-    public List<EntidadEstadoEntity> listarEntidadesConEstado(Long estadoId) {
+    public List<EntidadEstadoEntity> listarEntidadesConEstado(Integer estadoId) {
         return entidadEstadoRepository.findByEstadoIdAndActivoTrue(estadoId);
     }
 
     @Transactional(readOnly = true)
-    public Long contarEntidadesConEstado(Long estadoId) {
+    public Long contarEntidadesConEstado(Integer estadoId) {
         return entidadEstadoRepository.countEntidadesConEstado(estadoId);
     }
 
