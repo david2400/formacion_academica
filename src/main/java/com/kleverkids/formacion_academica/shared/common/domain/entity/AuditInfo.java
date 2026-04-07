@@ -20,10 +20,10 @@ import java.time.Instant;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@SoftDelete(columnName = "activo")
+@SoftDelete(columnName = "eliminado")
 public class AuditInfo {
-    @Column(name = "activo", insertable = false, updatable = false)
-    private boolean activo = true;
+    @Column(name = "eliminado", insertable = false, updatable = false)
+    private boolean eliminado;
 
     @Column(name = "usr_crea", nullable = false, length = 50)
     private Integer usrCrea;

@@ -99,7 +99,7 @@ public class NivelEducativoJpaAdapter implements NivelEducativoRepositoryPort {
 
     @Override
     public List<NivelEducativo> listarActivos() {
-        return mapper.toDomainModelList(repository.findByActivoTrue());
+        return mapper.toDomainModelList(repository.findByEliminadoFalse());
     }
 
 //    @Override
@@ -107,7 +107,7 @@ public class NivelEducativoJpaAdapter implements NivelEducativoRepositoryPort {
 //        List<NivelEducativo> todos = listarTodos();
 //        List<NivelEducativo> activos = listarActivos();
 //        List<NivelEducativo> inactivos = todos.stream()
-//                .filter(n -> !n.activo())
+//                .filter(n -> !n.eliminado())
 //                .toList();
 //
 //        long totalPreescolar = todos.stream().filter(n -> "PREESCOLAR".equals(n.categoria())).count();
@@ -137,7 +137,7 @@ public class NivelEducativoJpaAdapter implements NivelEducativoRepositoryPort {
 
 //    @Override
 //    public List<NivelEducativo> listarPorCategoriaActivos(String categoria) {
-//        return mapper.toDomainModelList(repository.findByCategoriaAndActivoTrueOrderByOrdenAsc(categoria));
+//        return mapper.toDomainModelList(repository.findByCategoriaAndEliminadoFalseOrderByOrdenAsc(categoria));
 //    }
 
     @Override

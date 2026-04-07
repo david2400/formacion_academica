@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS estudiantes (
     correo VARCHAR(120),
     telefono VARCHAR(40),
     direccion VARCHAR(200),
-    activo BOOLEAN NOT NULL
+    eliminado BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS acudientes (
@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS acudientes (
     telefono VARCHAR(40),
     correo VARCHAR(120),
     es_principal BOOLEAN NOT NULL,
-    activo BOOLEAN NOT NULL,
+    eliminado BOOLEAN NOT NULL,
     CONSTRAINT fk_acudiente_estudiante FOREIGN KEY (estudiante_id) REFERENCES estudiantes(id)
 );

@@ -65,7 +65,7 @@ class AulaJpaAdapterTest {
 //        assertEquals("Laboratorio 2", result.nombre());
 //        assertEquals("Matemáticas", result.descripcion());
 //        assertEquals(30, result.capacidad());
-//        assertTrue(!result.activo());
+//        assertTrue(!result.eliminado());
         verify(aulaJpaRepository).save(entity);
     }
 

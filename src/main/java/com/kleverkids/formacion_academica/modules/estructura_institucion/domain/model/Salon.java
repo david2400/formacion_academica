@@ -16,7 +16,7 @@ public record Salon(
         Boolean pizarronBlanco,
         Boolean aireAcondicionado,
 
-        Boolean activo,
+        Boolean eliminado,
         Integer usrCrea,
         Integer usrMod,
         LocalDateTime createdAt,

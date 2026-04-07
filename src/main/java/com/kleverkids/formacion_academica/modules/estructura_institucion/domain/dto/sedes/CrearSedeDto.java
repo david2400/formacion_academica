@@ -58,5 +58,5 @@ public class CrearSedeDto {
     @Size(max = 100, message = "El email del contacto no puede exceder 100 caracteres")
     private String emailContacto;
 
-    private Boolean activo;
+    private Boolean eliminado;
 }

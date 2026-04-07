@@ -82,7 +82,7 @@ public class EntidadEstadoService implements GestionarEntidadEstadoUseCase {
         nuevaAsignacion.setEstadoAnterior(estadoAnterior);
         nuevaAsignacion.setIdUsuarioCambio(idUsuarioCambio);
         nuevaAsignacion.setMotivo(motivo);
-        nuevaAsignacion.setActivo(true);
+        nuevaAsignacion.setEliminado(true);
         
         // Guardar la asignación
         EntidadEstadoEntity guardada = entidadEstadoRepository.save(nuevaAsignacion);

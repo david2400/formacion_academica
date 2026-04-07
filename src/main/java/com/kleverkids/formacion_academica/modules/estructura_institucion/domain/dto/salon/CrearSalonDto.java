@@ -37,6 +37,6 @@ public class CrearSalonDto {
     
     private Long sedeId;
 
-    private Boolean activo;
+    private Boolean eliminado;
 
 }

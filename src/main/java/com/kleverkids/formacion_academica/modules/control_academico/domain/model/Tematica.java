@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record Tematica(Long id,
                              String titulo,
                              String descripcion,
-                             boolean activo,
+                             boolean eliminado,
                              Integer usrCrea,
                              Integer usrMod,
                              LocalDateTime createdAt,

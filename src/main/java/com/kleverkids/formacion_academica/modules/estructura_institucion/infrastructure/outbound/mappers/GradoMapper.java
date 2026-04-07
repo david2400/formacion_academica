@@ -26,7 +26,7 @@ public interface GradoMapper {
 
     List<Grado> toDomainModelList(List<GradoEntity> entities);
 
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

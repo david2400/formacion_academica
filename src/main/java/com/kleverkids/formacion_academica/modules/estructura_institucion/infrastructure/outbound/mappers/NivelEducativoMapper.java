@@ -18,7 +18,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface NivelEducativoMapper {
 
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     NivelEducativoEntity toEntity(CrearNivelEducativoDto dto);
     
     // Update partial (para actualizaciones)

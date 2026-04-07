@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface InscripcionMapper {
 
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
@@ -23,10 +23,12 @@ public interface InscripcionMapper {
 
     List<Inscripcion> toDomainModelList(List<InscripcionEntity> entities);
 
-    @Mapping(target = "estudianteId", source = "estudianteId")
-    @Mapping(target = "periodoAcademico", source = "periodoAcademico")
-    @Mapping(target = "fechaSolicitud", source = "fechaSolicitud")
-    @Mapping(target = "observaciones", source = "observaciones")
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "eliminado", ignore = true)
+    @Mapping(target = "estadoId", constant = "1") // Default active state
     InscripcionEntity toEntity(CrearInscripcionDto dto);
 
     @Named("instantToLocalDateTime")

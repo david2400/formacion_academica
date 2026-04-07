@@ -3,13 +3,19 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 @Table(name = "aulas")
+@EqualsAndHashCode(callSuper = true)
 public class AulaEntity extends AuditInfo {
 
     @Id

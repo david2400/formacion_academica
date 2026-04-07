@@ -17,7 +17,7 @@ public record StateTransition(
     String action,
     Boolean automatic,
     Integer order,
-    boolean activo,
+    boolean eliminado,
     Integer usrCrea,
     Integer usrMod,
     LocalDateTime createdAt,
@@ -25,7 +25,7 @@ public record StateTransition(
 ) {
     // Business methods
     public boolean isValid() {
-        return sourceState() != null && targetState() != null && activo();
+        return sourceState() != null && targetState() != null && eliminado();
     }
 
     public boolean isAutomaticTransition() {

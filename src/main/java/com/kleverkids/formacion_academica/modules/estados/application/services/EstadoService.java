@@ -46,12 +46,12 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
 
     @Transactional(readOnly = true)
     public List<EstadoEntity> listarEstadosPorModulo(Long idModulo) {
-        return estadoRepository.findByIdModuloAndActivoTrueOrderByOrdenAsc(idModulo);
+        return estadoRepository.findByIdModuloAndEliminadoFalseOrderByOrdenAsc(idModulo);
     }
 
     @Transactional(readOnly = true)
     public List<EstadoEntity> listarEstadosPorModuloYEmpresa(Long idModulo, Long idEmpresa) {
-        return estadoRepository.findByIdModuloAndIdEmpresaAndActivoTrue(idModulo, idEmpresa);
+        return estadoRepository.findByIdModuloAndIdEmpresaAndEliminadoFalse(idModulo, idEmpresa);
     }
 
     @Transactional(readOnly = true)
@@ -133,7 +133,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
         }
         
         // Desactivar el estado actual
-        estadoActual.setActivo(false);
+        estadoActual.setEliminado(false);
         entidadEstadoRepository.save(estadoActual);
         
         // Crear nueva asignación de estado
@@ -165,7 +165,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
 
     @Transactional(readOnly = true)
     public List<EntidadEstadoEntity> listarEntidadesConEstado(Integer estadoId) {
-        return entidadEstadoRepository.findByEstadoIdAndActivoTrue(estadoId);
+        return entidadEstadoRepository.findByEstadoIdAndEliminadoFalse(estadoId);
     }
 
     @Transactional(readOnly = true)
@@ -189,7 +189,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
         nuevaAsignacion.setEstadoAnterior(estadoAnterior);
         nuevaAsignacion.setIdUsuarioCambio(idUsuarioCambio);
         nuevaAsignacion.setMotivo(motivo);
-        nuevaAsignacion.setActivo(true);
+        nuevaAsignacion.setEliminado(true);
         
         // Guardar la asignación
         EntidadEstadoEntity guardada = entidadEstadoRepository.save(nuevaAsignacion);
@@ -229,7 +229,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
 
     @Transactional(readOnly = true)
     public boolean tieneEstadosConfigurados(Long idModulo) {
-        return estadoRepository.existsByCodigoAndIdModuloAndActivoTrue("ACTIVO", idModulo);
+        return estadoRepository.existsByCodigoAndIdModuloAndEliminadoFalse("ACTIVO", idModulo);
     }
 
     @Transactional(readOnly = true)
@@ -262,7 +262,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
 
     @Override
     public List<EstadoDto> listarPorModulo(Long idModulo) {
-        return estadoRepository.findByIdModuloAndActivoTrueOrderByOrdenAsc(idModulo)
+        return estadoRepository.findByIdModuloAndEliminadoFalseOrderByOrdenAsc(idModulo)
                 .stream()
                 .map(estadoMapper::toDto)
                 .toList();
@@ -270,7 +270,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
 
     @Override
     public List<EstadoDto> listarPorModuloYEmpresa(Long idModulo, Long idEmpresa) {
-        return estadoRepository.findByIdModuloAndIdEmpresaAndActivoTrue(idModulo, idEmpresa)
+        return estadoRepository.findByIdModuloAndIdEmpresaAndEliminadoFalse(idModulo, idEmpresa)
                 .stream()
                 .map(estadoMapper::toDto)
                 .toList();
@@ -306,7 +306,7 @@ public class EstadoService implements CrearEstadoUseCase, ConsultarEstadoUseCase
     public boolean eliminar(Long id) {
         return estadoRepository.findById(id)
                 .map(entity -> {
-                    entity.setActivo(false);
+                    entity.setEliminado(false);
                     estadoRepository.save(entity);
                     return true;
                 })

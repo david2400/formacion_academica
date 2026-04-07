@@ -17,19 +17,19 @@ public interface NivelEducativoJpaRepository extends JpaRepository<NivelEducativ
     
     List<NivelEducativoEntity> findByNivelSuperiorId(Long nivelSuperiorId);
     
-    List<NivelEducativoEntity> findByActivoTrue();
+    List<NivelEducativoEntity> findByEliminadoFalse();
 
     
-    // List<NivelEducativoEntity> findByCategoriaAndActivoTrue(String categoria);
+    // List<NivelEducativoEntity> findByCategoriaAndEliminadoFalse(String categoria);
     
     boolean existsByCodigo(String codigo);
     
-    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.activo = true")
+    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.eliminado = true")
     List<NivelEducativoEntity> findActivosOrdenados();
     
-    // @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.activo = true")
+    // @Query("SELECT n FROM NivelEducativoEntity n WHERE n.categoria = :categoria AND n.eliminado = true")
     // List<NivelEducativoEntity> findPorCategoriaActivosOrdenados(@Param("categoria") String categoria);
     
-    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.nivelSuperior IS NULL AND n.activo = true")
+    @Query("SELECT n FROM NivelEducativoEntity n WHERE n.nivelSuperior IS NULL AND n.eliminado = true")
     List<NivelEducativoEntity> findNivelesPrincipalesActivos();
 }

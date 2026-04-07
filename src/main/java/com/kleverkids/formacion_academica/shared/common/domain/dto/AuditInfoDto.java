@@ -14,7 +14,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @SuperBuilder
 public class AuditInfoDto {
-    private boolean activo;
+    private boolean eliminado;
 
     private Integer usrCrea;
 

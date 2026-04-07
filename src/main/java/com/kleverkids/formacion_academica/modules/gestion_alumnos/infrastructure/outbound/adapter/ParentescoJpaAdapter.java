@@ -59,7 +59,7 @@ public class ParentescoJpaAdapter implements ParentescoRepositoryPort {
 
     @Override
     public List<Parentesco> listarActivos() {
-        return jpaRepository.findByActivoTrue().stream()
+        return jpaRepository.findByEliminadoFalse().stream()
                 .map(mapper::toDomainModel)
                 .collect(Collectors.toList());
     }

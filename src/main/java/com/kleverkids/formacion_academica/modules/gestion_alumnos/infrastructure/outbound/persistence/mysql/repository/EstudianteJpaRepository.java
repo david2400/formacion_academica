@@ -14,9 +14,9 @@ public interface EstudianteJpaRepository extends JpaRepository<EstudianteEntity,
 
     Optional<EstudianteEntity> findByTipoDocumentoAndNumeroDocumento(String tipoDocumento, String numeroDocumento);
 
-    Optional<EstudianteEntity> findByIdAndActivoTrue(Long id);
+    Optional<EstudianteEntity> findByIdAndEliminadoFalse(Long id);
 
-    List<EstudianteEntity> findByActivoTrue();
+    List<EstudianteEntity> findByEliminadoFalse();
 
-    Page<EstudianteEntity> findByActivoTrue(Pageable pageable);
+    Page<EstudianteEntity> findByEliminadoFalse(Pageable pageable);
 }

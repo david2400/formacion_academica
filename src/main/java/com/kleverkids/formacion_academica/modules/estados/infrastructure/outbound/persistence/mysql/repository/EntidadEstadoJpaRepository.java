@@ -14,34 +14,34 @@ public interface EntidadEstadoJpaRepository extends JpaRepository<EntidadEstadoE
     
     Optional<EntidadEstadoEntity> findByUuid(String uuid);
     
-    Optional<EntidadEstadoEntity> findByEntidadTipoAndEntidadIdAndActivoTrue(String entidadTipo, Long entidadId);
+    Optional<EntidadEstadoEntity> findByEntidadTipoAndEntidadIdAndEliminadoFalse(String entidadTipo, Long entidadId);
     
     List<EntidadEstadoEntity> findByEntidadTipoAndEntidadId(String entidadTipo, Long entidadId);
     
-    List<EntidadEstadoEntity> findByEntidadTipoAndActivoTrue(String entidadTipo);
+    List<EntidadEstadoEntity> findByEntidadTipoAndEliminadoFalse(String entidadTipo);
     
     List<EntidadEstadoEntity> findByEstadoId(Integer estadoId);
     
-    List<EntidadEstadoEntity> findByEstadoIdAndActivoTrue(Integer estadoId);
+    List<EntidadEstadoEntity> findByEstadoIdAndEliminadoFalse(Integer estadoId);
     
     List<EntidadEstadoEntity> findByIdEmpresa(Long idEmpresa);
     
     List<EntidadEstadoEntity> findByEntidadTipoAndIdEmpresa(String entidadTipo, Long idEmpresa);
     
-    List<EntidadEstadoEntity> findByEntidadTipoAndIdEmpresaAndActivoTrue(String entidadTipo, Long idEmpresa);
+    List<EntidadEstadoEntity> findByEntidadTipoAndIdEmpresaAndEliminadoFalse(String entidadTipo, Long idEmpresa);
     
-    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.entidadId = :entidadId AND ee.activo = true")
+    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.entidadId = :entidadId AND ee.eliminado = true")
     Optional<EntidadEstadoEntity> findEstadoActual(@Param("entidadTipo") String entidadTipo, @Param("entidadId") Long entidadId);
     
-    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.activo = true")
+    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.eliminado = true")
     List<EntidadEstadoEntity> findEntidadesConEstado(@Param("estadoId") Integer estadoId);
     
-    @Query("SELECT COUNT(ee) FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.activo = true")
+    @Query("SELECT COUNT(ee) FROM EntidadEstadoEntity ee WHERE ee.estado.id = :estadoId AND ee.eliminado = true")
     Long countEntidadesConEstado(@Param("estadoId") Integer estadoId);
     
-    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.estado.idModulo = :idModulo AND ee.activo = true")
+    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.estado.idModulo = :idModulo AND ee.eliminado = true")
     List<EntidadEstadoEntity> findEntidadesPorTipoYModulo(@Param("entidadTipo") String entidadTipo, @Param("idModulo") Long idModulo);
     
-    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.idEmpresa = :idEmpresa AND ee.activo = true ORDER BY ee.createdAt DESC")
+    @Query("SELECT ee FROM EntidadEstadoEntity ee WHERE ee.entidadTipo = :entidadTipo AND ee.idEmpresa = :idEmpresa AND ee.eliminado = true ORDER BY ee.createdAt DESC")
     List<EntidadEstadoEntity> findEntidadesPorTipoYEmpresa(@Param("entidadTipo") String entidadTipo, @Param("idEmpresa") Long idEmpresa);
 }

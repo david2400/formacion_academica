@@ -16,7 +16,7 @@ import java.util.List;
 public interface ClaseMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

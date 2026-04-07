@@ -17,7 +17,7 @@ public record Sede(
         String telefonoContacto,
         String emailContacto,
         
-        Boolean activo,
+        Boolean eliminado,
         Integer usrCrea,
         Integer usrMod,
         LocalDateTime createdAt,

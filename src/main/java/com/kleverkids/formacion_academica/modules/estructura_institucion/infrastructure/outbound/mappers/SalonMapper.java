@@ -17,7 +17,7 @@ public interface SalonMapper {
     
     SalonMapper INSTANCE = Mappers.getMapper(SalonMapper.class);
 
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     SalonEntity toEntity(CrearSalonDto dto);
     
     @Mapping(target = "sede", ignore = true)

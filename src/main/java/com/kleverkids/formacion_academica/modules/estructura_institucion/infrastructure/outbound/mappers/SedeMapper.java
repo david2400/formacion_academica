@@ -27,7 +27,7 @@ public interface SedeMapper {
 
     List<Sede> toDomainModelList(List<SedeEntity> entities);
 
-    @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "eliminado", constant = "false")
     SedeEntity toEntity(CrearSedeDto dto);
     // Update partial
     @Mapping(target = "id", ignore = true)

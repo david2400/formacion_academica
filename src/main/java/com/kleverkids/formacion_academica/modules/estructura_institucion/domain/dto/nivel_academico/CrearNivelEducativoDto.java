@@ -32,7 +32,7 @@ public class CrearNivelEducativoDto {
     
     private Long nivelSuperiorId;
     
-    private Boolean activo;
+    private Boolean eliminado;
     
     // @NotBlank(message = "La categoría es obligatoria")
     // @Pattern(regexp = "^(PREESCOLAR|BASICA|MEDIA|SUPERIOR)$", message = "La categoría debe ser una de: PREESCOLAR, BASICA, MEDIA, SUPERIOR")

@@ -12,27 +12,9 @@ import java.time.LocalDate;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActualizarMatriculaDto {
+public class ActualizarMatriculaDto extends CrearMatriculaDto {
 
     @NotNull(message = "La matrícula es obligatoria")
     private Long matriculaId;
 
-    @NotNull(message = "La inscripción es obligatoria")
-    private Long inscripcionId;
-
-    @NotNull(message = "El estudiante es obligatoria")
-    private Long estudianteId;
-
-    @NotNull(message = "El grado es obligatorio")
-    private Long gradoId;
-
-    @NotNull(message = "El grupo es obligatorio")
-    private Long grupoId;
-
-    @NotNull(message = "La fecha de matrícula es obligatoria")
-    private LocalDate fechaMatricula;
-
-    private Boolean renovacion;
-    private Integer estadoId;
-    private String observaciones;
 }

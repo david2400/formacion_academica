@@ -43,6 +43,6 @@ public class ConsultaEspecializadaService implements ConsultaEspecializadaUseCas
 
     @Override
     public boolean tieneEstadosConfigurados(Long idModulo) {
-        return estadoRepository.existsByCodigoAndIdModuloAndActivoTrue("ACTIVO", idModulo);
+        return estadoRepository.existsByCodigoAndIdModuloAndEliminadoFalse("ACTIVO", idModulo);
     }
 }

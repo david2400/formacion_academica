@@ -61,14 +61,14 @@ public class EstadoJpaAdapter implements EstadoRepositoryPort {
     @Override
     @Transactional(readOnly = true)
     public List<EstadoDto> listarPorModulo(Long idModulo) {
-        List<EstadoEntity> entities = estadoRepository.findByIdModuloAndActivoTrueOrderByOrdenAsc(idModulo);
+        List<EstadoEntity> entities = estadoRepository.findByIdModuloAndEliminadoFalseOrderByOrdenAsc(idModulo);
         return mapper.toDtoList(entities);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EstadoDto> listarPorModuloYEmpresa(Long idModulo, Long idEmpresa) {
-        List<EstadoEntity> entities = estadoRepository.findByIdModuloAndIdEmpresaAndActivoTrue(idModulo, idEmpresa);
+        List<EstadoEntity> entities = estadoRepository.findByIdModuloAndIdEmpresaAndEliminadoFalse(idModulo, idEmpresa);
         return mapper.toDtoList(entities);
     }
 
@@ -158,7 +158,7 @@ public class EstadoJpaAdapter implements EstadoRepositoryPort {
     @Override
     @Transactional(readOnly = true)
     public List<EstadoDto> listarEntidadesConEstado(Integer estadoId) {
-        List<EntidadEstadoEntity> entidades = entidadEstadoRepository.findByEstadoIdAndActivoTrue(estadoId);
+        List<EntidadEstadoEntity> entidades = entidadEstadoRepository.findByEstadoIdAndEliminadoFalse(estadoId);
         return entidades.stream()
                 .map(entidadEstado -> mapper.toDto(entidadEstado.getEstado()))
                 .toList();

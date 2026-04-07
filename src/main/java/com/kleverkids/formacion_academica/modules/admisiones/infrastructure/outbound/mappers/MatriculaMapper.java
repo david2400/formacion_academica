@@ -15,27 +15,20 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MatriculaMapper {
 
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
+    @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
+    @Mapping(target = "eliminado", constant = "false")
     Matricula toDomainModel(MatriculaEntity entity);
 
     List<Matricula> toDomainModelList(List<MatriculaEntity> entities);
 
-    @Mapping(target = "inscripcionId", source = "inscripcionId")
-    @Mapping(target = "estudianteId", source = "estudianteId")
-    @Mapping(target = "gradoId", source = "gradoId")
-    @Mapping(target = "grupoId", source = "grupoId")
-    @Mapping(target = "fechaMatricula", source = "fechaMatricula")
-    @Mapping(target = "renovacion", source = "renovacion")
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "eliminado", ignore = true)
+    @Mapping(target = "estadoId", constant = "1") // Default active state
     MatriculaEntity toEntity(CrearMatriculaDto dto);
-
-    @Mapping(target = "inscripcionId", source = "dto.inscripcionId")
-    @Mapping(target = "estudianteId", source = "dto.estudianteId")
-    @Mapping(target = "gradoId", source = "dto.gradoId")
-    @Mapping(target = "grupoId", source = "dto.grupoId")
-    @Mapping(target = "fechaMatricula", source = "dto.fechaMatricula")
-    @Mapping(target = "renovacion", source = "dto.renovacion")
-    @Mapping(target = "estadoId", source = "dto.estadoId")
-    @Mapping(target = "observaciones", source = "dto.observaciones")
-    MatriculaEntity applyEstado(MatriculaEntity entity, ActualizarMatriculaDto dto);
 
     @Named("instantToLocalDateTime")
     static LocalDateTime instantToLocalDateTime(Instant instant) {

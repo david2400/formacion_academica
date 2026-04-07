@@ -30,7 +30,7 @@ entidad_estados (1) -----> (N) estado_historial
 SELECT e.id, e.codigo, e.nombre, e.color, e.icono, e.orden
 FROM estados e
 WHERE e.id_modulo = 1 
-  AND e.activo = TRUE
+  AND e.eliminado = TRUE
 ORDER BY e.orden ASC;
 ```
 
@@ -40,7 +40,7 @@ SELECT e.id, e.codigo, e.nombre, e.es_inicial, e.es_final
 FROM estados e
 WHERE e.id_modulo = 1 
   AND e.id_empresa = 100
-  AND e.activo = TRUE
+  AND e.eliminado = TRUE
 ORDER BY e.orden ASC;
 ```
 
@@ -90,7 +90,7 @@ FROM entidad_estados ee
 INNER JOIN estados e ON ee.id_estado = e.id
 WHERE ee.entidad_tipo = 'estudiante'
   AND ee.entidad_id = 123
-  AND ee.activo = TRUE;
+  AND ee.eliminado = TRUE;
 ```
 
 ### 4. Asignar estado a una entidad
@@ -98,15 +98,15 @@ WHERE ee.entidad_tipo = 'estudiante'
 ```sql
 -- Desactivar estado anterior
 UPDATE entidad_estados 
-SET activo = FALSE, actualizado_en = NOW()
+SET eliminado = FALSE, actualizado_en = NOW()
 WHERE entidad_tipo = 'estudiante' 
   AND entidad_id = 123 
-  AND activo = TRUE;
+  AND eliminado = TRUE;
 
 -- Insertar nuevo estado
 INSERT INTO entidad_estados (
     uuid, entidad_tipo, entidad_id, id_estado, id_estado_anterior, 
-    id_usuario_cambio, motivo, activo, creado_en
+    id_usuario_cambio, motivo, eliminado, creado_en
 ) VALUES (
     UUID(), 'estudiante', 123, 2, 1, 1000, 'Cambio de estado manual', TRUE, NOW()
 );
@@ -141,11 +141,11 @@ SELECT
     e.codigo as estado_codigo,
     e.nombre as estado_nombre,
     COUNT(ee.id) as cantidad_entidades,
-    ROUND(COUNT(ee.id) * 100.0 / (SELECT COUNT(*) FROM entidad_estados WHERE activo = TRUE), 2) as porcentaje
+    ROUND(COUNT(ee.id) * 100.0 / (SELECT COUNT(*) FROM entidad_estados WHERE eliminado = TRUE), 2) as porcentaje
 FROM estados e
-LEFT JOIN entidad_estados ee ON e.id = ee.id_estado AND ee.activo = TRUE
+LEFT JOIN entidad_estados ee ON e.id = ee.id_estado AND ee.eliminado = TRUE
 WHERE e.id_modulo = 1
-  AND e.activo = TRUE
+  AND e.eliminado = TRUE
 GROUP BY e.id, e.codigo, e.nombre
 ORDER BY e.orden ASC;
 ```
@@ -163,7 +163,7 @@ FROM estados e
 LEFT JOIN estado_transiciones t ON e.id = t.id_estado_origen AND t.activa = TRUE
 LEFT JOIN estados e_destino ON t.id_estado_destino = e_destino.id
 WHERE e.id_modulo = 1
-  AND e.activo = TRUE
+  AND e.eliminado = TRUE
 GROUP BY e.id, e.codigo, e.nombre, e.es_inicial, e.es_final, e.orden
 ORDER BY e.orden ASC;
 ```

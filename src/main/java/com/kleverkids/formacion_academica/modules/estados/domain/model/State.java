@@ -19,7 +19,7 @@ public record State(
     Boolean isInitial,
     Boolean isFinal,
     Integer order,
-    boolean activo,
+    boolean eliminado,
     Integer usrCrea,
     Integer usrMod,
     LocalDateTime createdAt,
@@ -28,7 +28,7 @@ public record State(
     // Business methods
     public boolean canTransitionTo(State targetState) {
         // Business logic for state transitions
-        return this.activo() && targetState.activo();
+        return this.eliminado() && targetState.eliminado();
     }
 
     public boolean isTerminalState() {

@@ -50,7 +50,7 @@ public class SedeJpaAdapter implements SedeRepositoryPort {
 
     @Override
     public List<Sede> listarActivas() {
-        List<SedeEntity> entities = sedeJpaRepository.findByActivoTrue();
+        List<SedeEntity> entities = sedeJpaRepository.findByEliminadoFalse();
         return sedeMapper.toDomainModelList(entities);
     }
 

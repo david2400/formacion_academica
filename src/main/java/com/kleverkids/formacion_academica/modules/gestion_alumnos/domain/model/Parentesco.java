@@ -5,7 +5,7 @@ import java.time.Instant;
 public record Parentesco(Long id,
                          String nombre,
                          String descripcion,
-                         boolean activo,
+                         boolean eliminado,
                          Integer usrCrea,
                          Integer usrMod,
                          Instant createdAt,

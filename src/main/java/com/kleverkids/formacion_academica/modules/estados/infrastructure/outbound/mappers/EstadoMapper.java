@@ -70,7 +70,7 @@ public interface EstadoMapper {
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "eliminado", ignore = true)
     @Mapping(target = "idModulo", ignore = true)
     @Mapping(target = "idEmpresa", ignore = true)
     void updateEntityFromDto(EstadoDto dto, @MappingTarget EstadoEntity entity);

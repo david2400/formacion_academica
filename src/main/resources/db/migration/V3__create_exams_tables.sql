@@ -18,7 +18,7 @@ CREATE TABLE exams (
     total_points DECIMAL(10, 2),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
-    activo BOOLEAN DEFAULT FALSE,
+    eliminado BOOLEAN DEFAULT FALSE,
     version BIGINT DEFAULT 0
 );
 
@@ -26,7 +26,7 @@ CREATE INDEX idx_exams_status ON exams(status);
 CREATE INDEX idx_exams_subject ON exams(subject);
 CREATE INDEX idx_exams_grade_level ON exams(grade_level);
 CREATE INDEX idx_exams_scheduled_date ON exams(scheduled_date);
-CREATE INDEX idx_exams_deleted ON exams(activo);
+CREATE INDEX idx_exams_deleted ON exams(eliminado);
 
 CREATE TABLE exam_submissions (
     id Long PRIMARY KEY,

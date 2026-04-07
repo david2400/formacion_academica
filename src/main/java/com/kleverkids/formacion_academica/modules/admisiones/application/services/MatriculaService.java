@@ -48,9 +48,9 @@ public class MatriculaService implements ActualizarMatriculaUseCase,
             request.getGrupoId(),
             request.getFechaMatricula(),
             request.getRenovacion(),
-            request.getEstadoId(),
+          //  request.getEstadoId(),
             request.getObservaciones(),
-            true, // activo
+            true, // eliminado
             null, // usrCrea
             null, // usrMod
             null, // createdAt

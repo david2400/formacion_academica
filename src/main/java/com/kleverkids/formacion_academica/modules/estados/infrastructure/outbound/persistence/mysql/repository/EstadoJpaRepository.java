@@ -20,9 +20,9 @@ public interface EstadoJpaRepository extends JpaRepository<EstadoEntity, Long> {
     
     List<EstadoEntity> findByIdModulo(Long idModulo);
     
-    List<EstadoEntity> findByIdModuloAndActivoTrue(Long idModulo);
+    List<EstadoEntity> findByIdModuloAndEliminadoFalse(Long idModulo);
     
-    List<EstadoEntity> findByIdModuloAndActivoTrueOrderByOrdenAsc(Long idModulo);
+    List<EstadoEntity> findByIdModuloAndEliminadoFalseOrderByOrdenAsc(Long idModulo);
     
     List<EstadoEntity> findByIdModuloAndEsInicialTrue(Long idModulo);
     
@@ -30,21 +30,21 @@ public interface EstadoJpaRepository extends JpaRepository<EstadoEntity, Long> {
     
     List<EstadoEntity> findByIdModuloAndIdEmpresa(Long idModulo, Long idEmpresa);
     
-    List<EstadoEntity> findByIdModuloAndIdEmpresaAndActivoTrue(Long idModulo, Long idEmpresa);
+    List<EstadoEntity> findByIdModuloAndIdEmpresaAndEliminadoFalse(Long idModulo, Long idEmpresa);
     
     boolean existsByCodigoAndIdModulo(String codigo, Long idModulo);
     
     boolean existsByCodigoAndIdModuloAndIdEmpresa(String codigo, Long idModulo, Long idEmpresa);
     
-    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.activo = true ORDER BY e.orden ASC")
+    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.eliminado = false ORDER BY e.orden ASC")
     List<EstadoEntity> findEstadosActivosPorModulo(@Param("idModulo") Long idModulo);
     
-    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.esInicial = true AND e.activo = true")
+    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.esInicial = true AND e.eliminado = false")
     List<EstadoEntity> findEstadosInicialesPorModulo(@Param("idModulo") Long idModulo);
     
-    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.esFinal = true AND e.activo = true")
+    @Query("SELECT e FROM EstadoEntity e WHERE e.idModulo = :idModulo AND e.esFinal = true AND e.eliminado = false")
     List<EstadoEntity> findEstadosFinalesPorModulo(@Param("idModulo") Long idModulo);
     
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM EstadoEntity e WHERE e.codigo = :codigo AND e.idModulo = :idModulo AND e.activo = true")
-    boolean existsByCodigoAndIdModuloAndActivoTrue(@Param("codigo") String codigo, @Param("idModulo") Long idModulo);
+    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM EstadoEntity e WHERE e.codigo = :codigo AND e.idModulo = :idModulo AND e.eliminado = false")
+    boolean existsByCodigoAndIdModuloAndEliminadoFalse(@Param("codigo") String codigo, @Param("idModulo") Long idModulo);
 }

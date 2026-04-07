@@ -30,7 +30,7 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
 
     @Override
     public Estudiante actualizar(UpdateEstudianteDto request) {
-        EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(request.getId())
+        EstudianteEntity entity = estudianteJpaRepository.findByIdAndEliminadoFalse(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
         estudianteMapper.updateEntityFromDto(request, entity);
         return estudianteMapper.toDomainModel(estudianteJpaRepository.save(entity));
@@ -38,17 +38,17 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
 
     @Override
     public Optional<Estudiante> obtenerPorId(Long estudianteId) {
-        return estudianteJpaRepository.findByIdAndActivoTrue(estudianteId).map(estudianteMapper::toDomainModel);
+        return estudianteJpaRepository.findByIdAndEliminadoFalse(estudianteId).map(estudianteMapper::toDomainModel);
     }
 
     @Override
     public List<Estudiante> listar() {
-        return estudianteMapper.toDomainModelList(estudianteJpaRepository.findByActivoTrue());
+        return estudianteMapper.toDomainModelList(estudianteJpaRepository.findByEliminadoFalse());
     }
 
     @Override
     public Page<Estudiante> listar(Pageable pageable) {
-        return estudianteJpaRepository.findByActivoTrue(pageable).map(estudianteMapper::toDomainModel);
+        return estudianteJpaRepository.findByEliminadoFalse(pageable).map(estudianteMapper::toDomainModel);
     }
 
     @Override
@@ -58,9 +58,9 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
 
     @Override
     public void eliminar(Long estudianteId) {
-        EstudianteEntity entity = estudianteJpaRepository.findByIdAndActivoTrue(estudianteId)
+        EstudianteEntity entity = estudianteJpaRepository.findByIdAndEliminadoFalse(estudianteId)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
-        entity.setActivo(false);
+        entity.setEliminado(false);
         estudianteJpaRepository.save(entity);
     }
 }

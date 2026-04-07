@@ -16,10 +16,10 @@ public interface SedeJpaRepository extends JpaRepository<SedeEntity, Long> {
 
 //    boolean existsByCodigo(String codigo);
 
-    List<SedeEntity> findByActivoTrue();
+    List<SedeEntity> findByEliminadoFalse();
 
     List<SedeEntity> findByCiudadIdContainingIgnoreCase(String ciudad);
 
-//    @Query("SELECT s FROM SedeEntity s WHERE s.activo = true AND s.ciudad LIKE %:ciudad%")
+//    @Query("SELECT s FROM SedeEntity s WHERE s.eliminado = true AND s.ciudad LIKE %:ciudad%")
 //    List<SedeEntity> findActivasByCiudad(@Param("ciudad") String ciudad);
 }

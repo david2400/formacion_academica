@@ -12,8 +12,8 @@ import java.util.Optional;
 @Repository
 public interface ParentescoJpaRepository extends JpaRepository<ParentescoEntity, Long> {
 
-    @Query("SELECT p FROM ParentescoEntity p WHERE p.activo = true")
-    List<ParentescoEntity> findByActivoTrue();
+    @Query("SELECT p FROM ParentescoEntity p WHERE p.eliminado = true")
+    List<ParentescoEntity> findByEliminadoFalse();
 
     @Query("SELECT p FROM ParentescoEntity p WHERE p.nombre = :nombre")
     Optional<ParentescoEntity> findByNombre(@Param("nombre") String nombre);
