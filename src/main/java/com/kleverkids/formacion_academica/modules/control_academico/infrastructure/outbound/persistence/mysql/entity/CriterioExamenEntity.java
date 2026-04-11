@@ -8,13 +8,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "criterios_examen")
 public class CriterioExamenEntity extends AuditInfo {
 

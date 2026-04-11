@@ -4,6 +4,7 @@ import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "actividades")
 @EqualsAndHashCode(callSuper = true)
 public class ActividadEntity extends AuditInfo {

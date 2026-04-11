@@ -3,10 +3,14 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.infras
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "niveles_educativos")
 public class NivelEducativoEntity extends AuditInfo {
@@ -28,7 +32,7 @@ public class NivelEducativoEntity extends AuditInfo {
     private Long nivelSuperiorId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "nivel_superior_id", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "nivel_superior_id", nullable = true, updatable = false, insertable = false)
     private NivelEducativoEntity nivelSuperior;
 
 //    @Column(nullable = false)

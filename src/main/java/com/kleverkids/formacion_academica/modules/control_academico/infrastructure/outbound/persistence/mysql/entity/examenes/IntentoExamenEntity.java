@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -18,8 +20,10 @@ import java.util.List;
 
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "intentos_examen")
 public class IntentoExamenEntity extends AuditInfo {
 

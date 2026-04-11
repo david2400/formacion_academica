@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -19,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @Table(name = "estudiantes_examen")
 public class EstudianteExamenEntity extends AuditInfo {

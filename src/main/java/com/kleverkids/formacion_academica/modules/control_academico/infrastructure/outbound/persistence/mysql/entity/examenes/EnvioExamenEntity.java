@@ -4,6 +4,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -13,7 +15,9 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @Table(name = "exam_submissions")
 public class EnvioExamenEntity extends AuditInfo {

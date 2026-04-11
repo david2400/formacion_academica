@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -18,8 +20,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "examenes")
 public class ExamenEntity extends AuditInfo {
 

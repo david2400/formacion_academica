@@ -3,6 +3,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.pregunta.ResultadoPreguntaEmbeddable;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -12,8 +14,10 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "exam_results")
 public class ResultadoExamenEntity {
     

@@ -3,12 +3,16 @@ package com.kleverkids.formacion_academica.modules.control_academico.infrastruct
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @Table(name = "observaciones_criterio_examen")
 public class ObservacionCriterioEntity extends AuditInfo {

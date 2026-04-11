@@ -27,7 +27,12 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
     }
 
     private boolean debeInicializarDatos() {
-        return nivelEducativoService.listarTodos().isEmpty();
+        try {
+            return nivelEducativoService.listarTodos().isEmpty();
+        } catch (Exception e) {
+            log.warn("No se pudo verificar si existen niveles educativos. Se asumirá que no existen. Error: {}", e.getMessage());
+            return true; // Assume table doesn't exist or is empty, so we need to initialize
+        }
     }
 
     private void inicializarNivelesEducativos() {
@@ -51,21 +56,21 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 .nombre("Prejardín")
                 .descripcion("Primer nivel de preescolar para niños de 3 años")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("PRE_JARDIN")
                 .nombre("Jardín")
                 .descripcion("Segundo nivel de preescolar para niños de 4 años")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("PRE_TRANSICION")
                 .nombre("Transición")
                 .descripcion("Tercer nivel de preescolar para niños de 5 años")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             
             // BÁSICA PRIMARIA
@@ -74,35 +79,35 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 .nombre("Primero de Primaria")
                 .descripcion("Primer grado de educación básica primaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_2_SEGUNDO")
                 .nombre("Segundo de Primaria")
                 .descripcion("Segundo grado de educación básica primaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_3_TERCERO")
                 .nombre("Tercero de Primaria")
                 .descripcion("Tercer grado de educación básica primaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_4_CUARTO")
                 .nombre("Cuarto de Primaria")
                 .descripcion("Cuarto grado de educación básica primaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_5_QUINTO")
                 .nombre("Quinto de Primaria")
                 .descripcion("Quinto grado de educación básica primaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             
             // BÁSICA SECUNDARIA
@@ -111,28 +116,28 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 .nombre("Sexto de Básica")
                 .descripcion("Primer grado de educación básica secundaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_7_SEPTIMO")
                 .nombre("Séptimo de Básica")
                 .descripcion("Segundo grado de educación básica secundaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_8_OCTAVO")
                 .nombre("Octavo de Básica")
                 .descripcion("Tercer grado de educación básica secundaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("BAS_9_NOVENO")
                 .nombre("Noveno de Básica")
                 .descripcion("Cuarto grado de educación básica secundaria")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             
             // MEDIA
@@ -141,14 +146,14 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
                 .nombre("Décimo")
                 .descripcion("Primer grado de educación media")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build(),
             CrearNivelEducativoDto.builder()
                 .codigo("MED_11_ONCE")
                 .nombre("Once")
                 .descripcion("Segundo grado de educación media")
                 .nivelSuperiorId(null)
-                .eliminado(true)
+                .eliminado(false)
                 .build()
         );
     }

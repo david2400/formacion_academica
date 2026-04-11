@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@Entity
 @SuperBuilder
 @NoArgsConstructor
+@Entity
 @Table(name = "aulas")
 @EqualsAndHashCode(callSuper = true)
 public class AulaEntity extends AuditInfo {

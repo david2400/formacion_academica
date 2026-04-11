@@ -4,11 +4,13 @@ import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "salones")
 @EqualsAndHashCode(callSuper = true, exclude = {"sede"})

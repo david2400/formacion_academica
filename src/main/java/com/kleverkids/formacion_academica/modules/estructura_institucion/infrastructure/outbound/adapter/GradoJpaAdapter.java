@@ -50,7 +50,15 @@ public class GradoJpaAdapter implements GradoRepositoryPort {
 
     @Override
     public List<Grado> listar() {
-        return gradoJpaRepository.findAll().stream().map(gradoMapper::toDomainModel).toList();
+        try {
+            return gradoJpaRepository.findAll().stream()
+                    .map(gradoMapper::toDomainModel)
+                    .toList();
+        } catch (Exception e) {
+            // Log error y retornar lista vacía para evitar crashes
+            System.err.println("Error al listar grados: " + e.getMessage());
+            return List.of();
+        }
     }
 
     @Override

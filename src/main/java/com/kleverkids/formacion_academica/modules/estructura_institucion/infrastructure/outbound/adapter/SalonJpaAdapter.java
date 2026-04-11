@@ -38,15 +38,30 @@ public class SalonJpaAdapter implements SalonRepositoryPort {
 
     @Override
     public List<Salon> listar() {
-        return salonMapper.toDomainModelList(salonJpaRepository.findAllByOrderByNombreAsc());
+        try {
+            return salonMapper.toDomainModelList(salonJpaRepository.findAllByOrderByNombreAsc());
+        } catch (Exception e) {
+            // Log the error and return empty list if table doesn't exist
+            System.err.println("Error accessing salones table: " + e.getMessage());
+            return List.of(); // Return empty list to prevent application crash
+        }
     }
 
     @Override
     public Salon obtenerPorId(Long salonId) {
-        return salonMapper.toDomainModel(
-                salonJpaRepository.findById(salonId)
-                        .orElseThrow(() -> new IllegalArgumentException("Salón no encontrado"))
-        );
+        try {
+            return salonMapper.toDomainModel(
+                    salonJpaRepository.findById(salonId)
+                            .orElseThrow(() -> new IllegalArgumentException("Salón no encontrado"))
+            );
+        } catch (Exception e) {
+            // Log the error and rethrow if it's not found, or return null if table doesn't exist
+            if (e.getMessage() != null && e.getMessage().contains("doesn't exist")) {
+                System.err.println("Error accessing salones table: " + e.getMessage());
+                return null;
+            }
+            throw e; // Rethrow other exceptions
+        }
     }
 
     @Override
@@ -56,11 +71,27 @@ public class SalonJpaAdapter implements SalonRepositoryPort {
 
     @Override
     public boolean existePorId(Long salonId) {
-        return salonJpaRepository.existsById(salonId);
+        try {
+            return salonJpaRepository.existsById(salonId);
+        } catch (Exception e) {
+            if (e.getMessage() != null && e.getMessage().contains("doesn't exist")) {
+                System.err.println("Error accessing salones table: " + e.getMessage());
+                return false;
+            }
+            throw e; // Rethrow other exceptions
+        }
     }
 
     @Override
     public boolean existePorCodigo(String codigo) {
-        return salonJpaRepository.existsByCodigo(codigo);
+        try {
+            return salonJpaRepository.existsByCodigo(codigo);
+        } catch (Exception e) {
+            if (e.getMessage() != null && e.getMessage().contains("doesn't exist")) {
+                System.err.println("Error accessing salones table: " + e.getMessage());
+                return false;
+            }
+            throw e; // Rethrow other exceptions
+        }
     }
 }

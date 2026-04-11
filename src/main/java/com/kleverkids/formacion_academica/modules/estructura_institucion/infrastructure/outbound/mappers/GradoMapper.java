@@ -46,4 +46,17 @@ public interface GradoMapper {
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 
+    // Método para obtener el nombre del nivel educativo con manejo de errores
+    default String getNivelEducativoNombre(GradoEntity entity) {
+        try {
+            if (entity.getNivelEducativo() != null) {
+                return entity.getNivelEducativo().getNombre();
+            }
+            return "Nivel Educativo No Disponible";
+        } catch (Exception e) {
+            // Manejar referencias rotas (ObjectRetrievalFailureException)
+            return "Nivel Educativo No Encontrado (ID: " + entity.getNivelEducativoId() + ")";
+        }
+    }
+
 }

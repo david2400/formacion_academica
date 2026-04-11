@@ -5,13 +5,17 @@ import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @SuperBuilder
+@NoArgsConstructor
 @Table(name = "estudiante_acudiente")
 public class EstudianteAcudienteEntity extends AuditInfo {
 

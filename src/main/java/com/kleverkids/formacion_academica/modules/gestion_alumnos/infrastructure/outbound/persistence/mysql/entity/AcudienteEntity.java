@@ -9,10 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @Table(name = "acudientes")
 public class AcudienteEntity extends AuditInfo {

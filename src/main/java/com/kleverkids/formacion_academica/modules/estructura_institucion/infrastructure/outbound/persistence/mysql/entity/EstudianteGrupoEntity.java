@@ -11,8 +11,8 @@ import java.time.LocalDate;
 
 @SuperBuilder
 @Data
-@Entity
-@Table(name = "estudiantes_grupo")
+// @Entity
+// @Table(name = "estudiantes_grupo")
 @NoArgsConstructor
 public class EstudianteGrupoEntity extends AuditInfo {
 

@@ -13,46 +13,46 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
-        ConsultarGrupoUseCase, ListarGruposUseCase, EliminarGrupoUseCase {
+ @Service
+ public class GrupoService implements CrearGrupoUseCase, ActualizarGrupoUseCase,
+         ConsultarGrupoUseCase, ListarGruposUseCase, EliminarGrupoUseCase {
 
-    private final GrupoRepositoryPort grupoRepositoryPort;
+     private final GrupoRepositoryPort grupoRepositoryPort;
 
-    public GrupoService(GrupoRepositoryPort grupoRepositoryPort) {
-        this.grupoRepositoryPort = grupoRepositoryPort;
-    }
+     public GrupoService(GrupoRepositoryPort grupoRepositoryPort) {
+         this.grupoRepositoryPort = grupoRepositoryPort;
+     }
 
-    @Override
-    public Grupo crear(CrearGrupoDto request) {
-//        validarCodigoUnico(request.codigo());
-        return grupoRepositoryPort.guardar(request);
-    }
+     @Override
+     public Grupo crear(CrearGrupoDto request) {
+ //        validarCodigoUnico(request.codigo());
+         return grupoRepositoryPort.guardar(request);
+     }
 
-    @Override
-    public Grupo actualizar(ActualizarGrupoDto request) {
-        return grupoRepositoryPort.actualizar(request);
-    }
+     @Override
+     public Grupo actualizar(ActualizarGrupoDto request) {
+         return grupoRepositoryPort.actualizar(request);
+     }
 
-    @Override
-    public Grupo consultarPorId(Long grupoId) {
-        return grupoRepositoryPort.obtenerPorId(grupoId);
-    }
+     @Override
+     public Grupo consultarPorId(Long grupoId) {
+         return grupoRepositoryPort.obtenerPorId(grupoId);
+     }
 
-    @Override
-    public List<Grupo> listar() {
-        return grupoRepositoryPort.listar();
-    }
+     @Override
+     public List<Grupo> listar() {
+         return grupoRepositoryPort.listar();
+     }
 
-    @Override
-    public void eliminar(Long grupoId) {
-        grupoRepositoryPort.obtenerPorId(grupoId);
-        grupoRepositoryPort.eliminar(grupoId);
-    }
+     @Override
+     public void eliminar(Long grupoId) {
+         grupoRepositoryPort.obtenerPorId(grupoId);
+         grupoRepositoryPort.eliminar(grupoId);
+     }
 
-    private void validarCodigoUnico(String codigo) {
-        if (grupoRepositoryPort.existePorCodigo(codigo)) {
-            throw new IllegalArgumentException("Ya existe un grupo con código " + codigo);
-        }
-    }
-}
+     private void validarCodigoUnico(String codigo) {
+         if (grupoRepositoryPort.existePorCodigo(codigo)) {
+             throw new IllegalArgumentException("Ya existe un grupo con código " + codigo);
+         }
+     }
+ }
