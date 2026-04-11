@@ -24,29 +24,29 @@ public class ActividadEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(name = "instrucciones", columnDefinition = "TEXT", nullable = false)
     private String instrucciones;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "tipo", nullable = false)
     private TipoActividadEntity tipo;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "JSON")
+    @Column(name = "contenido", columnDefinition = "JSON")
     private ContenidoActividadEntity contenido;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "JSON")
+    @Column(name = "configuracion", columnDefinition = "JSON")
     private ConfiguracionActividadEntity configuracion;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "estado", nullable = false)
     private EstadoActividadEntity estado = EstadoActividadEntity.BORRADOR;
 
     @Column(name = "curso_id", nullable = false)

@@ -35,6 +35,7 @@ public class EstudianteGrupoEntity extends AuditInfo {
     @JoinColumn(name = "grupo_id", nullable = false, insertable = false, updatable = false)
     private GrupoEntity grupo;
 
+    @Column(name = "fecha_asignacion", nullable = false)
     private LocalDate fechaAsignacion;
 
     // Relación con EstadoEntity eliminada para evitar conflictos entre módulos

@@ -38,7 +38,7 @@ public class InscripcionEntity extends AuditInfo {
     @Column(nullable = false, name = "estado_id")
     private Integer estadoId;
 
-    @Column(nullable = false)
+    @Column(name = "observaciones", nullable = false)
     private String observaciones;
 
 }

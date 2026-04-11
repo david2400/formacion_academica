@@ -41,7 +41,7 @@ public class EnvioExamenEntity extends AuditInfo {
     @Column(name = "answers", columnDefinition = "json")
     private List<RespuestaPreguntaEmbeddable> respuestas;
     
-    @Column(nullable = false)
+    @Column(name = "estado", nullable = false)
     private String estado;
     
     @Column(name = "total_score", precision = 10, scale = 2)

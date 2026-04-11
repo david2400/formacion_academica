@@ -22,13 +22,13 @@ public class AulaEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
+    @Column(name = "capacidad", nullable = false)
     private Integer capacidad;
 
     @ManyToMany(mappedBy = "aulas", fetch = FetchType.EAGER)

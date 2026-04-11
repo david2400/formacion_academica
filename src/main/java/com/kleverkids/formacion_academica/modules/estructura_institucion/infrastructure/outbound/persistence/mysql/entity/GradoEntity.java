@@ -19,10 +19,10 @@ public class GradoEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
     @Column(name = "nivel_educativo_id", nullable = false)

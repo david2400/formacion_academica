@@ -26,24 +26,27 @@ public class MatriculaEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "inscripcion_id", nullable = false)
     private Long inscripcionId;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id", nullable = false)
     private Long estudianteId;
 
+    @Column(name = "grado_id")
     private Long gradoId;
 
+    @Column(name = "grupo_id")
     private Long grupoId;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_matricula", nullable = false)
     private LocalDate fechaMatricula;
 
-    @Column(nullable = false)
+    @Column(name = "renovacion", nullable = false)
     private boolean renovacion;
 
-    @Column(nullable = false)
+    @Column(name = "estado_id", nullable = false)
     private Integer estadoId;
 
+    @Column(name = "observaciones")
     private String observaciones;
 }

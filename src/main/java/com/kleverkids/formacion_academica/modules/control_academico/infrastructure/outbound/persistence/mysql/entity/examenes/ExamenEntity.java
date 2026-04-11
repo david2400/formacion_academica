@@ -30,13 +30,13 @@ public class ExamenEntity extends AuditInfo {
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "clase_id", nullable = false)
     private Long claseId;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
     @ElementCollection(fetch = FetchType.EAGER)

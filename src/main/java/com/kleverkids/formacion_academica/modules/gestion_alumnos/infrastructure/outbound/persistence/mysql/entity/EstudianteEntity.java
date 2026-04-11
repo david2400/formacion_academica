@@ -27,33 +27,33 @@ public class EstudianteEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "tipo_documento", nullable = false)
     private String tipoDocumento;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "numero_documento", nullable = false, unique = true)
     private String numeroDocumento;
 
-    @Column(nullable = false)
+    @Column(name = "nombres", nullable = false)
     private String nombres;
 
-    @Column(nullable = false)
+    @Column(name = "primer_apellido", nullable = false)
     private String primerApellido;
 
-    @Column(nullable = false)
+    @Column(name = "segundo_apellido", nullable = false)
     private String segundoApellido;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_nacimiento", nullable = false)
     private LocalDate fechaNacimiento;
 
-    @Column(nullable = false)
+    @Column(name = "genero", nullable = false)
     private String genero;
 
-    @Column(nullable = false)
+    @Column(name = "correo", nullable = false)
     private String correo;
 
-    @Column(nullable = false)
+    @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @Column(nullable = false)
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 }

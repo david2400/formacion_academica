@@ -32,13 +32,13 @@ public class EstudianteExamenEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "examen_id",nullable = false)
     private Long examenId;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id",nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(name = "asignado_en",nullable = false)
     private LocalDateTime asignadoEn;
 
     @OneToMany(mappedBy = "estudianteExamen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

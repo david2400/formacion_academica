@@ -21,7 +21,7 @@ public class ObservacionCriterioEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "examen_id", nullable = false)
     private Long examenId;
 
     @Column(name = "criterio_examen_id", nullable = false)
@@ -31,12 +31,12 @@ public class ObservacionCriterioEntity extends AuditInfo {
     @JoinColumn(name = "criterio_examen_id", nullable = false, insertable = false, updatable = false)
     private CriterioExamenEntity criterioExamen;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id",nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(name = "observacion", nullable = false)
     private String observacion;
 
-    @Column(nullable = false)
+    @Column(name = "recomendacion", nullable = false)
     private String recomendacion;
 }

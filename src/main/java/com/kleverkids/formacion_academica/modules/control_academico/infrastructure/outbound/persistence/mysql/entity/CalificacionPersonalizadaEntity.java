@@ -24,16 +24,16 @@ public class CalificacionPersonalizadaEntity extends AuditInfo {
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "examen_id", nullable = false)
     private Long examenId;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id", nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(name = "criterio", nullable = false)
     private String criterio;
 
-    @Column(nullable = false)
+    @Column(name = "puntaje_otorgado", nullable = false)
     private BigDecimal puntajeOtorgado;
 
 }

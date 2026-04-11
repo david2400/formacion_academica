@@ -26,22 +26,22 @@ public class CriterioExamenEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "examen_id",nullable = false)
     private Long examenId;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
+    @Column(name = "ponderacion", nullable = false)
     private BigDecimal ponderacion;
 
-    @Column(nullable = false)
+    @Column(name = "orden", nullable = false)
     private Integer orden;
 
-    @Column(nullable = false)
+    @Column(name = "recomendacion_base",nullable = false)
     private String recomendacionBase;
 
 }

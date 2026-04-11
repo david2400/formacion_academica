@@ -20,11 +20,11 @@ public class GrupoEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String codigo;
-
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "codigo", nullable = false, unique = true)
+    private String codigo;
 
     @Column(name = "grado_id", nullable = false)
     private Long gradoId;
@@ -33,15 +33,17 @@ public class GrupoEntity extends AuditInfo {
     @JoinColumn(name = "grado_id", nullable = false, insertable = false, updatable = false)
     private GradoEntity grado;
 
-    @Column(name = "salon_id", nullable = false)
+    @Column(name = "salon_id")
     private Long salonId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "salon_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "salon_id", insertable = false, updatable = false)
     private SalonEntity salon;
 
+    @Column(name = "capacidad_maxima")
     private Integer capacidadMaxima;
 
+    @Column(name = "tutor_id")
     private Long tutorId;
 
     @Column(name = "estado_id", nullable = false)

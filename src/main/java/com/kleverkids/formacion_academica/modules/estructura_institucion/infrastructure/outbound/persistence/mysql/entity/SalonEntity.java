@@ -21,13 +21,13 @@ public class SalonEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "codigo", nullable = false, unique = true)
     private String codigo;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
     @Column(name = "capacidad_maxima", nullable = false)

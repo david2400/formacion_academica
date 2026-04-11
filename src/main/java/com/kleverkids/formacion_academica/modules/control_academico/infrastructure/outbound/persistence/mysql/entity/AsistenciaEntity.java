@@ -26,16 +26,16 @@ public class AsistenciaEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "clase_id",nullable = false)
     private Long claseId;
 
-    @Column(nullable = false)
+    @Column(name = "estudiante_id", nullable = false)
     private Long estudianteId;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_registro", nullable = false)
     private LocalDateTime fechaRegistro;
 
-    @Column(nullable = false)
+    @Column(name = "presente", nullable = false)
     private boolean presente;
 
 }

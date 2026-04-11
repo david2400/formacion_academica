@@ -24,10 +24,10 @@ public class ParentescoEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(name = "nombre", nullable = false, length = 50, unique = true)
     private String nombre;
 
-    @Column(length = 200)
+    @Column(name = "descripcion", length = 200)
     private String descripcion;
 
 

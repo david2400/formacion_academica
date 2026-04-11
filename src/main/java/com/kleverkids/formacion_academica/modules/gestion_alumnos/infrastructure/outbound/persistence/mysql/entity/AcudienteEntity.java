@@ -25,27 +25,27 @@ public class AcudienteEntity extends AuditInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "tipo_documento",nullable = false)
     private String tipoDocumento;
 
-    @Column(nullable = false)
+    @Column(name = "numero_documento",nullable = false)
     private String numeroDocumento;
 
-    @Column(nullable = false)
+    @Column(name = "nombres", nullable = false)
     private String nombres;
 
-    @Column(nullable = false)
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    @Column(nullable = false)
+    @Column(name = "parentesco", nullable = false)
     private String parentesco;
 
-    @Column(nullable = false)
+    @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @Column(nullable = false)
+    @Column(name = "correo", nullable = false)
     private String correo;
 
-    @Column(nullable = false)
+    @Column(name = "es_principal",nullable = false)
     private boolean esPrincipal;
 }
