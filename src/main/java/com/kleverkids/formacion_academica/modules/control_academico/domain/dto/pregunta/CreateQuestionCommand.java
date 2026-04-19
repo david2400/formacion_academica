@@ -1,5 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.EXISTING_PROPERTY,
-    property = "questionType",
+    property = "question_type",
     visible = true
 )
 @JsonSubTypes({
@@ -36,11 +37,20 @@ public sealed interface CreateQuestionCommand permits
     CreateQuestionCommand.Ordering,
     CreateQuestionCommand.Matching {
     
+    @JsonProperty("question_text")
     String questionText();
+    
+    @JsonProperty("question_type")
     String questionType();
+    
     String difficulty();
-    int maxScore();
+    
+    @JsonProperty("max_score")
+    Integer maxScore();
+    
+    @JsonProperty("theme_id")
     Long themeId();
+    
     List<MediaDto> media();
     String hint();
     String explanation();
@@ -51,7 +61,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -66,7 +76,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -83,21 +93,21 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
         String explanation,
         List<String> tags,
         Map<String, Object> metadata,
-        boolean correctAnswer
+        Boolean correctAnswer
     ) implements CreateQuestionCommand {}
     
     record OpenShort(
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -113,7 +123,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -130,7 +140,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -147,7 +157,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -162,7 +172,7 @@ public sealed interface CreateQuestionCommand permits
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -170,14 +180,14 @@ public sealed interface CreateQuestionCommand permits
         List<String> tags,
         Map<String, Object> metadata,
         List<OrderingItemDto> items,
-        boolean partialCredit
+        Boolean partialCredit
     ) implements CreateQuestionCommand {}
     
     record Matching(
         String questionText,
         String questionType,
         String difficulty,
-        int maxScore,
+        Integer maxScore,
         Long themeId,
         List<MediaDto> media,
         String hint,
@@ -185,6 +195,6 @@ public sealed interface CreateQuestionCommand permits
         List<String> tags,
         Map<String, Object> metadata,
         List<MatchingPairDto> pairs,
-        boolean partialCredit
+        Boolean partialCredit
     ) implements CreateQuestionCommand {}
 }

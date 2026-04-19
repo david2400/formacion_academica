@@ -2,6 +2,9 @@ package com.kleverkids.formacion_academica.config;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.ExamNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.ExcepcionPreguntaNoEncontrada;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.PreguntaNotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TematicaNotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TipoPreguntaInmutableException;
 import com.kleverkids.formacion_academica.shared.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -12,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +39,24 @@ public class GlobalExceptionHandler {
         return notFound(ex, request);
     }
 
+    @ExceptionHandler(PreguntaNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handlePreguntaNotFound(PreguntaNotFoundException ex, HttpServletRequest request) {
+        log.error("Pregunta no encontrada: {}", ex.getMessage());
+        return notFound(ex, request);
+    }
+
+    @ExceptionHandler(TematicaNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleTematicaNotFound(TematicaNotFoundException ex, HttpServletRequest request) {
+        log.error("Temática no encontrada: {}", ex.getMessage());
+        return notFound(ex, request);
+    }
+
+    @ExceptionHandler(TipoPreguntaInmutableException.class)
+    public ResponseEntity<ProblemDetail> handleTipoPreguntaInmutable(TipoPreguntaInmutableException ex, HttpServletRequest request) {
+        log.error("Intento de cambiar tipo de pregunta: {}", ex.getMessage());
+        return badRequest(ex, request);
+    }
+
     @ExceptionHandler(ExamNotFoundException.class)
     public ResponseEntity<ProblemDetail> handleExamNotFound(ExamNotFoundException ex, HttpServletRequest request) {
         return notFound(ex, request);
@@ -53,6 +75,27 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ProblemDetail> handleIllegalState(IllegalStateException ex, HttpServletRequest request) {
         return conflict(ex, request);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ProblemDetail> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpServletRequest request) {
+        log.error("Error al leer el cuerpo de la petición: {}", ex.getMessage());
+        
+        String mensaje = "El cuerpo de la petición no es válido o está mal formado";
+        
+        // Extraer mensaje más específico si es posible
+        if (ex.getMessage() != null) {
+            if (ex.getMessage().contains("Cannot map `null` into type `boolean`")) {
+                mensaje = "Error: Un campo booleano requerido tiene valor null. Asegúrate de que todos los campos booleanos (isCorrect, correctAnswer, etc.) tengan valores true o false";
+            } else if (ex.getMessage().contains("Cannot map `null` into type `int`")) {
+                mensaje = "Error: Un campo numérico requerido tiene valor null. Asegúrate de que todos los campos numéricos (maxScore, minValue, etc.) tengan valores válidos";
+            } else if (ex.getMessage().contains("JSON parse error")) {
+                mensaje = "Error al parsear JSON: " + ex.getMessage().substring(0, Math.min(200, ex.getMessage().length()));
+            }
+        }
+        
+        ProblemDetail pd = baseProblemDetail(HttpStatus.BAD_REQUEST, "JSON Inválido", mensaje, request);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

@@ -9,13 +9,13 @@ public record RubricaDto(
     public record CriterioDto(
             String nombre,
             String descripcion,
-            int puntajeMaximo,
+            Integer puntajeMaximo,
             List<NivelDto> niveles
     ) {}
 
     public record NivelDto(
             String nombre,
             String descripcion,
-            int puntaje
+            Integer puntaje
     ) {}
 }

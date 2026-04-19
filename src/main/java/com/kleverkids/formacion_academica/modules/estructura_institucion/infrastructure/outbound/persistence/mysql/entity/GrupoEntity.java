@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,10 +44,19 @@ public class GrupoEntity extends AuditInfo {
     @Column(name = "capacidad_maxima")
     private Integer capacidadMaxima;
 
+    @Column(name = "periodo_academico")
+    private String periodoAcademico;
+
+    @Column(name = "fecha_inicio")
+    private LocalDate fechaInicio;
+
+    @Column(name = "fecha_fin")
+    private LocalDate fechaFin;
+
     @Column(name = "tutor_id")
     private Long tutorId;
 
-    @Column(name = "estado_id", nullable = false)
+    @Column(name = "estado_id")
     private Integer estadoId;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -12,7 +12,7 @@ public interface TematicaRepositoryPort {
 
     Tematica actualizar(ActualizarTematicaDto request);
 
-    List<Tematica> listarPorExamen(Long examenId);
+    List<Tematica> listar();
 
     Tematica obtenerPorId(Long tematicaId);
 

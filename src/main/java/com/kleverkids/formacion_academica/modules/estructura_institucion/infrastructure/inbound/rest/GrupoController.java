@@ -78,14 +78,8 @@ public class GrupoController {
     @PutMapping("/{grupoId}")
     public ResponseEntity<Grupo> actualizar(@PathVariable Long grupoId,
                                                @RequestBody ActualizarGrupoDto request) {
-        ActualizarGrupoDto payload = ActualizarGrupoDto.builder()
-                .id(grupoId)
-                .nombre(request.getNombre())
-                .capacidadMaxima(request.getCapacidadMaxima())
-                .tutorId(request.getTutorId())
-                .aulaId(request.getAulaId())
-                .build();
-        return ResponseEntity.ok(actualizarGrupoUseCase.actualizar(payload));
+
+        return ResponseEntity.ok(actualizarGrupoUseCase.actualizar(request));
     }
 
     @Operation(summary = "Consultar grupo", description = "Obtiene la información de un grupo por su identificador")

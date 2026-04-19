@@ -3,6 +3,6 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.
 public record OrderingItemDto(
     Long id,
     String text,
-    int correctPosition,
+    Integer correctPosition,
     MediaDto media
 ) {}

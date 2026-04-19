@@ -1,0 +1,18 @@
+{
+  "question_type": "multiple_choice_single",
+  "question_text": "¿Cuál es 2+2?",
+  "difficulty": "facil",
+  "max_score": 10,
+  "theme_id": 1,
+  "media": null,
+  "hint": "Es un número",
+  "explanation": "2+2 es igual a 4",
+  "tags": ["matemáticas"],
+  "metadata": null,
+  "options": [
+    {"id": 1, "text": "3", "media": null, "is_correct": false},
+    {"id": 2, "text": "4", "media": null, "is_correct": true},
+    {"id": 3, "text": "5", "media": null, "is_correct": false}
+  ],
+  "correct_option_id": 2
+}

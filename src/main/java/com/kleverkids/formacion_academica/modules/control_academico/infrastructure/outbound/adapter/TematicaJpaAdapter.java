@@ -35,8 +35,8 @@ public class TematicaJpaAdapter implements TematicaRepositoryPort {
     }
 
     @Override
-    public List<Tematica> listarPorExamen(Long examenId) {
-        return List.of();
+    public List<Tematica> listar() {
+        return TematicaMapper.toDomainModelList(TematicaJpaRepository.findAll());
     }
 
 //    @Override

@@ -35,8 +35,8 @@ public class TematicaService implements CrearTematicaUseCase,
     }
 
     @Override
-    public List<Tematica> listar(Long examenId) {
-        return repositoryPort.listarPorExamen(examenId);
+    public List<Tematica> listar() {
+        return repositoryPort.listar();
     }
 
     @Override

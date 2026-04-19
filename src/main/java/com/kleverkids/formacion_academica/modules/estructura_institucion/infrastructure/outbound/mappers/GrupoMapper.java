@@ -31,6 +31,7 @@ public interface GrupoMapper {
     List<Grupo> toDomainModelList(List<GrupoEntity> entities);
 
     // DTO a Entity - método manual para evitar conflictos con AuditInfo
+    @Mapping(target = "estadoId", constant = "0")
     @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)

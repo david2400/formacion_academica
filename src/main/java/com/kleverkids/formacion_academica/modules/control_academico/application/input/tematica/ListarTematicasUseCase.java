@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ListarTematicasUseCase {
 
-    List<Tematica> listar(Long examenId);
+    List<Tematica> listar();
 }

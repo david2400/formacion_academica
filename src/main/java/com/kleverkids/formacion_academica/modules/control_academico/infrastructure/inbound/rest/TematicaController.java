@@ -35,7 +35,7 @@ import java.util.List;
 @Tag(name = "Temáticas", description = "Gestiona las temáticas asociadas a un examen")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/control-academico/examenes/{examenId}/tematicas")
+@RequestMapping("/control-academico/tematicas")
 public class TematicaController {
 
     private final CrearTematicaUseCase crearUseCase;
@@ -54,8 +54,7 @@ public class TematicaController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<Tematica> crear(@PathVariable Long examenId,
-                                                   @Valid @RequestBody CrearTematicaDto request) {
+    public ResponseEntity<Tematica> crear(@Valid @RequestBody CrearTematicaDto request) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
@@ -70,9 +69,7 @@ public class TematicaController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{tematicaId}")
-    public ResponseEntity<Tematica> actualizar(@PathVariable Long examenId,
-                                                        @PathVariable Long tematicaId,
-                                                        @Valid @RequestBody ActualizarTematicaDto request) {
+    public ResponseEntity<Tematica> actualizar(@PathVariable Long tematicaId, @Valid @RequestBody ActualizarTematicaDto request) {
         request.setId(tematicaId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
@@ -86,8 +83,8 @@ public class TematicaController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<Tematica>> listar(@PathVariable Long examenId) {
-        return ResponseEntity.ok(listarUseCase.listar(examenId));
+    public ResponseEntity<List<Tematica>> listar() {
+        return ResponseEntity.ok(listarUseCase.listar());
     }
 
     @Operation(summary = "Consultar temática", description = "Obtiene los detalles de una temática específica")
@@ -99,8 +96,7 @@ public class TematicaController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{tematicaId}")
-    public ResponseEntity<Tematica> consultar(@PathVariable Long examenId,
-                                                 @PathVariable Long tematicaId) {
+    public ResponseEntity<Tematica> consultar(@PathVariable Long tematicaId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(tematicaId));
     }
 
@@ -111,8 +107,7 @@ public class TematicaController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @DeleteMapping("/{tematicaId}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long examenId,
-                                         @PathVariable Long tematicaId) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long tematicaId) {
         eliminarUseCase.eliminar(tematicaId);
         return ResponseEntity.noContent().build();
     }
