@@ -35,7 +35,7 @@ public class PreguntaMapper {
         );
     }
     
-    private String obtenerTipoPregunta(PreguntaEntity entity) {
+    public String obtenerTipoPregunta(PreguntaEntity entity) {
         return switch (entity) {
             case PreguntaOpcionMultipleUnicaEntity e -> "multiple_choice_single";
             case PreguntaOpcionMultipleEntity e -> "multiple_choice_multi";

@@ -92,12 +92,8 @@ public class PreguntaService implements
     }
     
     private void validarCambioTipo(PreguntaEntity entity, String nuevoTipo) {
-        // Obtener el tipo actual desde el factory que corresponde a la clase de la entidad
-        String tipoActual = factories.values().stream()
-            .filter(f -> f.crear(null).getClass().equals(entity.getClass()))
-            .map(PreguntaEntityFactory::getTipoPregunta)
-            .findFirst()
-            .orElse(entity.getClass().getSimpleName());
+        // Usar el mapper para obtener el tipo actual de la entidad
+        String tipoActual = mapper.obtenerTipoPregunta(entity);
             
         if (!tipoActual.equals(nuevoTipo)) {
             log.warn("Intento de cambiar tipo de pregunta de {} a {} para ID: {}", 

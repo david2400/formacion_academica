@@ -9,15 +9,19 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Tag(name = "Preguntas", description = "API para gestión de preguntas del sistema académico")
 @Description(value = "Gestiona las preguntas")
 @RequiredArgsConstructor
@@ -30,12 +34,11 @@ public class PreguntaController {
     @PostMapping
     @Operation(
         summary = "Crear pregunta",
-        description = "Crea una nueva pregunta de cualquier tipo. Selecciona un ejemplo según el tipo que necesites."
-    )
-    @RequestBody(
-        description = "Datos de la pregunta a crear",
-        required = true,
-        content = @Content(
+        description = "Crea una nueva pregunta de cualquier tipo. Selecciona un ejemplo según el tipo que necesites.",
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Datos de la pregunta a crear",
+            required = true,
+            content = @Content(
             examples = {
                 @ExampleObject(
                     name = "Opción Múltiple Única",
@@ -245,7 +248,26 @@ public class PreguntaController {
                 )
             }
         )
-    )
+    ))
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "201",
+            description = "Pregunta creada exitosamente",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Datos de entrada inválidos o JSON mal formado"
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Tema no encontrado"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> crear(@Valid @org.springframework.web.bind.annotation.RequestBody CreateQuestionCommand command) {
         var resultado = preguntaService.guardar(null, command);
         return ResponseEntity.status(HttpStatus.CREATED).body(resultado);
@@ -266,10 +288,30 @@ public class PreguntaController {
             open_short, open_long, numeric, scale, ordering, matching
             """
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pregunta actualizada exitosamente",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Datos de entrada inválidos o intento de cambiar el tipo de pregunta"
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta o tema no encontrado"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> actualizar(
             @PathVariable Long preguntaId,
-            @Valid @RequestBody CreateQuestionCommand command) {
+            @Valid @org.springframework.web.bind.annotation.RequestBody CreateQuestionCommand command) {
         
+        log.info("Actualizando pregunta ID: {} con tipo: {}", preguntaId, command.questionType());
         var resultado = preguntaService.guardar(preguntaId, command);
         return ResponseEntity.ok(resultado);
     }
@@ -285,6 +327,16 @@ public class PreguntaController {
             Si no se proporciona ningún filtro, devuelve todas las preguntas
             """
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Lista de preguntas encontradas (puede estar vacía)"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<List<PreguntaDto>> buscar(
             @RequestParam(required = false) Long temaId,
             @RequestParam(required = false) String dificultad,
@@ -302,6 +354,21 @@ public class PreguntaController {
         summary = "Obtener pregunta por ID",
         description = "Recupera una pregunta completa con todos sus datos específicos según el tipo"
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pregunta encontrada",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta no encontrada"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> consultar(@PathVariable Long preguntaId) {
         return ResponseEntity.ok(preguntaService.consultarPorId(preguntaId));
     }
@@ -311,6 +378,20 @@ public class PreguntaController {
         summary = "Eliminar pregunta",
         description = "Elimina permanentemente una pregunta del sistema"
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "204",
+            description = "Pregunta eliminada exitosamente"
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta no encontrada"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<Void> eliminar(@PathVariable Long preguntaId) {
         preguntaService.eliminar(preguntaId);
         return ResponseEntity.noContent().build();
@@ -321,6 +402,21 @@ public class PreguntaController {
         summary = "Clonar pregunta",
         description = "Crea una copia exacta de una pregunta existente con un nuevo ID"
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "201",
+            description = "Pregunta clonada exitosamente",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta original no encontrada"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> clonar(@PathVariable Long preguntaId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(preguntaService.clonar(preguntaId));
     }
@@ -330,6 +426,25 @@ public class PreguntaController {
         summary = "Cambiar dificultad",
         description = "Modifica el nivel de dificultad de una pregunta (facil, medio, dificil)"
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Dificultad actualizada exitosamente",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Nivel de dificultad inválido"
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta no encontrada"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> cambiarDificultad(
             @PathVariable Long preguntaId,
             @RequestParam String dificultad) {
@@ -341,6 +456,21 @@ public class PreguntaController {
         summary = "Asignar tema",
         description = "Asocia una pregunta a un tema o temática específica"
     )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Tema asignado exitosamente",
+            content = @Content(schema = @Schema(implementation = PreguntaDto.class))
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pregunta o tema no encontrado"
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Error interno del servidor"
+        )
+    })
     public ResponseEntity<PreguntaDto> asignarTema(
             @PathVariable Long preguntaId,
             @RequestParam Long temaId) {
