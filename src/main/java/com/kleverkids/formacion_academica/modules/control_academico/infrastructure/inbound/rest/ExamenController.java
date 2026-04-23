@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Description(value = "Gestiona los exámenes")
 @Tag(name = "Exámenes", description = "Gestiona los exámenes")
 @RequiredArgsConstructor
@@ -89,6 +91,79 @@ public class ExamenController {
     public ResponseEntity<Void> eliminar(@PathVariable Long examenId) {
         eliminarExamenUseCase.eliminar(examenId);
         return ResponseEntity.noContent().build();
+    }
+    
+    @Operation(
+        summary = "Listar exámenes", 
+        description = """
+            Busca exámenes aplicando filtros opcionales con paginación:
+            - status: Filtra por estado del examen (draft, published, archived)
+            - subject: Filtra por materia
+            - gradeLevel: Filtra por nivel de grado
+            - searchText: Búsqueda por texto en título o descripción
+            - includeDeleted: Incluir exámenes eliminados (default: false)
+            - page: Número de página (default: 0)
+            - size: Tamaño de página (default: 20)
+            - sort: Campo de ordenamiento (ej: title,asc o createdAt,desc)
+            """
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Lista de exámenes encontrados",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = org.springframework.data.domain.Page.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400", 
+            description = "Parámetros de búsqueda inválidos", 
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "500", 
+            description = "Error interno", 
+            content = @Content
+        )
+    })
+    @GetMapping
+    public ResponseEntity<org.springframework.data.domain.Page<ExamResponse>> listar(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String subject,
+            @RequestParam(required = false) String gradeLevel,
+            @RequestParam(required = false) String searchText,
+            @RequestParam(required = false, defaultValue = "false") Boolean includeDeleted,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "createdAt,desc") String[] sort) {
+        
+        log.info("Listando exámenes - Filtros: status={}, subject={}, gradeLevel={}, searchText={}, includeDeleted={}, page={}, size={}", 
+            status, subject, gradeLevel, searchText, includeDeleted, page, size);
+        
+        // Construir criterios de búsqueda
+        ExamSearchCriteria criterios = new ExamSearchCriteria(
+            status,
+            subject,
+            gradeLevel,
+            searchText,
+            includeDeleted
+        );
+        
+        // Construir Pageable
+        org.springframework.data.domain.Sort.Direction direction = sort.length > 1 && sort[1].equalsIgnoreCase("asc") 
+            ? org.springframework.data.domain.Sort.Direction.ASC 
+            : org.springframework.data.domain.Sort.Direction.DESC;
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(
+            page, 
+            size, 
+            org.springframework.data.domain.Sort.by(direction, sort[0])
+        );
+        
+        org.springframework.data.domain.Page<ExamResponse> resultado = buscarExamenesUseCase.buscar(criterios, pageable);
+        log.info("Exámenes encontrados: {} de {} totales", resultado.getNumberOfElements(), resultado.getTotalElements());
+        
+        return ResponseEntity.ok(resultado);
     }
     
     @Operation(summary = "Registrar calificación personalizada", description = "Registra calificaciones personales sobre un examen")
