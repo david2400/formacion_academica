@@ -1,24 +1,34 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services;
 
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.ActualizarClaseUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.ConsultarClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.EliminarClaseUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.ListarClasesUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.clase.ClaseRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ActualizarClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class ClaseService implements CrearClaseUseCase, CrearClasesMasivasUseCase {
+public class ClaseService implements CrearClaseUseCase,
+        CrearClasesMasivasUseCase,
+        ConsultarClaseUseCase,
+        ListarClasesUseCase,
+        ActualizarClaseUseCase,
+        EliminarClaseUseCase {
 
     private final ClaseRepositoryPort claseRepositoryPort;
-
 
     @Override
     public Clase crearClase(CrearClaseDto request) {
@@ -31,4 +41,23 @@ public class ClaseService implements CrearClaseUseCase, CrearClasesMasivasUseCas
         return new ResultadoClasesMasivasDto(request.getClases().size(), creadas.size(), creadas);
     }
 
+    @Override
+    public Optional<Clase> consultarPorId(Long id) {
+        return claseRepositoryPort.obtenerPorId(id);
+    }
+
+    @Override
+    public List<Clase> listarTodas() {
+        return claseRepositoryPort.listarTodas();
+    }
+
+    @Override
+    public Clase actualizar(ActualizarClaseDto request) {
+        return claseRepositoryPort.actualizar(request);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        claseRepositoryPort.eliminar(id);
+    }
 }

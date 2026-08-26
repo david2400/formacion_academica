@@ -1,9 +1,11 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.output.clase;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ActualizarClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ClaseRepositoryPort {
@@ -13,4 +15,16 @@ public interface ClaseRepositoryPort {
     List<Clase> guardarTodas(List<CrearClaseDto> clases);
 
     Clase getClaseById(Long id);
+
+    Optional<Clase> obtenerPorId(Long id);
+
+    List<Clase> listarTodas();
+
+    Optional<Clase> buscarPorCodigo(String codigo);
+
+    Clase actualizar(ActualizarClaseDto clase);
+
+    void eliminar(Long id);
+
+    boolean existePorCodigo(String codigo);
 }

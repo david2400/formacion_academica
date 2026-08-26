@@ -22,7 +22,7 @@ public class GradoEntity extends AuditInfo {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "nivel_educativo_id", nullable = false)

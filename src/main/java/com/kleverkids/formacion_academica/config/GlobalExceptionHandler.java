@@ -17,6 +17,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -102,6 +103,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ProblemDetail> handleArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
         ProblemDetail pd = baseProblemDetail(HttpStatus.BAD_REQUEST, "Solicitud Inválida", ex.getMessage(), request);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ProblemDetail> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
+        log.warn("Método no soportado: {} en {}. Métodos soportados: {}",
+                ex.getMethod(), request.getRequestURI(), ex.getSupportedMethods());
+        String mensaje = String.format("Método '%s' no soportado para el endpoint '%s'", ex.getMethod(), request.getRequestURI());
+        ProblemDetail pd = baseProblemDetail(HttpStatus.METHOD_NOT_ALLOWED, "Método No Permitido", mensaje, request);
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(pd);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

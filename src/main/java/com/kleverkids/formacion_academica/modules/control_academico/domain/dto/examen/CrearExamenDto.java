@@ -13,34 +13,32 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-
 @Data
 @NoArgsConstructor
 public class CrearExamenDto {
 
-    @NotNull(message = "La clase del examen es obligatoria")
-    private Long claseId;
+    // @NotNull(message = "La clase del examen es obligatoria")
+    // private Long claseId;
 
     @NotBlank(message = "El nombre del examen es obligatorio")
     private String nombre;
 
-    @NotNull(message = "La fecha del examen es obligatoria")
-    private LocalDate fecha;
+    private String descripcion;
+    // @NotNull(message = "La fecha del examen es obligatoria")
+    // private LocalDate fecha;
 
     @NotEmpty(message = "Debe definir al menos una regla de calificación")
     @Valid
     private List<ReglaCalificacionDto> reglas;
 
-    public CrearExamenDto(Long claseId,
-                          String nombre,
-                          LocalDate fecha,
-                          List<ReglaCalificacionDto> reglasCalificacion) {
-        this.claseId = Objects.requireNonNull(claseId, "La clase del examen es obligatoria");
+    public CrearExamenDto(
+            String nombre,
+            String descripcion,
+            List<ReglaCalificacionDto> reglasCalificacion) {
         this.nombre = Objects.requireNonNull(nombre, "El nombre del examen es obligatorio");
         if (this.nombre.isBlank()) {
             throw new IllegalArgumentException("El nombre del examen es obligatorio");
         }
-        this.fecha = Objects.requireNonNull(fecha, "La fecha del examen es obligatoria");
         this.reglas = Objects.requireNonNull(reglasCalificacion, "Debe definir al menos una regla de calificación");
         if (this.reglas.isEmpty()) {
             throw new IllegalArgumentException("Debe definir al menos una regla de calificación");
