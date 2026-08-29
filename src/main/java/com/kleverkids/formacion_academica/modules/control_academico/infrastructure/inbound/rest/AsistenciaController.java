@@ -99,14 +99,7 @@ public class AsistenciaController {
     @PutMapping("/{asistenciaId}")
     public ResponseEntity<AsistenciaDto> actualizar(@PathVariable Long asistenciaId,
                                                     @RequestBody ActualizarAsistenciaDto request) {
-        request = new ActualizarAsistenciaDto(
-            asistenciaId,
-            request.estudianteId(),
-            request.claseId(),
-            request.fecha(),
-            request.estado(),
-            request.observaciones()
-        );
+
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }
 

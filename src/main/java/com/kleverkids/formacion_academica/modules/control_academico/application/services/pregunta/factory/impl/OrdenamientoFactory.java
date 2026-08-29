@@ -47,9 +47,9 @@ public class OrdenamientoFactory extends BaseFactory implements PreguntaEntityFa
         return items.stream()
             .map(item -> {
                 OrderingItemEmbeddable itemEmb = new OrderingItemEmbeddable();
-                itemEmb.setId(item.id());
-                itemEmb.setText(item.text());
-                itemEmb.setCorrectPosition(item.correctPosition());
+                itemEmb.setId(item.getId());
+                itemEmb.setText(item.getText());
+                itemEmb.setCorrectPosition(item.getCorrectPosition());
                 return itemEmb;
             })
             .collect(Collectors.toList());

@@ -53,4 +53,7 @@ public interface PreguntaBancoMapper {
 
     @Mapping(target = "respuestas", source = "respuestas")
     List<PreguntaBanco> toDomainModelList(List<PreguntaBancoEntity> entities);
+
+    @Mapping(target = "preguntaId", source = "pregunta.id")
+    RespuestaBanco toRespuestaBanco(RespuestaBancoEntity entity);
 }

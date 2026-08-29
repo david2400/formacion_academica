@@ -1,15 +1,22 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 
-public record ValidationResult(
-    boolean isCorrect,
-    BigDecimal score,
-    BigDecimal maxScore,
-    String feedback,
-    boolean requiresManualGrading
-) {
-    public static ValidationResult correct(BigDecimal maxScore) {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ValidationResult {
+    private boolean isCorrect;
+    private BigDecimal score;
+    private BigDecimal maxScore;
+    private String feedback;
+    private boolean requiresManualGrading;
+
+public static ValidationResult correct(BigDecimal maxScore) {
         return new ValidationResult(true, maxScore, maxScore, null, false);
     }
     
@@ -28,4 +35,5 @@ public record ValidationResult(
     public ValidationResult withFeedback(String feedback) {
         return new ValidationResult(isCorrect, score, maxScore, feedback, requiresManualGrading);
     }
+
 }

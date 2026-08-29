@@ -27,4 +27,5 @@ public class OrderingItemEmbeddable {
     
     public MediaEmbeddable getMedia() { return media; }
     public void setMedia(MediaEmbeddable media) { this.media = media; }
+
 }

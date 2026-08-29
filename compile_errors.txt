@@ -1,0 +1,787 @@
+﻿[ERROR] COMPILATION ERROR : 
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResponse.java:[60,22] cannot find symbol
+  symbol:   variable Collectors
+  location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResponse.java:[67,22] cannot find symbol
+  symbol:   variable Collectors
+  location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResultResponse.java:[41,26] cannot find symbol
+  symbol:   variable Collectors
+  location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResultResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[47,81] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarActividadDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[49,92] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarActividadDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[143,70] method setPorcentajeAvance in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarProgresoDto cannot be applied to given types;
+  required: java.lang.Integer
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[164,20] method setCursoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[168,20] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[168,49] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[174,42] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[176,89] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[180,62] method setTitulo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[180,83] method setCursoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[202,13] cannot find symbol
+  symbol:   method setTitulo(java.lang.String)
+  location: class com.kleverkids.formacion_academica.modules.control_academico.domain.model.actividad.Actividad.Builder
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[219,16] method setNota in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[220,59] method setEstadoFinal in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[221,16] method setNotasPorCriterio in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.util.Map<java.lang.String,java.math.BigDecimal>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[222,16] method setRetroalimentacionGeneral in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[223,16] method setIntentoNumero in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.lang.Integer
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[224,16] method setTiempoEmpleadoSegundos in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ClaseService.java:[40,71] method setClases in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ClaseService.java:[41,53] method setClases in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[85,71] method setSubmissionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[86,98] method setSubmissionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[87,40] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[88,28] method setStudentId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[88,61] method setEstudianteId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[96,94] cannot find symbol
+  symbol:   method setTotalPoints()
+  location: variable exam of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[106,40] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[111,20] method setGrades in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[112,67] method setGrades in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[113,27] method setRespuestas in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[114,43] cannot find symbol
+  symbol:   method setQuestionId()
+  location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[116,57] cannot find symbol
+  symbol:   method setScore()
+  location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[116,75] cannot find symbol
+  symbol:   method setFeedback()
+  location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[120,94] cannot find symbol
+  symbol:   method setTotalPoints()
+  location: variable exam of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[121,20] method setGradedBy in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[122,47] method setGradedBy in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[157,16] method setName in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[160,16] method setCode in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[163,16] method setSubject in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[166,16] method setGradeLevel in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[169,16] method setInstructions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[172,16] method setTimeConfig in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[173,35] method setTimeConfig in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,52] method setDuration in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+  required: int
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,70] method setScheduledDate in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+  required: java.time.LocalDate
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,93] method setStartTime in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+  required: java.time.LocalTime
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,112] method setEndTime in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+  required: java.time.LocalTime
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[176,16] method setQuestions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[178,41] method setQuestions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,48] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,59] method setQuestionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,78] method setOrder in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+  required: int
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,92] method setPoints in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,107] method setRequired in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+  required: boolean
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[183,16] method setCriteria in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[185,47] method setCriteria in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,55] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,66] method setName in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,79] method setDescription in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,99] method setWeight in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,114] method setMaxScore in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[193,20] method setAnswers in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[196,23] method setAnswers in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+  required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[201,26] method setQuestionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[202,14] method setTextAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[203,34] method setTextAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[204,21] method setNumericAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[205,27] method setNumericAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[206,21] method setBooleanAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.Boolean
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[207,51] method setBooleanAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.Boolean
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[208,21] method setSelectedOptionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[209,49] method setSelectedOptionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[25,51] cannot find symbol
+  symbol:   method setAnswers()
+  location: variable submission of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[33,23] method setPreguntaId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[37,23] method setRespuestaTexto in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[44,23] cannot find symbol
+  symbol:   method setStudentId()
+  location: variable submission of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[45,23] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[61,19] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[62,26] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[66,22] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[66,53] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[67,21] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+  required: java.math.BigDecimal
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[35,32] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[36,36] method setEstudianteId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[41,25] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.EstudianteExamenDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[44,24] method setPreguntaId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[45,24] method setRespuestaBancoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[46,24] method setRespuestaTexto in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[47,24] method setEsCorrecta in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Boolean
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[48,24] method setPuntajeObtenido in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+  required: java.lang.Integer
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[17,19] method setId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[18,19] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[20,19] method setClaseId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.lang.Long
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[22,19] method setGrado in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[23,19] method setGrupo in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.lang.String
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[24,19] method setFechaAsignacion in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.time.LocalDate
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[25,19] method setFechaInicio in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.time.LocalDateTime
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[26,19] method setFechaFin in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+  required: java.time.LocalDateTime
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project formacion_academica: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResponse.java:[60,22] cannot find symbol
+[ERROR]   symbol:   variable Collectors
+[ERROR]   location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResponse.java:[67,22] cannot find symbol
+[ERROR]   symbol:   variable Collectors
+[ERROR]   location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/domain/dto/examen/ExamResultResponse.java:[41,26] cannot find symbol
+[ERROR]   symbol:   variable Collectors
+[ERROR]   location: class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamResultResponse
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[47,81] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[49,92] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[143,70] method setPorcentajeAvance in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.ActualizarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.lang.Integer
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[164,20] method setCursoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[168,20] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[168,49] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[174,42] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[176,89] method setTipo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[180,62] method setTitulo in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[180,83] method setCursoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.CrearActividadDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[202,13] cannot find symbol
+[ERROR]   symbol:   method setTitulo(java.lang.String)
+[ERROR]   location: class com.kleverkids.formacion_academica.modules.control_academico.domain.model.actividad.Actividad.Builder
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[219,16] method setNota in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[220,59] method setEstadoFinal in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[221,16] method setNotasPorCriterio in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.util.Map<java.lang.String,java.math.BigDecimal>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[222,16] method setRetroalimentacionGeneral in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[223,16] method setIntentoNumero in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.lang.Integer
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ActividadService.java:[224,16] method setTiempoEmpleadoSegundos in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.actividad.RegistrarProgresoDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ClaseService.java:[40,71] method setClases in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ClaseService.java:[41,53] method setClases in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[85,71] method setSubmissionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[86,98] method setSubmissionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[87,40] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[88,28] method setStudentId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[88,61] method setEstudianteId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[96,94] cannot find symbol
+[ERROR]   symbol:   method setTotalPoints()
+[ERROR]   location: variable exam of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[106,40] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[111,20] method setGrades in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[112,67] method setGrades in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[113,27] method setRespuestas in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[114,43] cannot find symbol
+[ERROR]   symbol:   method setQuestionId()
+[ERROR]   location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[116,57] cannot find symbol
+[ERROR]   symbol:   method setScore()
+[ERROR]   location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[116,75] cannot find symbol
+[ERROR]   symbol:   method setFeedback()
+[ERROR]   location: variable grade of type com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand.QuestionGradeDto
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[120,94] cannot find symbol
+[ERROR]   symbol:   method setTotalPoints()
+[ERROR]   location: variable exam of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[121,20] method setGradedBy in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[122,47] method setGradedBy in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.GradeExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[157,16] method setName in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[160,16] method setCode in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[163,16] method setSubject in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[166,16] method setGradeLevel in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[169,16] method setInstructions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[172,16] method setTimeConfig in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[173,35] method setTimeConfig in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,52] method setDuration in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+[ERROR]   required: int
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,70] method setScheduledDate in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+[ERROR]   required: java.time.LocalDate
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,93] method setStartTime in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+[ERROR]   required: java.time.LocalTime
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[174,112] method setEndTime in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.TimeConfigDto cannot be applied to given types;
+[ERROR]   required: java.time.LocalTime
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[176,16] method setQuestions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[178,41] method setQuestions in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,48] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,59] method setQuestionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,78] method setOrder in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+[ERROR]   required: int
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,92] method setPoints in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[179,107] method setRequired in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ExamQuestionDto cannot be applied to given types;
+[ERROR]   required: boolean
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[183,16] method setCriteria in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[185,47] method setCriteria in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.UpdateExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,55] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,66] method setName in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,79] method setDescription in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,99] method setWeight in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[186,114] method setMaxScore in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.EvaluationCriteriaDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[193,20] method setAnswers in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[196,23] method setAnswers in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.SubmitExamCommand cannot be applied to given types;
+[ERROR]   required: java.util.List<com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto>
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[201,26] method setQuestionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[202,14] method setTextAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[203,34] method setTextAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[204,21] method setNumericAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[205,27] method setNumericAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[206,21] method setBooleanAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.Boolean
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[207,51] method setBooleanAnswer in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.Boolean
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[208,21] method setSelectedOptionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ExamenService.java:[209,49] method setSelectedOptionId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.QuestionAnswerDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[25,51] cannot find symbol
+[ERROR]   symbol:   method setAnswers()
+[ERROR]   location: variable submission of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[33,23] method setPreguntaId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[37,23] method setRespuestaTexto in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[44,23] cannot find symbol
+[ERROR]   symbol:   method setStudentId()
+[ERROR]   location: variable submission of type com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[45,23] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[61,19] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[62,26] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[66,22] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[66,53] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/ServicioCalificacionExamen.java:[67,21] method setPuntaje in class com.kleverkids.formacion_academica.modules.control_academico.domain.model.respuesta_pregunta.RespuestaPregunta cannot be applied to given types;
+[ERROR]   required: java.math.BigDecimal
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[35,32] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[36,36] method setEstudianteId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[41,25] method setId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.estudiante_examen.EstudianteExamenDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[44,24] method setPreguntaId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[45,24] method setRespuestaBancoId in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[46,24] method setRespuestaTexto in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[47,24] method setEsCorrecta in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Boolean
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/RespuestaPreguntaService.java:[48,24] method setPuntajeObtenido in class com.kleverkids.formacion_academica.modules.control_academico.domain.dto.respuesta_pregunta.RegistrarRespuestaPreguntaDto cannot be applied to given types;
+[ERROR]   required: java.lang.Integer
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[17,19] method setId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[18,19] method setExamenId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[20,19] method setClaseId in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.lang.Long
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[22,19] method setGrado in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[23,19] method setGrupo in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.lang.String
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[24,19] method setFechaAsignacion in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.time.LocalDate
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[25,19] method setFechaInicio in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.time.LocalDateTime
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/davi4/Documents/Proyectos/JAVA/formacion_academica/src/main/java/com/kleverkids/formacion_academica/modules/control_academico/application/services/asignacion_examen/AsignacionExamenMapper.java:[26,19] method setFechaFin in class com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity cannot be applied to given types;
+[ERROR]   required: java.time.LocalDateTime
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

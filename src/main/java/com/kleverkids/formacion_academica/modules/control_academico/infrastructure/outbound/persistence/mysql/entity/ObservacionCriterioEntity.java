@@ -27,7 +27,7 @@ public class ObservacionCriterioEntity extends AuditInfo {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "criterio_examen_id", nullable = false, insertable = false, updatable = false)
-    private CriterioExamenEntity criterioExamen;
+    private CriterioEvaluadosEntity criterioExamen;
 
     @Column(name = "estudiante_id",nullable = false)
     private Long estudianteId;
@@ -37,4 +37,5 @@ public class ObservacionCriterioEntity extends AuditInfo {
 
     @Column(name = "recomendacion", nullable = false)
     private String recomendacion;
+
 }

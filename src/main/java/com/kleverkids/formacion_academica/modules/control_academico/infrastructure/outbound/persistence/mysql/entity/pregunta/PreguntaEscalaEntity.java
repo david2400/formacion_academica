@@ -20,4 +20,5 @@ public class PreguntaEscalaEntity extends PreguntaEntity {
     
     public Integer getExpectedValue() { return expectedValue; }
     public void setExpectedValue(Integer expectedValue) { this.expectedValue = expectedValue; }
+
 }

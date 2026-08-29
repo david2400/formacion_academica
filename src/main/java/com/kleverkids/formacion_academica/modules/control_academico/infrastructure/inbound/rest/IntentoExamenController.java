@@ -85,7 +85,7 @@ public class IntentoExamenController {
     @PostMapping("/{intentoId}/finalizar")
     public ResponseEntity<IntentoExamenDto> finalizar(@PathVariable Long intentoId,
                                                       @RequestBody(required = false) FinalizarIntentoExamenDto request) {
-        Integer puntajeTotal = request != null ? request.puntajeTotal() : null;
+        Integer puntajeTotal = request != null ? request.getPuntajeTotal() : null;
         return ResponseEntity.ok(finalizarUseCase.finalizar(new FinalizarIntentoExamenDto(intentoId, puntajeTotal)));
     }
 

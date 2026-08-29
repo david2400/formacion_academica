@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.List;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.ResultadoExamen;
 
 public class ResultadoExamen {
     

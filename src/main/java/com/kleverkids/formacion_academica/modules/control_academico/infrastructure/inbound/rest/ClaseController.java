@@ -113,9 +113,6 @@ public class ClaseController {
     @PutMapping("/{claseId}")
     public ResponseEntity<Clase> actualizarClase(@PathVariable Long claseId,
                                                  @Valid @RequestBody ActualizarClaseDto request) {
-        if (!claseId.equals(request.getId())) {
-            return ResponseEntity.badRequest().build();
-        }
         return ResponseEntity.ok(actualizarClaseUseCase.actualizar(request));
     }
 

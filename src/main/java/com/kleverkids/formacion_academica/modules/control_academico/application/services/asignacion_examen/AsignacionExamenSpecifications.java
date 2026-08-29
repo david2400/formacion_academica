@@ -15,41 +15,41 @@ public class AsignacionExamenSpecifications {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             
-            if (criterios.examenId() != null) {
-                predicates.add(cb.equal(root.get("examenId"), criterios.examenId()));
+            if (criterios.getExamenId() != null) {
+                predicates.add(cb.equal(root.get("examenId"), criterios.getExamenId()));
             }
             
-            if (criterios.claseId() != null) {
-                predicates.add(cb.equal(root.get("claseId"), criterios.claseId()));
+            if (criterios.getClaseId() != null) {
+                predicates.add(cb.equal(root.get("claseId"), criterios.getClaseId()));
             }
             
-            if (criterios.grado() != null && !criterios.grado().isBlank()) {
-                predicates.add(cb.equal(root.get("grado"), criterios.grado()));
+            if (criterios.getGrado() != null && !criterios.getGrado().isBlank()) {
+                predicates.add(cb.equal(root.get("grado"), criterios.getGrado()));
             }
             
-            if (criterios.grupo() != null && !criterios.grupo().isBlank()) {
-                predicates.add(cb.equal(root.get("grupo"), criterios.grupo()));
+            if (criterios.getGrupo() != null && !criterios.getGrupo().isBlank()) {
+                predicates.add(cb.equal(root.get("grupo"), criterios.getGrupo()));
             }
             
-            if (criterios.estado() != null && !criterios.estado().isBlank()) {
-                predicates.add(cb.equal(root.get("estado"), criterios.estado()));
+            if (criterios.getEstado() != null && !criterios.getEstado().isBlank()) {
+                predicates.add(cb.equal(root.get("estado"), criterios.getEstado()));
             }
             
-            if (criterios.fechaDesde() != null) {
+            if (criterios.getFechaDesde() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(
                     root.get("fechaInicio"), 
-                    criterios.fechaDesde().atStartOfDay()
+                    criterios.getFechaDesde().atStartOfDay()
                 ));
             }
             
-            if (criterios.fechaHasta() != null) {
+            if (criterios.getFechaHasta() != null) {
                 predicates.add(cb.lessThanOrEqualTo(
                     root.get("fechaFin"), 
-                    criterios.fechaHasta().atTime(23, 59, 59)
+                    criterios.getFechaHasta().atTime(23, 59, 59)
                 ));
             }
             
-            if (criterios.activas() != null && criterios.activas()) {
+            if (criterios.getActivas() != null && criterios.getActivas()) {
                 LocalDateTime now = LocalDateTime.now();
                 predicates.add(cb.and(
                     cb.lessThanOrEqualTo(root.get("fechaInicio"), now),

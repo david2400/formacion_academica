@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import lombok.experimental.Accessors;
 @Data
 @Builder
 @NoArgsConstructor

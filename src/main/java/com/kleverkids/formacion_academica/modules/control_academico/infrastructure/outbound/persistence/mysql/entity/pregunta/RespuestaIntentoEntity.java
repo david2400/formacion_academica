@@ -79,4 +79,5 @@ public class RespuestaIntentoEntity {
     public void setPuntajeObtenido(Integer puntajeObtenido) {
         this.puntajeObtenido = puntajeObtenido;
     }
+
 }

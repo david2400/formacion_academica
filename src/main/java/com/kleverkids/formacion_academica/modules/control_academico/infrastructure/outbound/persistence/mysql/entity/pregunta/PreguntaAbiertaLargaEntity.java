@@ -50,4 +50,5 @@ public class PreguntaAbiertaLargaEntity extends PreguntaEntity {
     
     public RbricaEmbeddable getRubric() { return rubric; }
     public void setRubric(RbricaEmbeddable rubric) { this.rubric = rubric; }
+
 }

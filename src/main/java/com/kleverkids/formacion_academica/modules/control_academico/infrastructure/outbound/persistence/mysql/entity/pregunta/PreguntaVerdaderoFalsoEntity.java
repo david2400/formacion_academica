@@ -11,4 +11,5 @@ public class PreguntaVerdaderoFalsoEntity extends PreguntaEntity {
     
     public Boolean getCorrectAnswer() { return correctAnswer; }
     public void setCorrectAnswer(Boolean correctAnswer) { this.correctAnswer = correctAnswer; }
+
 }

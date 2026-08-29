@@ -47,19 +47,19 @@ public class EmparejamientoFactory extends BaseFactory implements PreguntaEntity
         return pairs.stream()
             .map(pair -> {
                 ParEmparejamientoEmbeddable parEmb = new ParEmparejamientoEmbeddable();
-                parEmb.setId(pair.id());
-                parEmb.setItemIzquierdo(pair.leftItem());
-                parEmb.setItemDerecho(pair.rightItem());
-                if (pair.leftMedia() != null) {
+                parEmb.setId(pair.getId());
+                parEmb.setItemIzquierdo(pair.getLeftItem());
+                parEmb.setItemDerecho(pair.getRightItem());
+                if (pair.getLeftMedia() != null) {
                     MediaEmbeddable leftMedia = new MediaEmbeddable();
-                    leftMedia.setType(pair.leftMedia().type());
-                    leftMedia.setUrl(pair.leftMedia().url());
+                    leftMedia.setType(pair.getLeftMedia().getType());
+                    leftMedia.setUrl(pair.getLeftMedia().getUrl());
                     parEmb.setMediaIzquierda(leftMedia);
                 }
-                if (pair.rightMedia() != null) {
+                if (pair.getRightMedia() != null) {
                     MediaEmbeddable rightMedia = new MediaEmbeddable();
-                    rightMedia.setType(pair.rightMedia().type());
-                    rightMedia.setUrl(pair.rightMedia().url());
+                    rightMedia.setType(pair.getRightMedia().getType());
+                    rightMedia.setUrl(pair.getRightMedia().getUrl());
                     parEmb.setMediaDerecha(rightMedia);
                 }
                 return parEmb;

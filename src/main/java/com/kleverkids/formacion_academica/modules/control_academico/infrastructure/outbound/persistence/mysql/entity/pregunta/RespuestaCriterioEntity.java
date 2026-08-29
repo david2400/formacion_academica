@@ -42,5 +42,4 @@ public class RespuestaCriterioEntity {
     @Column(nullable = false)
     private LocalDateTime registradaEn;
 
-
 }

@@ -42,7 +42,7 @@ public interface IntentoExamenMapper {
     default void applyFinalizacion(@MappingTarget IntentoExamenEntity entity, FinalizarIntentoExamenDto dto) {
         entity.setEstado("FINALIZADO");
         entity.setFinalizadoEn(LocalDateTime.now());
-        entity.setPuntajeTotal(dto.puntajeTotal());
+        entity.setPuntajeTotal(dto.getPuntajeTotal());
     }
 
     List<IntentoExamenDto> toDtoList(List<IntentoExamenEntity> entities);

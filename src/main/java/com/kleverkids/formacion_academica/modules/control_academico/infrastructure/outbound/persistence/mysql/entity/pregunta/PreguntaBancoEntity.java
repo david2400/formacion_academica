@@ -93,4 +93,5 @@ public class PreguntaBancoEntity {
     public void setRespuestas(List<RespuestaBancoEntity> respuestas) {
         this.respuestas = respuestas;
     }
+
 }

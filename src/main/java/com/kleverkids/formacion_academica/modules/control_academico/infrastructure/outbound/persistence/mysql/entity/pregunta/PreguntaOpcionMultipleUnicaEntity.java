@@ -23,4 +23,5 @@ public class PreguntaOpcionMultipleUnicaEntity extends PreguntaEntity {
     
     public Long getCorrectOptionId() { return correctOptionId; }
     public void setCorrectOptionId(Long correctOptionId) { this.correctOptionId = correctOptionId; }
+
 }

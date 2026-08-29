@@ -1,0 +1,9 @@
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository;
+
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.CriterioEvaluadosEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface CriterioEvaluadosJpaRepository extends JpaRepository<CriterioEvaluadosEntity, Long> {
+}

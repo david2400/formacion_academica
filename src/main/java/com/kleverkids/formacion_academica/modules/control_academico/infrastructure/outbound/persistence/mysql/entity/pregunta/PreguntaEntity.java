@@ -244,4 +244,5 @@ public abstract class PreguntaEntity {
     protected void onUpdate() {
         updatedAt = Instant.now();
     }
+
 }

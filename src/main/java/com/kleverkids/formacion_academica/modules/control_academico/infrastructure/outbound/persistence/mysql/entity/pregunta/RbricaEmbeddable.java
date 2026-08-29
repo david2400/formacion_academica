@@ -65,4 +65,5 @@ public class RbricaEmbeddable {
         public int getPuntaje() { return puntaje; }
         public void setPuntaje(int puntaje) { this.puntaje = puntaje; }
     }
+
 }

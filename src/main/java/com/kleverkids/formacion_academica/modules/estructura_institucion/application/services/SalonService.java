@@ -63,7 +63,7 @@ public class SalonService implements CrearSalonUseCase, ActualizarSalonUseCase, 
             throw new IllegalArgumentException("Ya existe un salón con el código " + codigo);
         }
         Salon actual = salonRepositoryPort.obtenerPorId(salonId);
-        if (!actual.codigo().equalsIgnoreCase(codigo)) {
+        if (!actual.getCodigo().equalsIgnoreCase(codigo)) {
             throw new IllegalArgumentException("Ya existe un salón con el código " + codigo);
         }
     }

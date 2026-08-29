@@ -31,4 +31,5 @@ public class PreguntaNumericaEntity extends PreguntaEntity {
     
     public Integer getDecimalPlaces() { return decimalPlaces; }
     public void setDecimalPlaces(Integer decimalPlaces) { this.decimalPlaces = decimalPlaces; }
+
 }

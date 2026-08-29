@@ -82,10 +82,10 @@ public class ExamenService implements
     @Override
     public ExamResultResponse enviar(Long examenId, SubmitExamCommand command) {
         log.info("Enviando examen ID: {}", examenId);
-        EnvioExamen submission = submissionRepository.findById(command.submissionId())
-                .orElseThrow(() -> new IllegalArgumentException("Envío no encontrado: " + command.submissionId()));
+        EnvioExamen submission = submissionRepository.findById(command.getSubmissionId())
+                .orElseThrow(() -> new IllegalArgumentException("Envío no encontrado: " + command.getSubmissionId()));
         if (!examenId.equals(submission.getExamenId())
-                || !command.studentId().equals(submission.getEstudianteId())) {
+                || !command.getStudentId().equals(submission.getEstudianteId())) {
             throw new IllegalArgumentException("El envío no corresponde al examen o al estudiante");
         }
         submission.setRespuestas(mapAnswers(command));
@@ -108,18 +108,18 @@ public class ExamenService implements
         }
         Exam exam = examenRepository.findExamById(examenId).orElseThrow(() -> new ExamNotFoundException(examenId));
 
-        if (command.grades() != null) {
-            for (GradeExamCommand.QuestionGradeDto grade : command.grades()) {
+        if (command.getGrades() != null) {
+            for (GradeExamCommand.QuestionGradeDto grade : command.getGrades()) {
                 submission.getRespuestas().stream()
-                        .filter(r -> grade.questionId().equals(r.getPreguntaId()))
+                        .filter(r -> grade.getQuestionId().equals(r.getPreguntaId()))
                         .findFirst()
-                        .ifPresent(r -> r.grade(grade.score(), grade.feedback()));
+                        .ifPresent(r -> r.grade(grade.getScore(), grade.getFeedback()));
             }
         }
 
         ResultadoExamen resultado = scoringService.calculateResult(examenId, submission, exam.getTotalPoints());
-        if (command.gradedBy() != null) {
-            resultado.setCalificadoPor(command.gradedBy());
+        if (command.getGradedBy() != null) {
+            resultado.setCalificadoPor(command.getGradedBy());
         }
         resultado = resultRepository.save(resultado);
         return ExamResultResponse.fromDomain(resultado);
@@ -154,59 +154,59 @@ public class ExamenService implements
     }
 
     private static void applyUpdate(Exam exam, UpdateExamCommand cmd) {
-        if (cmd.name() != null) {
-            exam.setName(cmd.name());
+        if (cmd.getName() != null) {
+            exam.setName(cmd.getName());
         }
-        if (cmd.code() != null) {
-            exam.setCode(cmd.code());
+        if (cmd.getCode() != null) {
+            exam.setCode(cmd.getCode());
         }
-        if (cmd.subject() != null) {
-            exam.setSubject(cmd.subject());
+        if (cmd.getSubject() != null) {
+            exam.setSubject(cmd.getSubject());
         }
-        if (cmd.gradeLevel() != null) {
-            exam.setGradeLevel(cmd.gradeLevel());
+        if (cmd.getGradeLevel() != null) {
+            exam.setGradeLevel(cmd.getGradeLevel());
         }
-        if (cmd.instructions() != null) {
-            exam.setInstructions(cmd.instructions());
+        if (cmd.getInstructions() != null) {
+            exam.setInstructions(cmd.getInstructions());
         }
-        if (cmd.timeConfig() != null) {
-            TimeConfigDto tc = cmd.timeConfig();
-            exam.setTimeConfig(TimeConfig.create(tc.duration(), tc.scheduledDate(), tc.startTime(), tc.endTime()));
+        if (cmd.getTimeConfig() != null) {
+            TimeConfigDto tc = cmd.getTimeConfig();
+            exam.setTimeConfig(TimeConfig.create(tc.getDuration(), tc.getScheduledDate(), tc.getStartTime(), tc.getEndTime()));
         }
-        if (cmd.questions() != null) {
+        if (cmd.getQuestions() != null) {
             List<PreguntaExamen> nuevas = new ArrayList<>();
-            for (ExamQuestionDto q : cmd.questions()) {
-                nuevas.add(new PreguntaExamen(q.id(), q.questionId(), q.order(), q.points(), q.required()));
+            for (ExamQuestionDto q : cmd.getQuestions()) {
+                nuevas.add(new PreguntaExamen(q.getId(), q.getQuestionId(), q.getOrder(), q.getPoints(), q.isRequired()));
             }
             exam.setQuestions(nuevas);
         }
-        if (cmd.criteria() != null) {
+        if (cmd.getCriteria() != null) {
             List<EvaluationCriteria> nuevos = new ArrayList<>();
-            for (EvaluationCriteriaDto c : cmd.criteria()) {
-                nuevos.add(EvaluationCriteria.create(c.id(), c.name(), c.description(), c.weight(), c.maxScore()));
+            for (EvaluationCriteriaDto c : cmd.getCriteria()) {
+                nuevos.add(EvaluationCriteria.create(c.getId(), c.getName(), c.getDescription(), c.getWeight(), c.getMaxScore()));
             }
             exam.setCriteria(nuevos);
         }
     }
 
     private static List<RespuestaPregunta> mapAnswers(SubmitExamCommand command) {
-        if (command.answers() == null) {
+        if (command.getAnswers() == null) {
             return List.of();
         }
-        return command.answers().stream().map(ExamenService::mapQuestionAnswer).toList();
+        return command.getAnswers().stream().map(ExamenService::mapQuestionAnswer).toList();
     }
 
     private static RespuestaPregunta mapQuestionAnswer(QuestionAnswerDto a) {
         RespuestaPregunta r = new RespuestaPregunta();
-        r.setPreguntaId(a.questionId());
-        if (a.textAnswer() != null) {
-            r.setRespuestaTexto(a.textAnswer());
-        } else if (a.numericAnswer() != null) {
-            r.setPuntaje(a.numericAnswer());
-        } else if (a.booleanAnswer() != null) {
-            r.setRespuestaTexto(Boolean.toString(a.booleanAnswer()));
-        } else if (a.selectedOptionId() != null) {
-            r.setRespuestaTexto(String.valueOf(a.selectedOptionId()));
+        r.setPreguntaId(a.getQuestionId());
+        if (a.getTextAnswer() != null) {
+            r.setRespuestaTexto(a.getTextAnswer());
+        } else if (a.getNumericAnswer() != null) {
+            r.setPuntaje(a.getNumericAnswer());
+        } else if (a.getBooleanAnswer() != null) {
+            r.setRespuestaTexto(Boolean.toString(a.getBooleanAnswer()));
+        } else if (a.getSelectedOptionId() != null) {
+            r.setRespuestaTexto(String.valueOf(a.getSelectedOptionId()));
         }
         return r;
     }

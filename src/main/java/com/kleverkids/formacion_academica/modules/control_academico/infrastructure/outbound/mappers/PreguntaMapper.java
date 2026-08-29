@@ -1,41 +1,25 @@
 package com.kleverkids.formacion_academica.modules.control_academico.application.services.pregunta.mapper;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.MediaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.PreguntaDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.pregunta.*;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-@Component
-public class PreguntaMapper {
-    
-    public PreguntaDto toDto(PreguntaEntity entity) {
-        if (entity == null) return null;
-        
-        return new PreguntaDto(
-            entity.getId(),
-            obtenerTipoPregunta(entity),
-            entity.getTextoPregunta(),
-            entity.getDificultad(),
-            entity.getPuntajeMaximo(),
-            entity.getTemaId(),
-            mapearMedia(entity.getMedia()),
-            entity.getHint(),
-            entity.getExplanation(),
-            entity.getTags(),
-            entity.getMetadata(),
-            obtenerDatosEspecificos(entity),
-            entity.getCreatedAt(),
-            entity.getUpdatedAt(),
-            entity.getVersion()
-        );
-    }
-    
-    public String obtenerTipoPregunta(PreguntaEntity entity) {
+@Mapper(componentModel = "spring")
+public interface PreguntaMapper {
+
+    @Mapping(target = "questionType", expression = "java(obtenerTipoPregunta(entity))")
+    @Mapping(target = "questionText", source = "textoPregunta")
+    @Mapping(target = "difficulty", source = "dificultad")
+    @Mapping(target = "maxScore", source = "puntajeMaximo")
+    @Mapping(target = "themeId", source = "temaId")
+    @Mapping(target = "specificData", expression = "java(obtenerDatosEspecificos(entity))")
+    PreguntaDto toDto(PreguntaEntity entity);
+
+    default String obtenerTipoPregunta(PreguntaEntity entity) {
         return switch (entity) {
             case PreguntaOpcionMultipleUnicaEntity e -> "multiple_choice_single";
             case PreguntaOpcionMultipleEntity e -> "multiple_choice_multi";
@@ -49,10 +33,10 @@ public class PreguntaMapper {
             default -> "unknown";
         };
     }
-    
-    private Map<String, Object> obtenerDatosEspecificos(PreguntaEntity entity) {
+
+    default Map<String, Object> obtenerDatosEspecificos(PreguntaEntity entity) {
         Map<String, Object> datos = new HashMap<>();
-        
+
         switch (entity) {
             case PreguntaOpcionMultipleUnicaEntity e -> {
                 datos.put("options", e.getOptions());
@@ -98,15 +82,8 @@ public class PreguntaMapper {
             }
             default -> {}
         }
-        
+
         return datos;
     }
-    
-    private List<MediaDto> mapearMedia(List<MediaEmbeddable> media) {
-        if (media == null) return null;
-        
-        return media.stream()
-            .map(m -> new MediaDto(m.getId(), m.getType(), m.getUrl(), m.getAltText()))
-            .collect(Collectors.toList());
-    }
+
 }

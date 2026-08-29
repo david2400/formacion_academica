@@ -1,11 +1,19 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.List;
 
-public record ScaleConfigDto(
-    Integer minValue,
-    Integer maxValue,
-    String minLabel,
-    String maxLabel,
-    List<String> labels
-) {}
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ScaleConfigDto {
+    private Integer minValue;
+    private Integer maxValue;
+    private String minLabel;
+    private String maxLabel;
+    private List<String> labels;
+
+}

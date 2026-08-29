@@ -44,5 +44,4 @@ public class EstudianteExamenEntity extends AuditInfo {
     @OneToMany(mappedBy = "estudianteExamen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RespuestaCriterioEntity> respuestas = new ArrayList<>();
 
-
 }

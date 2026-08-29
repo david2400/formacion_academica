@@ -26,7 +26,7 @@ public class RespuestaPreguntaJpaAdapter implements RespuestaPreguntaRepositoryP
     @Override
     @Transactional
     public RespuestaPreguntaDto registrar(RegistrarRespuestaPreguntaPersistenceDto request) {
-        EstudianteExamenEntity relacion = estudianteExamenJpaRepository.findById(request.estudianteExamenId())
+        EstudianteExamenEntity relacion = estudianteExamenJpaRepository.findById(request.getEstudianteExamenId())
                 .orElseThrow(() -> new IllegalArgumentException("Relación estudiante-examen no encontrada"));
         RespuestaPreguntaEntity entity = respuestaPreguntaMapper.toEntity(request, relacion);
         return respuestaPreguntaMapper.toDto(respuestaPreguntaJpaRepository.save(entity));
@@ -35,7 +35,7 @@ public class RespuestaPreguntaJpaAdapter implements RespuestaPreguntaRepositoryP
     @Override
     @Transactional
     public RespuestaPreguntaDto actualizar(ActualizarRespuestaPreguntaDto request) {
-        RespuestaPreguntaEntity entity = respuestaPreguntaJpaRepository.findById(request.id())
+        RespuestaPreguntaEntity entity = respuestaPreguntaJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Respuesta de pregunta no encontrada"));
         respuestaPreguntaMapper.applyUpdate(entity, request);
         return respuestaPreguntaMapper.toDto(respuestaPreguntaJpaRepository.save(entity));

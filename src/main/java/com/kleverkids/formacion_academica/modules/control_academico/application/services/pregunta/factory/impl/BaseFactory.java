@@ -28,8 +28,8 @@ public abstract class BaseFactory {
         return media.stream()
             .map(m -> {
                 MediaEmbeddable mediaEmb = new MediaEmbeddable();
-                mediaEmb.setType(m.type());
-                mediaEmb.setUrl(m.url());
+                mediaEmb.setType(m.getType());
+                mediaEmb.setUrl(m.getUrl());
                 return mediaEmb;
             })
             .collect(Collectors.toList());

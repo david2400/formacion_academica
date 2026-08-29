@@ -1,21 +1,28 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model.actividad;
 
 import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-public record ActividadSimple(
-    Long id,
-    String titulo,
-    String descripcion,
-    String instrucciones,
-    String tipo,
-    String estado,
-    Long cursoId,
-    Long moduloId,
-    Integer orden,
-    LocalDateTime fechaInicio,
-    LocalDateTime fechaFin
-) {
-    public static Builder builder() {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActividadSimple {
+    private Long id;
+    private String titulo;
+    private String descripcion;
+    private String instrucciones;
+    private String tipo;
+    private String estado;
+    private Long cursoId;
+    private Long moduloId;
+    private Integer orden;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
+
+public static Builder builder() {
         return new Builder();
     }
 
@@ -48,4 +55,5 @@ public record ActividadSimple(
             return new ActividadSimple(id, titulo, descripcion, instrucciones, tipo, estado, cursoId, moduloId, orden, fechaInicio, fechaFin);
         }
     }
+
 }

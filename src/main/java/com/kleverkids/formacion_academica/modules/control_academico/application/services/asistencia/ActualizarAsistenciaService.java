@@ -15,11 +15,11 @@ public class ActualizarAsistenciaService implements ActualizarAsistenciaUseCase 
     public AsistenciaDto actualizar(ActualizarAsistenciaDto request) {
         // TODO: Implementar la lógica de actualización de asistencia
         // Por ahora, convertimos el estado a booleano presente
-        boolean presente = "PRESENTE".equalsIgnoreCase(request.estado()) || "ASISTIO".equalsIgnoreCase(request.estado());
+        boolean presente = "PRESENTE".equalsIgnoreCase(request.getEstado()) || "ASISTIO".equalsIgnoreCase(request.getEstado());
         return new AsistenciaDto(
-            request.asistenciaId(),
-            request.claseId(),
-            request.estudianteId(),
+            request.getAsistenciaId(),
+            request.getClaseId(),
+            request.getEstudianteId(),
             java.time.LocalDateTime.now(), // fechaRegistro - valor por defecto
             presente
         );

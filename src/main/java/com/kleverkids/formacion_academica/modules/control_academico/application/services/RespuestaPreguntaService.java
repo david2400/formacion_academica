@@ -38,7 +38,7 @@ public class RespuestaPreguntaService implements RegistrarRespuestaPreguntaUseCa
                 .orElseGet(() -> estudianteExamenRepository.registrar(new RegistrarEstudianteExamenDto(examenId, estudianteId, LocalDateTime.now())));
 
         RegistrarRespuestaPreguntaPersistenceDto payload = new RegistrarRespuestaPreguntaPersistenceDto(
-                relacion.id(),
+                relacion.getId(),
                 examenId,
                 estudianteId,
                 request.preguntaId(),

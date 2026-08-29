@@ -2,24 +2,31 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 
 import java.time.LocalDateTime;
 
-public record Sede(
-        Long id,
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Sede {
+    private Long id;
 //        String codigo,
-        String nombre,
-        String descripcion,
-        String direccion,
-        String ciudadId,
-        String departamentoId,
-        String pais,
-        String telefono,
-        String email,
-        String contactoPrincipal,
-        String telefonoContacto,
-        String emailContacto,
-        
-        Boolean eliminado,
-        Integer usrCrea,
-        Integer usrMod,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
-) {}
+    private String nombre;
+    private String descripcion;
+    private String direccion;
+    private String ciudadId;
+    private String departamentoId;
+    private String pais;
+    private String telefono;
+    private String email;
+    private String contactoPrincipal;
+    private String telefonoContacto;
+    private String emailContacto;
+    
+    private Boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+}

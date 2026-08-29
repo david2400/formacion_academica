@@ -2,23 +2,30 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 
 import java.time.LocalDateTime;
 
-public record Salon(
-        Long id,
-        String codigo,
-        String nombre,
-        String descripcion,
-        Integer capacidadMaxima,
-        Integer numeroPiso,
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-        Long sedeId,
-        Sede sede,
-        Boolean proyector,
-        Boolean pizarronBlanco,
-        Boolean aireAcondicionado,
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Salon {
+    private Long id;
+    private String codigo;
+    private String nombre;
+    private String descripcion;
+    private Integer capacidadMaxima;
+    private Integer numeroPiso;
 
-        Boolean eliminado,
-        Integer usrCrea,
-        Integer usrMod,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
-) {}
+    private Long sedeId;
+    private Sede sede;
+    private Boolean proyector;
+    private Boolean pizarronBlanco;
+    private Boolean aireAcondicionado;
+
+    private Boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+}

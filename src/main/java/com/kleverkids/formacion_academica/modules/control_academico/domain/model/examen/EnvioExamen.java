@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.EnvioExamen;
 
 public class EnvioExamen {
     

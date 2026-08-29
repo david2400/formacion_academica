@@ -43,22 +43,22 @@ public class AbiertaLargaFactory extends BaseFactory implements PreguntaEntityFa
     }
     
     private RbricaEmbeddable mapearRubrica(RubricaDto rubrica) {
-        if (rubrica == null || rubrica.criterios() == null) return null;
+        if (rubrica == null || rubrica.getCriterios() == null) return null;
         
-        var criteriosEmb = rubrica.criterios().stream()
+        var criteriosEmb = rubrica.getCriterios().stream()
             .map(crit -> {
-                var nivelesEmb = crit.niveles().stream()
+                var nivelesEmb = crit.getNiveles().stream()
                     .map(niv -> new RbricaEmbeddable.NivelEmbeddable(
-                        niv.nombre(),
-                        niv.descripcion(),
-                        niv.puntaje()
+                        niv.getNombre(),
+                        niv.getDescripcion(),
+                        niv.getPuntaje()
                     ))
                     .toList();
                 
                 return new RbricaEmbeddable.CriterioEmbeddable(
-                    crit.nombre(),
-                    crit.descripcion(),
-                    crit.puntajeMaximo(),
+                    crit.getNombre(),
+                    crit.getDescripcion(),
+                    crit.getPuntajeMaximo(),
                     nivelesEmb
                 );
             })

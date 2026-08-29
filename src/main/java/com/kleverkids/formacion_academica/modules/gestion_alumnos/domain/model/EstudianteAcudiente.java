@@ -3,17 +3,25 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model;
 import java.time.Instant;
 import java.time.LocalDate;
 
-public record EstudianteAcudiente(Long id,
-                                  Long estudianteId,
-                                  Long acudienteId,
-                                  Long parentescoId,
-                                  boolean esPrincipal,
-                                  String estado,
-                                  LocalDate fechaVinculacion,
-                                  LocalDate fechaFin,
-                                  boolean eliminado,
-                                  Integer usrCrea,
-                                  Integer usrMod,
-                                  Instant createdAt,
-                                  Instant updatedAt) {
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EstudianteAcudiente {
+    private Long id;
+    private Long estudianteId;
+    private Long acudienteId;
+    private Long parentescoId;
+    private boolean esPrincipal;
+    private String estado;
+    private LocalDate fechaVinculacion;
+    private LocalDate fechaFin;
+    private boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private Instant createdAt;
+    private Instant updatedAt;
 }

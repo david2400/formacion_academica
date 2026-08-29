@@ -47,4 +47,5 @@ public class ClaseEntity extends AuditInfo {
     @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"))
     @Column(name = "profesor_id")
     private List<Long> profesoresIds;
+
 }

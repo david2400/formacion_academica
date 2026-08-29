@@ -4,6 +4,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.asignacion_examen.AsignacionExamenRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asignacion_examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.AsignacionExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.asignacion_examen.AsignacionExamenEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,15 +30,15 @@ public class AsignacionExamenService implements
     @Override
     @Transactional
     public AsignacionExamenDto crear(CrearAsignacionExamenDto dto) {
-        log.info("Creando asignación de examen {} para clase {}", dto.examenId(), dto.claseId());
+        log.info("Creando asignación de examen {} para clase {}", dto.getExamenId(), dto.getClaseId());
         
         // Validar fechas
-        validarFechas(dto.fechaInicio(), dto.fechaFin());
+        validarFechas(dto.getFechaInicio(), dto.getFechaFin());
         
         // Verificar que no exista asignación activa duplicada
-        if (repository.existsByExamenIdAndClaseIdAndEstado(dto.examenId(), dto.claseId(), "PROGRAMADA") ||
-            repository.existsByExamenIdAndClaseIdAndEstado(dto.examenId(), dto.claseId(), "ACTIVA")) {
-            throw new AsignacionDuplicadaException(dto.examenId(), dto.claseId());
+        if (repository.existsByExamenIdAndClaseIdAndEstado(dto.getExamenId(), dto.getClaseId(), "PROGRAMADA") ||
+            repository.existsByExamenIdAndClaseIdAndEstado(dto.getExamenId(), dto.getClaseId(), "ACTIVA")) {
+            throw new AsignacionDuplicadaException(dto.getExamenId(), dto.getClaseId());
         }
         
         // TODO: Obtener grado y grupo desde el servicio de clases
@@ -62,34 +63,34 @@ public class AsignacionExamenService implements
             .orElseThrow(() -> new AsignacionExamenNotFoundException(id));
         
         // Validar fechas si se proporcionan
-        if (dto.fechaInicio() != null && dto.fechaFin() != null) {
-            validarFechas(dto.fechaInicio(), dto.fechaFin());
+        if (dto.getFechaInicio() != null && dto.getFechaFin() != null) {
+            validarFechas(dto.getFechaInicio(), dto.getFechaFin());
         }
         
         // Actualizar campos
-        if (dto.fechaAsignacion() != null) {
-            entity.setFechaAsignacion(dto.fechaAsignacion());
+        if (dto.getFechaAsignacion() != null) {
+            entity.setFechaAsignacion(dto.getFechaAsignacion());
         }
-        if (dto.fechaInicio() != null) {
-            entity.setFechaInicio(dto.fechaInicio());
+        if (dto.getFechaInicio() != null) {
+            entity.setFechaInicio(dto.getFechaInicio());
         }
-        if (dto.fechaFin() != null) {
-            entity.setFechaFin(dto.fechaFin());
+        if (dto.getFechaFin() != null) {
+            entity.setFechaFin(dto.getFechaFin());
         }
-        if (dto.duracionMinutos() != null) {
-            entity.setDuracionMinutos(dto.duracionMinutos());
+        if (dto.getDuracionMinutos() != null) {
+            entity.setDuracionMinutos(dto.getDuracionMinutos());
         }
-        if (dto.intentosPermitidos() != null) {
-            entity.setIntentosPermitidos(dto.intentosPermitidos());
+        if (dto.getIntentosPermitidos() != null) {
+            entity.setIntentosPermitidos(dto.getIntentosPermitidos());
         }
-        if (dto.mostrarResultadosInmediatos() != null) {
-            entity.setMostrarResultadosInmediatos(dto.mostrarResultadosInmediatos());
+        if (dto.getMostrarResultadosInmediatos() != null) {
+            entity.setMostrarResultadosInmediatos(dto.getMostrarResultadosInmediatos());
         }
-        if (dto.permitirRevision() != null) {
-            entity.setPermitirRevision(dto.permitirRevision());
+        if (dto.getPermitirRevision() != null) {
+            entity.setPermitirRevision(dto.getPermitirRevision());
         }
-        if (dto.estado() != null) {
-            entity.setEstado(dto.estado());
+        if (dto.getEstado() != null) {
+            entity.setEstado(dto.getEstado());
         }
         
         entity = repository.save(entity);

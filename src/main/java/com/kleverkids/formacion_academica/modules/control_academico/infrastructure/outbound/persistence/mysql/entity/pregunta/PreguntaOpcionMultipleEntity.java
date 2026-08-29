@@ -36,4 +36,5 @@ public class PreguntaOpcionMultipleEntity extends PreguntaEntity {
     
     public Integer getMaxSelections() { return maxSelections; }
     public void setMaxSelections(Integer maxSelections) { this.maxSelections = maxSelections; }
+
 }

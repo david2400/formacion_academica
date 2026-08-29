@@ -57,4 +57,5 @@ public class RespuestaBancoEntity {
     public void setEsCorrecta(boolean esCorrecta) {
         this.esCorrecta = esCorrecta;
     }
+
 }

@@ -1,17 +1,25 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
 
-import java.math.BigDecimal;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
-public record ObservacionCriterio(Long id,
-                                  Long examenId,
-                                  Long criterioExamenId,
-                                  Long estudianteId,
-                                  String observacion,
-                                  String recomendacion,
-                                  boolean eliminado,
-                                  Integer usrCrea,
-                                  Integer usrMod,
-                                  LocalDateTime createdAt,
-                                  LocalDateTime updatedAt) {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ObservacionCriterio {
+    private Long id;
+    private Long examenId;
+    private Long criterioExamenId;
+    private Long estudianteId;
+    private String observacion;
+    private String recomendacion;
+    private boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 }

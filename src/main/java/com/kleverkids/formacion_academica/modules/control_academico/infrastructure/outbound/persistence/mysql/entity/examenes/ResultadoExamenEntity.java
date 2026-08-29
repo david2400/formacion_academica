@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode
 @Entity
@@ -53,4 +54,5 @@ public class ResultadoExamenEntity {
     
     @Column(name = "graded_by")
     private Long calificadoPor;
+
 }

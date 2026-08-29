@@ -27,4 +27,5 @@ public class OpcionEmbeddable {
     
     public boolean esCorrecta() { return esCorrecta; }
     public void setCorrecta(boolean correcta) { esCorrecta = correcta; }
+
 }

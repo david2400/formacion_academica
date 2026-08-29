@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -85,4 +86,5 @@ public class AsignacionExamenEntity extends AuditInfo {
             intentosPermitidos = 1;
         }
     }
+
 }

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -49,4 +50,5 @@ public class EnvioExamenEntity extends AuditInfo {
     
     @Column(name = "graded")
     private boolean calificado;
+
 }

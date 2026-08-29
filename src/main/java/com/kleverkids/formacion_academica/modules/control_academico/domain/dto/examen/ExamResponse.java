@@ -1,32 +1,37 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.PreguntaExamen;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
-
-import java.math.BigDecimal;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.Instant;
 import java.util.List;
-
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.TimeConfig;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.PreguntaExamen;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.examenes.EvaluationCriteria;
 
-public record ExamResponse(
-    Long id,
-    String name,
-    String code,
-    String subject,
-    String gradeLevel,
-    String instructions,
-    String status,
-    TimeConfigDto timeConfig,
-    List<ExamQuestionDto> questions,
-    List<EvaluationCriteriaDto> criteria,
-    BigDecimal totalPoints,
-    Instant createdAt,
-    Instant updatedAt
-) {
-    public static ExamResponse fromDomain(Exam exam) {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExamResponse {
+    private Long id;
+    private String name;
+    private String code;
+    private String subject;
+    private String gradeLevel;
+    private String instructions;
+    private String status;
+    private TimeConfigDto timeConfig;
+    private List<ExamQuestionDto> questions;
+    private List<EvaluationCriteriaDto> criteria;
+    private BigDecimal totalPoints;
+    private Instant createdAt;
+    private Instant updatedAt;
+
+public static ExamResponse fromDomain(Exam exam) {
         return new ExamResponse(
             exam.getId(),
             exam.getName(),
@@ -62,4 +67,5 @@ public record ExamResponse(
             .map(c -> new EvaluationCriteriaDto(c.getId(), c.getName(), c.getDescription(), c.getWeight(), c.getMaxScore()))
             .collect(Collectors.toList());
     }
+
 }

@@ -33,4 +33,5 @@ public class ParEmparejamientoEmbeddable {
     
     public MediaEmbeddable getMediaDerecha() { return mediaDerecha; }
     public void setMediaDerecha(MediaEmbeddable mediaDerecha) { this.mediaDerecha = mediaDerecha; }
+
 }

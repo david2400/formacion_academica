@@ -30,7 +30,7 @@ public class ExamenJpaAdapter implements ExamenRepositoryPort {
     @Override
     @Transactional
     public Examen save(Examen examen) {
-        log.debug("Guardando examen: {}", examen.nombre());
+        log.debug("Guardando examen: {}", examen.getNombre());
         
         // Implementación mínima - retornar el mismo examen por ahora
         return examen;

@@ -77,4 +77,5 @@ public class ExamenEntity extends AuditInfo {
             this.puntajeMaximo = puntajeMaximo;
         }
     }
+
 }

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import lombok.experimental.Accessors;
 @Data
 @SuperBuilder
 @NoArgsConstructor

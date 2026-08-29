@@ -34,4 +34,5 @@ public class PreguntaExamenEmbeddable {
     
     public boolean isObligatoria() { return obligatoria; }
     public void setObligatoria(boolean obligatoria) { this.obligatoria = obligatoria; }
+
 }

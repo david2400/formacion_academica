@@ -33,8 +33,8 @@ public class ActividadService implements
         Actividad actividad = convertirDtoToActividad(request);
         
         // Validar dependencias si existen
-        // if (actividad.getActividadesDependientes() != null && !actividad.getActividadesDependientes().isEmpty()) {
-        //     validarDependencias(actividad.getId(), actividad.getActividadesDependientes());
+        // if (actividad.actividadesDependientes() != null && !actividad.actividadesDependientes().isEmpty()) {
+        //     validarDependencias(actividad.setId(), actividad.actividadesDependientes());
         // }
         
         // Guardar actividad
@@ -51,7 +51,7 @@ public class ActividadService implements
         
         // Validar que se puede actualizar
         Actividad actividad = existente.get();
-        // if (!actividad.getConfiguracion().esEditable()) {
+        // if (!actividad.setConfiguracion().esEditable()) {
         //     throw new IllegalStateException("La actividad no se puede editar en su estado actual");
         // }
         

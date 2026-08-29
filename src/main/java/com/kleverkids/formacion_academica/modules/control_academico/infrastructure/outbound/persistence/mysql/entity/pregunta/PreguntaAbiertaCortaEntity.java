@@ -34,4 +34,5 @@ public class PreguntaAbiertaCortaEntity extends PreguntaEntity {
     
     public Boolean getCaseSensitive() { return caseSensitive; }
     public void setCaseSensitive(Boolean caseSensitive) { this.caseSensitive = caseSensitive; }
+
 }

@@ -1,25 +1,33 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class SolicitudValidacionRespuesta {
 
-public record SolicitudValidacionRespuesta(
     // Para opción múltiple única
-    Long idOpcionSeleccionada,
+    private Long idOpcionSeleccionada;
     // Para opción múltiple múltiple
-    List<Long> idsOpcionesSeleccionadas,
+    private List<Long> idsOpcionesSeleccionadas;
     // Para verdadero/falso
-    Boolean respuestaBooleana,
+    private Boolean respuestaBooleana;
     // Para respuesta abierta corta/larga
-    String respuestaTexto,
+    private String respuestaTexto;
     // Para numérico
-    BigDecimal respuestaNumerica,
+    private BigDecimal respuestaNumerica;
     // Para escala
-    Integer valorEscala,
+    private Integer valorEscala;
     // Para ordenamiento
-    List<Long> idsItemsOrdenados,
+    private List<Long> idsItemsOrdenados;
     // Para emparejamiento
-    Map<Long, Long> paresEmparejados
-) {}
+    private Map<Long, Long> paresEmparejados;
+
+}

@@ -35,4 +35,5 @@ public class EvaluationCriteriaEmbeddable {
     
     public BigDecimal getMaxScore() { return maxScore; }
     public void setMaxScore(BigDecimal maxScore) { this.maxScore = maxScore; }
+
 }

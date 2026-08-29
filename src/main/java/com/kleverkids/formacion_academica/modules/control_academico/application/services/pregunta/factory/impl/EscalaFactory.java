@@ -42,11 +42,11 @@ public class EscalaFactory extends BaseFactory implements PreguntaEntityFactory 
         if (config == null) return null;
         
         ScaleConfigEmbeddable configEmb = new ScaleConfigEmbeddable();
-        configEmb.setMinValue(config.minValue());
-        configEmb.setMaxValue(config.maxValue());
-        configEmb.setMinLabel(config.minLabel());
-        configEmb.setMaxLabel(config.maxLabel());
-        configEmb.setLabels(config.labels());
+        configEmb.setMinValue(config.getMinValue());
+        configEmb.setMaxValue(config.getMaxValue());
+        configEmb.setMinLabel(config.getMinLabel());
+        configEmb.setMaxLabel(config.getMaxLabel());
+        configEmb.setLabels(config.getLabels());
         
         return configEmb;
     }

@@ -34,19 +34,19 @@ public class AsistenciaJpaAdapter implements AsistenciaRepositoryPort {
     public HistorialAsistenciaDto consultarHistorial(HistorialAsistenciaFiltroDto filtro) {
         List<AsistenciaEntity> entities = filtrarEntidades(filtro);
         return new HistorialAsistenciaDto(
-                filtro.estudianteId(),
-                filtro.claseId(),
-                filtro.desde(),
-                filtro.hasta(),
+                filtro.getEstudianteId(),
+                filtro.getClaseId(),
+                filtro.getDesde(),
+                filtro.getHasta(),
                 asistenciaMapper.toDtoList(entities)
         );
     }
 
     private List<AsistenciaEntity> filtrarEntidades(HistorialAsistenciaFiltroDto filtro) {
-        Long estudianteId = filtro.estudianteId();
-        Long claseId = filtro.claseId();
-        LocalDate desde = filtro.desde();
-        LocalDate hasta = filtro.hasta();
+        Long estudianteId = filtro.getEstudianteId();
+        Long claseId = filtro.getClaseId();
+        LocalDate desde = filtro.getDesde();
+        LocalDate hasta = filtro.getHasta();
 
         if (claseId != null && desde != null && hasta != null) {
             return asistenciaJpaRepository.findByClaseIdAndFechaRegistroBetween(

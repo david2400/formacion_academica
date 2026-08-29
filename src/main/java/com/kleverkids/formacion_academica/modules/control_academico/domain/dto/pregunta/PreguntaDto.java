@@ -1,26 +1,32 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public record PreguntaDto(
-    Long id,
-    String questionType,
-    String questionText,
-    String difficulty,
-    Integer maxScore,
-    Long themeId,
-    List<MediaDto> media,
-    String hint,
-    String explanation,
-    List<String> tags,
-    Map<String, Object> metadata,
-    Map<String, Object> specificData,
-    Instant createdAt,
-    Instant updatedAt,
-    Integer version
-) {}
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PreguntaDto {
+    private Long id;
+    private String questionType;
+    private String questionText;
+    private String difficulty;
+    private Integer maxScore;
+    private Long themeId;
+    private List<MediaDto> media;
+    private String hint;
+    private String explanation;
+    private List<String> tags;
+    private Map<String, Object> metadata;
+    private Map<String, Object> specificData;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Integer version;
+
+}

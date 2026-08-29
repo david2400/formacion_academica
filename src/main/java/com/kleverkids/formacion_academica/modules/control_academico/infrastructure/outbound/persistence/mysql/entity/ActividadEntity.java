@@ -12,6 +12,7 @@ import org.hibernate.type.SqlTypes;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.experimental.Accessors;
 @Data
 @Entity
 @SuperBuilder
@@ -282,4 +283,5 @@ public class ActividadEntity extends AuditInfo {
         private Integer intentoNumero;
         private Long tiempoEmpleadoSegundos;
     }
+
 }

@@ -63,7 +63,7 @@ public class AsignacionExamenController {
         )
     })
     public ResponseEntity<AsignacionExamenDto> crear(@Valid @RequestBody CrearAsignacionExamenDto dto) {
-        log.info("Creando asignación de examen {} para clase {}", dto.examenId(), dto.claseId());
+        log.info("Creando asignación de examen {} para clase {}", dto.getExamenId(), dto.getClaseId());
         AsignacionExamenDto resultado = crearUseCase.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resultado);
     }

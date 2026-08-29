@@ -2,13 +2,21 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 
 import java.time.LocalDateTime;
 
-public record Aula(Long id,
-                   String nombre,
-                   String descripcion,
-                   Integer capacidad,
-                   boolean eliminado,
-                   Integer usrCrea,
-                   Integer usrMod,
-                   LocalDateTime createdAt,
-                   LocalDateTime updatedAt) {
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Aula {
+    private Long id;
+    private String nombre;
+    private String descripcion;
+    private Integer capacidad;
+    private boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

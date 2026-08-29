@@ -28,7 +28,7 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
     @Transactional
     public IntentoExamenDto iniciar(IniciarIntentoExamenDto request) {
         IntentoExamenEntity existente = intentoExamenJpaRepository
-                .findFirstByExamenIdAndEstudianteIdAndEstado(request.examenId(), request.estudianteId(), "EN_PROGRESO")
+                .findFirstByExamenIdAndEstudianteIdAndEstado(request.getExamenId(), request.getEstudianteId(), "EN_PROGRESO")
                 .orElse(null);
         if (existente != null) {
             return intentoExamenMapper.toDto(existente);
@@ -40,7 +40,7 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
     @Override
     @Transactional
     public RespuestaIntentoDto registrarRespuesta(RegistrarRespuestaIntentoDto request) {
-        IntentoExamenEntity intento = intentoExamenJpaRepository.findById(request.intentoId())
+        IntentoExamenEntity intento = intentoExamenJpaRepository.findById(request.getIntentoId())
                 .orElseThrow(() -> new IllegalArgumentException("Intento no encontrado"));
         if (!"EN_PROGRESO".equals(intento.getEstado())) {
             throw new IllegalStateException("Solo se pueden registrar respuestas en intentos en progreso");
@@ -54,7 +54,7 @@ public class IntentoExamenJpaAdapter implements IntentoExamenRepositoryPort {
     @Override
     @Transactional
     public IntentoExamenDto finalizar(FinalizarIntentoExamenDto request) {
-        IntentoExamenEntity intento = intentoExamenJpaRepository.findById(request.intentoId())
+        IntentoExamenEntity intento = intentoExamenJpaRepository.findById(request.getIntentoId())
                 .orElseThrow(() -> new IllegalArgumentException("Intento no encontrado"));
         intentoExamenMapper.applyFinalizacion(intento, request);
         return intentoExamenMapper.toDto(intentoExamenJpaRepository.save(intento));

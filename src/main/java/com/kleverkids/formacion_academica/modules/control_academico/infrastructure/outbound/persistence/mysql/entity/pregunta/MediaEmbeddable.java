@@ -29,4 +29,5 @@ public class MediaEmbeddable {
     
     public String getAltText() { return altText; }
     public void setAltText(String altText) { this.altText = altText; }
+
 }

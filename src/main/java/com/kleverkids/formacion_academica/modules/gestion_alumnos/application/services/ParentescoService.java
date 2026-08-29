@@ -38,7 +38,7 @@ public class ParentescoService implements CrearParentescoUseCase,
         Parentesco existente = consultarPorId(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Parentesco no encontrado"));
         
-        if (request.getNombre() != null && !request.getNombre().equals(existente.nombre())) {
+        if (request.getNombre() != null && !request.getNombre().equals(existente.getNombre())) {
             validarNombreUnico(request.getNombre(), request.getId());
         }
         

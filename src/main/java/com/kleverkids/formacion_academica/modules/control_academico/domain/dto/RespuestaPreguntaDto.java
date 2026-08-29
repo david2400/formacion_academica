@@ -2,68 +2,73 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.dto;
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.preguntas.Rubrica;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-public record RespuestaPreguntaDto(
-    Long id,
-    String textoPregunta,
-    String tipoPregunta,
-    String dificultad,
-    int puntajeMaximo,
-    Long temaId,
-    List<MediaDto> medios,
-    String pista,
-    String explicacion,
-    List<String> etiquetas,
-    Map<String, Object> metadatos,
-    Instant createdAt,
-    Instant updatedAt,
-    Integer version,
-    // Campos específicos por tipo
-    List<OptionDto> opciones,
-    Long idOpcionCorrecta,
-    List<Long> idsOpcionesCorrectas,
-    Integer minSelecciones,
-    Integer maxSelecciones,
-    Boolean respuestaCorrecta,
-    List<String> respuestasAceptadas,
-    Boolean sensibleMayusculas,
-    Integer longitudMaxima,
-    Rubrica rubrica,
-    Integer minPalabras,
-    Integer maxPalabras,
-    Boolean permitirAdjuntos,
-    BigDecimal valorCorrecto,
-    BigDecimal tolerancia,
-    String unidad,
-    Integer lugaresDecimales,
-    ScaleConfigDto configuracionEscala,
-    Integer valorEsperado,
-    List<OrderingItemDto> items,
-    Boolean creditoParcial,
-    List<MatchingPairDto> pares
-) {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RespuestaPreguntaDto {
+    private Long id;
+    private String textoPregunta;
+    private String tipoPregunta;
+    private String dificultad;
+    private int puntajeMaximo;
+    private Long temaId;
+    private List<MediaDto> medios;
+    private String pista;
+    private String explicacion;
+    private List<String> etiquetas;
+    private Map<String, Object> metadatos;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Integer version;
+    // Campos especí private ficos por tipo
+    List<OptionDto> opciones;
+    private Long idOpcionCorrecta;
+    private List<Long> idsOpcionesCorrectas;
+    private Integer minSelecciones;
+    private Integer maxSelecciones;
+    private Boolean respuestaCorrecta;
+    private List<String> respuestasAceptadas;
+    private Boolean sensibleMayusculas;
+    private Integer longitudMaxima;
+    private Rubrica rubrica;
+    private Integer minPalabras;
+    private Integer maxPalabras;
+    private Boolean permitirAdjuntos;
+    private BigDecimal valorCorrecto;
+    private BigDecimal tolerancia;
+    private String unidad;
+    private Integer lugaresDecimales;
+    private ScaleConfigDto configuracionEscala;
+    private Integer valorEsperado;
+    private List<OrderingItemDto> items;
+    private Boolean creditoParcial;
+    private List<MatchingPairDto> pares;
 
-    private static Rubrica mapRubrica(RubricaDto dto) {
+private static Rubrica mapRubrica(RubricaDto dto) {
         if (dto == null) {
             return null;
         }
-        if (dto.criterios() == null || dto.criterios().isEmpty()) {
+        if (dto.getCriterios() == null || dto.getCriterios().isEmpty()) {
             return Rubrica.crear(List.of());
         }
-        List<Rubrica.CriterioRubrica> criterios = dto.criterios().stream()
+        List<Rubrica.CriterioRubrica> criterios = dto.getCriterios().stream()
                 .map(c -> new Rubrica.CriterioRubrica(
-                        c.nombre(),
-                        c.descripcion(),
-                        c.puntajeMaximo(),
-                        c.niveles() == null
+                        c.getNombre(),
+                        c.getDescripcion(),
+                        c.getPuntajeMaximo(),
+                        c.getNiveles() == null
                                 ? List.of()
-                                : c.niveles().stream()
-                                        .map(n -> new Rubrica.NivelRubrica(n.nombre(), n.descripcion(), n.puntaje()))
+                                : c.getNiveles().stream()
+                                        .map(n -> new Rubrica.NivelRubrica(n.getNombre(), n.getDescripcion(), n.getPuntaje()))
                                         .toList()))
                 .toList();
         return Rubrica.crear(criterios);
@@ -156,4 +161,5 @@ public record RespuestaPreguntaDto(
             );
         }
     }
+
 }

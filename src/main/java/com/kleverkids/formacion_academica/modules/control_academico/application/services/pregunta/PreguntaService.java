@@ -135,19 +135,19 @@ public class PreguntaService implements
     }
     
     private List<PreguntaEntity> buscarEntidades(CriterioBusquedaPregunta criterios) {
-        if (criterios.temaId() != null) {
-            log.debug("Buscando por tema ID: {}", criterios.temaId());
-            return repository.findByTemaId(criterios.temaId());
+        if (criterios.getTemaId() != null) {
+            log.debug("Buscando por tema ID: {}", criterios.getTemaId());
+            return repository.findByTemaId(criterios.getTemaId());
         }
         
-        if (criterios.dificultad() != null) {
-            log.debug("Buscando por dificultad: {}", criterios.dificultad());
-            return repository.findByDificultad(criterios.dificultad());
+        if (criterios.getDificultad() != null) {
+            log.debug("Buscando por dificultad: {}", criterios.getDificultad());
+            return repository.findByDificultad(criterios.getDificultad());
         }
         
-        if (criterios.etiquetas() != null && !criterios.etiquetas().isEmpty()) {
-            log.debug("Buscando por etiqueta: {}", criterios.etiquetas().get(0));
-            return repository.findByTag(criterios.etiquetas().get(0));
+        if (criterios.getEtiquetas() != null && !criterios.getEtiquetas().isEmpty()) {
+            log.debug("Buscando por etiqueta: {}", criterios.getEtiquetas().get(0));
+            return repository.findByTag(criterios.getEtiquetas().get(0));
         }
         
         log.debug("Buscando todas las preguntas");

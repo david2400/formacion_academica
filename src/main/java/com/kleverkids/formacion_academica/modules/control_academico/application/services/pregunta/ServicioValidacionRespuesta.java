@@ -44,13 +44,13 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateMultipleChoiceSingle(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.idOpcionSeleccionada() == null) {
+        if (request.getIdOpcionSeleccionada() == null) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
         if (question instanceof MultipleChoiceSingleQuestion) {
             MultipleChoiceSingleQuestion mcq = (MultipleChoiceSingleQuestion) question;
-            boolean isCorrect = mcq.getCorrectOptionId().equals(request.idOpcionSeleccionada());
+            boolean isCorrect = mcq.getCorrectOptionId().equals(request.getIdOpcionSeleccionada());
             return isCorrect ? ValidationResult.correct(maxScore) : ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -58,7 +58,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateMultipleChoiceMulti(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.idsOpcionesSeleccionadas() == null || request.idsOpcionesSeleccionadas().isEmpty()) {
+        if (request.getIdsOpcionesSeleccionadas() == null || request.getIdsOpcionesSeleccionadas().isEmpty()) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -66,7 +66,7 @@ public class ServicioValidacionRespuesta {
             MultipleChoiceMultiQuestion mcq = (MultipleChoiceMultiQuestion) question;
             // Validación simple: si alguna opción seleccionada es correcta, damos puntos parciales
             boolean hasCorrectOption = mcq.getCorrectOptionIds().stream()
-                .anyMatch(correctId -> request.idsOpcionesSeleccionadas().contains(correctId));
+                .anyMatch(correctId -> request.getIdsOpcionesSeleccionadas().contains(correctId));
             
             if (hasCorrectOption) {
                 return ValidationResult.correct(maxScore);
@@ -77,13 +77,13 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateTrueFalse(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.respuestaBooleana() == null) {
+        if (request.getRespuestaBooleana() == null) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
         if (question instanceof TrueFalseQuestion) {
             TrueFalseQuestion tfq = (TrueFalseQuestion) question;
-            boolean isCorrect = tfq.isCorrectAnswer() == request.respuestaBooleana();
+            boolean isCorrect = tfq.isCorrectAnswer() == request.getRespuestaBooleana();
             return isCorrect ? ValidationResult.correct(maxScore) : ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -91,14 +91,14 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateOpenShort(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.respuestaTexto() == null || request.respuestaTexto().trim().isEmpty()) {
+        if (request.getRespuestaTexto() == null || request.getRespuestaTexto().trim().isEmpty()) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
         if (question instanceof OpenShortQuestion) {
             OpenShortQuestion osq = (OpenShortQuestion) question;
             List<String> correctAnswers = osq.getAcceptedAnswers();
-            final String userAnswer = request.respuestaTexto().trim();
+            final String userAnswer = request.getRespuestaTexto().trim();
             if (!osq.isCaseSensitive()) {
                 final String finalUserAnswer = userAnswer.toLowerCase();
                 boolean isCorrect = correctAnswers.stream()
@@ -118,7 +118,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateOpenLong(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.respuestaTexto() == null || request.respuestaTexto().trim().isEmpty()) {
+        if (request.getRespuestaTexto() == null || request.getRespuestaTexto().trim().isEmpty()) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -127,7 +127,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateNumeric(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.respuestaNumerica() == null) {
+        if (request.getRespuestaNumerica() == null) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -136,7 +136,7 @@ public class ServicioValidacionRespuesta {
             BigDecimal correctAnswer = nq.getCorrectValue();
             BigDecimal tolerance = nq.getTolerance() != null ? nq.getTolerance() : BigDecimal.ZERO;
             
-            BigDecimal difference = request.respuestaNumerica().subtract(correctAnswer).abs();
+            BigDecimal difference = request.getRespuestaNumerica().subtract(correctAnswer).abs();
             boolean isCorrect = difference.compareTo(tolerance) <= 0;
             
             return isCorrect ? ValidationResult.correct(maxScore) : ValidationResult.incorrect(BigDecimal.ZERO);
@@ -146,7 +146,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateScale(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.valorEscala() == null) {
+        if (request.getValorEscala() == null) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -155,7 +155,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateOrdering(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.idsItemsOrdenados() == null || request.idsItemsOrdenados().isEmpty()) {
+        if (request.getIdsItemsOrdenados() == null || request.getIdsItemsOrdenados().isEmpty()) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -167,7 +167,7 @@ public class ServicioValidacionRespuesta {
                 .sorted((a, b) -> Integer.compare(a.getCorrectPosition(), b.getCorrectPosition()))
                 .map(OrderingItem::getId)
                 .toList();
-            List<Long> userOrder = request.idsItemsOrdenados();
+            List<Long> userOrder = request.getIdsItemsOrdenados();
             
             if (correctOrder.equals(userOrder)) {
                 return ValidationResult.correct(maxScore);
@@ -178,7 +178,7 @@ public class ServicioValidacionRespuesta {
     }
     
     private ValidationResult validateMatching(Pregunta question, SolicitudValidacionRespuesta request, BigDecimal maxScore) {
-        if (request.paresEmparejados() == null || request.paresEmparejados().isEmpty()) {
+        if (request.getParesEmparejados() == null || request.getParesEmparejados().isEmpty()) {
             return ValidationResult.incorrect(BigDecimal.ZERO);
         }
         
@@ -188,7 +188,7 @@ public class ServicioValidacionRespuesta {
             List<MatchingPair> correctPairs = mq.getPairs();
             
             // Map<Long,Long>: comparar como identificadores numéricos frente a los textos almacenados en el par
-            boolean allCorrect = request.paresEmparejados().entrySet().stream()
+            boolean allCorrect = request.getParesEmparejados().entrySet().stream()
                 .allMatch(entry -> correctPairs.stream()
                     .anyMatch(pair -> pair.getLeftItem().equals(String.valueOf(entry.getKey()))
                         && pair.getRightItem().equals(String.valueOf(entry.getValue()))));

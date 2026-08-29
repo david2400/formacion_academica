@@ -2,14 +2,22 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 
 import java.time.LocalDateTime;
 
-public record Grado(Long id,
-                    String nombre,
-                    String descripcion,
-                    Long nivelEducativoId,
-                    NivelEducativo nivelEducativo,
-                    boolean eliminado,
-                    Integer usrCrea,
-                    Integer usrMod,
-                    LocalDateTime createdAt,
-                    LocalDateTime updatedAt) {
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Grado {
+    private Long id;
+    private String nombre;
+    private String descripcion;
+    private Long nivelEducativoId;
+    private NivelEducativo nivelEducativo;
+    private boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

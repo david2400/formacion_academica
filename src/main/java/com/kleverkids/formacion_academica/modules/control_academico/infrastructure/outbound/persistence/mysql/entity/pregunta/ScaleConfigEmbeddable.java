@@ -34,4 +34,5 @@ public class ScaleConfigEmbeddable {
     
     public List<String> getLabels() { return labels; }
     public void setLabels(List<String> labels) { this.labels = labels; }
+
 }

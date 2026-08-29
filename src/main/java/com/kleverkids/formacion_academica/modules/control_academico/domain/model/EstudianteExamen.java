@@ -1,14 +1,23 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
-public record EstudianteExamen(Long id,
-                               Long examenId,
-                               Long estudianteId,
-                               LocalDateTime asignadoEn,
-                               boolean eliminado,
-                               Integer usrCrea,
-                               Integer usrMod,
-                               LocalDateTime createdAt,
-                               LocalDateTime updatedAt) {
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EstudianteExamen {
+    private Long id;
+    private Long examenId;
+    private Long estudianteId;
+    private LocalDateTime asignadoEn;
+    private boolean eliminado;
+    private Integer usrCrea;
+    private Integer usrMod;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 }

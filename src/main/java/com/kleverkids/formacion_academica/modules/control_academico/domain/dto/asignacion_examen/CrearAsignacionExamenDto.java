@@ -7,43 +7,61 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record CrearAsignacionExamenDto(
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class CrearAsignacionExamenDto {
     @NotNull(message = "El ID del examen es obligatorio")
-    Long examenId,
-    
+    private Long examenId;
+
     @NotNull(message = "El ID de la clase es obligatorio")
-    Long claseId,
-    
+    private Long claseId;
+
     @NotNull(message = "La fecha de asignación es obligatoria")
-    LocalDate fechaAsignacion,
-    
+    private LocalDate fechaAsignacion;
+
     @NotNull(message = "La fecha de inicio es obligatoria")
     @Future(message = "La fecha de inicio debe ser futura")
-    LocalDateTime fechaInicio,
-    
+    private LocalDateTime fechaInicio;
+
     @NotNull(message = "La fecha de fin es obligatoria")
     @Future(message = "La fecha de fin debe ser futura")
-    LocalDateTime fechaFin,
-    
+    private LocalDateTime fechaFin;
+
     @Min(value = 1, message = "La duración debe ser al menos 1 minuto")
-    Integer duracionMinutos,
-    
+    private Integer duracionMinutos;
+
     @Min(value = 1, message = "Debe permitir al menos 1 intento")
-    Integer intentosPermitidos,
-    
-    Boolean mostrarResultadosInmediatos,
-    
-    Boolean permitirRevision
-) {
-    public CrearAsignacionExamenDto {
-        if (mostrarResultadosInmediatos == null) {
-            mostrarResultadosInmediatos = false;
-        }
-        if (permitirRevision == null) {
-            permitirRevision = true;
-        }
-        if (intentosPermitidos == null) {
-            intentosPermitidos = 1;
-        }
+    private Integer intentosPermitidos;
+
+    private Boolean mostrarResultadosInmediatos;
+
+    private Boolean permitirRevision;
+
+    public CrearAsignacionExamenDto(
+        Long examenId,
+        Long claseId,
+        LocalDate fechaAsignacion,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        Integer duracionMinutos,
+        Integer intentosPermitidos,
+        Boolean mostrarResultadosInmediatos,
+        Boolean permitirRevision
+    ) {
+        if (mostrarResultadosInmediatos == null) mostrarResultadosInmediatos = false;
+        if (permitirRevision == null) permitirRevision = true;
+        if (intentosPermitidos == null) intentosPermitidos = 1;
+        this.examenId = examenId;
+        this.claseId = claseId;
+        this.fechaAsignacion = fechaAsignacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.duracionMinutos = duracionMinutos;
+        this.intentosPermitidos = intentosPermitidos;
+        this.mostrarResultadosInmediatos = mostrarResultadosInmediatos;
+        this.permitirRevision = permitirRevision;
     }
 }

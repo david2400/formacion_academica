@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+import lombok.experimental.Accessors;
 @Data
 @NoArgsConstructor
 public class ActualizarClaseDto {

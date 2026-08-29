@@ -22,4 +22,5 @@ public class PreguntaOrdenamientoEntity extends PreguntaEntity {
     
     public Boolean getPartialCredit() { return partialCredit; }
     public void setPartialCredit(Boolean partialCredit) { this.partialCredit = partialCredit; }
+
 }

@@ -1,12 +1,19 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 
+import lombok.experimental.Accessors;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExamQuestionDto {
+    private Long id;
+    private Long questionId;
+    private int order;
+    private BigDecimal points;
+    private boolean required;
 
-public record ExamQuestionDto(
-    Long id,
-    Long questionId,
-    int order,
-    BigDecimal points,
-    boolean required
-) {}
+}

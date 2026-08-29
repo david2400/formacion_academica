@@ -61,7 +61,7 @@ public class AulaService implements CrearAulaUseCase, ActualizarAulaUseCase, Lis
             throw new IllegalArgumentException("Ya existe un aula con el nombre " + nombre);
         }
         Aula actual = aulaRepositoryPort.obtenerPorId(aulaId);
-        if (!actual.nombre().equalsIgnoreCase(nombre)) {
+        if (!actual.getNombre().equalsIgnoreCase(nombre)) {
             throw new IllegalArgumentException("Ya existe un aula con el nombre " + nombre);
         }
     }

@@ -39,4 +39,5 @@ public class RespuestaPreguntaEmbeddable {
     
     public String getRetroalimentacion() { return retroalimentacion; }
     public void setRetroalimentacion(String retroalimentacion) { this.retroalimentacion = retroalimentacion; }
+
 }

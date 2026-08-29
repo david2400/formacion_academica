@@ -1,17 +1,23 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record PagedResponse<T>(
-    List<T> content,
-    Integer pageNumber,
-    Integer pageSize,
-    Long totalElements,
-    Integer totalPages,
-    Boolean first,
-    Boolean last,
-    Boolean empty
-) {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PagedResponse<T> {
+    private List<T> content;
+    private Integer pageNumber;
+    private Integer pageSize;
+    private Long totalElements;
+    private Integer totalPages;
+    private Boolean first;
+    private Boolean last;
+    private Boolean empty;
+
     public static <T> PagedResponse<T> of(
         List<T> content,
         Integer pageNumber,

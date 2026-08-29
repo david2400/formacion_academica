@@ -137,4 +137,5 @@ public class RespuestaPreguntaEntity {
     public void setRegistradaEn(LocalDateTime registradaEn) {
         this.registradaEn = registradaEn;
     }
+
 }

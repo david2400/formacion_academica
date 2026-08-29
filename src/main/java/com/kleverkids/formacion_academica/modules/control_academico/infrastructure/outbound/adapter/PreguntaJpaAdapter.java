@@ -69,7 +69,7 @@ public class PreguntaJpaAdapter implements PreguntaRepository, PreguntaBancoRepo
 
     @Override
     public PreguntaBanco actualizar(ActualizarPreguntaBancoDto request) {
-        PreguntaBancoEntity entity = preguntaBancoJpaRepository.findById(request.id())
+        PreguntaBancoEntity entity = preguntaBancoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Pregunta no encontrada"));
         preguntaBancoMapper.applyUpdate(entity, request);
         return preguntaBancoMapper.toDomainModel(preguntaBancoJpaRepository.save(entity));

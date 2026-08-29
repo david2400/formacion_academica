@@ -34,4 +34,5 @@ public class ResultadoPreguntaEmbeddable {
     
     public String getRetroalimentacion() { return retroalimentacion; }
     public void setRetroalimentacion(String retroalimentacion) { this.retroalimentacion = retroalimentacion; }
+
 }

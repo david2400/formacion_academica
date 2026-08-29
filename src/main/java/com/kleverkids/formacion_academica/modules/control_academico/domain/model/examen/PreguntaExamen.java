@@ -2,6 +2,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.domain.mode
 
 import java.math.BigDecimal;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.PreguntaExamen;
 
 public class PreguntaExamen {
     

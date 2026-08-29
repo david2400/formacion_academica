@@ -47,12 +47,12 @@ public class OpcionMultipleUnicaFactory extends BaseFactory implements PreguntaE
         return options.stream()
             .map(opt -> {
                 OpcionEmbeddable opcion = new OpcionEmbeddable();
-                opcion.setId(opt.id());
-                opcion.setTexto(opt.text());
-                if (opt.media() != null) {
+                opcion.setId(opt.getId());
+                opcion.setTexto(opt.getText());
+                if (opt.getMedia() != null) {
                     MediaEmbeddable media = new MediaEmbeddable();
-                    media.setType(opt.media().type());
-                    media.setUrl(opt.media().url());
+                    media.setType(opt.getMedia().getType());
+                    media.setUrl(opt.getMedia().getUrl());
                     opcion.setMedia(media);
                 }
                 opcion.setCorrecta(false);
