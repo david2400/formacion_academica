@@ -1,4 +1,4 @@
-package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity;
+package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes;
 
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.Column;
@@ -12,27 +12,22 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @SuperBuilder
 @NoArgsConstructor
-@Table(name = "criterios_evaluados")
-public class CriterioEvaluadosEntity extends AuditInfo {
+@Table(name = "examenes_tematicas")
+public class ExamenTematicaEntity extends AuditInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
+    @Column(name = "examen_id", nullable = false)
+    private Long examenId;
 
-    @Column(name = "descripcion", nullable = false)
-    private String descripcion;
-
-    @Column(name = "recomendacion_base",nullable = false)
-    private String recomendacionBase;
+    @Column(name = "tematica_id", nullable = false)
+    private Long tematicaId;
 
 }

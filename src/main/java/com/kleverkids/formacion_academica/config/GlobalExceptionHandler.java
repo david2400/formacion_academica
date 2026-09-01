@@ -120,7 +120,14 @@ public class GlobalExceptionHandler {
                 .map(this::toFieldError)
                 .toList();
 
-        ProblemDetail pd = baseProblemDetail(HttpStatus.BAD_REQUEST, "Solicitud Inválida", "La solicitud contiene errores de validación", request);
+        String detail = fieldErrors.isEmpty()
+                ? "La solicitud contiene errores de validación"
+                : fieldErrors.stream()
+                        .map(e -> e.get("field") + ": " + e.get("message"))
+                        .collect(java.util.stream.Collectors.joining("; "));
+
+        ProblemDetail pd = baseProblemDetail(HttpStatus.BAD_REQUEST, "Solicitud Inválida", detail, request);
+        pd.setProperty("errorCount", fieldErrors.size());
         pd.setProperty("fieldErrors", fieldErrors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
     }
@@ -191,6 +198,7 @@ public class GlobalExceptionHandler {
 
     private Map<String, Object> toFieldError(FieldError fe) {
         Map<String, Object> m = new LinkedHashMap<>();
+        m.put("object", fe.getObjectName());
         m.put("field", fe.getField());
         m.put("rejectedValue", fe.getRejectedValue());
         m.put("message", fe.getDefaultMessage());
