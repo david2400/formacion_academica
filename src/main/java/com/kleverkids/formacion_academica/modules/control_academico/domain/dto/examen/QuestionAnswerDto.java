@@ -13,13 +13,13 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public class QuestionAnswerDto {
     private Long questionId;
-    private Long selectedOptionId;
-    private List<Long> selectedOptionIds;
+        private String selectedOptionId;
+    private List<String> selectedOptionIds;
     private Boolean booleanAnswer;
     private String textAnswer;
     private BigDecimal numericAnswer;
     private Integer scaleValue;
-    private List<Long> orderedItemIds;
-    private Map<Long, Long> matchedPairs;
+    private List<String> orderedItemIds;
+    private Map<String, String> matchedPairs;
 
 }

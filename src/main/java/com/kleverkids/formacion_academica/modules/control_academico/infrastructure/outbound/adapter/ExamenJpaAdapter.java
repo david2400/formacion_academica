@@ -8,8 +8,11 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Exam;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.ExamenEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.ExamenJpaRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,6 +29,7 @@ import java.util.Optional;
 public class ExamenJpaAdapter implements ExamenRepositoryPort {
 
     private final ExamenJpaRepository examenJpaRepository;
+    private final ExamenMapper examenMapper;
 
     @Override
     @Transactional
@@ -70,9 +74,14 @@ public class ExamenJpaAdapter implements ExamenRepositoryPort {
     
     // Métodos adicionales para compatibilidad con el servicio - implementaciones básicas
     @Override
+    @Transactional
     public Examen guardar(CrearExamenDto request) {
-        // Implementación por defecto - lanzar excepción para que el servicio lo maneje
-        throw new UnsupportedOperationException("Método guardar no implementado en este adaptador");
+        log.debug("Guardando examen desde DTO: {}", request.getNombre());
+
+        ExamenEntity entity = examenMapper.toEntity(request);
+
+        ExamenEntity saved = examenJpaRepository.save(entity);
+        return examenMapper.toDomainModel(saved);
     }
     
     @Override

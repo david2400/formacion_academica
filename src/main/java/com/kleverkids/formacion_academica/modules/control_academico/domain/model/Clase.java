@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.clase.EstadoClase;
 
 import lombok.experimental.Accessors;
 @Data
@@ -14,10 +15,13 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public class Clase {
     private Long id;
+    private String codigo;
     private String nombre;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private List<Long> profesoresIds;
+    private EstadoClase estado;
+    private String observaciones;
     private boolean eliminado;
     private Integer usrCrea;
     private Integer usrMod;

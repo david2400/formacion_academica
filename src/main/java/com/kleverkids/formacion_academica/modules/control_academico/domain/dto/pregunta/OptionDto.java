@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +18,12 @@ public class OptionDto {
 
     private MediaDto media;
 
-    @JsonProperty("isCorrect")
-    @NotNull(message = "El campo isCorrect es obligatorio")
+    /**
+     * Se serializa como "is_correct" siguiendo la estrategia SNAKE_CASE global.
+     * Se acepta "isCorrect" como alias por compatibilidad con clientes antiguos.
+     */
+    @JsonAlias("isCorrect")
+    @NotNull(message = "El campo is_correct es obligatorio")
     private Boolean isCorrect;
 
 }

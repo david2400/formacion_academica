@@ -1,5 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.pregunta;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 import java.util.List;
@@ -28,5 +29,16 @@ public class PreguntaDto {
     private Instant createdAt;
     private Instant updatedAt;
     private Integer version;
+
+    /**
+     * Los datos específicos del tipo se serializan en la raíz del JSON (options,
+     * correct_option_id, items, pairs, ...) en vez de anidados bajo specific_data,
+     * para que la respuesta de lectura tenga exactamente la misma forma que el
+     * cuerpo que espera CreateQuestionCommand al escribir.
+     */
+    @JsonAnyGetter
+    public Map<String, Object> getSpecificData() {
+        return specificData;
+    }
 
 }

@@ -6,10 +6,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.EliminarClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.ListarClasesUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.RegistrarSeguimientoClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ActualizarClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClasesMasivasDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.RegistrarSeguimientoClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ResultadoClasesMasivasDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -25,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +49,7 @@ public class ClaseController {
     private final ConsultarClaseUseCase consultarClaseUseCase;
     private final ListarClasesUseCase listarClasesUseCase;
     private final ActualizarClaseUseCase actualizarClaseUseCase;
+    private final RegistrarSeguimientoClaseUseCase registrarSeguimientoClaseUseCase;
     private final EliminarClaseUseCase eliminarClaseUseCase;
 
     @Operation(summary = "Crear clase", description = "Registra una nueva clase individual")
@@ -114,6 +118,29 @@ public class ClaseController {
     public ResponseEntity<Clase> actualizarClase(@PathVariable Long claseId,
                                                  @Valid @RequestBody ActualizarClaseDto request) {
         return ResponseEntity.ok(actualizarClaseUseCase.actualizar(request));
+    }
+
+    @Operation(
+            summary = "Registrar seguimiento de la clase",
+            description = """
+                    Actualización parcial pensada para el calendario: marca la clase como
+                    dictada o cancelada y/o registra observaciones, sin reenviar la clase
+                    completa. Los campos nulos se dejan como estaban.
+
+                    Estados válidos: programada, dictada, cancelada.
+                    """)
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Seguimiento registrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Clase.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Clase no encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @PatchMapping("/{claseId}/seguimiento")
+    public ResponseEntity<Clase> registrarSeguimiento(@PathVariable Long claseId,
+                                                      @RequestBody RegistrarSeguimientoClaseDto request) {
+        return ResponseEntity.ok(registrarSeguimientoClaseUseCase.registrarSeguimiento(claseId, request));
     }
 
     @Operation(summary = "Eliminar clase", description = "Elimina una clase existente")

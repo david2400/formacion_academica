@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ActualizarClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.CrearClaseDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.RegistrarSeguimientoClaseDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,8 @@ public interface ClaseRepositoryPort {
     Optional<Clase> buscarPorCodigo(String codigo);
 
     Clase actualizar(ActualizarClaseDto clase);
+
+    Clase registrarSeguimiento(Long id, RegistrarSeguimientoClaseDto seguimiento);
 
     void eliminar(Long id);
 

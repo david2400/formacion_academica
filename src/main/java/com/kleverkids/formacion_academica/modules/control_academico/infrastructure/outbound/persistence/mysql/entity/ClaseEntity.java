@@ -1,10 +1,13 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.clase.EstadoClase;
 import com.kleverkids.formacion_academica.shared.common.domain.entity.AuditInfo;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,5 +50,14 @@ public class ClaseEntity extends AuditInfo {
     @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"))
     @Column(name = "profesor_id")
     private List<Long> profesoresIds;
+
+    /** Seguimiento: si la clase se dictó, sigue programada o fue cancelada. */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", length = 20)
+    private EstadoClase estado;
+
+    /** Observaciones de la clase (qué se vio, incidencias, acuerdos...). */
+    @Column(name = "observaciones", columnDefinition = "TEXT")
+    private String observaciones;
 
 }

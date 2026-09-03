@@ -26,22 +26,4 @@ public class CrearExamenDto {
     private String descripcion;
     // @NotNull(message = "La fecha del examen es obligatoria")
     // private LocalDate fecha;
-
-    @NotEmpty(message = "Debe definir al menos una regla de calificación")
-    @Valid
-    private List<ReglaCalificacionDto> reglas;
-
-    public CrearExamenDto(
-            String nombre,
-            String descripcion,
-            List<ReglaCalificacionDto> reglasCalificacion) {
-        this.nombre = Objects.requireNonNull(nombre, "El nombre del examen es obligatorio");
-        if (this.nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre del examen es obligatorio");
-        }
-        this.reglas = Objects.requireNonNull(reglasCalificacion, "Debe definir al menos una regla de calificación");
-        if (this.reglas.isEmpty()) {
-            throw new IllegalArgumentException("Debe definir al menos una regla de calificación");
-        }
-    }
 }

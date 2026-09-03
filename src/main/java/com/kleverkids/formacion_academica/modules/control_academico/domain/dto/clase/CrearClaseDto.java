@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase;
 
-import jakarta.validation.constraints.FutureOrPresent;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.clase.EstadoClase;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,12 +20,16 @@ public class CrearClaseDto {
     private String nombre;
 
     @NotNull(message = "La fecha de inicio es obligatoria")
-    @FutureOrPresent(message = "La fecha de inicio debe ser igual o posterior a hoy")
     private LocalDate fechaInicio;
 
+    /** Si no se envía, se asume una clase de un solo día (igual a fechaInicio). */
     private LocalDate fechaFin;
 
     private List<Long> profesoresIds;
 
+    /** Si no se envía, la clase se crea como PROGRAMADA. */
+    private EstadoClase estado;
+
+    private String observaciones;
 
 }

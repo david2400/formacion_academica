@@ -6,6 +6,8 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.CrearClasesMasivasUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.EliminarClaseUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.ListarClasesUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.clase.RegistrarSeguimientoClaseUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.RegistrarSeguimientoClaseDto;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.clase.ClaseRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.Clase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase.ActualizarClaseDto;
@@ -26,6 +28,7 @@ public class ClaseService implements CrearClaseUseCase,
         ConsultarClaseUseCase,
         ListarClasesUseCase,
         ActualizarClaseUseCase,
+        RegistrarSeguimientoClaseUseCase,
         EliminarClaseUseCase {
 
     private final ClaseRepositoryPort claseRepositoryPort;
@@ -54,6 +57,11 @@ public class ClaseService implements CrearClaseUseCase,
     @Override
     public Clase actualizar(ActualizarClaseDto request) {
         return claseRepositoryPort.actualizar(request);
+    }
+
+    @Override
+    public Clase registrarSeguimiento(Long id, RegistrarSeguimientoClaseDto request) {
+        return claseRepositoryPort.registrarSeguimiento(id, request);
     }
 
     @Override

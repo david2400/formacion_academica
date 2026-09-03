@@ -1,5 +1,6 @@
 package com.kleverkids.formacion_academica.modules.control_academico.domain.dto.clase;
 
+import com.kleverkids.formacion_academica.modules.control_academico.domain.valueobject.clase.EstadoClase;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -25,4 +26,8 @@ public class ActualizarClaseDto {
     private LocalDate fechaFin;
 
     private List<Long> profesoresIds;
+
+    private EstadoClase estado;
+
+    private String observaciones;
 }
