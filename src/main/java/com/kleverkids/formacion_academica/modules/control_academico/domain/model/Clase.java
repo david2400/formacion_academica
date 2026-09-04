@@ -17,11 +17,13 @@ public class Clase {
     private Long id;
     private String codigo;
     private String nombre;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
     private List<Long> profesoresIds;
+    private Long tipoClaseId;
     private EstadoClase estado;
-    private String observaciones;
+    /** Bitácora de la clase, en orden cronológico. */
+    private List<ObservacionClase> observaciones;
     private boolean eliminado;
     private Integer usrCrea;
     private Integer usrMod;

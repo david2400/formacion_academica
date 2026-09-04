@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.experimental.Accessors;
@@ -21,13 +21,20 @@ public class ActualizarClaseDto {
     private String nombre;
 
     @NotNull(message = "La fecha de inicio es obligatoria")
-    private LocalDate fechaInicio;
+    private LocalDateTime fechaInicio;
 
-    private LocalDate fechaFin;
+    private LocalDateTime fechaFin;
 
     private List<Long> profesoresIds;
 
+    /** Tipo de clase del catálogo (tipos_clase). Opcional. */
+    private Long tipoClaseId;
+
     private EstadoClase estado;
 
-    private String observaciones;
+    /**
+     * Anotación opcional que se AGREGA a la bitácora. Las observaciones previas
+     * no se modifican; para eso está el endpoint de observaciones.
+     */
+    private String observacion;
 }

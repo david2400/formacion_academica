@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * Actualización parcial del seguimiento de una clase, pensada para marcarla como
- * dictada o cancelada y dejar observaciones sin tener que reenviar la clase
- * completa. Los campos nulos no se modifican.
+ * dictada o cancelada y, opcionalmente, dejar una anotación en la bitácora, sin
+ * tener que reenviar la clase completa. Los campos nulos no se modifican.
  */
 @Data
 @NoArgsConstructor
@@ -17,5 +17,6 @@ public class RegistrarSeguimientoClaseDto {
 
     private EstadoClase estado;
 
-    private String observaciones;
+    /** Si viene informada, se AGREGA como una nueva entrada de la bitácora. */
+    private String observacion;
 }

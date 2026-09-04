@@ -41,9 +41,9 @@ class AulaJpaAdapterTest {
 
         Aula result = aulaJpaAdapter.guardar(request);
 
-        assertEquals("Laboratorio", result.nombre());
-        assertEquals("Ciencias", result.descripcion());
-        assertEquals(25, result.capacidad());
+        assertEquals("Laboratorio", result.getNombre());
+        assertEquals("Ciencias", result.getDescripcion());
+        assertEquals(25, result.getCapacidad());
         verify(aulaJpaRepository).save(any(AulaEntity.class));
     }
 
@@ -90,8 +90,8 @@ class AulaJpaAdapterTest {
 
         Aula result = aulaJpaAdapter.obtenerPorId(aulaId);
 
-        assertEquals(aulaId, result.id());
-        assertEquals("Laboratorio", result.nombre());
+        assertEquals(aulaId, result.getId());
+        assertEquals("Laboratorio", result.getNombre());
         verify(aulaJpaRepository).findById(aulaId);
     }
 
@@ -106,7 +106,7 @@ class AulaJpaAdapterTest {
         List<Aula> result = aulaJpaAdapter.listar();
 
         assertEquals(1, result.size());
-        assertEquals("Laboratorio", result.get(0).nombre());
+        assertEquals("Laboratorio", result.get(0).getNombre());
         verify(aulaJpaRepository).findAll();
     }
 }

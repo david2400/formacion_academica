@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,17 +19,22 @@ public class CrearClaseDto {
     @NotBlank(message = "El nombre de la clase es obligatorio")
     private String nombre;
 
+    /** Inicio de la clase, con hora (ej. 2026-09-08T17:00:00). */
     @NotNull(message = "La fecha de inicio es obligatoria")
-    private LocalDate fechaInicio;
+    private LocalDateTime fechaInicio;
 
-    /** Si no se envía, se asume una clase de un solo día (igual a fechaInicio). */
-    private LocalDate fechaFin;
+    /** Fin de la clase. Si no se envía, se asume igual al inicio. */
+    private LocalDateTime fechaFin;
 
     private List<Long> profesoresIds;
+
+    /** Tipo de clase del catálogo (tipos_clase). Opcional. */
+    private Long tipoClaseId;
 
     /** Si no se envía, la clase se crea como PROGRAMADA. */
     private EstadoClase estado;
 
-    private String observaciones;
+    /** Anotación inicial opcional; se registra como primera entrada de la bitácora. */
+    private String observacion;
 
 }
