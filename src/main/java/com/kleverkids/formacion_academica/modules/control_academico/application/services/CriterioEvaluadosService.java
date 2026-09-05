@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.criterio_evaluado.CriterioEvaluadosRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.ActualizarCriterioEvaluadosDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CrearCriterioEvaluadosDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CriterioEvaluadosDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.CriterioEvaluados;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,22 +25,22 @@ public class CriterioEvaluadosService implements CrearCriterioEvaluadosUseCase,
     private final CriterioEvaluadosRepositoryPort repositoryPort;
 
     @Override
-    public CriterioEvaluadosDto crear(CrearCriterioEvaluadosDto request) {
+    public CriterioEvaluados crear(CrearCriterioEvaluadosDto request) {
         return repositoryPort.guardar(request);
     }
 
     @Override
-    public CriterioEvaluadosDto actualizar(ActualizarCriterioEvaluadosDto request) {
+    public CriterioEvaluados actualizar(ActualizarCriterioEvaluadosDto request) {
         return repositoryPort.actualizar(request);
     }
 
     @Override
-    public List<CriterioEvaluadosDto> listar(Long examenId) {
+    public List<CriterioEvaluados> listar(Long examenId) {
         return repositoryPort.listarPorExamen(examenId);
     }
 
     @Override
-    public CriterioEvaluadosDto consultarPorId(Long criterioId) {
+    public CriterioEvaluados consultarPorId(Long criterioId) {
         return repositoryPort.obtenerPorId(criterioId);
     }
 

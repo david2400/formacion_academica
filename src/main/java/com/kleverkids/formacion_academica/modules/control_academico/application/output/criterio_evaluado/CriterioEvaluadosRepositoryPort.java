@@ -2,19 +2,19 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.ActualizarCriterioEvaluadosDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CrearCriterioEvaluadosDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CriterioEvaluadosDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.CriterioEvaluados;
 
 import java.util.List;
 
 public interface CriterioEvaluadosRepositoryPort {
 
-    CriterioEvaluadosDto guardar(CrearCriterioEvaluadosDto request);
+    CriterioEvaluados guardar(CrearCriterioEvaluadosDto request);
 
-    CriterioEvaluadosDto actualizar(ActualizarCriterioEvaluadosDto request);
+    CriterioEvaluados actualizar(ActualizarCriterioEvaluadosDto request);
 
-    List<CriterioEvaluadosDto> listarPorExamen(Long examenId);
+    List<CriterioEvaluados> listarPorExamen(Long examenId);
 
-    CriterioEvaluadosDto obtenerPorId(Long criterioId);
+    CriterioEvaluados obtenerPorId(Long criterioId);
 
     void eliminar(Long criterioId);
 }

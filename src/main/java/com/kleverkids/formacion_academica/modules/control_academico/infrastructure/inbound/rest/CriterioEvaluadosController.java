@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.application.
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.criterio_evualuado.ListarCriteriosPorExamenUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.ActualizarCriterioEvaluadosDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CrearCriterioEvaluadosDto;
-import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.criterio_evaluado.CriterioEvaluadosDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.model.CriterioEvaluados;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,12 +48,12 @@ public class CriterioEvaluadosController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Criterio creado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CriterioEvaluadosDto.class))),
+                            schema = @Schema(implementation = CriterioEvaluados.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<CriterioEvaluadosDto> crear(@Valid @RequestBody CrearCriterioEvaluadosDto request) {
+    public ResponseEntity<CriterioEvaluados> crear(@Valid @RequestBody CrearCriterioEvaluadosDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
@@ -61,13 +61,13 @@ public class CriterioEvaluadosController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Criterio actualizado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CriterioEvaluadosDto.class))),
+                            schema = @Schema(implementation = CriterioEvaluados.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Criterio no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PutMapping("/{criterioId}")
-    public ResponseEntity<CriterioEvaluadosDto> actualizar(@PathVariable Long criterioId,
+    public ResponseEntity<CriterioEvaluados> actualizar(@PathVariable Long criterioId,
                                                         @Valid @RequestBody ActualizarCriterioEvaluadosDto request) {
         request.setId(criterioId);
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
@@ -77,11 +77,11 @@ public class CriterioEvaluadosController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de criterios",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = CriterioEvaluadosDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = CriterioEvaluados.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<CriterioEvaluadosDto>> listar() {
+    public ResponseEntity<List<CriterioEvaluados>> listar() {
         return ResponseEntity.ok(listarUseCase.listar(null));
     }
 
@@ -89,12 +89,12 @@ public class CriterioEvaluadosController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Criterio encontrado",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CriterioEvaluadosDto.class))),
+                            schema = @Schema(implementation = CriterioEvaluados.class))),
             @ApiResponse(responseCode = "404", description = "Criterio no encontrado", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/{criterioId}")
-    public ResponseEntity<CriterioEvaluadosDto> consultar(@PathVariable Long criterioId) {
+    public ResponseEntity<CriterioEvaluados> consultar(@PathVariable Long criterioId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(criterioId));
     }
 

@@ -17,8 +17,4 @@ public class CrearCriterioEvaluadosDto {
 
     private String recomendacionBase;
 
-    @NotNull(message = "El orden es obligatorio")
-    @Min(value = 1, message = "El orden debe ser mayor o igual a 1")
-    private Integer orden;
-
 }
