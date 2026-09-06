@@ -100,6 +100,7 @@ public class GlobalExceptionHandler {
             case RECHAZADA -> HttpStatus.UNPROCESSABLE_ENTITY;
             case CONFIGURACION -> HttpStatus.INTERNAL_SERVER_ERROR;
             case NO_DISPONIBLE -> HttpStatus.SERVICE_UNAVAILABLE;
+            case CONCURRENTE -> HttpStatus.CONFLICT;
         };
 
         ProblemDetail pd = baseProblemDetail(status, "Motor de Estados", ex.getMessage(), request);

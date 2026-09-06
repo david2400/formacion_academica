@@ -170,43 +170,53 @@ Todos con prefijo `/api/kleverkids`.
 
 ---
 
-## 6. Estados — motor externo en access_control
+## 6. Estados — esquema compartido con access_control
 
-El ciclo de vida de las entidades lo gobierna el **motor de máquinas de estados**
-de access_control. Aquí no hay catálogo: el módulo `modules/estados` es solo un
-cliente HTTP.
+El ciclo de vida lo **define** el motor de máquinas de estados de access_control,
+pero este servicio accede **por SQL directo a su esquema**, no por su API.
 
-> Esto sustituye al catálogo local (`catalogo_estados`, `catalogo_contextos`,
-> `catalogo_estado_contextos`) que vivía en esta aplicación. Aquellas tablas ya no
-> se usan.
+> Sustituye a dos diseños anteriores: el catálogo local (`catalogo_estados` y
+> compañía, tablas ya sin uso) y el cliente HTTP contra `/api/access_control`.
 
-### Cómo está repartido
+### Por qué SQL y no HTTP
 
-| Dónde | Qué guarda |
-|---|---|
-| access_control, base `security` | La definición (máquinas, estados, transiciones, reglas), las instancias vivas y **el historial completo** de cambios. |
-| Esta aplicación, base `academia` | La columna `estado_id` de cada tabla de negocio, como **réplica** de lo que decide el motor. |
+`academia` y `security` están en el **mismo servidor MySQL**, así que la conexión
+existente llega a los dos prefijando el nombre del esquema. No hace falta un
+segundo `DataSource`.
 
-La réplica existe para poder listar y filtrar sin salir a la red. **Cuando ambos
-discrepan, manda el motor.**
+| | Por HTTP | Por SQL (actual) |
+|---|---|---|
+| Requiere la app access_control arriba | Sí | **No**, solo MySQL |
+| Transaccionalidad | Dos transacciones, podían descuadrar | **Una sola** |
+| De qué depende | Contrato del API | Contrato del **esquema** |
 
-`estado_id` apunta a `security.state.id_state`, que está en otra base de datos:
-**no hay ni puede haber llave foránea**. La integridad la sostiene el motor, no
-el motor de base de datos.
+El segundo punto no es menor: si falla el `save` local, el cambio de estado se
+deshace con él. Por HTTP no había forma.
 
-### ⚠️ Dependencia en runtime
+### El contrato son las vistas, no las tablas
 
-Crear o cambiar el estado de una inscripción, matrícula, grupo, asignación a
-grupo o vínculo con acudiente **requiere que access_control responda**. Si está
-caído, esas escrituras fallan.
+La lectura va contra `security.vw_sm_estado` y `security.vw_sm_transicion`
+(migración `V6` en access_control). **No leas las tablas directamente.** Un
+`ALTER` sobre las tablas internas no rompe nada mientras las vistas devuelvan lo
+mismo; leerlas a pelo convierte cualquier renombrado en un fallo en runtime, sin
+aviso y sin que la compilación lo detecte.
 
-Es deliberado: con una única fuente de verdad, seguir adelante sin registrar el
-cambio dejaría las dos bases divergiendo en silencio, que es peor que una caída
-visible. Las **lecturas** no dependen del motor, porque usan la réplica local.
+Las vistas además aplican `deleted = 0`. Importa: el borrado lógico es
+`@SoftDelete` de Hibernate y **solo filtra las consultas de Hibernate**; en SQL
+nativo no existe ese filtro.
 
-Las definiciones se cachean 10 minutos (`motor-estados.cache-ttl`), así que el
-caso más frecuente —consultar el estado inicial al crear— casi nunca sale a la
-red. Una máquina publicada es inmutable, por eso se puede cachear.
+Las escrituras sí van contra las tablas —`state_machine_instance` y
+`state_transition_history`—, porque una vista no sirve para eso.
+
+### Permisos de base de datos
+
+El usuario del datasource necesita, sobre el esquema `security`:
+
+- `SELECT` en `vw_sm_estado` y `vw_sm_transicion`
+- `INSERT`, `UPDATE` en `state_machine_instance`
+- `INSERT` en `state_transition_history`
+
+Nada más. En particular **no** necesita escribir en las tablas de configuración.
 
 ### Máquinas conectadas
 
@@ -218,84 +228,90 @@ red. Una máquina publicada es inmutable, por eso se puede cachear.
 | `MatriculaJpaAdapter` | `MATRICULA_LIFECYCLE` | `MATRICULA` |
 | `EstudianteAcudienteJpaAdapter` | `VINCULO_ACUDIENTE_LIFECYCLE` | `ESTUDIANTE_ACUDIENTE` |
 
-Los grafos se cargan con las migraciones `V4` y `V5` de access_control.
+Los grafos se cargan con las migraciones `V4`, `V5` y `V6` de access_control.
 
 ### El puerto
 
-`MotorEstadosPort` es la única interfaz que ven los módulos de negocio:
+`MotorEstadosPort` es lo único que ven los módulos de negocio. El día que esto
+vuelva a ser HTTP, o el motor se embeba, cambia la implementación y nada más.
 
 | Método | Cuándo |
 |---|---|
 | `estadoInicial(maquina)` | Al crear, para poblar `estado_id` sin quemar un número. |
-| `perteneceALaMaquina(maquina, estadoId)` | Validación barata contra el grafo. |
-| `iniciarCiclo(maquina, tipo, id)` | **Después** de guardar: el motor necesita el id definitivo. Idempotente. |
+| `iniciarCiclo(maquina, tipo, id)` | **Después** de guardar: hace falta el id definitivo. Idempotente. |
 | `moverAEstado(maquina, tipo, id, destino, motivo)` | Al cambiar de estado. Devuelve el estado resultante. |
 
-### Cómo enchufar un módulo nuevo
+`estado_id` es una **réplica** de `security.state.id_state`, en otra base: **no
+hay ni puede haber FK**. Se escribe siempre con lo que devuelve el motor, nunca
+con lo que pidió el cliente.
 
-1. Da de alta el tipo de entidad y la máquina en access_control (migración o
-   `POST /state-machines`).
-2. Añade `estado_id BIGINT` a la entidad. **Sin FK**: apunta a otra base.
-3. En el adaptador declara `MAQUINA` y `TIPO_ENTIDAD` e inyecta
-   `MotorEstadosPort`:
-   - al crear → `estadoInicial(MAQUINA)`, guardar, y luego
-     `iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardado.getId())`
-   - al cambiar → `moverAEstado(...)` y escribir en `estado_id` **lo que devuelve
-     el motor**, no lo que pidió el cliente
+### ⚠️ Esto reimplementa parte del orquestador
+
+`moverAEstado` repite en `MotorEstadosJdbcAdapter` los pasos de
+`StateTransitionService.ejecutar` de access_control: instancia, estado no final,
+transición válida, motivo obligatorio, bloqueo optimista, historial. **Un cambio
+allí hay que replicarlo aquí.** Es el coste asumido de no depender de la app.
+
+La defensa contra la divergencia es que esta implementación **se niega a operar
+fuera de lo que sabe validar**:
+
+- si la transición tiene **reglas** configuradas (`transition_rule`), falla: las
+  reglas son `@Component` de access_control y aquí no se pueden evaluar;
+- si exige **permiso** (`permission_code`), falla: este servicio no tiene usuario
+  autenticado que propagar.
+
+En ambos casos el mensaje dice que se ejecute por el API de access_control o se
+quite la exigencia. Hoy ninguna máquina de formacion_academica tiene reglas ni
+permisos (ver `V5`), así que el subconjunto implementado equivale al del motor.
+En cuanto alguien configure una, esto avisa en vez de saltársela.
 
 ### Traducción destino → acción
 
-El motor razona en **acciones** (`SUSPENDER`), no en estados destino. La API de
-esta aplicación y el frontend hablan de `nuevo_estado_id`. `moverAEstado` traduce:
-consulta las acciones disponibles y busca la que lleva a ese estado.
-
-Si no hay ninguna, la operación se rechaza con los destinos que sí son
-alcanzables. Si hay **dos**, también falla: el destino no identifica la acción, y
-elegir al azar registraría una acción falsa en el historial. Ninguna máquina
-actual tiene ese caso.
+El motor razona en **acciones** (`SUSPENDER`); esta API y draco hablan de
+`nuevo_estado_id`. `moverAEstado` traduce: busca entre las transiciones que salen
+del estado actual la que lleva a ese destino. Si no hay ninguna, rechaza e indica
+los destinos alcanzables. Si hay **dos**, también falla: el destino no identifica
+la acción y elegir al azar registraría una acción falsa en el historial.
 
 ### Errores
 
-`MotorEstadosException` distingue tres causas, y `GlobalExceptionHandler` las
-mapea:
-
 | Causa | HTTP | Significa |
 |---|---|---|
-| `RECHAZADA` | 422 | El cambio no procede: transición inválida, falta motivo. |
-| `CONFIGURACION` | 500 | Falta configurar algo en el motor. Fallo nuestro. |
-| `NO_DISPONIBLE` | 503 | El motor no responde. Reintentar tiene sentido. |
+| `RECHAZADA` | 422 | El cambio no procede: transición inválida, falta motivo, estado ajeno. |
+| `CONCURRENTE` | 409 | Otro cambio ganó la carrera. Releer y reintentar. |
+| `CONFIGURACION` | 500 | Falta configurar algo, o hay reglas/permisos que aquí no se pueden evaluar. |
+| `NO_DISPONIBLE` | 503 | No se llega al esquema del motor. |
+
+### Cómo enchufar un módulo nuevo
+
+1. Da de alta el tipo de entidad y la máquina en access_control (migración).
+2. Añade `estado_id BIGINT` a la entidad. **Sin FK**: apunta a otro esquema.
+3. En el adaptador declara `MAQUINA` y `TIPO_ENTIDAD`, inyecta `MotorEstadosPort`:
+   - al crear → `estadoInicial(MAQUINA)`, guardar, luego `iniciarCiclo(...)`
+   - al cambiar → `moverAEstado(...)` y escribir **lo que devuelve**
 
 ### Lo que sigue pendiente
 
-**Permisos desactivados.** Las transiciones se configuraron con
-`permission_code` (`GRUPO.SUSPENDER`, …), pero la migración `V5` los pone a NULL.
-Motivo: esos permisos no existen en el catálogo de access_control, esta
-aplicación **no tiene contexto de seguridad** y por tanto no puede propagar un
-usuario, y el motor resuelve el usuario leyendo la cabecera `X-User-Id`, algo que
-su propio controlador marca como inseguro. Con las tres cosas, exigir permiso no
-protegía nada: solo hacía que **toda** transición se rechazara.
+**Sin usuario en el historial.** `user_id` va nulo: este servicio no tiene
+contexto de seguridad. El historial dice qué pasó y cuándo, no quién. Es también
+el motivo de que los permisos estén desactivados (`V5`): un permiso que no se
+puede conceder no protege nada, solo impide que la función exista.
 
-Para reactivarlos, en este orden: propagar el usuario autenticado → sustituir
-`X-User-Id` por el token en el motor → dar de alta los permisos → repoblar
-`permission_code` (el UPDATE está en `V5`).
+**Filas anteriores a la integración.** Las creadas antes no tienen instancia.
+`moverAEstado` las arranca al vuelo en el estado inicial; de su pasado no hay
+historia que reconstruir.
 
-**Sin usuario en el historial.** Por lo mismo, el motor registra los cambios con
-usuario nulo. El historial dice qué pasó y cuándo, pero no quién.
-
-**Filas anteriores a la integración.** Las creadas antes de esto no tienen
-instancia en el motor. `moverAEstado` las arranca al vuelo en el estado inicial;
-de su pasado no hay historia que reconstruir.
-
-**Sin transacción distribuida.** Si el motor acepta la transición y después falla
-el `save` local, el motor queda por delante de la réplica. La lectura siguiente
-lo corrige, pero conviene tenerlo presente.
+**Dos escritores sobre las mismas tablas.** access_control y este servicio pueden
+escribir instancias a la vez. Ambos usan la misma columna `version` para bloqueo
+optimista, así que interoperan; pero si el orquestador de allí cambia, aquí no se
+entera nadie.
 
 ---
 
 ## 7. `estudiantes-grupo` — activo
 
 Ruta: `/api/kleverkids/estructura-institucion/estudiantes-grupo`
-Contexto: `formacion_academica.estructura_institucion.estudiante_grupo`
+Máquina: `ASIGNACION_GRUPO_LIFECYCLE` · tipo de entidad: `ESTUDIANTE_GRUPO`
 
 Estaba entero comentado (entidad, repositorio, adaptador, servicio y controlador)
 desde el commit `cfdbee7`. Se reactivó y se reescribió contra el catálogo central.

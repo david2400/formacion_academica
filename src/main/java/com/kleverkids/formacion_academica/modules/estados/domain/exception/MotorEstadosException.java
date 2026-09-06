@@ -13,10 +13,18 @@ public class MotorEstadosException extends RuntimeException {
     public enum Causa {
         /** La máquina, el estado o la transición no están donde deberían. */
         CONFIGURACION,
-        /** El motor no responde o devuelve un error inesperado. */
+        /** No se puede llegar al motor. */
         NO_DISPONIBLE,
-        /** El motor rechazó la operación por sus propias reglas o permisos. */
-        RECHAZADA
+        /** La operación no procede: transición inválida, falta motivo, estado ajeno. */
+        RECHAZADA,
+        /**
+         * Otra operación cambió el estado mientras esta se preparaba.
+         *
+         * <p>Separada de {@code RECHAZADA} porque no es un error del cliente: la
+         * petición era correcta y perdió una carrera. Reintentar tras releer el
+         * estado tiene sentido; corregir la petición, no.
+         */
+        CONCURRENTE
     }
 
     private final Causa causa;
@@ -45,5 +53,9 @@ public class MotorEstadosException extends RuntimeException {
 
     public static MotorEstadosException rechazada(String mensaje) {
         return new MotorEstadosException(Causa.RECHAZADA, mensaje);
+    }
+
+    public static MotorEstadosException concurrente(String mensaje) {
+        return new MotorEstadosException(Causa.CONCURRENTE, mensaje);
     }
 }

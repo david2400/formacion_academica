@@ -25,15 +25,6 @@ public interface MotorEstadosPort {
     Long estadoInicial(String maquina);
 
     /**
-     * Si un estado pertenece a la máquina indicada.
-     *
-     * <p>Evita que llegue por la API un {@code estado_id} de otro ciclo de vida. No
-     * dice si la transición es válida —eso solo lo sabe el motor conociendo el
-     * estado actual—, solo que el estado existe en ese grafo.
-     */
-    boolean perteneceALaMaquina(String maquina, Long estadoId);
-
-    /**
      * Arranca el ciclo de vida de una entidad recién creada.
      *
      * <p>Debe llamarse <b>después</b> de persistir, porque el motor necesita el id
