@@ -20,7 +20,9 @@ public class Grupo {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Long tutorId;
-    private Long aulaId;
+    private Long salonId;
+    /** FK al catálogo central de estados (contexto formacion_academica.estructura_institucion.grupo). */
+    private Integer estadoId;
     private boolean eliminado;
     private Integer usrCrea;
     private Integer usrMod;

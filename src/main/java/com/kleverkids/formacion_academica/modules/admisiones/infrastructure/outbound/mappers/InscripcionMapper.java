@@ -28,7 +28,9 @@ public interface InscripcionMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "eliminado", ignore = true)
-    @Mapping(target = "estadoId", constant = "1") // Default active state
+    // El estado inicial lo resuelve el adaptador desde el catálogo central,
+    // no un id quemado.
+    @Mapping(target = "estadoId", ignore = true)
     InscripcionEntity toEntity(CrearInscripcionDto dto);
 
     @Named("instantToLocalDateTime")

@@ -21,7 +21,6 @@ import java.util.List;
 public interface GrupoMapper {
 
     // Entity a Domain Model
-    @Mapping(target = "aulaId", ignore = true) // No hay mapeo directo de Set<AulaEntity> a Long
     @Mapping(target = "usrCrea", source = "usrCrea")
     @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
@@ -31,7 +30,8 @@ public interface GrupoMapper {
     List<Grupo> toDomainModelList(List<GrupoEntity> entities);
 
     // DTO a Entity - método manual para evitar conflictos con AuditInfo
-    @Mapping(target = "estadoId", constant = "0")
+    // El estado inicial lo resuelve el adaptador desde el catálogo central.
+    @Mapping(target = "estadoId", ignore = true)
     @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)

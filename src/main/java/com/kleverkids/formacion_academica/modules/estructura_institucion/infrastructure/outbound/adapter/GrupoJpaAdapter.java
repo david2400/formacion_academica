@@ -7,6 +7,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.GrupoMapper;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GrupoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GrupoJpaRepository;
+import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,18 +15,27 @@ import java.util.List;
 @Component
 public class GrupoJpaAdapter implements GrupoRepositoryPort {
 
+    /** Contexto con el que este recurso está registrado en el catálogo central. */
+    public static final String CONTEXTO = "formacion_academica.estructura_institucion.grupo";
+
     private final GrupoJpaRepository grupoJpaRepository;
     private final GrupoMapper grupoMapper;
+    private final ConsultarEstadoContextoUseCase estadosDelContexto;
 
     public GrupoJpaAdapter(GrupoJpaRepository grupoJpaRepository,
-                           GrupoMapper grupoMapper) {
+                           GrupoMapper grupoMapper,
+                           ConsultarEstadoContextoUseCase estadosDelContexto) {
         this.grupoJpaRepository = grupoJpaRepository;
         this.grupoMapper = grupoMapper;
+        this.estadosDelContexto = estadosDelContexto;
     }
 
+    /** El estado inicial sale del catálogo, no de un id fijo en el mapper. */
     @Override
     public Grupo guardar(CrearGrupoDto request) {
-        return grupoMapper.toDomainModel(grupoJpaRepository.save(grupoMapper.toEntity(request)));
+        GrupoEntity entity = grupoMapper.toEntity(request);
+        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
+        return grupoMapper.toDomainModel(grupoJpaRepository.save(entity));
     }
 
     @Override

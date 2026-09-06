@@ -38,24 +38,7 @@ public class MatriculaService implements ActualizarMatriculaUseCase,
 
     @Override
     public Matricula actualizar(ActualizarMatriculaDto request) {
-        // TODO: Implementar la lógica de actualización de matrícula
-        // Por ahora, retornamos un domain model básico para que la aplicación inicie
-        return new Matricula(
-            request.getMatriculaId(),
-            request.getInscripcionId(),
-            request.getEstudianteId(),
-            request.getGradoId(),
-            request.getGrupoId(),
-            request.getFechaMatricula(),
-            request.getRenovacion(),
-          //  request.getEstadoId(),
-            request.getObservaciones(),
-            true, // eliminado
-            null, // usrCrea
-            null, // usrMod
-            null, // createdAt
-            null  // updatedAt
-        );
+        return matriculaRepositoryPort.actualizar(request);
     }
 
     @Override

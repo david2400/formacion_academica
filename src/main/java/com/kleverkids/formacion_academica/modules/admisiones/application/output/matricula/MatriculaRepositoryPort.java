@@ -1,5 +1,6 @@
 package com.kleverkids.formacion_academica.modules.admisiones.application.output.matricula;
 
+import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.ActualizarMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 
@@ -9,6 +10,8 @@ import java.util.Optional;
 public interface MatriculaRepositoryPort {
 
     Matricula registrar(CrearMatriculaDto request);
+
+    Matricula actualizar(ActualizarMatriculaDto request);
 
     Optional<Matricula> obtenerPorId(Long matriculaId);
 

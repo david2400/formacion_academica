@@ -6,6 +6,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.E
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteAcudienteEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -18,6 +19,8 @@ public interface RelacionEstudianteAcudienteMapper {
 
     List<EstudianteAcudiente> toDomainList(List<EstudianteAcudienteEntity> entities);
 
+    /** El estado inicial lo resuelve el adaptador desde el catálogo central. */
+    @Mapping(target = "estadoId", ignore = true)
     EstudianteAcudienteEntity toEntity(CrearEstudianteAcudienteDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

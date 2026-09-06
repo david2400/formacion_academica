@@ -37,7 +37,13 @@ public class EstadoEntity extends AuditInfo {
     @Column(length = 50)
     private String icono;
 
-    @Column(name = "id_modulo", nullable = false)
+    /**
+     * Legado. El catálogo de estados y su parametrización por contexto se
+     * administran en el servicio <b>access_control</b>; esta tabla queda como
+     * remanente del diseño anterior. Opcional para no romper los endpoints
+     * /estados/modulo/{idModulo} que aún existen.
+     */
+    @Column(name = "id_modulo")
     private Long idModulo;
 
     @Column(name = "id_empresa")
@@ -55,16 +61,16 @@ public class EstadoEntity extends AuditInfo {
     @Column(columnDefinition = "JSON")
     private String metadata;
 
-    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EntidadEstadoEntity> entidadesEstado;
 
     // Removed historial mapping as EstadoHistorialEntity doesn't have a 'estado' property
     // It has estadoAnterior and estadoNuevo instead
 
-    @OneToMany(mappedBy = "estadoOrigen", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "estadoOrigen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EstadoTransicionEntity> transicionesOrigen;
 
-    @OneToMany(mappedBy = "estadoDestino", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "estadoDestino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EstadoTransicionEntity> transicionesDestino;
 
 

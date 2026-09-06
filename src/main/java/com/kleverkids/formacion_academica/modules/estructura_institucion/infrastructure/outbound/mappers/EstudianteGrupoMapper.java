@@ -16,23 +16,25 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface EstudianteGrupoMapper {
 
-    @Mapping(target = "estadoId", ignore = true) // No se puede mapear String a Integer directamente
-    @Mapping(target = "usrCrea", source = "usrCrea")
-    @Mapping(target = "usrMod", source = "usrMod")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToLocalDateTime")
     @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "instantToLocalDateTime")
     EstudianteGrupo toDomainModel(EstudianteGrupoEntity entity);
 
     List<EstudianteGrupo> toDomainModelList(List<EstudianteGrupoEntity> entities);
 
-    @Mapping(target = "eliminado", constant = "false")
+    /**
+     * {@code estadoId} no se toma del request: lo resuelve el adaptador a partir del
+     * estado inicial parametrizado para el contexto {@code estudiante_grupo}.
+     */
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estadoId", ignore = true)
+    @Mapping(target = "eliminado", ignore = true)
     @Mapping(target = "usrCrea", ignore = true)
     @Mapping(target = "usrMod", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     EstudianteGrupoEntity toEntity(AsignarEstudianteGrupoDto dto);
 
-    // Método de conversión de Instant a LocalDateTime
     @Named("instantToLocalDateTime")
     default LocalDateTime instantToLocalDateTime(Instant instant) {
         if (instant == null) {

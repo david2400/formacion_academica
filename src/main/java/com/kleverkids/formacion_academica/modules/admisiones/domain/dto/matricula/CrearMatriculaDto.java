@@ -30,6 +30,5 @@ public class CrearMatriculaDto {
     private LocalDate fechaMatricula;
 
     private Boolean renovacion;
-    private String estado;
     private String observaciones;
 }

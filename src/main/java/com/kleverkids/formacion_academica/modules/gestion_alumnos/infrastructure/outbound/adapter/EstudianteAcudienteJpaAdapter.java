@@ -8,6 +8,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteAcudienteEntity;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.EstudianteAcudienteJpaRepository;
 import lombok.RequiredArgsConstructor;
+import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,12 +18,18 @@ import java.util.Optional;
 @Component
 public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteRepositoryPort {
 
+    /** Contexto con el que este recurso está registrado en el catálogo central. */
+    public static final String CONTEXTO = "formacion_academica.gestion_alumnos.estudiante_acudiente";
+
     private final EstudianteAcudienteJpaRepository relacionJpaRepository;
     private final RelacionEstudianteAcudienteMapper relacionMapper;
+    private final ConsultarEstadoContextoUseCase estadosDelContexto;
 
+    /** El estado inicial sale del catálogo central. */
     @Override
     public EstudianteAcudiente crear(CrearEstudianteAcudienteDto request) {
         EstudianteAcudienteEntity entity = relacionMapper.toEntity(request);
+        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
         return relacionMapper.toDomain(relacionJpaRepository.save(entity));
     }
 

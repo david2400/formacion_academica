@@ -3,11 +3,20 @@ package com.kleverkids.formacion_academica.modules.estructura_institucion.domain
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
+/**
+ * Asignación de un estudiante a un grupo.
+ *
+ * <p>{@code estadoId} referencia el catálogo central. El cliente resuelve el nombre
+ * y el color consultando {@code /estados/contextos/estudiante_grupo}, de modo que
+ * agregar o renombrar un estado no exige tocar código ni en el backend ni en el front.
+ */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudianteGrupo {
@@ -15,7 +24,7 @@ public class EstudianteGrupo {
     private Long estudianteId;
     private Long grupoId;
     private LocalDate fechaAsignacion;
-    private Integer estadoId;
+    private Long estadoId;
     private boolean eliminado;
     private Integer usrCrea;
     private Integer usrMod;

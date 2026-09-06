@@ -22,6 +22,9 @@ public class AsignarEstudianteGrupoDto {
 
     private LocalDate fechaAsignacion;
 
+    /** Opcional: multi-empresa. Null o 0 usa la parametrización global. */
+    private Long idEmpresa;
+
     public Long estudianteId() {
         return estudianteId;
     }

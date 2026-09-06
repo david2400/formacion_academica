@@ -4,9 +4,12 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricul
 import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.matricula.CrearMatriculaDto;
 import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matricula;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.MatriculaEntity;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,8 +30,24 @@ public interface MatriculaMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "eliminado", ignore = true)
-    @Mapping(target = "estadoId", constant = "1") // Default active state
+    // El estado inicial lo resuelve el adaptador desde el catálogo central,
+    // no un id quemado.
+    @Mapping(target = "estadoId", ignore = true)
     MatriculaEntity toEntity(CrearMatriculaDto dto);
+
+    /**
+     * Actualización parcial. El estado no se toca aquí: se cambia por su propia
+     * operación, validando contra el catálogo del contexto.
+     */
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estadoId", ignore = true)
+    @Mapping(target = "eliminado", ignore = true)
+    @Mapping(target = "usrCrea", ignore = true)
+    @Mapping(target = "usrMod", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    void updateEntityFromDto(ActualizarMatriculaDto dto, @MappingTarget MatriculaEntity entity);
 
     @Named("instantToLocalDateTime")
     static LocalDateTime instantToLocalDateTime(Instant instant) {

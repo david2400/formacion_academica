@@ -16,7 +16,7 @@ public class EstudianteAcudiente {
     private Long acudienteId;
     private Long parentescoId;
     private boolean esPrincipal;
-    private String estado;
+    private Integer estadoId;
     private LocalDate fechaVinculacion;
     private LocalDate fechaFin;
     private boolean eliminado;

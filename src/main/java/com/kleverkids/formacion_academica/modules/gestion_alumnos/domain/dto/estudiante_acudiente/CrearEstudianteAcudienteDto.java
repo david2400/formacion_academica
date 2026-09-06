@@ -24,5 +24,4 @@ public class CrearEstudianteAcudienteDto {
 
     private boolean esPrincipal;
 
-    private String estado;
 }
