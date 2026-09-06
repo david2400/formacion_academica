@@ -39,7 +39,7 @@ public class EstadoEntity extends AuditInfo {
 
     /**
      * Legado. El catálogo de estados y su parametrización por contexto se
-     * administran en el servicio <b>access_control</b>; esta tabla queda como
+     * administran en las tablas {@code catalogo_*}; esta tabla queda como
      * remanente del diseño anterior. Opcional para no romper los endpoints
      * /estados/modulo/{idModulo} que aún existen.
      */

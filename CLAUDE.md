@@ -157,8 +157,8 @@ Todos con prefijo `/api/kleverkids`.
 
 | Ruta | Qué hace |
 |---|---|
-| `/estados/contextos` | Parametriza qué estados aplican a cada tipo de entidad (§6) |
-| `/estructura-institucion/estudiantes-grupo` | Reactivado y conectado al catálogo central (§7) |
+| `/catalogo-estados` | Catálogo de estados y su parametrización por contexto (§6) |
+| `/estructura-institucion/estudiantes-grupo` | Reactivado y conectado al catálogo (§7) |
 
 ### Forma de las respuestas
 
@@ -170,82 +170,126 @@ Todos con prefijo `/api/kleverkids`.
 
 ---
 
-## 6. Estados centralizados — viven en access_control
+## 6. Catálogo de estados — local, sin dependencias externas
 
-> **El catálogo de estados NO está en este proyecto.** Se administra en el servicio
-> `access_control` (`C:\Users\davi4\Documents\Proyectos\JAVA\access_control`,
-> puerto 8000, BD `security`). Aquí solo se consume.
+Es el mecanismo con el que **todos** los módulos resuelven sus estados. Vive
+entero en esta aplicación: no hay servicios externos de por medio.
 
-### El modelo, en una línea
+### El modelo
 
 ```
-Applications ──< estado_contextos ──< estado_contexto_estados >── estados
-(dueño)          (qué contexto)       (parametrización)           (catálogo)
+catalogo_contextos ──< catalogo_estado_contextos >── catalogo_estados
+(qué contextos hay)    (parametrización)              (catálogo)
 ```
 
-Un contexto no es un texto libre: es una fila registrada cuyo dueño es una
-aplicación, identificada por la terna **aplicación · módulo · entidad**. Por eso
-siempre se sabe de quién es cada estado, y un nombre mal escrito no crea un
-contexto fantasma — lo rechaza la llave foránea.
+| Tabla | Responsabilidad |
+|---|---|
+| `catalogo_estados` | **Qué estados existen.** Catálogo reutilizable. |
+| `catalogo_contextos` | **Qué contextos hay.** Pareja módulo + entidad, con código único. |
+| `catalogo_estado_contextos` | **Qué estado aplica a qué contexto**, con `es_inicial`, `es_final`, `orden` e `id_empresa`. |
 
-El contexto de este proyecto para la asignación a grupos es:
+Un estado existe **una sola vez** y se comparte: `activo` es la misma fila para
+matrícula, grupo, inscripción, relación estudiante-acudiente y asignación
+estudiante-grupo. Eso es lo que un enum por módulo no permite.
+
+**Por qué `es_inicial` / `es_final` / `orden` viven en la parametrización y no en
+el catálogo:** dependen del contexto. `activo` es inicial para una asignación a
+grupo, pero puede no serlo en otro contexto.
+
+Un contexto se identifica por la pareja módulo · entidad, aplanada en un `codigo`:
 
 ```
 formacion_academica.estructura_institucion.estudiante_grupo
+formacion_academica.admisiones.matricula
 ```
 
-Está declarado en `EstudianteGrupoJpaAdapter.CONTEXTO`.
+El prefijo de aplicación (`estados.aplicacion` en `application.properties`) se
+conserva aunque hoy solo haya una: si el catálogo se comparte algún día, los
+códigos ya encajan. Un contexto debe registrarse antes de poder parametrizarlo,
+así que un nombre mal escrito no crea un contexto fantasma.
 
-### Cómo se consume
+### Endpoints
 
-`EstadoContextoHttpAdapter` implementa `EstadoContextoRepositoryPort` llamando a
-`GET /api/access_control/estados/contextos/{codigo}/estados`.
+Todos con prefijo `/api/kleverkids`.
 
-Configuración en `application.properties`:
+| Método | Ruta | Uso |
+|---|---|---|
+| GET | `/catalogo-estados` | Catálogo completo |
+| GET | `/catalogo-estados/codigo/{codigo}` | Consultar por código |
+| POST/PUT | `/catalogo-estados`, `/catalogo-estados/{id}` | Administrar catálogo |
+| DELETE | `/catalogo-estados/{id}` | Se rechaza si el estado sigue habilitado en algún contexto |
+| GET/POST | `/catalogo-estados/contextos` | Listar / registrar contextos |
+| **GET** | **`/catalogo-estados/contextos/{codigo}/estados`** | **El que consume el frontend** |
+| GET | `/catalogo-estados/contextos/{codigo}/estados/inicial` | Estado inicial |
+| POST | `/catalogo-estados/contextos/{codigo}/estados` | Habilitar un estado |
+| PUT/DELETE | `/catalogo-estados/contextos/estados/{id}` | Ajustar / quitar |
 
-```
-access-control.base-url=http://localhost:8000
-access-control.catalogo-ttl-segundos=300
-```
+> La ruta es `/catalogo-estados` y no `/estados` porque el módulo legado de este
+> mismo proyecto todavía ocupa `/estados`. Ver más abajo.
 
-**Caché con degradación.** El catálogo se cachea en memoria por TTL. Si
-access_control no responde y hay copia previa —aunque esté vencida— se sirve esa:
-es preferible un catálogo de hace unos minutos a una pantalla caída. Solo cuando
-no hay ninguna copia se devuelve lista vacía, y entonces `requerirEstadoInicial`
-falla con un mensaje que dice exactamente qué configurar.
+### 🔑 Regla para los clientes: `codigo`, nunca `id`
 
-### Consecuencia de tener dos bases de datos
+`estado_id` lo genera la base de datos y **cambia entre entornos**. `codigo` es
+estable. Cuando un cliente necesita semántica (contar activos, saber si algo es
+terminal) debe mirar `codigo` o los flags `es_inicial` / `es_final`, jamás comparar
+contra un id escrito en el código. El `estado_id` solo se guarda para devolverlo.
 
-`estudiantes_grupo.estado_id` vive en `academia` y el catálogo en `security`:
-**no hay llave foránea real posible**. La integridad se sostiene validando contra
-el puerto antes de persistir (`estaRegistrado`), no en la base de datos.
+### Arquitectura interna
 
-### Cómo enchufar otro módulo al catálogo
+- **`EstadoContextoLocalAdapter`** implementa el puerto de **lectura**
+  (`EstadoContextoRepositoryPort`). Es lo que consumen los demás módulos.
+- **`CatalogoEstadosAdminJpaAdapter`** implementa el puerto de **escritura**
+  (`CatalogoEstadosAdminPort`). Separados a propósito: un módulo que consume
+  estados no puede modificarlos sin querer.
 
-1. Registra el contexto en access_control:
-   `POST /api/access_control/estados/contextos` con `{application_id, modulo, entidad}`.
-2. Habilita sus estados: `POST /api/access_control/estados/contextos/{codigo}/estados`.
-3. En la entidad, añade `estado_id BIGINT NOT NULL`.
-4. En el adaptador, declara la constante `CONTEXTO` con la terna completa e inyecta
-   `ConsultarEstadoContextoUseCase`:
+### Cómo enchufar un módulo nuevo
+
+1. Registra el contexto: `POST /catalogo-estados/contextos` con `{modulo, entidad}`.
+2. Habilita sus estados: `POST /catalogo-estados/contextos/{codigo}/estados`.
+3. Añade `estado_id BIGINT NOT NULL` a la entidad.
+4. En el adaptador, declara la constante `CONTEXTO` con el código completo e
+   inyecta `ConsultarEstadoContextoUseCase`:
    - al crear → `requerirEstadoInicial(CONTEXTO, idEmpresa)`
    - al cambiar estado → `estaRegistrado(CONTEXTO, nuevoEstadoId, idEmpresa)`
 
-### Qué quedó como remanente en este proyecto
+### Contextos ya conectados
 
-El módulo local `modules/estados` (`estados`, `entidad_estados`,
-`estado_historial`, `estado_transiciones`) sigue existiendo pero **ya no es la
-fuente de verdad del catálogo**. Su subsistema de historial nunca funcionó:
+| Contexto | Entidad |
+|---|---|
+| `...estructura_institucion.estudiante_grupo` | `estudiantes_grupo` |
+| `...estructura_institucion.grupo` | `grupos` |
+| `...admisiones.inscripcion` | `inscripciones` |
+| `...admisiones.matricula` | `matriculas` |
+| `...gestion_alumnos.estudiante_acudiente` | `estudiante_acudiente` |
+
+### Llaves foráneas
+
+Al vivir el catálogo en esta misma base, `estado_id` **puede tener FK real**. Los
+`ALTER TABLE` están comentados al final de `database/seed_catalogo_estados.sql`:
+aplícalos cuando los datos sean consistentes.
+
+### ⚠️ El módulo legado `estados` sigue ahí y estorba
+
+Las clases `EstadoEntity`, `EntidadEstadoEntity`, `EstadoHistorialEntity`,
+`EstadoTransicionEntity` y sus servicios son del diseño anterior (`id_modulo`
+dentro del estado) y **nunca funcionaron**:
 
 - `EntidadEstadoService.obtenerEstadoActual()` devuelve `Optional.empty()` fijo.
 - `listarHistorialEstados()` devuelve `List.of()` fijo.
 - `cambiarEstadoConValidacion()` lanza `UnsupportedOperationException`.
-- En `EntidadEstadoEntity`, `EstadoHistorialEntity` y `EstadoTransicionEntity` las
-  FKs están mapeadas `insertable = false, updatable = false` sin columna `Long`
-  escribible, así que el INSERT falla contra columnas `NOT NULL`.
+- Las FKs están mapeadas `insertable = false` sin columna escribible, así que el
+  INSERT falla contra columnas `NOT NULL`.
 
-Decidir si se borra o se reimplementa como historial contra el catálogo central es
-trabajo pendiente.
+Además ocupa la ruta `/estados`, que es la que debería usar el catálogo nuevo.
+**Debería borrarse**; al hacerlo, mover `CatalogoEstadosController` a `/estados`.
+
+### Lo que sigue pendiente
+
+**Historial de cambios de estado**: quién cambió qué, cuándo y por qué. Es el
+hueco funcional real. Hay que decidir dónde vive antes de construirlo.
+
+**Transiciones**: hoy cualquier estado puede ir a cualquier otro. Nada impide
+pasar de `retirado` a `activo` saltándose el proceso.
 
 ---
 
@@ -266,7 +310,7 @@ estudiantes_grupo
   UNIQUE (estudiante_id, grupo_id)
 ```
 
-`estado_id` apunta al catálogo de access_control (sin FK, ver §6). El antiguo
+`estado_id` apunta a `catalogo_estados` de esta misma base (§6). El antiguo
 `estado_legacy` (String) desapareció. La entidad **no** declara relaciones a
 `EstudianteEntity` ni `GrupoEntity`: los nombres los resuelve el cliente con sus
 propios catálogos. Evita acoplar módulos y traer dos entidades por fila.
@@ -305,26 +349,19 @@ apoyándose en la reactivación.
 
 ## 8. Puesta en marcha
 
-El orden importa: sin el catálogo, este servicio no puede asignar estudiantes.
-
-**1. access_control** (crea y siembra el catálogo):
-
-```bash
-mysql -u root -p security < ../access_control/database/migrations/V1__estados_contextos.sql
-```
-
-```bash
-cd ../access_control && ./mvnw spring-boot:run
-```
-
-**2. Este servicio:**
-
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Crea `estudiantes_grupo` por `ddl-auto=update`. Si access_control no está arriba,
-`POST /estudiantes-grupo` responde que el contexto no tiene estado inicial
+Crea todas las tablas por `ddl-auto=update`. Después, **una sola vez**, siembra el
+catálogo:
+
+```bash
+mysql -u root -p academia < database/seed_catalogo_estados.sql
+```
+
+Es idempotente y no usa ids fijos (resuelve por `codigo`). Sin este paso, crear
+una matrícula o una asignación responde que el contexto no tiene estado inicial
 parametrizado.
 
 ---
@@ -342,8 +379,7 @@ Modelos verificados campo a campo (serialización snake_case):
   fecha_inicio, fecha_fin, tutor_id, salon_id, eliminado, ...`
 - **`EstudianteGrupo`** → `id, estudiante_id, grupo_id, fecha_asignacion, estado_id, ...`
 
-El dominio `server/domains/formacion-academica/estados/` del frontend apunta
-**directamente a access_control** (`env.accessControlBaseUrl`, por defecto
-`http://localhost:8000`), no a este servicio. La pantalla de asignación construye
+El dominio `server/domains/formacion-academica/estados/` del frontend apunta a
+`/api/kleverkids/catalogo-estados` de este servicio. La pantalla de asignación construye
 filtros, badges, métricas y selector a partir de esa lista: no hay ni un id de
 estado escrito en el código del frontend.

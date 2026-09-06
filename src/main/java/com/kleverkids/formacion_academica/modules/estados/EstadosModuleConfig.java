@@ -1,9 +1,15 @@
 package com.kleverkids.formacion_academica.modules.estados;
 
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.CatalogoContextoEntity;
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.CatalogoEstadoContextoEntity;
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.CatalogoEstadoEntity;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.EntidadEstadoEntity;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.EstadoEntity;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.EstadoHistorialEntity;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.entity.EstadoTransicionEntity;
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.CatalogoContextoJpaRepository;
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.CatalogoEstadoContextoJpaRepository;
+import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.CatalogoEstadoJpaRepository;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.EntidadEstadoJpaRepository;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.EstadoHistorialJpaRepository;
 import com.kleverkids.formacion_academica.modules.estados.infrastructure.outbound.persistence.mysql.repository.EstadoJpaRepository;
@@ -21,13 +27,19 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         EstadoJpaRepository.class,
         EntidadEstadoJpaRepository.class,
         EstadoHistorialJpaRepository.class,
-        EstadoTransicionJpaRepository.class
+        EstadoTransicionJpaRepository.class,
+        CatalogoEstadoJpaRepository.class,
+        CatalogoEstadoContextoJpaRepository.class,
+        CatalogoContextoJpaRepository.class
 })
 @EntityScan(basePackageClasses = {
         EstadoEntity.class,
         EntidadEstadoEntity.class,
         EstadoHistorialEntity.class,
-        EstadoTransicionEntity.class
+        EstadoTransicionEntity.class,
+        CatalogoEstadoEntity.class,
+        CatalogoEstadoContextoEntity.class,
+        CatalogoContextoEntity.class
 })
 public class EstadosModuleConfig {
     

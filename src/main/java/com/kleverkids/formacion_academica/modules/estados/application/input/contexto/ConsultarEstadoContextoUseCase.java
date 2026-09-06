@@ -9,8 +9,8 @@ import java.util.Optional;
  * Consulta del catálogo de estados aplicable a un contexto.
  *
  * <p>Es el puerto que consumen los demás módulos para resolver y validar estados
- * sin depender de identificadores fijos. Detrás hay una llamada al servicio
- * access_control, cacheada.
+ * sin depender de identificadores fijos. Se resuelve contra el catálogo local de
+ * esta aplicación: no hay servicios externos de por medio.
  */
 public interface ConsultarEstadoContextoUseCase {
 

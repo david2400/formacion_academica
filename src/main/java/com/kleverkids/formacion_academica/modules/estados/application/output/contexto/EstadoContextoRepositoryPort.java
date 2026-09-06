@@ -8,8 +8,9 @@ import java.util.Optional;
 /**
  * Puerto de salida hacia el catálogo central de estados.
  *
- * <p>Es de solo lectura a propósito: la administración del catálogo y de la
- * parametrización vive en access_control. Esta aplicación consume, no configura.
+ * <p>Es de solo lectura a propósito: la escritura del catálogo pasa por
+ * {@code CatalogoEstadosAdminPort}. Así los módulos que consumen estados no
+ * pueden modificarlos sin querer.
  */
 public interface EstadoContextoRepositoryPort {
 

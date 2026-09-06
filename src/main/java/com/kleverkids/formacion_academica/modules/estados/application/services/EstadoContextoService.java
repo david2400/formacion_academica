@@ -30,8 +30,8 @@ public class EstadoContextoService implements ConsultarEstadoContextoUseCase {
         return obtenerInicial(contexto, idEmpresa)
                 .map(EstadoContexto::getEstadoId)
                 .orElseThrow(() -> new IllegalStateException(
-                        "El contexto '" + contexto + "' no tiene un estado inicial parametrizado en access_control. "
-                                + "Regístralo en /api/access_control/estados/contextos y marca un estado como inicial."));
+                        "El contexto '" + contexto + "' no tiene un estado inicial parametrizado. "
+                                + "Regístralo en /api/kleverkids/catalogo-estados/contextos y marca un estado como inicial."));
     }
 
     @Override

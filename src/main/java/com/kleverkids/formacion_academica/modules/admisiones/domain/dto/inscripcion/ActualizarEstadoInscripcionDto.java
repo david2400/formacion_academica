@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * <p>{@code nuevoEstadoId} debe estar habilitado para el contexto
  * {@code formacion_academica.admisiones.inscripcion} en el catálogo central; si no,
  * la operación se rechaza. Los ids válidos se obtienen de
- * {@code /api/access_control/estados/contextos/{codigo}/estados}.
+ * {@code /api/kleverkids/catalogo-estados/contextos/{codigo}/estados}.
  */
 @Data
 @Builder
