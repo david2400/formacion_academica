@@ -29,6 +29,13 @@ public class CambiarEstadoEstudianteGrupoDto {
     /** Opcional: multi-empresa. Null o 0 usa la parametrización global. */
     private Long idEmpresa;
 
+    /**
+     * Motivo del cambio. Opcional aquí, pero el motor de estados lo exige en las
+     * transiciones configuradas con {@code requires_reason} —retirar a un estudiante
+     * del grupo, por ejemplo— y las rechaza si llega vacío.
+     */
+    private String motivo;
+
     public Long asignacionId() {
         return asignacionId;
     }

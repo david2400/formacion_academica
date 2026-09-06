@@ -157,7 +157,7 @@ Todos con prefijo `/api/kleverkids`.
 
 | Ruta | Qué hace |
 |---|---|
-| `/catalogo-estados` | Catálogo de estados y su parametrización por contexto (§6) |
+| `/estados` | Catálogo de estados y su parametrización por contexto (§6) |
 | `/estructura-institucion/estudiantes-grupo` | Reactivado y conectado al catálogo (§7) |
 
 ### Forma de las respuestas
@@ -170,126 +170,125 @@ Todos con prefijo `/api/kleverkids`.
 
 ---
 
-## 6. Catálogo de estados — local, sin dependencias externas
+## 6. Estados — motor externo en access_control
 
-Es el mecanismo con el que **todos** los módulos resuelven sus estados. Vive
-entero en esta aplicación: no hay servicios externos de por medio.
+El ciclo de vida de las entidades lo gobierna el **motor de máquinas de estados**
+de access_control. Aquí no hay catálogo: el módulo `modules/estados` es solo un
+cliente HTTP.
 
-### El modelo
+> Esto sustituye al catálogo local (`catalogo_estados`, `catalogo_contextos`,
+> `catalogo_estado_contextos`) que vivía en esta aplicación. Aquellas tablas ya no
+> se usan.
 
-```
-catalogo_contextos ──< catalogo_estado_contextos >── catalogo_estados
-(qué contextos hay)    (parametrización)              (catálogo)
-```
+### Cómo está repartido
 
-| Tabla | Responsabilidad |
+| Dónde | Qué guarda |
 |---|---|
-| `catalogo_estados` | **Qué estados existen.** Catálogo reutilizable. |
-| `catalogo_contextos` | **Qué contextos hay.** Pareja módulo + entidad, con código único. |
-| `catalogo_estado_contextos` | **Qué estado aplica a qué contexto**, con `es_inicial`, `es_final`, `orden` e `id_empresa`. |
+| access_control, base `security` | La definición (máquinas, estados, transiciones, reglas), las instancias vivas y **el historial completo** de cambios. |
+| Esta aplicación, base `academia` | La columna `estado_id` de cada tabla de negocio, como **réplica** de lo que decide el motor. |
 
-Un estado existe **una sola vez** y se comparte: `activo` es la misma fila para
-matrícula, grupo, inscripción, relación estudiante-acudiente y asignación
-estudiante-grupo. Eso es lo que un enum por módulo no permite.
+La réplica existe para poder listar y filtrar sin salir a la red. **Cuando ambos
+discrepan, manda el motor.**
 
-**Por qué `es_inicial` / `es_final` / `orden` viven en la parametrización y no en
-el catálogo:** dependen del contexto. `activo` es inicial para una asignación a
-grupo, pero puede no serlo en otro contexto.
+`estado_id` apunta a `security.state.id_state`, que está en otra base de datos:
+**no hay ni puede haber llave foránea**. La integridad la sostiene el motor, no
+el motor de base de datos.
 
-Un contexto se identifica por la pareja módulo · entidad, aplanada en un `codigo`:
+### ⚠️ Dependencia en runtime
 
-```
-formacion_academica.estructura_institucion.estudiante_grupo
-formacion_academica.admisiones.matricula
-```
+Crear o cambiar el estado de una inscripción, matrícula, grupo, asignación a
+grupo o vínculo con acudiente **requiere que access_control responda**. Si está
+caído, esas escrituras fallan.
 
-El prefijo de aplicación (`estados.aplicacion` en `application.properties`) se
-conserva aunque hoy solo haya una: si el catálogo se comparte algún día, los
-códigos ya encajan. Un contexto debe registrarse antes de poder parametrizarlo,
-así que un nombre mal escrito no crea un contexto fantasma.
+Es deliberado: con una única fuente de verdad, seguir adelante sin registrar el
+cambio dejaría las dos bases divergiendo en silencio, que es peor que una caída
+visible. Las **lecturas** no dependen del motor, porque usan la réplica local.
 
-### Endpoints
+Las definiciones se cachean 10 minutos (`motor-estados.cache-ttl`), así que el
+caso más frecuente —consultar el estado inicial al crear— casi nunca sale a la
+red. Una máquina publicada es inmutable, por eso se puede cachear.
 
-Todos con prefijo `/api/kleverkids`.
+### Máquinas conectadas
 
-| Método | Ruta | Uso |
+| Adaptador | `MAQUINA` | `TIPO_ENTIDAD` |
 |---|---|---|
-| GET | `/catalogo-estados` | Catálogo completo |
-| GET | `/catalogo-estados/codigo/{codigo}` | Consultar por código |
-| POST/PUT | `/catalogo-estados`, `/catalogo-estados/{id}` | Administrar catálogo |
-| DELETE | `/catalogo-estados/{id}` | Se rechaza si el estado sigue habilitado en algún contexto |
-| GET/POST | `/catalogo-estados/contextos` | Listar / registrar contextos |
-| **GET** | **`/catalogo-estados/contextos/{codigo}/estados`** | **El que consume el frontend** |
-| GET | `/catalogo-estados/contextos/{codigo}/estados/inicial` | Estado inicial |
-| POST | `/catalogo-estados/contextos/{codigo}/estados` | Habilitar un estado |
-| PUT/DELETE | `/catalogo-estados/contextos/estados/{id}` | Ajustar / quitar |
+| `EstudianteGrupoJpaAdapter` | `ASIGNACION_GRUPO_LIFECYCLE` | `ESTUDIANTE_GRUPO` |
+| `GrupoJpaAdapter` | `GRUPO_LIFECYCLE` | `GRUPO` |
+| `InscripcionJpaAdapter` | `INSCRIPCION_LIFECYCLE` | `INSCRIPCION` |
+| `MatriculaJpaAdapter` | `MATRICULA_LIFECYCLE` | `MATRICULA` |
+| `EstudianteAcudienteJpaAdapter` | `VINCULO_ACUDIENTE_LIFECYCLE` | `ESTUDIANTE_ACUDIENTE` |
 
-> La ruta es `/catalogo-estados` y no `/estados` porque el módulo legado de este
-> mismo proyecto todavía ocupa `/estados`. Ver más abajo.
+Los grafos se cargan con las migraciones `V4` y `V5` de access_control.
 
-### 🔑 Regla para los clientes: `codigo`, nunca `id`
+### El puerto
 
-`estado_id` lo genera la base de datos y **cambia entre entornos**. `codigo` es
-estable. Cuando un cliente necesita semántica (contar activos, saber si algo es
-terminal) debe mirar `codigo` o los flags `es_inicial` / `es_final`, jamás comparar
-contra un id escrito en el código. El `estado_id` solo se guarda para devolverlo.
+`MotorEstadosPort` es la única interfaz que ven los módulos de negocio:
 
-### Arquitectura interna
-
-- **`EstadoContextoLocalAdapter`** implementa el puerto de **lectura**
-  (`EstadoContextoRepositoryPort`). Es lo que consumen los demás módulos.
-- **`CatalogoEstadosAdminJpaAdapter`** implementa el puerto de **escritura**
-  (`CatalogoEstadosAdminPort`). Separados a propósito: un módulo que consume
-  estados no puede modificarlos sin querer.
+| Método | Cuándo |
+|---|---|
+| `estadoInicial(maquina)` | Al crear, para poblar `estado_id` sin quemar un número. |
+| `perteneceALaMaquina(maquina, estadoId)` | Validación barata contra el grafo. |
+| `iniciarCiclo(maquina, tipo, id)` | **Después** de guardar: el motor necesita el id definitivo. Idempotente. |
+| `moverAEstado(maquina, tipo, id, destino, motivo)` | Al cambiar de estado. Devuelve el estado resultante. |
 
 ### Cómo enchufar un módulo nuevo
 
-1. Registra el contexto: `POST /catalogo-estados/contextos` con `{modulo, entidad}`.
-2. Habilita sus estados: `POST /catalogo-estados/contextos/{codigo}/estados`.
-3. Añade `estado_id BIGINT NOT NULL` a la entidad.
-4. En el adaptador, declara la constante `CONTEXTO` con el código completo e
-   inyecta `ConsultarEstadoContextoUseCase`:
-   - al crear → `requerirEstadoInicial(CONTEXTO, idEmpresa)`
-   - al cambiar estado → `estaRegistrado(CONTEXTO, nuevoEstadoId, idEmpresa)`
+1. Da de alta el tipo de entidad y la máquina en access_control (migración o
+   `POST /state-machines`).
+2. Añade `estado_id BIGINT` a la entidad. **Sin FK**: apunta a otra base.
+3. En el adaptador declara `MAQUINA` y `TIPO_ENTIDAD` e inyecta
+   `MotorEstadosPort`:
+   - al crear → `estadoInicial(MAQUINA)`, guardar, y luego
+     `iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardado.getId())`
+   - al cambiar → `moverAEstado(...)` y escribir en `estado_id` **lo que devuelve
+     el motor**, no lo que pidió el cliente
 
-### Contextos ya conectados
+### Traducción destino → acción
 
-| Contexto | Entidad |
-|---|---|
-| `...estructura_institucion.estudiante_grupo` | `estudiantes_grupo` |
-| `...estructura_institucion.grupo` | `grupos` |
-| `...admisiones.inscripcion` | `inscripciones` |
-| `...admisiones.matricula` | `matriculas` |
-| `...gestion_alumnos.estudiante_acudiente` | `estudiante_acudiente` |
+El motor razona en **acciones** (`SUSPENDER`), no en estados destino. La API de
+esta aplicación y el frontend hablan de `nuevo_estado_id`. `moverAEstado` traduce:
+consulta las acciones disponibles y busca la que lleva a ese estado.
 
-### Llaves foráneas
+Si no hay ninguna, la operación se rechaza con los destinos que sí son
+alcanzables. Si hay **dos**, también falla: el destino no identifica la acción, y
+elegir al azar registraría una acción falsa en el historial. Ninguna máquina
+actual tiene ese caso.
 
-Al vivir el catálogo en esta misma base, `estado_id` **puede tener FK real**. Los
-`ALTER TABLE` están comentados al final de `database/seed_catalogo_estados.sql`:
-aplícalos cuando los datos sean consistentes.
+### Errores
 
-### ⚠️ El módulo legado `estados` sigue ahí y estorba
+`MotorEstadosException` distingue tres causas, y `GlobalExceptionHandler` las
+mapea:
 
-Las clases `EstadoEntity`, `EntidadEstadoEntity`, `EstadoHistorialEntity`,
-`EstadoTransicionEntity` y sus servicios son del diseño anterior (`id_modulo`
-dentro del estado) y **nunca funcionaron**:
-
-- `EntidadEstadoService.obtenerEstadoActual()` devuelve `Optional.empty()` fijo.
-- `listarHistorialEstados()` devuelve `List.of()` fijo.
-- `cambiarEstadoConValidacion()` lanza `UnsupportedOperationException`.
-- Las FKs están mapeadas `insertable = false` sin columna escribible, así que el
-  INSERT falla contra columnas `NOT NULL`.
-
-Además ocupa la ruta `/estados`, que es la que debería usar el catálogo nuevo.
-**Debería borrarse**; al hacerlo, mover `CatalogoEstadosController` a `/estados`.
+| Causa | HTTP | Significa |
+|---|---|---|
+| `RECHAZADA` | 422 | El cambio no procede: transición inválida, falta motivo. |
+| `CONFIGURACION` | 500 | Falta configurar algo en el motor. Fallo nuestro. |
+| `NO_DISPONIBLE` | 503 | El motor no responde. Reintentar tiene sentido. |
 
 ### Lo que sigue pendiente
 
-**Historial de cambios de estado**: quién cambió qué, cuándo y por qué. Es el
-hueco funcional real. Hay que decidir dónde vive antes de construirlo.
+**Permisos desactivados.** Las transiciones se configuraron con
+`permission_code` (`GRUPO.SUSPENDER`, …), pero la migración `V5` los pone a NULL.
+Motivo: esos permisos no existen en el catálogo de access_control, esta
+aplicación **no tiene contexto de seguridad** y por tanto no puede propagar un
+usuario, y el motor resuelve el usuario leyendo la cabecera `X-User-Id`, algo que
+su propio controlador marca como inseguro. Con las tres cosas, exigir permiso no
+protegía nada: solo hacía que **toda** transición se rechazara.
 
-**Transiciones**: hoy cualquier estado puede ir a cualquier otro. Nada impide
-pasar de `retirado` a `activo` saltándose el proceso.
+Para reactivarlos, en este orden: propagar el usuario autenticado → sustituir
+`X-User-Id` por el token en el motor → dar de alta los permisos → repoblar
+`permission_code` (el UPDATE está en `V5`).
+
+**Sin usuario en el historial.** Por lo mismo, el motor registra los cambios con
+usuario nulo. El historial dice qué pasó y cuándo, pero no quién.
+
+**Filas anteriores a la integración.** Las creadas antes de esto no tienen
+instancia en el motor. `moverAEstado` las arranca al vuelo en el estado inicial;
+de su pasado no hay historia que reconstruir.
+
+**Sin transacción distribuida.** Si el motor acepta la transición y después falla
+el `save` local, el motor queda por delante de la réplica. La lectura siguiente
+lo corrige, pero conviene tenerlo presente.
 
 ---
 
@@ -380,6 +379,6 @@ Modelos verificados campo a campo (serialización snake_case):
 - **`EstudianteGrupo`** → `id, estudiante_id, grupo_id, fecha_asignacion, estado_id, ...`
 
 El dominio `server/domains/formacion-academica/estados/` del frontend apunta a
-`/api/kleverkids/catalogo-estados` de este servicio. La pantalla de asignación construye
+`/api/kleverkids/estados` de este servicio. La pantalla de asignación construye
 filtros, badges, métricas y selector a partir de esa lista: no hay ni un id de
 estado escrito en el código del frontend.

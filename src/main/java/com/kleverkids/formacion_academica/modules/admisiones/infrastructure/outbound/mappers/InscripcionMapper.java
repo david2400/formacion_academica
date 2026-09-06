@@ -28,7 +28,7 @@ public interface InscripcionMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "eliminado", ignore = true)
-    // El estado inicial lo resuelve el adaptador desde el catálogo central,
+    // El estado inicial lo resuelve el adaptador contra el motor de estados,
     // no un id quemado.
     @Mapping(target = "estadoId", ignore = true)
     InscripcionEntity toEntity(CrearInscripcionDto dto);

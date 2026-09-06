@@ -19,7 +19,7 @@ public interface RelacionEstudianteAcudienteMapper {
 
     List<EstudianteAcudiente> toDomainList(List<EstudianteAcudienteEntity> entities);
 
-    /** El estado inicial lo resuelve el adaptador desde el catálogo central. */
+    /** El estado inicial lo resuelve el adaptador contra el motor de estados. */
     @Mapping(target = "estadoId", ignore = true)
     EstudianteAcudienteEntity toEntity(CrearEstudianteAcudienteDto dto);
 

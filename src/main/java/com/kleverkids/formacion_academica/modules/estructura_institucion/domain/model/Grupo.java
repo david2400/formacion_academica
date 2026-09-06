@@ -21,7 +21,7 @@ public class Grupo {
     private LocalDate fechaFin;
     private Long tutorId;
     private Long salonId;
-    /** FK al catálogo central de estados (contexto formacion_academica.estructura_institucion.grupo). */
+    /** Estado en GRUPO_LIFECYCLE. Réplica de security.state.id_state: sin FK, es otra base. */
     private Integer estadoId;
     private boolean eliminado;
     private Integer usrCrea;

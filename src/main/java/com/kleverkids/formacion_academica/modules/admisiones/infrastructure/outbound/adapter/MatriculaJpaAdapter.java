@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.model.Matric
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.MatriculaMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.MatriculaEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.MatriculaJpaRepository;
-import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
+import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,32 +16,44 @@ import java.util.Optional;
 @Component
 public class MatriculaJpaAdapter implements MatriculaRepositoryPort {
 
-    /** Contexto con el que este recurso está registrado en el catálogo central. */
-    public static final String CONTEXTO = "formacion_academica.admisiones.matricula";
+    /** Máquina que gobierna el ciclo de vida de la matrícula en el motor de estados. */
+    public static final String MAQUINA = "MATRICULA_LIFECYCLE";
+
+    /** Tipo de entidad con el que el motor identifica este recurso. */
+    public static final String TIPO_ENTIDAD = "MATRICULA";
 
     private final MatriculaJpaRepository matriculaJpaRepository;
     private final MatriculaMapper matriculaMapper;
-    private final ConsultarEstadoContextoUseCase estadosDelContexto;
+    private final MotorEstadosPort motorEstados;
 
     public MatriculaJpaAdapter(MatriculaJpaRepository matriculaJpaRepository,
             MatriculaMapper matriculaMapper,
-            ConsultarEstadoContextoUseCase estadosDelContexto) {
+            MotorEstadosPort motorEstados) {
         this.matriculaJpaRepository = matriculaJpaRepository;
         this.matriculaMapper = matriculaMapper;
-        this.estadosDelContexto = estadosDelContexto;
+        this.motorEstados = motorEstados;
     }
 
-    /** El estado inicial sale del catálogo, no de un id fijo en el mapper. */
+    /**
+     * El estado inicial lo decide el motor, no un id fijo en el mapper.
+     *
+     * <p>El ciclo se arranca después de guardar porque el motor necesita el id
+     * definitivo de la matrícula.
+     */
     @Override
     public Matricula registrar(CrearMatriculaDto request) {
         MatriculaEntity entity = matriculaMapper.toEntity(request);
-        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
-        return matriculaMapper.toDomainModel(matriculaJpaRepository.save(entity));
+        entity.setEstadoId(motorEstados.estadoInicial(MAQUINA).intValue());
+
+        MatriculaEntity guardada = matriculaJpaRepository.save(entity);
+        motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardada.getId());
+
+        return matriculaMapper.toDomainModel(guardada);
     }
 
     /**
      * Actualización parcial. No toca el estado: eso se hace por su propia operación
-     * validando contra el catálogo del contexto.
+     * pasando por el motor de estados.
      */
     @Override
     public Matricula actualizar(ActualizarMatriculaDto request) {

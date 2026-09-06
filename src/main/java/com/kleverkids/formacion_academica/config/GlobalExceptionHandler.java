@@ -5,6 +5,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.PreguntaNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TematicaNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TipoPreguntaInmutableException;
+import com.kleverkids.formacion_academica.modules.estados.domain.exception.MotorEstadosException;
 import com.kleverkids.formacion_academica.shared.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -76,6 +77,43 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ProblemDetail> handleIllegalState(IllegalStateException ex, HttpServletRequest request) {
         return conflict(ex, request);
+    }
+
+    /**
+     * Fallos del motor de estados de access_control.
+     *
+     * <p>Sin esto salían como 500 "error inesperado", que no le dice nada a quien
+     * llama ni distingue una caída del servicio de un cambio de estado inválido. El
+     * estado HTTP sigue a la causa:
+     *
+     * <ul>
+     *   <li>{@code RECHAZADA} → 422: la petición se entendió, el cambio no procede.
+     *   <li>{@code CONFIGURACION} → 500: falta configurar algo en el motor. Es un
+     *       fallo nuestro, no de quien llama.
+     *   <li>{@code NO_DISPONIBLE} → 503: el motor no responde; reintentar tiene
+     *       sentido.
+     * </ul>
+     */
+    @ExceptionHandler(MotorEstadosException.class)
+    public ResponseEntity<ProblemDetail> handleMotorEstados(MotorEstadosException ex, HttpServletRequest request) {
+        HttpStatus status = switch (ex.getCausa()) {
+            case RECHAZADA -> HttpStatus.UNPROCESSABLE_ENTITY;
+            case CONFIGURACION -> HttpStatus.INTERNAL_SERVER_ERROR;
+            case NO_DISPONIBLE -> HttpStatus.SERVICE_UNAVAILABLE;
+        };
+
+        ProblemDetail pd = baseProblemDetail(status, "Motor de Estados", ex.getMessage(), request);
+        pd.setProperty("code", ex.getCausa().name());
+
+        if (status.is5xxServerError()) {
+            log.error("Fallo del motor de estados [{}]", ex.getCausa(), ex);
+        } else {
+            // Un cambio de estado rechazado es negocio, no avería: dejarlo en ERROR
+            // enterraría los fallos de verdad.
+            log.warn("Cambio de estado rechazado: {}", ex.getMessage());
+        }
+
+        return ResponseEntity.status(status).body(pd);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

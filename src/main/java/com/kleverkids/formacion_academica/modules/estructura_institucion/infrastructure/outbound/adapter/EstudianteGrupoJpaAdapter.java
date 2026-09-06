@@ -1,6 +1,6 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.adapter;
 
-import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
+import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.estudiantegrupo.EstudianteGrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
@@ -23,33 +23,39 @@ import java.util.Optional;
 public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort {
 
     /**
-     * Contexto con el que este recurso está registrado en el catálogo central, que
-     * vive en el servicio access_control.
+     * Máquina que gobierna el ciclo de vida de la asignación, definida en el motor
+     * de estados de access_control.
      *
-     * <p>Es la terna <b>aplicación · módulo · entidad</b>: identifica de forma única
-     * a quién pertenecen estos estados. Debe coincidir con el {@code codigo} del
-     * contexto registrado allí.
+     * <p>Debe coincidir con el {@code code} de una máquina PUBLISHED allí. Si no
+     * existe, la asignación falla al arrancar en vez de inventarse un estado.
      */
-    public static final String CONTEXTO = "formacion_academica.estructura_institucion.estudiante_grupo";
+    public static final String MAQUINA = "ASIGNACION_GRUPO_LIFECYCLE";
+
+    /** Tipo de entidad con el que el motor identifica este recurso. */
+    public static final String TIPO_ENTIDAD = "ESTUDIANTE_GRUPO";
 
     private final EstudianteGrupoJpaRepository estudianteGrupoJpaRepository;
     private final EstudianteGrupoMapper estudianteGrupoMapper;
-    private final ConsultarEstadoContextoUseCase estadosDelContexto;
+    private final MotorEstadosPort motorEstados;
 
     /**
      * Asigna un estudiante a un grupo.
      *
-     * <p>El estado no viene del cliente: se toma el que esté marcado como inicial para
-     * el contexto {@code estudiante_grupo}.
+     * <p>El estado no viene del cliente: es el inicial de la máquina, que decide el
+     * motor.
      *
      * <p>Es idempotente respecto a la clave {@code (estudiante_id, grupo_id)}: si el
      * estudiante ya estuvo en el grupo y fue removido, la fila se revive en vez de
      * insertar un duplicado —que además la restricción única rechazaría—. Si la
      * asignación ya está activa se devuelve tal cual.
+     *
+     * <p>Al revivir una fila también se rearranca el ciclo, porque la instancia
+     * anterior quedó en un estado final. {@code iniciarCiclo} es idempotente, así que
+     * la llamada es segura aunque el motor ya tuviera la instancia.
      */
     @Override
     public EstudianteGrupo asignar(AsignarEstudianteGrupoDto request) {
-        Long estadoInicial = estadosDelContexto.requerirEstadoInicial(CONTEXTO, request.getIdEmpresa());
+        Long estadoInicial = motorEstados.estadoInicial(MAQUINA);
         LocalDate fecha = request.getFechaAsignacion() != null ? request.getFechaAsignacion() : LocalDate.now();
 
         Optional<EstudianteGrupoEntity> activa = estudianteGrupoJpaRepository
@@ -64,6 +70,7 @@ public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort 
         if (removida.isPresent()) {
             Long id = removida.get().getId();
             estudianteGrupoJpaRepository.reactivar(id, estadoInicial, fecha);
+            motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, id);
             return estudianteGrupoJpaRepository.findById(id)
                     .map(estudianteGrupoMapper::toDomainModel)
                     .orElseThrow(() -> new IllegalStateException("No se pudo reactivar la asignación " + id));
@@ -72,24 +79,35 @@ public class EstudianteGrupoJpaAdapter implements EstudianteGrupoRepositoryPort 
         EstudianteGrupoEntity entity = estudianteGrupoMapper.toEntity(request);
         entity.setFechaAsignacion(fecha);
         entity.setEstadoId(estadoInicial);
-        return estudianteGrupoMapper.toDomainModel(estudianteGrupoJpaRepository.save(entity));
+
+        EstudianteGrupoEntity guardada = estudianteGrupoJpaRepository.save(entity);
+        motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardada.getId());
+
+        return estudianteGrupoMapper.toDomainModel(guardada);
     }
 
     /**
-     * Cambia el estado validando contra la parametrización del contexto, de modo que
-     * no se pueda colar un estado que no aplica a este recurso.
+     * Cambia el estado a través del motor.
+     *
+     * <p>Ya no basta con que el estado exista: el motor comprueba además que la
+     * transición sea válida <b>desde el estado actual</b>, que se cumplan sus reglas
+     * y que haya motivo cuando la transición lo exige. Eso es lo que antes no
+     * validaba nadie.
+     *
+     * <p>El {@code estadoId} local se sobrescribe con lo que devuelve el motor, no
+     * con lo que pidió el cliente: si ambos discrepan, la fuente de verdad es el
+     * motor.
      */
     @Override
     public EstudianteGrupo cambiarEstado(CambiarEstadoEstudianteGrupoDto request) {
-        if (!estadosDelContexto.estaRegistrado(CONTEXTO, request.getNuevoEstadoId(), request.getIdEmpresa())) {
-            throw new IllegalArgumentException("El estado " + request.getNuevoEstadoId()
-                    + " no está habilitado para el contexto '" + CONTEXTO + "'");
-        }
-
         EstudianteGrupoEntity entity = estudianteGrupoJpaRepository.findById(request.getAsignacionId())
                 .orElseThrow(() -> new NotFoundException("Asignación no encontrada"));
 
-        entity.setEstadoId(request.getNuevoEstadoId());
+        Long estadoResultante = motorEstados.moverAEstado(
+                MAQUINA, TIPO_ENTIDAD, entity.getId(),
+                request.getNuevoEstadoId(), request.getMotivo());
+
+        entity.setEstadoId(estadoResultante);
         return estudianteGrupoMapper.toDomainModel(estudianteGrupoJpaRepository.save(entity));
     }
 

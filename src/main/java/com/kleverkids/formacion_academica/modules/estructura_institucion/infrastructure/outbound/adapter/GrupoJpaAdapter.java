@@ -7,7 +7,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.mappers.GrupoMapper;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.entity.GrupoEntity;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.outbound.persistence.mysql.repository.GrupoJpaRepository;
-import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
+import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,27 +15,39 @@ import java.util.List;
 @Component
 public class GrupoJpaAdapter implements GrupoRepositoryPort {
 
-    /** Contexto con el que este recurso está registrado en el catálogo central. */
-    public static final String CONTEXTO = "formacion_academica.estructura_institucion.grupo";
+    /** Máquina que gobierna el ciclo de vida del grupo en el motor de estados. */
+    public static final String MAQUINA = "GRUPO_LIFECYCLE";
+
+    /** Tipo de entidad con el que el motor identifica este recurso. */
+    public static final String TIPO_ENTIDAD = "GRUPO";
 
     private final GrupoJpaRepository grupoJpaRepository;
     private final GrupoMapper grupoMapper;
-    private final ConsultarEstadoContextoUseCase estadosDelContexto;
+    private final MotorEstadosPort motorEstados;
 
     public GrupoJpaAdapter(GrupoJpaRepository grupoJpaRepository,
                            GrupoMapper grupoMapper,
-                           ConsultarEstadoContextoUseCase estadosDelContexto) {
+                           MotorEstadosPort motorEstados) {
         this.grupoJpaRepository = grupoJpaRepository;
         this.grupoMapper = grupoMapper;
-        this.estadosDelContexto = estadosDelContexto;
+        this.motorEstados = motorEstados;
     }
 
-    /** El estado inicial sale del catálogo, no de un id fijo en el mapper. */
+    /**
+     * El estado inicial lo decide el motor, no un id fijo en el mapper.
+     *
+     * <p>El ciclo se arranca después de guardar porque el motor necesita el id
+     * definitivo del grupo para crear la instancia.
+     */
     @Override
     public Grupo guardar(CrearGrupoDto request) {
         GrupoEntity entity = grupoMapper.toEntity(request);
-        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
-        return grupoMapper.toDomainModel(grupoJpaRepository.save(entity));
+        entity.setEstadoId(motorEstados.estadoInicial(MAQUINA).intValue());
+
+        GrupoEntity guardado = grupoJpaRepository.save(entity);
+        motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardado.getId());
+
+        return grupoMapper.toDomainModel(guardado);
     }
 
     @Override

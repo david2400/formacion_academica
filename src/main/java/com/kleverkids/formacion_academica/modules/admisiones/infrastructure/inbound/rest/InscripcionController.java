@@ -104,6 +104,10 @@ public class InscripcionController {
     @PutMapping("/{inscripcionId}/estado")
     public ResponseEntity<Inscripcion> cambiarEstado(@PathVariable Long inscripcionId,
                                                         @RequestBody ActualizarEstadoInscripcionDto request) {
+        // Manda la ruta, no el cuerpo: el id iba en la firma pero nunca se
+        // trasladaba al DTO, así que llegaba nulo salvo que el cliente lo repitiera
+        // en el body. Fijarlo aquí también evita que ambos discrepen.
+        request.setInscripcionId(inscripcionId);
         return ResponseEntity.ok(cambiarEstadoUseCase.cambiarEstado(request));
     }
 

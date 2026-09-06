@@ -12,9 +12,9 @@ import java.time.LocalDate;
 /**
  * Asignación de un estudiante a un grupo.
  *
- * <p>{@code estadoId} apunta al catálogo central de estados. Los valores admitidos
- * son los parametrizados para el contexto {@code estudiante_grupo} en
- * {@code estado_contextos}; la validación se hace en el adaptador, no con un enum.
+ * <p>{@code estadoId} replica el estado que decide el motor de access_control para
+ * la máquina {@code ASIGNACION_GRUPO_LIFECYCLE}. No es un enum a propósito: los
+ * estados y sus transiciones se configuran allí, sin desplegar este servicio.
  *
  * <p>No declara relaciones a {@code EstudianteEntity} ni {@code GrupoEntity}: los
  * nombres se resuelven en el cliente a partir de sus propios catálogos. Evita
@@ -46,7 +46,7 @@ public class EstudianteGrupoEntity extends AuditInfo {
     @Column(name = "fecha_asignacion", nullable = false)
     private LocalDate fechaAsignacion;
 
-    /** FK al catálogo central ({@code estados.id}). */
+    /** Estado en ASIGNACION_GRUPO_LIFECYCLE. Réplica de {@code security.state.id_state}: sin FK, es otra base. */
     @Column(name = "estado_id", nullable = false)
     private Long estadoId;
 }

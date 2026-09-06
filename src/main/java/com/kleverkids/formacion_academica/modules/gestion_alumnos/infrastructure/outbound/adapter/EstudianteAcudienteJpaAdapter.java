@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.entity.EstudianteAcudienteEntity;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.EstudianteAcudienteJpaRepository;
 import lombok.RequiredArgsConstructor;
-import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
+import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,19 +18,31 @@ import java.util.Optional;
 @Component
 public class EstudianteAcudienteJpaAdapter implements EstudianteAcudienteRepositoryPort {
 
-    /** Contexto con el que este recurso está registrado en el catálogo central. */
-    public static final String CONTEXTO = "formacion_academica.gestion_alumnos.estudiante_acudiente";
+    /** Máquina que gobierna el ciclo de vida del vínculo en el motor de estados. */
+    public static final String MAQUINA = "VINCULO_ACUDIENTE_LIFECYCLE";
+
+    /** Tipo de entidad con el que el motor identifica este recurso. */
+    public static final String TIPO_ENTIDAD = "ESTUDIANTE_ACUDIENTE";
 
     private final EstudianteAcudienteJpaRepository relacionJpaRepository;
     private final RelacionEstudianteAcudienteMapper relacionMapper;
-    private final ConsultarEstadoContextoUseCase estadosDelContexto;
+    private final MotorEstadosPort motorEstados;
 
-    /** El estado inicial sale del catálogo central. */
+    /**
+     * El estado inicial lo decide el motor, no un id fijo en el mapper.
+     *
+     * <p>El ciclo se arranca después de guardar porque el motor necesita el id
+     * definitivo del vínculo.
+     */
     @Override
     public EstudianteAcudiente crear(CrearEstudianteAcudienteDto request) {
         EstudianteAcudienteEntity entity = relacionMapper.toEntity(request);
-        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
-        return relacionMapper.toDomain(relacionJpaRepository.save(entity));
+        entity.setEstadoId(motorEstados.estadoInicial(MAQUINA).intValue());
+
+        EstudianteAcudienteEntity guardado = relacionJpaRepository.save(entity);
+        motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardado.getId());
+
+        return relacionMapper.toDomain(guardado);
     }
 
     @Override

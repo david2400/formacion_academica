@@ -8,7 +8,7 @@ import com.kleverkids.formacion_academica.modules.admisiones.domain.dto.inscripc
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.mappers.InscripcionMapper;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.entity.InscripcionEntity;
 import com.kleverkids.formacion_academica.modules.admisiones.infrastructure.outbound.persistence.mysql.repository.InscripcionJpaRepository;
-import com.kleverkids.formacion_academica.modules.estados.application.input.contexto.ConsultarEstadoContextoUseCase;
+import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,27 +17,39 @@ import java.util.Optional;
 @Component
 public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
 
-    /** Contexto con el que este recurso está registrado en el catálogo central. */
-    public static final String CONTEXTO = "formacion_academica.admisiones.inscripcion";
+    /** Máquina que gobierna el ciclo de vida de la inscripción en el motor de estados. */
+    public static final String MAQUINA = "INSCRIPCION_LIFECYCLE";
+
+    /** Tipo de entidad con el que el motor identifica este recurso. */
+    public static final String TIPO_ENTIDAD = "INSCRIPCION";
 
     private final InscripcionJpaRepository inscripcionJpaRepository;
     private final InscripcionMapper inscripcionMapper;
-    private final ConsultarEstadoContextoUseCase estadosDelContexto;
+    private final MotorEstadosPort motorEstados;
 
     public InscripcionJpaAdapter(InscripcionJpaRepository inscripcionJpaRepository,
             InscripcionMapper inscripcionMapper,
-            ConsultarEstadoContextoUseCase estadosDelContexto) {
+            MotorEstadosPort motorEstados) {
         this.inscripcionJpaRepository = inscripcionJpaRepository;
         this.inscripcionMapper = inscripcionMapper;
-        this.estadosDelContexto = estadosDelContexto;
+        this.motorEstados = motorEstados;
     }
 
-    /** El estado inicial sale del catálogo, no de un id fijo en el mapper. */
+    /**
+     * El estado inicial lo decide el motor, no un id fijo en el mapper.
+     *
+     * <p>El ciclo se arranca después de guardar porque el motor necesita el id
+     * definitivo de la inscripción.
+     */
     @Override
     public Inscripcion registrar(CrearInscripcionDto request) {
         InscripcionEntity entity = inscripcionMapper.toEntity(request);
-        entity.setEstadoId(estadosDelContexto.requerirEstadoInicial(CONTEXTO, null).intValue());
-        return inscripcionMapper.toDomainModel(inscripcionJpaRepository.save(entity));
+        entity.setEstadoId(motorEstados.estadoInicial(MAQUINA).intValue());
+
+        InscripcionEntity guardada = inscripcionJpaRepository.save(entity);
+        motorEstados.iniciarCiclo(MAQUINA, TIPO_ENTIDAD, guardada.getId());
+
+        return inscripcionMapper.toDomainModel(guardada);
     }
 
     @Override
@@ -69,21 +81,22 @@ public class InscripcionJpaAdapter implements InscripcionRepositoryPort {
     }
 
     /**
-     * Cambia el estado validando contra la parametrización del contexto.
+     * Cambia el estado a través del motor.
      *
      * <p>Antes este método guardaba la entidad sin tocarla: el estado nunca cambiaba.
+     * Ahora, además de cambiar de verdad, el motor valida que la transición sea
+     * posible desde el estado actual y exige motivo al rechazar una inscripción.
      */
     @Override
     public Inscripcion actualizarEstado(ActualizarEstadoInscripcionDto request) {
-        if (!estadosDelContexto.estaRegistrado(CONTEXTO, request.getNuevoEstadoId(), request.getIdEmpresa())) {
-            throw new IllegalArgumentException("El estado " + request.getNuevoEstadoId()
-                    + " no está habilitado para el contexto '" + CONTEXTO + "'");
-        }
-
         InscripcionEntity entity = inscripcionJpaRepository.findById(request.getInscripcionId())
                 .orElseThrow(() -> new IllegalArgumentException("Inscripción no encontrada"));
 
-        entity.setEstadoId(request.getNuevoEstadoId().intValue());
+        Long estadoResultante = motorEstados.moverAEstado(
+                MAQUINA, TIPO_ENTIDAD, entity.getId(),
+                request.getNuevoEstadoId(), request.getMotivo());
+
+        entity.setEstadoId(estadoResultante.intValue());
         return inscripcionMapper.toDomainModel(inscripcionJpaRepository.save(entity));
     }
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 /**
  * Asignación de un estudiante a un grupo.
  *
- * <p>{@code estadoId} referencia el catálogo central. El cliente resuelve el nombre
+ * <p>{@code estadoId} replica el estado que decide el motor. El cliente resuelve el nombre
  * y el color consultando {@code /estados/contextos/estudiante_grupo}, de modo que
  * agregar o renombrar un estado no exige tocar código ni en el backend ni en el front.
  */

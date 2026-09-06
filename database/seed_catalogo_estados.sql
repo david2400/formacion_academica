@@ -1,4 +1,19 @@
 -- ============================================================================
+--  ⚠️ OBSOLETO — NO EJECUTAR
+-- ============================================================================
+--
+--  Este seed poblaba el catálogo local de estados (catalogo_estados,
+--  catalogo_contextos, catalogo_estado_contextos), que ya no se usa: el ciclo
+--  de vida lo gobierna el motor de máquinas de estados de access_control.
+--
+--  Los grafos equivalentes se cargan con las migraciones V4 y V5 de
+--  access_control. Ver §6 de CLAUDE.md.
+--
+--  Se conserva solo como referencia de qué estados existían antes. Las tablas
+--  que crea están vacías en la base y ningún código las consulta.
+-- ============================================================================
+
+-- ============================================================================
 --  Catálogo de estados + contextos + parametrización
 --  Base de datos: academia   (formacion_academica)
 -- ============================================================================
@@ -26,11 +41,11 @@
 --  semántica debe mirar `codigo`, nunca el id.
 --
 --  PARA AJUSTARLO SIN SQL
---      POST   /api/kleverkids/catalogo-estados
---      POST   /api/kleverkids/catalogo-estados/contextos
---      POST   /api/kleverkids/catalogo-estados/contextos/{codigo}/estados
---      PUT    /api/kleverkids/catalogo-estados/contextos/estados/{id}
---      DELETE /api/kleverkids/catalogo-estados/contextos/estados/{id}
+--      POST   /api/kleverkids/estados
+--      POST   /api/kleverkids/estados/contextos
+--      POST   /api/kleverkids/estados/contextos/{codigo}/estados
+--      PUT    /api/kleverkids/estados/contextos/estados/{id}
+--      DELETE /api/kleverkids/estados/contextos/estados/{id}
 -- ============================================================================
 
 

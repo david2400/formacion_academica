@@ -30,7 +30,7 @@ public interface GrupoMapper {
     List<Grupo> toDomainModelList(List<GrupoEntity> entities);
 
     // DTO a Entity - método manual para evitar conflictos con AuditInfo
-    // El estado inicial lo resuelve el adaptador desde el catálogo central.
+    // El estado inicial lo resuelve el adaptador contra el motor de estados.
     @Mapping(target = "estadoId", ignore = true)
     @Mapping(target = "eliminado", constant = "false")
     @Mapping(target = "usrCrea", ignore = true)
