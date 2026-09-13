@@ -2,6 +2,8 @@ package com.kleverkids.formacion_academica.modules.estados.infrastructure.outbou
 
 import com.kleverkids.formacion_academica.modules.estados.application.output.MotorEstadosPort;
 import com.kleverkids.formacion_academica.modules.estados.domain.exception.MotorEstadosException;
+import com.kleverkids.formacion_academica.modules.estados.domain.model.TransicionMotor;
+import com.kleverkids.formacion_academica.modules.estados.domain.model.EstadoMotor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -81,6 +83,55 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
                             + " estados iniciales y debería tener exactamente uno");
         }
         return ids.get(0);
+    }
+
+    @Override
+    public List<EstadoMotor> estadosDe(String maquina) {
+        return jdbc.query(
+                "SELECT estado_id, estado, estado_nombre, estado_descripcion, color, icono, "
+                        + "       es_inicial, es_final, orden "
+                        + "FROM " + esquema + ".vw_sm_estado "
+                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' "
+                        + "ORDER BY orden, estado",
+                (rs, n) -> new EstadoMotor(
+                        rs.getLong("estado_id"),
+                        rs.getString("estado"),
+                        rs.getString("estado_nombre"),
+                        rs.getString("estado_descripcion"),
+                        rs.getString("color"),
+                        rs.getString("icono"),
+                        rs.getBoolean("es_inicial"),
+                        rs.getBoolean("es_final"),
+                        rs.getInt("orden")),
+                maquina);
+    }
+
+    /**
+     * Se descartan las transiciones con reglas o permiso configurados, por el mismo
+     * motivo que {@code moverAEstado} las rechaza: ofrecerlas en la UI sería prometer
+     * algo que esta vía no puede cumplir.
+     */
+    @Override
+    public List<TransicionMotor> transicionesDe(String maquina) {
+        return jdbc.query(
+                "SELECT desde_id, desde, hasta_id, hasta, hasta_nombre, hasta_color, "
+                        + "       hasta_es_final, accion, accion_nombre, exige_motivo "
+                        + "FROM " + esquema + ".vw_sm_transicion "
+                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' "
+                        + "  AND reglas = 0 AND permiso IS NULL "
+                        + "ORDER BY desde_id, hasta_nombre",
+                (rs, n) -> new TransicionMotor(
+                        rs.getLong("desde_id"),
+                        rs.getString("desde"),
+                        rs.getLong("hasta_id"),
+                        rs.getString("hasta"),
+                        rs.getString("hasta_nombre"),
+                        rs.getString("hasta_color"),
+                        rs.getBoolean("hasta_es_final"),
+                        rs.getString("accion"),
+                        rs.getString("accion_nombre"),
+                        rs.getBoolean("exige_motivo")),
+                maquina);
     }
 
     // ── Ejecución ───────────────────────────────────────────────────────────

@@ -1,11 +1,16 @@
 package com.kleverkids.formacion_academica.modules.estados.application.output;
 
+import com.kleverkids.formacion_academica.modules.estados.domain.model.TransicionMotor;
+import com.kleverkids.formacion_academica.modules.estados.domain.model.EstadoMotor;
+
+import java.util.List;
+
 /**
  * Acceso al motor de máquinas de estados de access_control.
  *
- * <p>Los módulos de negocio dependen de esta interfaz, no del cliente HTTP. Eso
- * mantiene los adaptadores JPA ignorantes de que el estado vive en otro servicio:
- * si mañana el motor se embebe, se cambia la implementación y nada más.
+ * <p>Los módulos de negocio dependen de esta interfaz, no de cómo se llega al motor.
+ * Hoy la implementación es SQL directo contra el esquema {@code security}; antes fue
+ * un cliente HTTP y mañana podría embeberse. Nada de eso asoma por aquí.
  *
  * <p><b>El motor es la fuente de verdad del estado.</b> La columna {@code estado_id}
  * de las tablas de negocio es una réplica que existe para poder listar y filtrar sin
@@ -23,6 +28,25 @@ public interface MotorEstadosPort {
      *         si la máquina no existe, no está publicada o el motor no responde
      */
     Long estadoInicial(String maquina);
+
+    /**
+     * Todos los estados de una máquina, ordenados.
+     *
+     * <p>Lo consume la UI para pintar etiquetas y colores: con solo el
+     * {@code estado_id} guardado en la tabla de negocio no se puede mostrar nada
+     * legible.
+     */
+    List<EstadoMotor> estadosDe(String maquina);
+
+    /**
+     * El grafo completo de la máquina: desde qué estado, con qué acción, hacia cuál.
+     *
+     * <p>Se expone el grafo entero y no "los destinos de esta entidad" porque las
+     * pantallas son tablas: lo segundo obligaría a una petición por fila. Con esto, el
+     * cliente calcula los destinos de cualquier fila a partir del {@code estado_id}
+     * que ya trae, y deja de ofrecer cambios que el backend va a rechazar.
+     */
+    List<TransicionMotor> transicionesDe(String maquina);
 
     /**
      * Arranca el ciclo de vida de una entidad recién creada.

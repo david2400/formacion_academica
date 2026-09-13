@@ -62,8 +62,19 @@ public class OpenApiConfig {
                 .build();
     }
 
-    // El módulo de estados ya no expone REST: es un cliente del motor de
-    // access_control. Su documentación vive allí, en /api/access_control.
+    /**
+     * Solo lectura: los ciclos de vida se configuran en access_control. Aquí se
+     * exponen para que el frontend pueda pintarlos sin hablar con ese servicio.
+     */
+    @Bean
+    public GroupedOpenApi estadoApi() {
+        return GroupedOpenApi.builder()
+                .group("estados")
+                .displayName("Estados")
+                .packagesToScan("com.kleverkids.formacion_academica.modules.estados")
+                .pathsToMatch("/api/kleverkids/estados/**")
+                .build();
+    }
 
     @Controller
     static class SwaggerUiRedirectController {
