@@ -36,4 +36,27 @@ public class CrearEstudianteDto {
     private String correo;
     private String telefono;
     private String direccion;
+
+    /**
+     * Id del User en access_control que representa a este estudiante (ya trae
+     * embebida la identidad de su Client). Opcional por ahora (compatibilidad
+     * con integraciones existentes); cuando se informa, el servicio valida que
+     * exista y esté asignado a {@code empresaId}.
+     */
+    private Long usuarioId;
+
+    /**
+     * Empresa (tenant) a la que pertenece este estudiante. Obligatoria si se
+     * informa {@code usuarioId}, para poder validarlo contra access_control.
+     */
+    private Long empresaId;
+
+    /**
+     * Contraseña propia del estudiante, en texto plano tal como la envía el
+     * cliente. El servicio la hashea (BCrypt) antes de persistir — nunca se
+     * guarda ni se devuelve en texto plano. Opcional: si no se informa, no se
+     * modifica la contraseña existente (en una actualización) o el estudiante
+     * queda sin contraseña (en una creación).
+     */
+    private String password;
 }

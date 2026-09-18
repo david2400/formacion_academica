@@ -8,12 +8,15 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.EstudianteJpaRepository;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.EstudianteAcudienteJpaRepository;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.persistence.mysql.repository.ParentescoJpaRepository;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.outbound.jdbc.CuentaUsuarioProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
+@EnableConfigurationProperties(CuentaUsuarioProperties.class)
 @EntityScan(basePackageClasses = {
         EstudianteEntity.class,
         AcudienteEntity.class,

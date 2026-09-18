@@ -48,4 +48,14 @@ public class AcudienteEntity extends AuditInfo {
 
     @Column(name = "es_principal",nullable = false)
     private boolean esPrincipal;
+
+    @Column(name = "usuario_id")
+    private Long usuarioId;
+
+    @Column(name = "empresa_id")
+    private Long empresaId;
+
+    /** Hash BCrypt de la contraseña propia del acudiente. Nunca texto plano. */
+    @Column(name = "password")
+    private String password;
 }
