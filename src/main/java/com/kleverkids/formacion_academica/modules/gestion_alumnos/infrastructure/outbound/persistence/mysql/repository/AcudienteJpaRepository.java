@@ -20,7 +20,7 @@ public interface AcudienteJpaRepository extends JpaRepository<AcudienteEntity, L
     @Query("SELECT CASE WHEN COUNT(ea) > 0 THEN true ELSE false END " +
            "FROM EstudianteAcudienteEntity ea " +
            "JOIN AcudienteEntity a ON ea.acudienteId = a.id " +
-           "WHERE ea.estudianteId = :estudianteId AND a.esPrincipal = true " +
+           "WHERE ea.estudianteId = :estudianteId AND ea.esPrincipal = true " +
            "AND (:excluirId IS NULL OR a.id != :excluirId)")
     boolean existsByEstudianteIdAndEsPrincipalIsTrue(@Param("estudianteId") Long estudianteId, 
                                                      @Param("excluirId") Long excluirId);
