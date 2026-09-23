@@ -57,9 +57,6 @@ public class EstudianteEntity extends AuditInfo {
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @Column(name = "usuario_id")
-    private Long usuarioId;
-
     @Column(name = "empresa_id")
     private Long empresaId;
 

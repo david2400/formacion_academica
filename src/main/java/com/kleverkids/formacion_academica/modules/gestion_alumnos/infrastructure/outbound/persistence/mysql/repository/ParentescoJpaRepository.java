@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ParentescoJpaRepository extends JpaRepository<ParentescoEntity, Long> {
 
-    @Query("SELECT p FROM ParentescoEntity p WHERE p.eliminado = true")
+    @Query("SELECT p FROM ParentescoEntity p WHERE p.eliminado = false")
     List<ParentescoEntity> findByEliminadoFalse();
 
     @Query("SELECT p FROM ParentescoEntity p WHERE p.nombre = :nombre")

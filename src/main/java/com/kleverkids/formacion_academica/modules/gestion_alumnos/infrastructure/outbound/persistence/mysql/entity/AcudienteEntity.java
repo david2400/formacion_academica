@@ -37,20 +37,11 @@ public class AcudienteEntity extends AuditInfo {
     @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    @Column(name = "parentesco", nullable = false)
-    private String parentesco;
-
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
     @Column(name = "correo", nullable = false)
     private String correo;
-
-    @Column(name = "es_principal",nullable = false)
-    private boolean esPrincipal;
-
-    @Column(name = "usuario_id")
-    private Long usuarioId;
 
     @Column(name = "empresa_id")
     private Long empresaId;

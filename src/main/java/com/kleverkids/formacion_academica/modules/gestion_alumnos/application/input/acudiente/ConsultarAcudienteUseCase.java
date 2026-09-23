@@ -5,4 +5,6 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.A
 public interface ConsultarAcudienteUseCase {
 
     Acudiente consultarPorId(Long acudienteId);
+
+    Acudiente consultarPorNumeroDocumento(String numeroDocumento);
 }

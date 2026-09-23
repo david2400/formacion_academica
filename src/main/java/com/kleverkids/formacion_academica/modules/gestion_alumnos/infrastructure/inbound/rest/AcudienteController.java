@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -100,6 +101,20 @@ public class AcudienteController {
     @GetMapping("/{acudienteId}")
     public ResponseEntity<Acudiente> consultar(@PathVariable Long acudienteId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(acudienteId));
+    }
+
+    @Operation(summary = "Buscar acudiente por número de documento",
+            description = "Busca un acudiente existente por su número de documento (para asociarlo a una relación sin duplicarlo)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Acudiente encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Acudiente.class))),
+            @ApiResponse(responseCode = "404", description = "Acudiente no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @GetMapping("/buscar")
+    public ResponseEntity<Acudiente> buscarPorNumeroDocumento(@RequestParam String numeroDocumento) {
+        return ResponseEntity.ok(consultarUseCase.consultarPorNumeroDocumento(numeroDocumento));
     }
 
 //    @Operation(summary = "Listar acudientes", description = "Obtiene todos los acudientes registrados")

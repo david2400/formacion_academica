@@ -98,4 +98,35 @@ class CuentaUsuarioJdbcAdapterTest {
         assertThat(adapter.usuarioPerteneceAEmpresa(null, 5L)).isFalse();
         verifyNoInteractions(jdbcTemplate);
     }
+
+    @Test
+    void buscarPorDocumento_consultaLaVistaPorTipoYNumeroDocumento() {
+        UsuarioAcceso esperado = UsuarioAcceso.builder().usuarioId(1L).usuario("jperez")
+                .tipoDocumento("CC").numeroDocumento("123").build();
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq("CC"), eq("123")))
+                .thenReturn(List.of(esperado));
+
+        Optional<UsuarioAcceso> resultado = adapter.buscarPorDocumento("CC", "123");
+
+        assertThat(resultado).contains(esperado);
+
+        ArgumentCaptor<String> sqlCaptor = ArgumentCaptor.forClass(String.class);
+        verify(jdbcTemplate).query(sqlCaptor.capture(), any(RowMapper.class), eq("CC"), eq("123"));
+        assertThat(sqlCaptor.getValue()).contains("security.vw_account_usuario");
+    }
+
+    @Test
+    void buscarPorDocumento_sinResultados_devuelveOptionalVacio() {
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), eq("CC"), eq("123")))
+                .thenReturn(List.of());
+
+        assertThat(adapter.buscarPorDocumento("CC", "123")).isEmpty();
+    }
+
+    @Test
+    void buscarPorDocumento_conParametrosNulos_devuelveOptionalVacioSinConsultar() {
+        assertThat(adapter.buscarPorDocumento(null, "123")).isEmpty();
+        assertThat(adapter.buscarPorDocumento("CC", null)).isEmpty();
+        verifyNoInteractions(jdbcTemplate);
+    }
 }

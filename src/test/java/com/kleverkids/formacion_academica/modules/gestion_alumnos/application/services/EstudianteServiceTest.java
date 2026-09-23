@@ -12,15 +12,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 /**
- * Verifica la validación de usuarioId/empresaId contra access_control al crear
- * o actualizar un estudiante, sin tocar ninguna base de datos real:
- * CuentaUsuarioPort se mockea, igual que EstudianteRepositoryPort.
+ * Verifica el flujo de creación/actualización de un estudiante sin tocar
+ * ninguna base de datos real: EstudianteRepositoryPort se mockea, igual que
+ * CuentaUsuarioPort.
+ *
+ * <p>La validación por documento contra access_control (CuentaUsuarioPort.
+ * buscarPorDocumento) está deshabilitada temporalmente en EstudianteService
+ * (depende de la vista vw_account_usuario, pendiente de crear en todos los
+ * ambientes) — por eso el único test relacionado con CuentaUsuarioPort aquí
+ * verifica que NO se interactúa con él, no que valide nada.
  *
  * <p>También verifica que la contraseña propia del estudiante se hashea
  * (BCrypt, vía PasswordEncoder mockeado) antes de guardar, y que se deja sin
@@ -54,8 +59,8 @@ class EstudianteServiceTest {
     }
 
     @Test
-    void crear_sinUsuarioId_noValidaContraAccessControl() {
-        CrearEstudianteDto request = dtoBase().build();
+    void crear_noConsultaAccessControl_validacionDeshabilitadaTemporalmente() {
+        CrearEstudianteDto request = dtoBase().empresaId(7L).build();
         when(repositoryPort.existePorDocumento(request.getTipoDocumento(), request.getNumeroDocumento()))
                 .thenReturn(false);
         when(repositoryPort.guardar(request)).thenReturn(new Estudiante());
@@ -64,47 +69,6 @@ class EstudianteServiceTest {
 
         verifyNoInteractions(cuentaUsuarioPort);
         verify(repositoryPort).guardar(request);
-    }
-
-    @Test
-    void crear_conUsuarioIdSinEmpresaId_lanzaExcepcion() {
-        CrearEstudianteDto request = dtoBase().usuarioId(20L).build();
-        when(repositoryPort.existePorDocumento(request.getTipoDocumento(), request.getNumeroDocumento()))
-                .thenReturn(false);
-
-        assertThatThrownBy(() -> estudianteService.crear(request))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("empresaId");
-
-        verify(repositoryPort, org.mockito.Mockito.never()).guardar(request);
-    }
-
-    @Test
-    void crear_conUsuarioIdQueNoPerteneceALaEmpresa_lanzaExcepcion() {
-        CrearEstudianteDto request = dtoBase().usuarioId(20L).empresaId(7L).build();
-        when(repositoryPort.existePorDocumento(request.getTipoDocumento(), request.getNumeroDocumento()))
-                .thenReturn(false);
-        when(cuentaUsuarioPort.usuarioPerteneceAEmpresa(20L, 7L)).thenReturn(false);
-
-        assertThatThrownBy(() -> estudianteService.crear(request))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("no está asignado");
-
-        verify(repositoryPort, org.mockito.Mockito.never()).guardar(request);
-    }
-
-    @Test
-    void crear_conUsuarioIdValidoEnLaEmpresa_guardaElEstudiante() {
-        CrearEstudianteDto request = dtoBase().usuarioId(20L).empresaId(7L).build();
-        when(repositoryPort.existePorDocumento(request.getTipoDocumento(), request.getNumeroDocumento()))
-                .thenReturn(false);
-        when(cuentaUsuarioPort.usuarioPerteneceAEmpresa(20L, 7L)).thenReturn(true);
-        Estudiante guardado = new Estudiante();
-        when(repositoryPort.guardar(request)).thenReturn(guardado);
-
-        Estudiante resultado = estudianteService.crear(request);
-
-        assertThat(resultado).isSameAs(guardado);
     }
 
     @Test

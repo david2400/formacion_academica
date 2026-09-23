@@ -41,14 +41,18 @@ public class EstudianteService implements CrearEstudianteUseCase,
     @Override
     public Estudiante crear(CrearEstudianteDto request) {
         validarDocumentoUnico(request.getTipoDocumento(), request.getNumeroDocumento());
-        validarUsuarioEmpresa(request.getUsuarioId(), request.getEmpresaId());
+        // validarPersonaEmpresa(...) deshabilitada temporalmente: depende de la
+        // vista vw_account_usuario de access_control (ver CuentaUsuarioPort),
+        // que todavía no está creada en todos los ambientes. Pendiente decidir
+        // cómo resolver esa dependencia antes de reactivarla.
         aplicarPassword(request);
         return repositoryPort.guardar(request);
     }
 
     @Override
     public Estudiante actualizar(UpdateEstudianteDto request) {
-        validarUsuarioEmpresa(request.getUsuarioId(), request.getEmpresaId());
+        // validarPersonaEmpresa(...) deshabilitada temporalmente: ver comentario
+        // en crear().
         aplicarPassword(request);
         return repositoryPort.actualizar(request);
     }
@@ -82,23 +86,20 @@ public class EstudianteService implements CrearEstudianteUseCase,
     }
 
     /**
-     * Valida el usuario de access_control contra la empresa indicada.
+     * Si existe una persona en access_control con el documento indicado,
+     * valida que esté asignada a la empresa indicada.
      *
-     * <p>usuarioId es opcional (compatibilidad con integraciones existentes):
-     * si no se informa, no se valida nada aquí. Si se informa, empresaId pasa
-     * a ser obligatorio para poder verificar la asignación.
+     * <p>Es opcional: si no existe ninguna persona con ese documento en
+     * access_control, no bloquea la creación/actualización. Si existe pero no
+     * está asignada a la empresa indicada, sí bloquea.
      */
-    private void validarUsuarioEmpresa(Long usuarioId, Long empresaId) {
-        if (usuarioId == null) {
-            return;
-        }
-        if (empresaId == null) {
-            throw new IllegalArgumentException("empresaId es obligatorio cuando se informa usuarioId");
-        }
-        if (!cuentaUsuarioPort.usuarioPerteneceAEmpresa(usuarioId, empresaId)) {
-            throw new IllegalArgumentException(
-                    "El usuario indicado no existe en access_control o no está asignado a la empresa indicada");
-        }
+    private void validarPersonaEmpresa(String tipoDocumento, String numeroDocumento, Long empresaId) {
+        cuentaUsuarioPort.buscarPorDocumento(tipoDocumento, numeroDocumento).ifPresent(usuario -> {
+            if (!cuentaUsuarioPort.usuarioPerteneceAEmpresa(usuario.getUsuarioId(), empresaId)) {
+                throw new IllegalArgumentException(
+                        "La persona con el documento indicado existe en access_control pero no está asignada a la empresa indicada");
+            }
+        });
     }
 
     /**

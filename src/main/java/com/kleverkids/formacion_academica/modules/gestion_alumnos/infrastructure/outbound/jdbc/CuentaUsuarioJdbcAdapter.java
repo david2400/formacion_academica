@@ -84,4 +84,17 @@ public class CuentaUsuarioJdbcAdapter implements CuentaUsuarioPort {
                 Integer.class, usuarioId, empresaId);
         return coincidencias != null && coincidencias > 0;
     }
+
+    @Override
+    public Optional<UsuarioAcceso> buscarPorDocumento(String tipoDocumento, String numeroDocumento) {
+        if (tipoDocumento == null || numeroDocumento == null) {
+            return Optional.empty();
+        }
+        List<UsuarioAcceso> resultado = jdbc.query(
+                "SELECT usuario_id, usuario, estado_usuario, cliente_id, primer_nombre, segundo_nombre, "
+                        + "primer_apellido, segundo_apellido, tipo_documento, numero_documento, sexo, genero, estado_cliente "
+                        + "FROM " + esquema + ".vw_account_usuario WHERE tipo_documento = ? AND numero_documento = ?",
+                USUARIO_ROW_MAPPER, tipoDocumento, numeroDocumento);
+        return resultado.stream().findFirst();
+    }
 }

@@ -23,25 +23,14 @@ public class CrearAcudienteDto {
     private String nombres;
     private String apellidos;
 
-    @NotBlank(message = "El parentesco es obligatorio")
-    private String parentesco;
     private String telefono;
 
     @Email(message = "El correo debe ser válido")
     private String correo;
-    private boolean esPrincipal;
-
     /**
-     * Id del User en access_control que representa a este acudiente (ya trae
-     * embebida la identidad de su Client). Opcional por ahora (compatibilidad
-     * con integraciones existentes); cuando se informa, el servicio valida que
-     * exista y esté asignado a {@code empresaId}.
-     */
-    private Long usuarioId;
-
-    /**
-     * Empresa (tenant) a la que pertenece este acudiente. Obligatoria si se
-     * informa {@code usuarioId}, para poder validarlo contra access_control.
+     * Empresa (tenant) a la que pertenece este acudiente. Si existe una
+     * persona en access_control con el documento indicado, el servicio valida
+     * que esté asignada a esta empresa.
      */
     private Long empresaId;
 

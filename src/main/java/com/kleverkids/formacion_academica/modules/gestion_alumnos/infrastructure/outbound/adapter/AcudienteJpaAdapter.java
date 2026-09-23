@@ -40,6 +40,11 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
     }
 
     @Override
+    public Optional<Acudiente> obtenerPorNumeroDocumento(String numeroDocumento) {
+        return acudienteJpaRepository.findByNumeroDocumento(numeroDocumento).map(acudienteMapper::toDomainModel);
+    }
+
+    @Override
     public List<Acudiente> listarPorEstudiante(Long estudianteId) {
         return acudienteMapper.toDomainModelList(acudienteJpaRepository.findByEstudianteId(estudianteId));
     }

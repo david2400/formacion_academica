@@ -37,4 +37,16 @@ public interface CuentaUsuarioPort {
      * access_control, antes de vincularlo a un Acudiente o Estudiante.
      */
     boolean usuarioPerteneceAEmpresa(Long usuarioId, Long empresaId);
+
+    /**
+     * Busca el usuario y su cliente asociado por tipo y número de documento de
+     * identidad, en vez de por {@code usuarioId} interno.
+     *
+     * <p>Se usa para validar, de forma opcional, que la persona identificada
+     * por documento en un Acudiente/Estudiante pertenezca a la empresa que la
+     * está creando: si no existe ningún usuario con ese documento en
+     * access_control, no bloquea (vacío); si existe pero pertenece a otra
+     * empresa, sí debe bloquear (a cargo de quien llame).
+     */
+    Optional<UsuarioAcceso> buscarPorDocumento(String tipoDocumento, String numeroDocumento);
 }

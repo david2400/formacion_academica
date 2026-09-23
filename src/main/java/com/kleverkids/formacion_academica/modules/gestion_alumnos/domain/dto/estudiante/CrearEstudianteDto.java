@@ -38,16 +38,9 @@ public class CrearEstudianteDto {
     private String direccion;
 
     /**
-     * Id del User en access_control que representa a este estudiante (ya trae
-     * embebida la identidad de su Client). Opcional por ahora (compatibilidad
-     * con integraciones existentes); cuando se informa, el servicio valida que
-     * exista y esté asignado a {@code empresaId}.
-     */
-    private Long usuarioId;
-
-    /**
-     * Empresa (tenant) a la que pertenece este estudiante. Obligatoria si se
-     * informa {@code usuarioId}, para poder validarlo contra access_control.
+     * Empresa (tenant) a la que pertenece este estudiante. Si existe una
+     * persona en access_control con el documento indicado, el servicio valida
+     * que esté asignada a esta empresa.
      */
     private Long empresaId;
 

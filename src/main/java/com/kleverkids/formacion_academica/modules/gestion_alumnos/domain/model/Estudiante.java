@@ -32,17 +32,9 @@ public class Estudiante {
     @JsonIgnore
     private String password;
 
-    /**
-     * Referencia al User centralizado en access_control que representa a este
-     * estudiante (el User ya trae embebida la identidad de su Client). Fuente
-     * de verdad de la identidad; los campos de arriba (nombres, documento,
-     * correo, teléfono) son una copia local para poder listar sin cruzar
-     * esquemas.
-     */
-    private Long usuarioId;
-
-    /** Empresa (tenant) a la que pertenece este estudiante, validada contra
-     *  access_control al crear/actualizar. */
+    /** Empresa (tenant) a la que pertenece este estudiante. Si existe una
+     *  persona en access_control con el mismo tipo y número de documento, se
+     *  valida (al crear/actualizar) que esté asignada a esta empresa. */
     private Long empresaId;
 
     private boolean eliminado;

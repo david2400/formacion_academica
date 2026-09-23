@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface AcudienteJpaRepository extends JpaRepository<AcudienteEntity, Long> {
 
+    java.util.Optional<AcudienteEntity> findByNumeroDocumento(String numeroDocumento);
+
     @Query("SELECT a FROM AcudienteEntity a " +
            "JOIN EstudianteAcudienteEntity ea ON a.id = ea.acudienteId " +
            "WHERE ea.estudianteId = :estudianteId")
