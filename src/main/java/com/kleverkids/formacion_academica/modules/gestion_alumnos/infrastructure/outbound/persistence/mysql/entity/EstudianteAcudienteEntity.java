@@ -45,7 +45,7 @@ public class EstudianteAcudienteEntity extends AuditInfo {
     @Column(nullable = false, name = "fecha_vinculacion")
     private LocalDate fechaVinculacion;
 
-    @Column(nullable = false, name = "fecha_fin")
+    @Column( name = "fecha_fin")
     private LocalDate fechaFin;
 
 }

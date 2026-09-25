@@ -15,7 +15,11 @@ public interface AcudienteRepositoryPort {
 
     Optional<Acudiente> obtenerPorId(Long acudienteId);
 
-    Optional<Acudiente> obtenerPorNumeroDocumento(String numeroDocumento);
+    Optional<Acudiente> obtenerPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento);
+
+    boolean existePorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento);
+
+    boolean existePorTipoYNumeroDocumentoConIdDiferente(String tipoDocumento, String numeroDocumento, Long id);
 
     List<Acudiente> listarPorEstudiante(Long estudianteId);
 

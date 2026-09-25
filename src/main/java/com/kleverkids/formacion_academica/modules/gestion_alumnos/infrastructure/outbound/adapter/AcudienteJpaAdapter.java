@@ -40,8 +40,25 @@ public class AcudienteJpaAdapter implements AcudienteRepositoryPort {
     }
 
     @Override
-    public Optional<Acudiente> obtenerPorNumeroDocumento(String numeroDocumento) {
-        return acudienteJpaRepository.findByNumeroDocumento(numeroDocumento).map(acudienteMapper::toDomainModel);
+    public Optional<Acudiente> obtenerPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+        // numero_documento no tiene restriccion unica en acudientes (a diferencia
+        // de estudiantes), asi que puede haber mas de una coincidencia para el
+        // mismo tipo+numero. Se toma la mas reciente (mayor id) en vez de dejar
+        // que la consulta reviente con NonUniqueResultException.
+        return acudienteJpaRepository.findByTipoDocumentoAndNumeroDocumentoOrderByIdDesc(tipoDocumento, numeroDocumento)
+                .stream()
+                .findFirst()
+                .map(acudienteMapper::toDomainModel);
+    }
+
+    @Override
+    public boolean existePorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+        return acudienteJpaRepository.existsByTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento);
+    }
+
+    @Override
+    public boolean existePorTipoYNumeroDocumentoConIdDiferente(String tipoDocumento, String numeroDocumento, Long id) {
+        return acudienteJpaRepository.existsByTipoDocumentoAndNumeroDocumentoAndIdNot(tipoDocumento, numeroDocumento, id);
     }
 
     @Override

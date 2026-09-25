@@ -103,8 +103,8 @@ public class AcudienteController {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(acudienteId));
     }
 
-    @Operation(summary = "Buscar acudiente por número de documento",
-            description = "Busca un acudiente existente por su número de documento (para asociarlo a una relación sin duplicarlo)")
+    @Operation(summary = "Buscar acudiente por tipo y número de documento",
+            description = "Busca un acudiente existente por su tipo y número de documento (para asociarlo a una relación sin duplicarlo)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Acudiente encontrado",
                     content = @Content(mediaType = "application/json",
@@ -113,8 +113,9 @@ public class AcudienteController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping("/buscar")
-    public ResponseEntity<Acudiente> buscarPorNumeroDocumento(@RequestParam String numeroDocumento) {
-        return ResponseEntity.ok(consultarUseCase.consultarPorNumeroDocumento(numeroDocumento));
+    public ResponseEntity<Acudiente> buscarPorTipoYNumeroDocumento(@RequestParam String tipoDocumento,
+                                                                     @RequestParam String numeroDocumento) {
+        return ResponseEntity.ok(consultarUseCase.consultarPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento));
     }
 
 //    @Operation(summary = "Listar acudientes", description = "Obtiene todos los acudientes registrados")

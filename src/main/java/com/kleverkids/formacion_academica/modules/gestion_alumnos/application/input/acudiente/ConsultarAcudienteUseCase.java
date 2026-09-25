@@ -6,5 +6,5 @@ public interface ConsultarAcudienteUseCase {
 
     Acudiente consultarPorId(Long acudienteId);
 
-    Acudiente consultarPorNumeroDocumento(String numeroDocumento);
+    Acudiente consultarPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento);
 }

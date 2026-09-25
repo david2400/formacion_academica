@@ -45,6 +45,7 @@ public class AcudienteService implements CrearAcudienteUseCase,
         // vista vw_account_usuario de access_control (ver CuentaUsuarioPort),
         // que todavía no está creada en todos los ambientes. Pendiente decidir
         // cómo resolver esa dependencia antes de reactivarla.
+        validarDocumentoUnico(request.getTipoDocumento(), request.getNumeroDocumento(), null);
         aplicarPassword(request);
         return acudienteRepositoryPort.guardar(request);
     }
@@ -54,6 +55,7 @@ public class AcudienteService implements CrearAcudienteUseCase,
         Acudiente existente = consultarPorId(request.getId());
         // validarPersonaEmpresa(...) deshabilitada temporalmente: ver comentario
         // en crear().
+        validarDocumentoUnico(request.getTipoDocumento(), request.getNumeroDocumento(), request.getId());
         aplicarPassword(request);
         return acudienteRepositoryPort.actualizar(request);
     }
@@ -65,8 +67,8 @@ public class AcudienteService implements CrearAcudienteUseCase,
     }
 
     @Override
-    public Acudiente consultarPorNumeroDocumento(String numeroDocumento) {
-        return acudienteRepositoryPort.obtenerPorNumeroDocumento(numeroDocumento)
+    public Acudiente consultarPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+        return acudienteRepositoryPort.obtenerPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento)
                 .orElseThrow(() -> new IllegalArgumentException("Acudiente no encontrado"));
     }
 
@@ -102,6 +104,21 @@ public class AcudienteService implements CrearAcudienteUseCase,
                         "La persona con el documento indicado existe en access_control pero no está asignada a la empresa indicada");
             }
         });
+    }
+
+    /**
+     * Evita registrar dos acudientes con el mismo tipo y numero de documento
+     * (la tabla acudientes no tiene una restriccion unica para esa
+     * combinacion, asi que la validacion se hace aqui).
+     */
+    private void validarDocumentoUnico(String tipoDocumento, String numeroDocumento, Long excluirId) {
+        boolean existe = excluirId == null
+                ? acudienteRepositoryPort.existePorTipoYNumeroDocumento(tipoDocumento, numeroDocumento)
+                : acudienteRepositoryPort.existePorTipoYNumeroDocumentoConIdDiferente(tipoDocumento, numeroDocumento, excluirId);
+
+        if (existe) {
+            throw new IllegalArgumentException("Ya existe un acudiente registrado con ese tipo y número de documento");
+        }
     }
 
     private void validarPrincipalUnico(Long estudianteId, Long excluirAcudienteId, Boolean esPrincipal) {
