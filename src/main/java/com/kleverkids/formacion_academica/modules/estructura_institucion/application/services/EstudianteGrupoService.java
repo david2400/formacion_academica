@@ -5,6 +5,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ConsultarEstudianteGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.EliminarEstudianteGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudianteGruposUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarAsignacionesPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudiantesPorGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.output.estudiantegrupo.EstudianteGrupoRepositoryPort;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
@@ -20,7 +21,8 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
         ConsultarEstudianteGrupoUseCase,
         EliminarEstudianteGrupoUseCase,
         ListarEstudianteGruposUseCase,
-        ListarEstudiantesPorGrupoUseCase {
+        ListarEstudiantesPorGrupoUseCase,
+        ListarAsignacionesPorEstudianteUseCase {
 
     private final EstudianteGrupoRepositoryPort repositoryPort;
 
@@ -56,5 +58,10 @@ public class EstudianteGrupoService implements AsignarEstudianteGrupoUseCase,
     @Override
     public List<EstudianteGrupo> listar() {
         return repositoryPort.listar();
+    }
+
+    @Override
+    public List<EstudianteGrupo> listarPorEstudiante(Long estudianteId) {
+        return repositoryPort.listarPorEstudiante(estudianteId);
     }
 }

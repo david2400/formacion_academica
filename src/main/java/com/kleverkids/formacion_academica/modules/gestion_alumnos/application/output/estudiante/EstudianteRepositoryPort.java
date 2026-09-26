@@ -17,6 +17,14 @@ public interface EstudianteRepositoryPort {
 
     Optional<Estudiante> obtenerPorId(Long estudianteId);
 
+    /**
+     * Busca un estudiante por tipo y numero de documento (para flujos que
+     * necesitan identificar a un estudiante puntual sin cargar el catalogo
+     * completo, por ejemplo asignarlo a un grupo). Ver el metodo equivalente
+     * en AcudienteRepositoryPort.
+     */
+    Optional<Estudiante> obtenerPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento);
+
     List<Estudiante> listar();
 
     Page<Estudiante> listar(Pageable pageable);

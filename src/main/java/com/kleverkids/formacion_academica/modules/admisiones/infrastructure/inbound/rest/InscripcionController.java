@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -80,7 +81,7 @@ public class InscripcionController {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(inscripcionId));
     }
 
-    @Operation(summary = "Listar inscripciones", description = "Obtiene inscripciones opcionalmente filtradas")
+    @Operation(summary = "Listar inscripciones", description = "Obtiene inscripciones opcionalmente filtradas por periodo academico y/o estado (query params)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado de inscripciones",
                     content = @Content(mediaType = "application/json",
@@ -88,7 +89,15 @@ public class InscripcionController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<Inscripcion>> listar(@RequestBody(required = false) ListarInscripcionesFiltroDto filtro) {
+    public ResponseEntity<List<Inscripcion>> listar(
+            @RequestParam(required = false) String periodoAcademico,
+            @RequestParam(required = false) String estado) {
+        // Antes este filtro llegaba por @RequestBody en un GET: casi ningun cliente HTTP
+        // (fetch incluido) manda cuerpo en un GET, asi que el filtro nunca llegaba.
+        // Query params es lo estandar para un listado filtrable por GET.
+        ListarInscripcionesFiltroDto filtro = (periodoAcademico != null || estado != null)
+                ? new ListarInscripcionesFiltroDto(periodoAcademico, estado)
+                : null;
         return ResponseEntity.ok(listarUseCase.listar(filtro));
     }
 

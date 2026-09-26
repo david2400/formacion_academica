@@ -64,6 +64,12 @@ public class EstudianteService implements CrearEstudianteUseCase,
     }
 
     @Override
+    public Estudiante consultarPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+        return repositoryPort.obtenerPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento)
+                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
+    }
+
+    @Override
     public List<Estudiante> listar() {
         return repositoryPort.listar();
     }

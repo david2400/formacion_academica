@@ -6,6 +6,7 @@ import com.kleverkids.formacion_academica.modules.estructura_institucion.applica
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.EliminarEstudianteGrupoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudianteGruposUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarEstudiantesPorGrupoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.estudiante_grupo.ListarAsignacionesPorEstudianteUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.AsignarEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.estudiante_grupo.CambiarEstadoEstudianteGrupoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.EstudianteGrupo;
@@ -50,19 +51,22 @@ public class EstudianteGrupoController {
     private final EliminarEstudianteGrupoUseCase eliminarUseCase;
     private final ListarEstudiantesPorGrupoUseCase listarPorGrupoUseCase;
     private final ListarEstudianteGruposUseCase listarTodosUseCase;
+    private final ListarAsignacionesPorEstudianteUseCase listarPorEstudianteUseCase;
 
     public EstudianteGrupoController(AsignarEstudianteGrupoUseCase asignarUseCase,
             CambiarEstadoEstudianteGrupoUseCase cambiarEstadoUseCase,
             ConsultarEstudianteGrupoUseCase consultarUseCase,
             EliminarEstudianteGrupoUseCase eliminarUseCase,
             ListarEstudiantesPorGrupoUseCase listarPorGrupoUseCase,
-            ListarEstudianteGruposUseCase listarTodosUseCase) {
+            ListarEstudianteGruposUseCase listarTodosUseCase,
+            ListarAsignacionesPorEstudianteUseCase listarPorEstudianteUseCase) {
         this.asignarUseCase = asignarUseCase;
         this.cambiarEstadoUseCase = cambiarEstadoUseCase;
         this.consultarUseCase = consultarUseCase;
         this.eliminarUseCase = eliminarUseCase;
         this.listarPorGrupoUseCase = listarPorGrupoUseCase;
         this.listarTodosUseCase = listarTodosUseCase;
+        this.listarPorEstudianteUseCase = listarPorEstudianteUseCase;
     }
 
     @Operation(summary = "Asignar estudiante a grupo", description = "Crea la asignación con el estado inicial parametrizado para el contexto. "
@@ -107,6 +111,16 @@ public class EstudianteGrupoController {
     @GetMapping("/grupo/{grupoId}")
     public ResponseEntity<List<EstudianteGrupo>> listarPorGrupo(@PathVariable Long grupoId) {
         return ResponseEntity.ok(listarPorGrupoUseCase.listar(grupoId));
+    }
+
+    @Operation(summary = "Listar asignaciones de un estudiante", description = "Obtiene todas las asignaciones (de cualquier grupo y estado) de un estudiante. Se usa, por ejemplo, para detectar si ya tiene un grupo activo antes de asignarlo a otro.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Asignaciones del estudiante", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EstudianteGrupo.class)))),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @GetMapping("/estudiante/{estudianteId}")
+    public ResponseEntity<List<EstudianteGrupo>> listarPorEstudiante(@PathVariable Long estudianteId) {
+        return ResponseEntity.ok(listarPorEstudianteUseCase.listarPorEstudiante(estudianteId));
     }
 
     @Operation(summary = "Cambiar estado", description = "Actualiza el estado de la asignación. El estado debe estar habilitado "

@@ -14,6 +14,9 @@ public interface EstudianteGrupoRepositoryPort {
 
     List<EstudianteGrupo> listarPorGrupo(Long grupoId);
 
+    /** Todas las asignaciones (de cualquier grupo y estado) de un estudiante. */
+    List<EstudianteGrupo> listarPorEstudiante(Long estudianteId);
+
     EstudianteGrupo consultarPorId(Long estudianteGrupoId);
 
     void eliminar(Long estudianteGrupoId);

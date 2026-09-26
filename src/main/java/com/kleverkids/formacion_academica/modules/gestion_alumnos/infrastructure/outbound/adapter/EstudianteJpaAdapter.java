@@ -42,6 +42,12 @@ public class EstudianteJpaAdapter implements EstudianteRepositoryPort {
     }
 
     @Override
+    public Optional<Estudiante> obtenerPorTipoYNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+        return estudianteJpaRepository.findByTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento)
+                .map(estudianteMapper::toDomainModel);
+    }
+
+    @Override
     public List<Estudiante> listar() {
         return estudianteMapper.toDomainModelList(estudianteJpaRepository.findByEliminadoFalse());
     }

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -100,6 +101,22 @@ public class EstudianteController {
     @GetMapping("/{estudianteId}")
     public ResponseEntity<Estudiante> consultar(@PathVariable Long estudianteId) {
         return ResponseEntity.ok(consultarUseCase.consultarPorId(estudianteId));
+    }
+
+    @Operation(summary = "Buscar estudiante por tipo y número de documento",
+            description = "Busca un estudiante existente por su tipo y número de documento (por ejemplo, para "
+                    + "asignarlo a un grupo sin duplicarlo)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Estudiante encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Estudiante.class))),
+            @ApiResponse(responseCode = "400", description = "No existe un estudiante con ese documento", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @GetMapping("/buscar")
+    public ResponseEntity<Estudiante> buscarPorTipoYNumeroDocumento(@RequestParam String tipoDocumento,
+                                                                       @RequestParam String numeroDocumento) {
+        return ResponseEntity.ok(consultarUseCase.consultarPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento));
     }
 
     @Operation(summary = "Listar estudiantes", description = "Obtiene el catálogo completo de estudiantes")
