@@ -29,7 +29,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ExamenService implements
-        ConsultarExamenUseCase, ActualizarExamenUseCase,
+        ConsultarExamenUseCase, ActualizarExamenUseCase, ActualizarInfoBasicaExamenUseCase,
+        ConsultarInfoBasicaExamenUseCase,
         EliminarExamenUseCase, IniciarExamenUseCase, EnviarExamenUseCase,
         CalificarExamenUseCase, ObtenerResultadosExamenUseCase, CrearExamenUseCase,
         RegistrarCalificacionPersonalizadaUseCase,
@@ -47,10 +48,32 @@ public class ExamenService implements
     }
 
     @Override
+    public Examen actualizarInfoBasica(Long id, ActualizarInfoBasicaExamenDto request) {
+        log.info("Actualizando información básica del examen ID: {}", id);
+        return examenRepository.actualizarInfoBasica(id, request);
+    }
+
+    @Override
+    public Examen consultarInfoBasica(Long id) {
+        log.info("Consultando información básica del examen ID: {}", id);
+        return examenRepository.findById(id)
+                .orElseThrow(() -> new ExamNotFoundException(id));
+    }
+
+    @Override
     public ExamResponse consultarPorId(Long id) {
         log.info("Consultando examen por ID: {}", id);
-        Exam exam = examenRepository.findExamById(id)
+        // findExamById (agregado Exam) nunca se conectó a la base de datos y
+        // siempre devuelve empty -mismo motivo que buscar() de arriba-, así
+        // que esto se arma desde el camino legado (Examen), igual que
+        // searchExams en ExamenJpaAdapter. code queda "" a propósito: el
+        // resto del contrato de ExamResponse asume que nunca es null.
+        Examen examen = examenRepository.findById(id)
                 .orElseThrow(() -> new ExamNotFoundException(id));
+        Exam exam = new Exam();
+        exam.setId(examen.getId());
+        exam.setName(examen.getNombre());
+        exam.setCode("");
         return ExamResponse.fromDomain(exam);
     }
 

@@ -5,10 +5,14 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.e
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.examen.Examen;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ReglaCalificacionDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.RegistrarCalificacionPersonalizadaDto;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.examen.ActualizarInfoBasicaExamenDto;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.CalificacionPersonalizadaEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.ExamenEntity;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,4 +30,7 @@ public interface ExamenMapper {
     CalificacionPersonalizadaEntity toCalificacionEntity(RegistrarCalificacionPersonalizadaDto dto);
 
     CalificacionPersonalizadaDto toCalificacionDto(CalificacionPersonalizadaEntity entity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void applyInfoBasica(@MappingTarget ExamenEntity entity, ActualizarInfoBasicaExamenDto dto);
 }

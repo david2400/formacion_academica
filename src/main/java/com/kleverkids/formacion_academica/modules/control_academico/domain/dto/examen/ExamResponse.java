@@ -19,6 +19,11 @@ import lombok.experimental.Accessors;
 public class ExamResponse {
     private Long id;
     private String name;
+    // Alias de "name" en español: el frontend (IExam, exam-manager.tsx) lee
+    // "nombre" -convención del resto del contrato de control_academico- y
+    // hace exam.nombre.toLowerCase() sin chequear null, así que tiene que
+    // venir siempre poblado, no solo "name".
+    private String nombre;
     private String code;
     private String subject;
     private String gradeLevel;
@@ -34,6 +39,7 @@ public class ExamResponse {
 public static ExamResponse fromDomain(Exam exam) {
         return new ExamResponse(
             exam.getId(),
+            exam.getName(),
             exam.getName(),
             exam.getCode(),
             exam.getSubject(),

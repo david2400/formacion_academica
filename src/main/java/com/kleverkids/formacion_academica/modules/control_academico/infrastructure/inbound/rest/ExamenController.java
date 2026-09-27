@@ -32,6 +32,8 @@ public class ExamenController {
     private final CrearExamenUseCase crearExamenUseCase;
     private final ConsultarExamenUseCase consultarExamenUseCase;
     private final ActualizarExamenUseCase actualizarExamenUseCase;
+    private final ActualizarInfoBasicaExamenUseCase actualizarInfoBasicaExamenUseCase;
+    private final ConsultarInfoBasicaExamenUseCase consultarInfoBasicaExamenUseCase;
     private final EliminarExamenUseCase eliminarExamenUseCase;
     private final BuscarExamenesUseCase buscarExamenesUseCase;
     private final IniciarExamenUseCase iniciarExamenUseCase;
@@ -79,6 +81,44 @@ public class ExamenController {
     @PutMapping("/{examenId}")
     public ResponseEntity<ExamResponse> actualizar(@PathVariable Long examenId, @Valid @RequestBody UpdateExamCommand command) {
         return ResponseEntity.ok(actualizarExamenUseCase.actualizar(examenId, command));
+    }
+    
+    @Operation(summary = "Actualizar información básica", description = """
+            Actualiza nombre y/o descripción de un examen ya creado, sin afectar
+            preguntas, criterios ni temáticas asignadas. A diferencia de PUT
+            /{examenId} (que depende del agregado en transición y hoy no
+            persiste), esta actualización parcial sí se guarda en la base de
+            datos.""")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Examen actualizado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Examen.class))),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Examen no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @PatchMapping("/{examenId}")
+    public ResponseEntity<Examen> actualizarInfoBasica(@PathVariable Long examenId,
+                                                        @Valid @RequestBody ActualizarInfoBasicaExamenDto request) {
+        return ResponseEntity.ok(actualizarInfoBasicaExamenUseCase.actualizarInfoBasica(examenId, request));
+    }
+    
+    @Operation(summary = "Consultar información básica", description = """
+            Obtiene nombre y descripción de un examen por el camino legado
+            (Examen/ExamenEntity), el único que persiste realmente hoy. Útil
+            para precargar el paso 1 del wizard al volver a editar los datos
+            básicos, sin depender de GET /{examenId} (que sí depende del
+            agregado Exam, todavía no conectado a la base de datos).""")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Examen encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Examen.class))),
+            @ApiResponse(responseCode = "404", description = "Examen no encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
+    })
+    @GetMapping("/{examenId}/info-basica")
+    public ResponseEntity<Examen> consultarInfoBasica(@PathVariable Long examenId) {
+        return ResponseEntity.ok(consultarInfoBasicaExamenUseCase.consultarInfoBasica(examenId));
     }
     
     @Operation(summary = "Eliminar examen", description = "Elimina un examen")

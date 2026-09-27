@@ -17,12 +17,12 @@ public class ExamSearchCriteria {
 public ExamSearchCriteria(String status, String subject, String gradeLevel, String searchText, Boolean includeDeleted) {
         if (includeDeleted == null) {
             includeDeleted = false;
+        }
         this.status = status;
         this.subject = subject;
         this.gradeLevel = gradeLevel;
         this.searchText = searchText;
         this.includeDeleted = includeDeleted;
-    }
     }
 
 }

@@ -14,6 +14,7 @@ public class Examen {
     private Long id;
     private Long claseId;
     private String nombre;
+    private String descripcion;
     private LocalDate fecha;
     private List<ReglaCalificacion> reglasCalificacion;
 
