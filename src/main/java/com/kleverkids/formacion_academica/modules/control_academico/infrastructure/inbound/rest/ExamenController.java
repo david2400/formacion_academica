@@ -141,6 +141,7 @@ public class ExamenController {
             - subject: Filtra por materia
             - gradeLevel: Filtra por nivel de grado
             - searchText: Búsqueda por texto en título o descripción
+            - tematicaId: Filtra por temática asignada al examen
             - includeDeleted: Incluir exámenes eliminados (default: false)
             - page: Número de página (default: 0)
             - size: Tamaño de página (default: 20)
@@ -173,13 +174,14 @@ public class ExamenController {
             @RequestParam(required = false) String subject,
             @RequestParam(required = false) String gradeLevel,
             @RequestParam(required = false) String searchText,
+            @RequestParam(required = false) Long tematicaId,
             @RequestParam(required = false, defaultValue = "false") Boolean includeDeleted,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "createdAt,desc") String[] sort) {
         
-        log.info("Listando exámenes - Filtros: status={}, subject={}, gradeLevel={}, searchText={}, includeDeleted={}, page={}, size={}", 
-            status, subject, gradeLevel, searchText, includeDeleted, page, size);
+        log.info("Listando exámenes - Filtros: status={}, subject={}, gradeLevel={}, searchText={}, tematicaId={}, includeDeleted={}, page={}, size={}", 
+            status, subject, gradeLevel, searchText, tematicaId, includeDeleted, page, size);
         
         // Construir criterios de búsqueda
         ExamSearchCriteria criterios = new ExamSearchCriteria(
@@ -187,7 +189,8 @@ public class ExamenController {
             subject,
             gradeLevel,
             searchText,
-            includeDeleted
+            includeDeleted,
+            tematicaId
         );
         
         // Construir Pageable

@@ -21,6 +21,9 @@ public class FiltroClasesDto {
 
     private EstadoClase estado;
 
+    /** Filtra por el grupo (estructura_institucion.grupos) de la clase. */
+    private Long grupoId;
+
     /** Filtra por el día de fecha_inicio, inclusive. */
     private LocalDate desde;
 
@@ -30,6 +33,7 @@ public class FiltroClasesDto {
     public boolean estaVacio() {
         return (texto == null || texto.isBlank())
                 && estado == null
+                && grupoId == null
                 && desde == null
                 && hasta == null;
     }

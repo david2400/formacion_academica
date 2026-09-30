@@ -21,6 +21,7 @@ public class Clase {
     private LocalDateTime fechaFin;
     private List<Long> profesoresIds;
     private Long tipoClaseId;
+    private Long grupoId;
     private EstadoClase estado;
     /** Bitácora de la clase, en orden cronológico. */
     private List<ObservacionClase> observaciones;

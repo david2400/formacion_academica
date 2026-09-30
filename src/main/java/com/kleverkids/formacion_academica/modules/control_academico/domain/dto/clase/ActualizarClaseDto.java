@@ -30,6 +30,9 @@ public class ActualizarClaseDto {
     /** Tipo de clase del catálogo (tipos_clase). Opcional. */
     private Long tipoClaseId;
 
+    /** Grupo (estructura_institucion.grupos) al que pertenece la clase. Opcional. */
+    private Long grupoId;
+
     private EstadoClase estado;
 
     /**

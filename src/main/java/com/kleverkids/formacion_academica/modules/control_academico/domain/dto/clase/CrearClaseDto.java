@@ -31,6 +31,9 @@ public class CrearClaseDto {
     /** Tipo de clase del catálogo (tipos_clase). Opcional. */
     private Long tipoClaseId;
 
+    /** Grupo (estructura_institucion.grupos) al que pertenece la clase. Opcional. */
+    private Long grupoId;
+
     /** Si no se envía, la clase se crea como PROGRAMADA. */
     private EstadoClase estado;
 

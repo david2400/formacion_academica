@@ -24,6 +24,13 @@ public class Estudiante {
     private String telefono;
     private String direccion;
 
+    private String paisResidenciaId;
+    private String departamentoResidenciaId;
+    private String ciudadResidenciaId;
+    private String paisNacimientoId;
+    private String departamentoNacimientoId;
+    private String ciudadNacimientoId;
+
     /**
      * Hash de la contraseña propia del estudiante (login con documento +
      * contraseña, sin depender de un User en access_control). Nunca se

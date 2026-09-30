@@ -13,8 +13,13 @@ public class ExamSearchCriteria {
     private String gradeLevel;
     private String searchText;
     private Boolean includeDeleted;
+    // Filtra por la temática asignada al examen (examenes_tematicas.tematica_id),
+    // ver ExamenJpaAdapter#searchExams. No es un campo del examen en sí -el
+    // modelo legado (ExamenEntity) no tiene tema/materia propios-, sino de la
+    // relación N:M examen<->temática.
+    private Long tematicaId;
 
-public ExamSearchCriteria(String status, String subject, String gradeLevel, String searchText, Boolean includeDeleted) {
+public ExamSearchCriteria(String status, String subject, String gradeLevel, String searchText, Boolean includeDeleted, Long tematicaId) {
         if (includeDeleted == null) {
             includeDeleted = false;
         }
@@ -23,6 +28,7 @@ public ExamSearchCriteria(String status, String subject, String gradeLevel, Stri
         this.gradeLevel = gradeLevel;
         this.searchText = searchText;
         this.includeDeleted = includeDeleted;
+        this.tematicaId = tematicaId;
     }
 
 }

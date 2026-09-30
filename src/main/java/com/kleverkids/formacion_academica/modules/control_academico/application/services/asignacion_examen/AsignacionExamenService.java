@@ -2,6 +2,8 @@ package com.kleverkids.formacion_academica.modules.control_academico.application
 
 import com.kleverkids.formacion_academica.modules.control_academico.application.input.asignacion_examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.application.output.asignacion_examen.AsignacionExamenRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.examen.ExamenRepositoryPort;
+import com.kleverkids.formacion_academica.modules.control_academico.application.output.clase.ClaseRepositoryPort;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.asignacion_examen.*;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.AsignacionExamenMapper;
@@ -26,6 +28,8 @@ public class AsignacionExamenService implements
     
     private final AsignacionExamenRepositoryPort repository;
     private final AsignacionExamenMapper mapper;
+    private final ExamenRepositoryPort examenRepositoryPort;
+    private final ClaseRepositoryPort claseRepositoryPort;
     
     @Override
     @Transactional
@@ -51,7 +55,7 @@ public class AsignacionExamenService implements
         log.info("Asignación de examen creada con ID: {}", entity.getId());
         
         // TODO: Obtener nombres de examen y clase
-        return mapper.toDto(entity, "", "");
+        return mapper.toDto(entity, resolverNombreExamen(entity.getExamenId()), resolverNombreClase(entity.getClaseId()));
     }
     
     @Override
@@ -97,7 +101,7 @@ public class AsignacionExamenService implements
         
         log.info("Asignación de examen actualizada: {}", id);
         
-        return mapper.toDto(entity, "", "");
+        return mapper.toDto(entity, resolverNombreExamen(entity.getExamenId()), resolverNombreClase(entity.getClaseId()));
     }
     
     @Override
@@ -108,7 +112,7 @@ public class AsignacionExamenService implements
         AsignacionExamenEntity entity = repository.findById(id)
             .orElseThrow(() -> new AsignacionExamenNotFoundException(id));
         
-        return mapper.toDto(entity, "", "");
+        return mapper.toDto(entity, resolverNombreExamen(entity.getExamenId()), resolverNombreClase(entity.getClaseId()));
     }
     
     @Override
@@ -121,7 +125,7 @@ public class AsignacionExamenService implements
             pageable
         );
         
-        return entities.map(entity -> mapper.toDto(entity, "", ""));
+        return entities.map(entity -> mapper.toDto(entity, resolverNombreExamen(entity.getExamenId()), resolverNombreClase(entity.getClaseId())));
     }
     
     @Override
@@ -151,9 +155,21 @@ public class AsignacionExamenService implements
         
         log.info("Estado de asignación cambiado: {} -> {}", id, nuevoEstado);
         
-        return mapper.toDto(entity, "", "");
+        return mapper.toDto(entity, resolverNombreExamen(entity.getExamenId()), resolverNombreClase(entity.getClaseId()));
     }
     
+    private String resolverNombreExamen(Long examenId) {
+        return examenRepositoryPort.findById(examenId)
+            .map(examen -> examen.getNombre())
+            .orElse("");
+    }
+
+    private String resolverNombreClase(Long claseId) {
+        return claseRepositoryPort.obtenerPorId(claseId)
+            .map(clase -> clase.getNombre())
+            .orElse("");
+    }
+
     private void validarFechas(java.time.LocalDateTime inicio, java.time.LocalDateTime fin) {
         if (inicio.isAfter(fin)) {
             throw new FechasInvalidasException();

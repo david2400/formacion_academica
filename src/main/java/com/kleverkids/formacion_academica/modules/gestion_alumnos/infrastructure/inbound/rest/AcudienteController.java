@@ -70,7 +70,7 @@ public class AcudienteController {
             @ApiResponse(responseCode = "500", description = "Error interno", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<Acudiente> crear(@RequestBody CrearAcudienteDto request) {
+    public ResponseEntity<Acudiente> crear(@Valid @RequestBody CrearAcudienteDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(crearUseCase.crear(request));
     }
 
@@ -85,7 +85,7 @@ public class AcudienteController {
     })
     @PutMapping("/{acudienteId}")
     public ResponseEntity<Acudiente> actualizar(@PathVariable Long acudienteId,
-                                                   @RequestBody ActualizarAcudienteDto request) {
+                                                   @Valid @RequestBody ActualizarAcudienteDto request) {
 
         return ResponseEntity.ok(actualizarUseCase.actualizar(request));
     }

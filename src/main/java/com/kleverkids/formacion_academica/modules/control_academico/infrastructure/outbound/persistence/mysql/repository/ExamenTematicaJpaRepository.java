@@ -10,6 +10,11 @@ public interface ExamenTematicaJpaRepository extends JpaRepository<ExamenTematic
 
     List<ExamenTematicaEntity> findByExamenId(Long examenId);
 
+    // Usado por ExamenJpaAdapter#searchExams para el filtro tematicaId del
+    // listado GET /examenes: da los examenId asignados a esa temática, sobre
+    // los que luego se pagina con ExamenJpaRepository#findByIdIn.
+    List<ExamenTematicaEntity> findByTematicaId(Long tematicaId);
+
     Optional<ExamenTematicaEntity> findByExamenIdAndTematicaId(Long examenId, Long tematicaId);
 
     boolean existsByExamenIdAndTematicaId(Long examenId, Long tematicaId);

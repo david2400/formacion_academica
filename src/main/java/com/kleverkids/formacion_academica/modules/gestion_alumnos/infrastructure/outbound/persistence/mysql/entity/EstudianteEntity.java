@@ -57,6 +57,24 @@ public class EstudianteEntity extends AuditInfo {
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
+    @Column(name = "pais_residencia_id", length = 50)
+    private String paisResidenciaId;
+
+    @Column(name = "departamento_residencia_id", length = 50)
+    private String departamentoResidenciaId;
+
+    @Column(name = "ciudad_residencia_id", length = 50)
+    private String ciudadResidenciaId;
+
+    @Column(name = "pais_nacimiento_id", length = 50)
+    private String paisNacimientoId;
+
+    @Column(name = "departamento_nacimiento_id", length = 50)
+    private String departamentoNacimientoId;
+
+    @Column(name = "ciudad_nacimiento_id", length = 50)
+    private String ciudadNacimientoId;
+
     @Column(name = "empresa_id")
     private Long empresaId;
 

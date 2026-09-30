@@ -114,6 +114,7 @@ public class ClaseJpaAdapter implements ClaseRepositoryPort {
         existing.setFechaFin(clase.getFechaFin() != null ? clase.getFechaFin() : clase.getFechaInicio());
         existing.setProfesoresIds(clase.getProfesoresIds());
         existing.setTipoClaseId(clase.getTipoClaseId());
+        existing.setGrupoId(clase.getGrupoId());
         if (clase.getEstado() != null) {
             existing.setEstado(clase.getEstado());
         }

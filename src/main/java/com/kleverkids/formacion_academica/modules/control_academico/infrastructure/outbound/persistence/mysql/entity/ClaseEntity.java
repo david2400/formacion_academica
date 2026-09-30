@@ -61,6 +61,16 @@ public class ClaseEntity extends AuditInfo {
     @Column(name = "tipo_clase_id")
     private Long tipoClaseId;
 
+    /**
+     * Grupo (estructura_institucion.grupos) al que pertenece la clase. Sin FK
+     * real: estructura_institucion es otro módulo/bounded context, igual que
+     * el resto de referencias cruzadas de esta app (ver estadoId en Grupo).
+     * Opcional porque las clases existentes no lo tienen y no todas las
+     * clases están necesariamente ligadas a un grupo formal.
+     */
+    @Column(name = "grupo_id")
+    private Long grupoId;
+
     /** Seguimiento: si la clase se dictó, sigue programada o fue cancelada. */
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", length = 20)

@@ -30,6 +30,10 @@ public final class ClaseSpecifications {
                 predicados.add(cb.equal(root.get("estado"), filtro.getEstado()));
             }
 
+            if (filtro.getGrupoId() != null) {
+                predicados.add(cb.equal(root.get("grupoId"), filtro.getGrupoId()));
+            }
+
             // fecha_inicio es DATETIME: se compara contra el inicio y el fin del día
             // para que el rango sea inclusivo en ambos extremos.
             if (filtro.getDesde() != null) {

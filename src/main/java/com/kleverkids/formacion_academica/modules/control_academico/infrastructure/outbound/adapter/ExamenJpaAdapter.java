@@ -12,9 +12,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.model
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.ExamenEntity;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.mappers.ExamenMapper;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.ExamenJpaRepository;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.ExamenTematicaEntity;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.ExamenTematicaJpaRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +34,7 @@ import java.util.Optional;
 public class ExamenJpaAdapter implements ExamenRepositoryPort {
 
     private final ExamenJpaRepository examenJpaRepository;
+    private final ExamenTematicaJpaRepository examenTematicaJpaRepository;
     private final ExamenMapper examenMapper;
 
     @Override
@@ -135,9 +139,22 @@ public class ExamenJpaAdapter implements ExamenRepositoryPort {
         // vacíos porque el modelo legado no los tiene (las asignaciones
         // reales viven en examen_criterio/examen_pregunta/examen_tematica).
         String searchText = criteria != null ? criteria.getSearchText() : null;
-        Page<ExamenEntity> page = (searchText != null && !searchText.isBlank())
-                ? examenJpaRepository.findByNombreContainingIgnoreCase(searchText, pageable)
-                : examenJpaRepository.findAll(pageable);
+        Long tematicaId = criteria != null ? criteria.getTematicaId() : null;
+
+        Page<ExamenEntity> page;
+        if (tematicaId != null) {
+            // El modelo legado no tiene tema propio: el filtro va por la
+            // relación examenes_tematicas. searchText no se combina acá -no
+            // hay un caso de uso hoy que pida ambos a la vez-.
+            List<Long> examenIds = examenTematicaJpaRepository.findByTematicaId(tematicaId).stream()
+                    .map(ExamenTematicaEntity::getExamenId)
+                    .toList();
+            page = examenIds.isEmpty() ? Page.empty(pageable) : examenJpaRepository.findByIdIn(examenIds, pageable);
+        } else if (searchText != null && !searchText.isBlank()) {
+            page = examenJpaRepository.findByNombreContainingIgnoreCase(searchText, pageable);
+        } else {
+            page = examenJpaRepository.findAll(pageable);
+        }
 
         return page.map(entity -> {
             Exam exam = new Exam();

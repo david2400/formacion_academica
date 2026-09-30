@@ -108,6 +108,7 @@ public class ClaseController {
                     Devuelve las clases aplicando filtros opcionales:
                     - texto: coincidencia parcial sobre nombre o código
                     - estado: programada | dictada | cancelada
+                    - grupoId: filtra por el grupo (estructura_institucion.grupos) de la clase
                     - desde / hasta: rango de días sobre fecha_inicio (inclusivo)
 
                     Sin filtros devuelve todas las clases.
@@ -122,10 +123,11 @@ public class ClaseController {
     public ResponseEntity<List<Clase>> listarClases(
             @RequestParam(required = false) String texto,
             @RequestParam(required = false) EstadoClase estado,
+            @RequestParam(required = false) Long grupoId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
 
-        FiltroClasesDto filtro = new FiltroClasesDto(texto, estado, desde, hasta);
+        FiltroClasesDto filtro = new FiltroClasesDto(texto, estado, grupoId, desde, hasta);
         return ResponseEntity.ok(listarClasesUseCase.buscar(filtro));
     }
 

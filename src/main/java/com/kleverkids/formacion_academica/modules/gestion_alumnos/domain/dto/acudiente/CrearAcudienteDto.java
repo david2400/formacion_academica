@@ -3,6 +3,7 @@ package com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.ac
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,31 @@ public class CrearAcudienteDto {
 
     @Email(message = "El correo debe ser válido")
     private String correo;
+
+    @NotBlank(message = "El país de residencia es obligatorio")
+    @Size(max = 50, message = "El país de residencia no puede exceder 50 caracteres")
+    private String paisResidenciaId;
+
+    @NotBlank(message = "El departamento de residencia es obligatorio")
+    @Size(max = 50, message = "El departamento de residencia no puede exceder 50 caracteres")
+    private String departamentoResidenciaId;
+
+    @NotBlank(message = "La ciudad de residencia es obligatoria")
+    @Size(max = 50, message = "La ciudad de residencia no puede exceder 50 caracteres")
+    private String ciudadResidenciaId;
+
+    @NotBlank(message = "El país de nacimiento es obligatorio")
+    @Size(max = 50, message = "El país de nacimiento no puede exceder 50 caracteres")
+    private String paisNacimientoId;
+
+    @NotBlank(message = "El departamento de nacimiento es obligatorio")
+    @Size(max = 50, message = "El departamento de nacimiento no puede exceder 50 caracteres")
+    private String departamentoNacimientoId;
+
+    @NotBlank(message = "La ciudad de nacimiento es obligatoria")
+    @Size(max = 50, message = "La ciudad de nacimiento no puede exceder 50 caracteres")
+    private String ciudadNacimientoId;
+
     /**
      * Empresa (tenant) a la que pertenece este acudiente. Si existe una
      * persona en access_control con el documento indicado, el servicio valida

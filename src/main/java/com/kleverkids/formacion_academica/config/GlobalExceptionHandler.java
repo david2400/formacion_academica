@@ -5,6 +5,9 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.PreguntaNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TematicaNotFoundException;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.TipoPreguntaInmutableException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.AsignacionExamenNotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.AsignacionDuplicadaException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.FechasInvalidasException;
 import com.kleverkids.formacion_academica.modules.estados.domain.exception.MotorEstadosException;
 import com.kleverkids.formacion_academica.shared.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,6 +65,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExamNotFoundException.class)
     public ResponseEntity<ProblemDetail> handleExamNotFound(ExamNotFoundException ex, HttpServletRequest request) {
         return notFound(ex, request);
+    }
+
+    @ExceptionHandler(AsignacionExamenNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleAsignacionExamenNotFound(AsignacionExamenNotFoundException ex, HttpServletRequest request) {
+        log.warn("Asignación de examen no encontrada: {}", ex.getMessage());
+        return notFound(ex, request);
+    }
+
+    @ExceptionHandler(AsignacionDuplicadaException.class)
+    public ResponseEntity<ProblemDetail> handleAsignacionDuplicada(AsignacionDuplicadaException ex, HttpServletRequest request) {
+        log.warn("Asignación de examen duplicada: {}", ex.getMessage());
+        return badRequest(ex, request);
+    }
+
+    @ExceptionHandler(FechasInvalidasException.class)
+    public ResponseEntity<ProblemDetail> handleFechasInvalidas(FechasInvalidasException ex, HttpServletRequest request) {
+        log.warn("Fechas inválidas en asignación de examen: {}", ex.getMessage());
+        return badRequest(ex, request);
     }
 
     @ExceptionHandler(NotFoundException.class)
