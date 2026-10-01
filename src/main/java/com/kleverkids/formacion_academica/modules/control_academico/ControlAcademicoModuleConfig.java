@@ -2,6 +2,11 @@ package com.kleverkids.formacion_academica.modules.control_academico;
 
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.pregunta.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.activity.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.learning_sequence.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.learning_assignment.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.activity_attempt.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.student_progress.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.*;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
@@ -11,7 +16,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EntityScan(basePackageClasses = {
-        ActividadEntity.class,
+        ActivityTypeDefinitionEntity.class,
+        ActivityEntity.class,
+        ActivityVersionEntity.class,
+        ActivityContentItemEntity.class,
+        LearningSequenceEntity.class,
+        LearningSequenceVersionEntity.class,
+        LearningSequenceItemEntity.class,
+        ActivityDependencyRuleEntity.class,
+        LearningAssignmentEntity.class,
+        ActivityAttemptEntity.class,
+        ActivityAttemptAnswerEntity.class,
+        StudentSequenceProgressEntity.class,
         AsistenciaEntity.class,
         CalificacionPersonalizadaEntity.class,
         ClaseEntity.class,
@@ -45,7 +61,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         ResultadoPreguntaEmbeddable.class
 })
 @EnableJpaRepositories(basePackageClasses = {
-        ActividadJpaRepository.class,
+        ActivityTypeDefinitionJpaRepository.class,
+        ActivityJpaRepository.class,
+        ActivityVersionJpaRepository.class,
+        ActivityContentItemJpaRepository.class,
+        LearningSequenceJpaRepository.class,
+        LearningSequenceVersionJpaRepository.class,
+        LearningSequenceItemJpaRepository.class,
+        ActivityDependencyRuleJpaRepository.class,
+        LearningAssignmentJpaRepository.class,
+        ActivityAttemptJpaRepository.class,
+        ActivityAttemptAnswerJpaRepository.class,
+        StudentSequenceProgressJpaRepository.class,
         AsistenciaJpaRepository.class,
         CalificacionPersonalizadaJpaRepository.class,
         ClaseJpaRepository.class,
