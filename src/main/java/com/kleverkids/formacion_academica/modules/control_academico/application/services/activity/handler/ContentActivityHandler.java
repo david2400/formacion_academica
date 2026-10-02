@@ -11,20 +11,23 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Actividad de contenido de lectura/texto enriquecido. No tiene preguntas que
- * calificar: completarla es un acto de "consumir contenido", no de responder
- * — por eso siempre puede completarse y siempre se considera aprobada
- * (no existe el concepto de reprobar una lectura).
+ * Actividad de contenido de lectura/material (texto, video, embed o enlace).
+ * No tiene preguntas que calificar: completarla es un acto de "consumir
+ * contenido", no de responder — por eso siempre puede completarse y siempre
+ * se considera aprobada (no existe el concepto de reprobar una lectura).
+ * Acepta TEXT y/o EXTERNAL indistintamente: una actividad hecha solo de
+ * videos/embeds es igual de válida que una hecha solo de texto.
  */
 @Component("CONTENT")
 public class ContentActivityHandler implements ActivityHandler {
 
     @Override
     public void validarPublicacion(List<ActivityContentItem> contenido) {
-        boolean tieneTexto = contenido.stream().anyMatch(i -> i.getContentKind() == ContentKind.TEXT);
-        if (!tieneTexto) {
+        boolean tieneMaterial = contenido.stream()
+                .anyMatch(i -> i.getContentKind() == ContentKind.TEXT || i.getContentKind() == ContentKind.EXTERNAL);
+        if (!tieneMaterial) {
             throw new IllegalStateException(
-                    "Una actividad de contenido debe tener al menos un bloque de texto para poder publicarse");
+                    "Una actividad de contenido debe tener al menos un bloque de texto o contenido externo para poder publicarse");
         }
     }
 

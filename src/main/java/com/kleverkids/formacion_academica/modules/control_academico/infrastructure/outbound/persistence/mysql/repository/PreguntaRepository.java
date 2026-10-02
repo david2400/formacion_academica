@@ -12,6 +12,11 @@ import java.util.List;
 public interface PreguntaRepository extends JpaRepository<PreguntaEntity, Long> {
     
     List<PreguntaEntity> findByTemaId(Long temaId);
+
+    // Usado cuando una actividad tiene varias temáticas asignadas (ver
+    // ActivityTematicaEntity): el banco de preguntas se filtra por el
+    // conjunto, no por una sola, a diferencia de findByTemaId.
+    List<PreguntaEntity> findByTemaIdIn(java.util.List<Long> temaIds);
     
     @Query("SELECT p FROM PreguntaEntity p WHERE p.dificultad = :dificultad")
     List<PreguntaEntity> findByDificultad(@Param("dificultad") String dificultad);

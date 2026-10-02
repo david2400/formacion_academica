@@ -135,6 +135,11 @@ public class PreguntaService implements
     }
     
     private List<PreguntaEntity> buscarEntidades(CriterioBusquedaPregunta criterios) {
+        if (criterios.getTemaIds() != null && !criterios.getTemaIds().isEmpty()) {
+            log.debug("Buscando por temas ID: {}", criterios.getTemaIds());
+            return repository.findByTemaIdIn(criterios.getTemaIds());
+        }
+
         if (criterios.getTemaId() != null) {
             log.debug("Buscando por tema ID: {}", criterios.getTemaId());
             return repository.findByTemaId(criterios.getTemaId());

@@ -5,6 +5,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.ou
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante.EstudianteRepositoryPort;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.acudiente.CrearAcudienteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Acudiente;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.security.jwt.GestionAlumnosJwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,11 +48,14 @@ class AcudienteServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private GestionAlumnosJwtTokenProvider jwtTokenProvider;
+
     private AcudienteService acudienteService;
 
     @BeforeEach
     void setUp() {
-        acudienteService = new AcudienteService(acudienteRepositoryPort, estudianteRepositoryPort, cuentaUsuarioPort, passwordEncoder);
+        acudienteService = new AcudienteService(acudienteRepositoryPort, estudianteRepositoryPort, cuentaUsuarioPort, passwordEncoder, jwtTokenProvider);
     }
 
     @Test

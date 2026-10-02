@@ -31,6 +31,16 @@ public class ActivityContentItem {
     /** Contenido enriquecido acotado cuando contentKind=TEXT. */
     private Map<String, Object> texto;
 
+    /**
+     * Recurso de terceros cuando contentKind=EXTERNAL: {@code tipo}
+     * (VIDEO/EMBED/LINK), {@code url} (https), {@code titulo} y
+     * {@code descripcion} opcional. Mismo enfoque de JSON acotado que
+     * {@code texto}, sin modelar un tipo Java propio por lo mismo que
+     * {@code texto} no lo tiene: la forma es simple y no necesita validación
+     * de dominio rica, solo la validación de entrada ya aplicada al agregar.
+     */
+    private Map<String, Object> contenidoExterno;
+
     private BigDecimal puntos;
 
     private boolean eliminado;

@@ -12,6 +12,14 @@ public class CriterioBusquedaPregunta {
     private String tipoPregunta;
     private String dificultad;
     private Long temaId;
+    /**
+     * Alternativa a {@code temaId} para cuando se buscan preguntas que
+     * cubran cualquiera de varias temáticas a la vez (por ejemplo, las
+     * temáticas asignadas a una actividad vía ActivityTematicaEntity). Si
+     * viene con elementos, tiene prioridad sobre {@code temaId} -ver
+     * PreguntaService#buscarEntidades-.
+     */
+    private List<Long> temaIds;
     private List<String> etiquetas;
     private String textoBusqueda;
     private Boolean incluirEliminados;

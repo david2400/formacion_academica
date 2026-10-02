@@ -131,6 +131,7 @@ public class ActivityJpaAdapter implements ActivityRepositoryPort {
             itemSnapshot.put("contentKind", item.getContentKind().name());
             itemSnapshot.put("preguntaId", item.getPreguntaId());
             itemSnapshot.put("texto", item.getTexto());
+            itemSnapshot.put("contenidoExterno", item.getContenidoExterno());
             itemSnapshot.put("puntos", item.getPuntos());
             items.add(itemSnapshot);
         }
@@ -174,6 +175,7 @@ public class ActivityJpaAdapter implements ActivityRepositoryPort {
                     .contentKind(item.getContentKind())
                     .preguntaId(item.getPreguntaId())
                     .texto(item.getTexto())
+                    .contenidoExterno(item.getContenidoExterno())
                     .puntos(item.getPuntos())
                     .build();
             nuevoItem.setEliminado(false);
@@ -196,6 +198,8 @@ public class ActivityJpaAdapter implements ActivityRepositoryPort {
             }
         } else if (dto.getContentKind() == ContentKind.TEXT && dto.getTexto() == null) {
             throw new IllegalArgumentException("Debe indicar el contenido de texto a agregar");
+        } else if (dto.getContentKind() == ContentKind.EXTERNAL) {
+            validarContenidoExterno(dto.getContenidoExterno());
         }
 
         int siguienteOrden = activityContentItemJpaRepository.countByActivityId(activityId) + 1;
@@ -206,11 +210,42 @@ public class ActivityJpaAdapter implements ActivityRepositoryPort {
                 .contentKind(dto.getContentKind())
                 .preguntaId(dto.getPreguntaId())
                 .texto(dto.getTexto())
+                .contenidoExterno(dto.getContenidoExterno())
                 .puntos(dto.getPuntos())
                 .build();
         entity.setEliminado(false);
 
         return activityMapper.toDomainModel(activityContentItemJpaRepository.save(entity));
+    }
+
+    /** Valores válidos de "tipo" dentro del JSON de contenido externo. */
+    private static final java.util.Set<String> TIPOS_CONTENIDO_EXTERNO_VALIDOS =
+            java.util.Set.of("VIDEO", "EMBED", "LINK");
+
+    /**
+     * Validación de entrada para contentKind=EXTERNAL (video, embed o enlace
+     * de terceros). No valida contra un allowlist de dominios (no fue parte
+     * del alcance solicitado); sí exige esquema https como higiene mínima de
+     * seguridad — evita que un valor como {@code javascript:...} o una URL
+     * http sin cifrar termine en un iframe/enlace mostrado a estudiantes
+     * (CLAUDE.md §82/§83: la UX no sustituye seguridad, pero sí puede evitar
+     * los casos triviales).
+     */
+    private void validarContenidoExterno(java.util.Map<String, Object> contenidoExterno) {
+        if (contenidoExterno == null) {
+            throw new IllegalArgumentException("Debe indicar el contenido externo a agregar");
+        }
+        Object tipo = contenidoExterno.get("tipo");
+        if (!(tipo instanceof String) || !TIPOS_CONTENIDO_EXTERNO_VALIDOS.contains(tipo)) {
+            throw new IllegalArgumentException("El tipo de contenido externo debe ser VIDEO, EMBED o LINK");
+        }
+        Object url = contenidoExterno.get("url");
+        if (!(url instanceof String) || ((String) url).isBlank()) {
+            throw new IllegalArgumentException("Debe indicar la URL del contenido externo");
+        }
+        if (!((String) url).startsWith("https://")) {
+            throw new IllegalArgumentException("La URL del contenido externo debe ser segura (https)");
+        }
     }
 
     @Override

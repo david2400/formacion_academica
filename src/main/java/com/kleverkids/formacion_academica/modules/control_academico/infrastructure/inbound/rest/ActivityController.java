@@ -166,7 +166,7 @@ public class ActivityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(duplicarActivityUseCase.duplicar(activityId));
     }
 
-    @Operation(summary = "Agregar contenido", description = "Agrega una pregunta existente o un bloque de texto al final de la actividad")
+    @Operation(summary = "Agregar contenido", description = "Agrega una pregunta existente, un bloque de texto, o contenido externo (video, embed o enlace) al final de la actividad")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Contenido agregado",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ActivityContentItem.class))),

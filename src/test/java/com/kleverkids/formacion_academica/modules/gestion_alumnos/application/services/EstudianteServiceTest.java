@@ -4,6 +4,7 @@ import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.ou
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.output.estudiante.EstudianteRepositoryPort;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.estudiante.CrearEstudianteDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Estudiante;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.security.jwt.GestionAlumnosJwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,11 +44,14 @@ class EstudianteServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private GestionAlumnosJwtTokenProvider jwtTokenProvider;
+
     private EstudianteService estudianteService;
 
     @BeforeEach
     void setUp() {
-        estudianteService = new EstudianteService(repositoryPort, cuentaUsuarioPort, passwordEncoder);
+        estudianteService = new EstudianteService(repositoryPort, cuentaUsuarioPort, passwordEncoder, jwtTokenProvider);
     }
 
     private CrearEstudianteDto.CrearEstudianteDtoBuilder<?, ?> dtoBase() {

@@ -56,6 +56,11 @@ public class ActivityContentItemEntity extends AuditInfo {
     @Column(name = "texto", columnDefinition = "json")
     private Map<String, Object> texto;
 
+    /** Recurso de terceros cuando contentKind=EXTERNAL (ver ActivityContentItem). */
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "contenido_externo", columnDefinition = "json")
+    private Map<String, Object> contenidoExterno;
+
     @Column(name = "puntos", precision = 6, scale = 2)
     private BigDecimal puntos;
 }

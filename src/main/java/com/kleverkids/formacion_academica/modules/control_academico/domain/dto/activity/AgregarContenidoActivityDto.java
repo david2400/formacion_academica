@@ -27,5 +27,12 @@ public class AgregarContenidoActivityDto {
     /** Obligatorio cuando contentKind=TEXT. */
     private Map<String, Object> texto;
 
+    /**
+     * Obligatorio cuando contentKind=EXTERNAL: debe traer {@code tipo}
+     * (VIDEO|EMBED|LINK) y {@code url} (https) — validado en
+     * {@code ActivityJpaAdapter#agregarContenido}, igual que QUESTION/TEXT.
+     */
+    private Map<String, Object> contenidoExterno;
+
     private BigDecimal puntos;
 }

@@ -322,6 +322,7 @@ public class PreguntaController {
         description = """
             Busca preguntas aplicando filtros opcionales:
             - temaId: Filtra por tema
+            - temaIds: Filtra por varios temas a la vez (tiene prioridad sobre temaId); útil para el banco de preguntas de una actividad con varias temáticas asignadas
             - dificultad: Filtra por nivel de dificultad
             - tipoPregunta: Filtra por tipo de pregunta
             Si no se proporciona ningún filtro, devuelve todas las preguntas
@@ -339,12 +340,14 @@ public class PreguntaController {
     })
     public ResponseEntity<List<PreguntaDto>> buscar(
             @RequestParam(required = false) Long temaId,
+            @RequestParam(required = false) List<Long> temaIds,
             @RequestParam(required = false) String dificultad,
             @RequestParam(required = false) String tipoPregunta) {
         
         CriterioBusquedaPregunta criterios = new CriterioBusquedaPregunta(
             tipoPregunta, dificultad, temaId, null, null, false
         );
+        criterios.setTemaIds(temaIds);
         
         return ResponseEntity.ok(preguntaService.buscar(criterios));
     }
