@@ -268,6 +268,26 @@ public class ActivityJpaAdapter implements ActivityRepositoryPort {
 
         List<ActivityContentItemEntity> items =
                 activityContentItemJpaRepository.findByActivityIdOrderByOrdenAsc(activityId);
+
+        // activity_content_item tiene UNIQUE(activity_id, orden) real en BD (a
+        // diferencia de learning_sequence_item, que no lo tiene — ver nota en
+        // esa entidad). Escribir los `orden` finales en una sola pasada puede
+        // hacer que una fila tome, de forma transitoria, el `orden` que todavía
+        // tiene otra fila sin actualizar (p.ej. invertir el orden de la lista),
+        // y MySQL valida UNIQUE de inmediato por sentencia, no al final de la
+        // transacción: eso produce un 1062 "Duplicate entry" real (visto en
+        // producción). Se evita con una fase intermedia de `orden` temporales
+        // negativos, que nunca chocan ni entre sí ni con los `orden` finales
+        // (siempre positivos), seguida de la fase con los valores reales.
+        int temporal = -1;
+        for (ActivityContentItemEntity item : items) {
+            if (nuevosOrdenes.containsKey(item.getId())) {
+                item.setOrden(temporal--);
+            }
+        }
+        activityContentItemJpaRepository.saveAll(items);
+        activityContentItemJpaRepository.flush();
+
         for (ActivityContentItemEntity item : items) {
             Integer nuevoOrden = nuevosOrdenes.get(item.getId());
             if (nuevoOrden != null) {

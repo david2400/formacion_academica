@@ -27,6 +27,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.model
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.activity_type.ActivityTypeDefinition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -135,7 +136,13 @@ public class ActivityService implements CrearActivityUseCase,
     }
 
     @Override
+    @Transactional
     public List<ActivityContentItem> reordenar(Long activityId, ReordenarContenidoActivityDto request) {
+        // El adapter hace la actualización en dos fases (órdenes temporales
+        // negativos y luego los finales) para no chocar con el UNIQUE(activity_id,
+        // orden) real de la tabla — ver comentario en ActivityJpaAdapter#reordenar.
+        // Sin una transacción que envuelva ambas fases, un fallo entre la primera
+        // y la segunda dejaría los `orden` en sus valores temporales negativos.
         return activityRepositoryPort.reordenar(activityId, request);
     }
 
