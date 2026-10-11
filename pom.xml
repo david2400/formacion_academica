@@ -49,6 +49,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!-- Validacion de tokens de access_control (Fase 3). Instalar antes en el .m2 local:
+             cd ../essenza-security && mvn install -->
+        <dependency>
+            <groupId>com.essenza</groupId>
+            <artifactId>essenza-security</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!-- JWT propio de Estudiante/Acudiente (Etapa 5B) -->
         <!-- Misma version que ya usa access_control (jjwt-api/impl/jackson):
              no hay motivo para introducir una version distinta para el mismo

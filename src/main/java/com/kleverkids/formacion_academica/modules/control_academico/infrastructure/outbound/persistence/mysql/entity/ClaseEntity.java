@@ -13,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
@@ -31,7 +32,10 @@ import java.util.List;
 @Entity
 @SuperBuilder
 @NoArgsConstructor
-@Table(name = "clases")
+@Table(name = "clases", indexes = {
+        // Analítica de feedback y filtros del calendario por grupo/período.
+        @Index(name = "idx_clases_grupo_fecha", columnList = "grupo_id, fecha_inicio")
+})
 public class ClaseEntity extends AuditInfo {
 
     @Id
@@ -53,7 +57,9 @@ public class ClaseEntity extends AuditInfo {
     private LocalDateTime fechaFin;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"))
+    @CollectionTable(name = "clase_profesores", joinColumns = @JoinColumn(name = "clase_id"),
+            // Resultados de feedback "por docente": join desde profesor_id.
+            indexes = @Index(name = "idx_clase_profesores_profesor", columnList = "profesor_id, clase_id"))
     @Column(name = "profesor_id")
     private List<Long> profesoresIds;
 

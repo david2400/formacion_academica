@@ -34,39 +34,89 @@ import java.util.Optional;
  * seguir adelante. Dar por buena una validación que no se ejecutó sería peor que
  * rechazar la operación.
  *
- * <p>La lectura de la definición va contra las <b>vistas</b> {@code vw_sm_*}, que
- * son el contrato publicado. Las escrituras van contra las tablas, porque no hay
- * alternativa. Ojo: las tablas de configuración usan borrado lógico y Hibernate lo
- * aplica solo a sus propias consultas; aquí, en SQL nativo, el filtro
- * {@code deleted = 0} lo ponen las vistas.
+ * <p>Lectura y escritura van <b>directo contra las tablas</b> del motor
+ * ({@code state_machine}, {@code state_machine_state}, {@code entity_type}, {@code state_transition},
+ * {@code action}, {@code transition_rule}). Antes se leía de las vistas
+ * {@code vw_sm_*}, pero una vista rota (definer inexistente, tabla recreada) tumbaba
+ * este servicio con un error 1356 imposible de diagnosticar desde aquí, y su
+ * definición ni siquiera estaba versionada. El precio: un {@code ALTER} sobre esas
+ * tablas en access_control puede romper estas consultas. Si se renombra una
+ * columna allí, hay que actualizar este archivo.
+ *
+ * <p>Ojo: las tablas de configuración usan borrado lógico y Hibernate lo aplica solo
+ * a sus propias consultas. En SQL nativo no existe ese filtro, así que cada consulta
+ * de este adaptador pone {@code deleted = 0} explícitamente (ver {@link #estadosVigentes}
+ * y {@link #transicionesVigentes}).
  */
 @Component
 public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
 
     private static final Logger log = LoggerFactory.getLogger(MotorEstadosJdbcAdapter.class);
 
+    /** Color e icono viven en el JSON {@code state_machine_state.metadata}; no son columnas propias. */
+    private static final String COLOR = "JSON_UNQUOTE(JSON_EXTRACT(s.metadata, '$.color'))";
+    private static final String ICONO = "JSON_UNQUOTE(JSON_EXTRACT(s.metadata, '$.icon'))";
+
     private final JdbcTemplate jdbc;
     private final String esquema;
+
+    /**
+     * Estados con su máquina y tipo de entidad, ya filtrados por borrado lógico.
+     * Termina en un WHERE abierto: quien lo use agrega {@code AND ...}. No filtra por
+     * {@code status}: cada consulta decide si exige PUBLISHED, igual que hacían las
+     * vistas a través de {@code maquina_status}.
+     */
+    private final String estadosVigentes;
+
+    /** Transiciones con sus estados, acción y número de reglas activas; WHERE abierto. */
+    private final String transicionesVigentes;
 
     public MotorEstadosJdbcAdapter(JdbcTemplate jdbc, MotorEstadosProperties propiedades) {
         this.jdbc = jdbc;
         // Validado como identificador simple en el setter de las propiedades: nunca
         // llega de una petición, solo de la configuración del despliegue.
         this.esquema = propiedades.getEsquema();
+
+        this.estadosVigentes =
+                "FROM " + esquema + ".state_machine_state s "
+                        + "JOIN " + esquema + ".state_machine m ON m.id_state_machine = s.state_machine_id "
+                        + "JOIN " + esquema + ".entity_type t ON t.id_entity_type = m.entity_type_id "
+                        + "WHERE s.deleted = 0 AND m.deleted = 0 AND t.deleted = 0 ";
+
+        this.transicionesVigentes =
+                "FROM " + esquema + ".state_transition tr "
+                        + "JOIN " + esquema + ".state_machine m ON m.id_state_machine = tr.state_machine_id "
+                        + "JOIN " + esquema + ".state_machine_state sf ON sf.id_state = tr.from_state_id "
+                        + "JOIN " + esquema + ".state_machine_state s ON s.id_state = tr.to_state_id "
+                        + "JOIN " + esquema + ".`action` a ON a.id_action = tr.action_id "
+                        + "WHERE tr.deleted = 0 AND tr.active = 1 AND m.deleted = 0 "
+                        + "  AND sf.deleted = 0 AND s.deleted = 0 AND a.deleted = 0 ";
+    }
+
+    /** Columnas de una transición; {@code s} es el estado destino. */
+    private String columnasTransicion() {
+        return "SELECT tr.name AS transicion, a.code AS accion, a.id_action AS accion_id, "
+                + "       a.name AS accion_nombre, sf.id_state AS desde_id, sf.code AS desde, "
+                + "       s.id_state AS hasta_id, s.code AS hasta, s.name AS hasta_nombre, "
+                + "       " + COLOR + " AS hasta_color, s.is_final AS hasta_es_final, "
+                + "       tr.requires_reason AS exige_motivo, tr.permission_code AS permiso, "
+                + "       (SELECT COUNT(*) FROM " + esquema + ".transition_rule r "
+                + "         WHERE r.state_transition_id = tr.id_state_transition "
+                + "           AND r.deleted = 0 AND r.active = 1) AS reglas ";
     }
 
     // ── Definición ──────────────────────────────────────────────────────────
 
     /**
      * No se cachea. Con el motor detrás de HTTP la caché evitaba una llamada de red;
-     * aquí es una consulta local sobre una vista indexada, y cachearla solo añadiría
+     * aquí es una consulta local sobre tablas indexadas, y cachearla solo añadiría
      * una ventana en la que este servicio no ve una versión recién publicada.
      */
     @Override
     public Long estadoInicial(String maquina) {
         List<Long> ids = jdbc.query(
-                "SELECT estado_id FROM " + esquema + ".vw_sm_estado "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' AND es_inicial = 1",
+                "SELECT s.id_state AS estado_id " + estadosVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' AND s.is_initial = 1",
                 (rs, n) -> rs.getLong("estado_id"),
                 maquina);
 
@@ -88,11 +138,13 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
     @Override
     public List<EstadoMotor> estadosDe(String maquina) {
         return jdbc.query(
-                "SELECT estado_id, estado, estado_nombre, estado_descripcion, color, icono, "
-                        + "       es_inicial, es_final, orden "
-                        + "FROM " + esquema + ".vw_sm_estado "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' "
-                        + "ORDER BY orden, estado",
+                "SELECT s.id_state AS estado_id, s.code AS estado, s.name AS estado_nombre, "
+                        + "       s.description AS estado_descripcion, " + COLOR + " AS color, "
+                        + "       " + ICONO + " AS icono, s.is_initial AS es_inicial, "
+                        + "       s.is_final AS es_final, s.sort_order AS orden "
+                        + estadosVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' "
+                        + "ORDER BY s.sort_order, s.code",
                 (rs, n) -> new EstadoMotor(
                         rs.getLong("estado_id"),
                         rs.getString("estado"),
@@ -114,12 +166,13 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
     @Override
     public List<TransicionMotor> transicionesDe(String maquina) {
         return jdbc.query(
-                "SELECT desde_id, desde, hasta_id, hasta, hasta_nombre, hasta_color, "
-                        + "       hasta_es_final, accion, accion_nombre, exige_motivo "
-                        + "FROM " + esquema + ".vw_sm_transicion "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' "
-                        + "  AND reglas = 0 AND permiso IS NULL "
-                        + "ORDER BY desde_id, hasta_nombre",
+                columnasTransicion() + transicionesVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' "
+                        + "  AND tr.permission_code IS NULL "
+                        + "  AND NOT EXISTS (SELECT 1 FROM " + esquema + ".transition_rule r "
+                        + "                  WHERE r.state_transition_id = tr.id_state_transition "
+                        + "                    AND r.deleted = 0 AND r.active = 1) "
+                        + "ORDER BY sf.id_state, s.name",
                 (rs, n) -> new TransicionMotor(
                         rs.getLong("desde_id"),
                         rs.getString("desde"),
@@ -150,14 +203,14 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
                 "INSERT INTO " + esquema + ".state_machine_instance "
                         + "  (state_machine_id, entity_type_id, entity_id, current_state_id, "
                         + "   version, started_at, usr_crea, created_at) "
-                        + "SELECT v.maquina_id, v.tipo_entidad_id, ?, v.estado_id, 0, NOW(6), 0, NOW(6) "
-                        + "FROM " + esquema + ".vw_sm_estado v "
-                        + "WHERE v.maquina = ? AND v.tipo_entidad = ? "
-                        + "  AND v.maquina_status = 'PUBLISHED' AND v.es_inicial = 1 "
+                        + "SELECT m.id_state_machine, t.id_entity_type, ?, s.id_state, 0, NOW(6), 0, NOW(6) "
+                        + estadosVigentes
+                        + "  AND m.code = ? AND t.code = ? "
+                        + "  AND m.status = 'PUBLISHED' AND s.is_initial = 1 "
                         + "  AND NOT EXISTS ( "
                         + "      SELECT 1 FROM " + esquema + ".state_machine_instance i "
-                        + "      WHERE i.state_machine_id = v.maquina_id "
-                        + "        AND i.entity_type_id = v.tipo_entidad_id "
+                        + "      WHERE i.state_machine_id = m.id_state_machine "
+                        + "        AND i.entity_type_id = t.id_entity_type "
                         + "        AND i.entity_id = ?)",
                 entidadId, maquina, tipoEntidad, entidadId);
 
@@ -182,9 +235,12 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
                         + "  (instance_id, from_state_id, to_state_id, action_id, user_id, created_at) "
                         + "SELECT i.id_instance, NULL, i.current_state_id, NULL, NULL, NOW(6) "
                         + "FROM " + esquema + ".state_machine_instance i "
-                        + "JOIN " + esquema + ".vw_sm_estado v "
-                        + "       ON v.maquina_id = i.state_machine_id AND v.estado_id = i.current_state_id "
-                        + "WHERE v.maquina = ? AND v.tipo_entidad = ? AND i.entity_id = ?",
+                        + "JOIN " + esquema + ".state_machine_state s "
+                        + "       ON s.id_state = i.current_state_id AND s.state_machine_id = i.state_machine_id "
+                        + "JOIN " + esquema + ".state_machine m ON m.id_state_machine = i.state_machine_id "
+                        + "JOIN " + esquema + ".entity_type t ON t.id_entity_type = m.entity_type_id "
+                        + "WHERE s.deleted = 0 AND m.deleted = 0 AND t.deleted = 0 "
+                        + "  AND m.code = ? AND t.code = ? AND i.entity_id = ?",
                 maquina, tipoEntidad, entidadId);
 
         log.info("Ciclo arrancado: {} {} en '{}'", tipoEntidad, entidadId, maquina);
@@ -193,9 +249,12 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
     private boolean existeInstancia(String maquina, String tipoEntidad, Long entidadId) {
         Integer n = jdbc.queryForObject(
                 "SELECT COUNT(*) FROM " + esquema + ".state_machine_instance i "
-                        + "JOIN " + esquema + ".vw_sm_estado v "
-                        + "       ON v.maquina_id = i.state_machine_id AND v.estado_id = i.current_state_id "
-                        + "WHERE v.maquina = ? AND v.tipo_entidad = ? AND i.entity_id = ?",
+                        + "JOIN " + esquema + ".state_machine_state s "
+                        + "       ON s.id_state = i.current_state_id AND s.state_machine_id = i.state_machine_id "
+                        + "JOIN " + esquema + ".state_machine m ON m.id_state_machine = i.state_machine_id "
+                        + "JOIN " + esquema + ".entity_type t ON t.id_entity_type = m.entity_type_id "
+                        + "WHERE s.deleted = 0 AND m.deleted = 0 AND t.deleted = 0 "
+                        + "  AND m.code = ? AND t.code = ? AND i.entity_id = ?",
                 Integer.class, maquina, tipoEntidad, entidadId);
         return n != null && n > 0;
     }
@@ -337,28 +396,33 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
 
     private Optional<Estado> buscarEstado(String maquina, Long estadoId) {
         return jdbc.query(
-                "SELECT estado_id, estado, es_final FROM " + esquema + ".vw_sm_estado "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' AND estado_id = ?",
+                "SELECT s.id_state AS estado_id, s.code AS estado, s.is_final AS es_final "
+                        + estadosVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' AND s.id_state = ?",
                 (rs, n) -> new Estado(rs.getLong("estado_id"), rs.getString("estado"), rs.getBoolean("es_final")),
                 maquina, estadoId).stream().findFirst();
     }
 
     private String codigosDe(String maquina) {
         List<String> codigos = jdbc.query(
-                "SELECT estado FROM " + esquema + ".vw_sm_estado "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' ORDER BY orden",
+                "SELECT s.code AS estado " + estadosVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' ORDER BY s.sort_order",
                 (rs, n) -> rs.getString("estado"), maquina);
         return codigos.isEmpty() ? "(ninguno)" : String.join(", ", codigos);
     }
 
     private Optional<Instancia> buscarInstancia(String maquina, String tipoEntidad, Long entidadId) {
         return jdbc.query(
-                "SELECT i.id_instance, i.current_state_id, i.version, v.estado, v.es_final "
+                "SELECT i.id_instance, i.current_state_id, i.version, "
+                        + "       s.code AS estado, s.is_final AS es_final "
                         + "FROM " + esquema + ".state_machine_instance i "
-                        + "JOIN " + esquema + ".vw_sm_estado v "
-                        + "       ON v.maquina_id = i.state_machine_id AND v.estado_id = i.current_state_id "
-                        + "WHERE v.maquina = ? AND v.tipo_entidad = ? AND i.entity_id = ? "
-                        + "  AND v.maquina_status = 'PUBLISHED'",
+                        + "JOIN " + esquema + ".state_machine_state s "
+                        + "       ON s.id_state = i.current_state_id AND s.state_machine_id = i.state_machine_id "
+                        + "JOIN " + esquema + ".state_machine m ON m.id_state_machine = i.state_machine_id "
+                        + "JOIN " + esquema + ".entity_type t ON t.id_entity_type = m.entity_type_id "
+                        + "WHERE s.deleted = 0 AND m.deleted = 0 AND t.deleted = 0 "
+                        + "  AND m.code = ? AND t.code = ? AND i.entity_id = ? "
+                        + "  AND m.status = 'PUBLISHED'",
                 (rs, n) -> new Instancia(
                         rs.getLong("id_instance"),
                         rs.getLong("current_state_id"),
@@ -370,10 +434,9 @@ public class MotorEstadosJdbcAdapter implements MotorEstadosPort {
 
     private List<Transicion> transicionesDesde(String maquina, Long estadoActualId) {
         return jdbc.query(
-                "SELECT transicion, accion, accion_id, hasta, hasta_id, exige_motivo, permiso, reglas "
-                        + "FROM " + esquema + ".vw_sm_transicion "
-                        + "WHERE maquina = ? AND maquina_status = 'PUBLISHED' AND desde_id = ? "
-                        + "ORDER BY accion",
+                columnasTransicion() + transicionesVigentes
+                        + "AND m.code = ? AND m.status = 'PUBLISHED' AND sf.id_state = ? "
+                        + "ORDER BY a.code",
                 (rs, n) -> new Transicion(
                         rs.getString("transicion"),
                         rs.getString("accion"),

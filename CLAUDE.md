@@ -193,26 +193,29 @@ segundo `DataSource`.
 El segundo punto no es menor: si falla el `save` local, el cambio de estado se
 deshace con él. Por HTTP no había forma.
 
-### El contrato son las vistas, no las tablas
+### Se leen las tablas del motor directamente (sin vistas)
 
-La lectura va contra `security.vw_sm_estado` y `security.vw_sm_transicion`
-(migración `V6` en access_control). **No leas las tablas directamente.** Un
-`ALTER` sobre las tablas internas no rompe nada mientras las vistas devuelvan lo
-mismo; leerlas a pelo convierte cualquier renombrado en un fallo en runtime, sin
-aviso y sin que la compilación lo detecte.
+`MotorEstadosJdbcAdapter` consulta directamente `parametros.state_machine`,
+`state_machine_state` (ojo: `parametros.state` es la tabla de departamentos), `entity_type`, `state_transition`, `action` y `transition_rule`.
+Antes leía las vistas `vw_sm_estado` / `vw_sm_transicion`, pero su definición no
+estaba versionada en ningún repo y, cuando se rompieron (error MySQL 1356), este
+servicio dejó de poder crear entidades con ciclo de vida.
 
-Las vistas además aplican `deleted = 0`. Importa: el borrado lógico es
+El precio: **un `ALTER` sobre esas tablas en access_control puede romper este
+adaptador en runtime**, sin que la compilación lo detecte. Si se renombra o quita
+una columna allí, hay que actualizar las consultas aquí.
+
+Cada consulta aplica `deleted = 0` explícitamente. Importa: el borrado lógico es
 `@SoftDelete` de Hibernate y **solo filtra las consultas de Hibernate**; en SQL
 nativo no existe ese filtro.
 
-Las escrituras sí van contra las tablas —`state_machine_instance` y
-`state_transition_history`—, porque una vista no sirve para eso.
+Las escrituras van contra `state_machine_instance` y `state_transition_history`.
 
 ### Permisos de base de datos
 
-El usuario del datasource necesita, sobre el esquema `security`:
+El usuario del datasource necesita, sobre el esquema `parametros` (propiedad `motor-estados.esquema`):
 
-- `SELECT` en `vw_sm_estado` y `vw_sm_transicion`
+- `SELECT` en `state_machine`, `state_machine_state`, `entity_type`, `state_transition`, `action` y `transition_rule`
 - `INSERT`, `UPDATE` en `state_machine_instance`
 - `INSERT` en `state_transition_history`
 
@@ -241,7 +244,7 @@ vuelva a ser HTTP, o el motor se embeba, cambia la implementación y nada más.
 | `iniciarCiclo(maquina, tipo, id)` | **Después** de guardar: hace falta el id definitivo. Idempotente. |
 | `moverAEstado(maquina, tipo, id, destino, motivo)` | Al cambiar de estado. Devuelve el estado resultante. |
 
-`estado_id` es una **réplica** de `security.state.id_state`, en otra base: **no
+`estado_id` es una **réplica** de `parametros.state_machine_state.id_state`, en otra base: **no
 hay ni puede haber FK**. Se escribe siempre con lo que devuelve el motor, nunca
 con lo que pidió el cliente.
 

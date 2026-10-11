@@ -10,6 +10,12 @@ import com.kleverkids.formacion_academica.modules.control_academico.domain.excep
 import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.FechasInvalidasException;
 import com.kleverkids.formacion_academica.modules.estados.domain.exception.MotorEstadosException;
 import com.kleverkids.formacion_academica.shared.exceptions.NotFoundException;
+import com.kleverkids.formacion_academica.modules.control_academico.domain.exception.FeedbackValidacionException;
+import com.kleverkids.formacion_academica.security.accesscontrol.AccessControlJwtAuthenticationFilter;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
@@ -96,6 +102,49 @@ public class GlobalExceptionHandler {
         log.warn("Login de estudiante/acudiente rechazado: {}", ex.getMessage());
         ProblemDetail pd = baseProblemDetail(HttpStatus.UNAUTHORIZED, "Credenciales inválidas", ex.getMessage(), request);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
+    }
+
+    /**
+     * Respuesta de feedback inválida: 400 con el detalle POR PREGUNTA en
+     * {@code errores} (pregunta_id → mensaje) para marcar cada campo en pantalla.
+     */
+    @ExceptionHandler(FeedbackValidacionException.class)
+    public ResponseEntity<ProblemDetail> handleFeedbackValidacion(FeedbackValidacionException ex, HttpServletRequest request) {
+        ProblemDetail pd = baseProblemDetail(HttpStatus.BAD_REQUEST, "Respuestas incompletas", ex.getMessage(), request);
+        pd.setProperty("errores", ex.getErrores());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
+    }
+
+    /**
+     * Rechazos de {@code @PreAuthorize}. Sin esto caían en el handler genérico
+     * como 500. Sin sesión válida → 401; con sesión pero sin permiso → 403.
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ProblemDetail> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean anonimo = auth == null || auth instanceof AnonymousAuthenticationToken || !auth.isAuthenticated();
+        HttpStatus status = anonimo ? HttpStatus.UNAUTHORIZED : HttpStatus.FORBIDDEN;
+        String detalle = anonimo ? "Inicia sesión para continuar." : "No tienes permiso para realizar esta acción.";
+        // Diagnóstico sin datos sensibles (nunca el token): por qué se negó.
+        if (anonimo) {
+            Object rechazo = request.getAttribute(AccessControlJwtAuthenticationFilter.ATRIBUTO_RECHAZO);
+            if (request.getHeader("Authorization") == null) {
+                log.info("401 en {}: la petición llegó sin token (¿sesión de Draco no iniciada?)", request.getRequestURI());
+            } else if (rechazo != null) {
+                log.warn("401 en {}: el token no es válido para access_control ({}). Si es ExpiredJwtException,"
+                        + " la sesión venció; si es SignatureException, JWT_SECRET no coincide con"
+                        + " el de access_control.", request.getRequestURI(), rechazo);
+            } else {
+                log.info("401 en {}: token presente pero de otro tipo para este endpoint.", request.getRequestURI());
+            }
+        } else {
+            Object principal = auth.getPrincipal();
+            log.warn("403 en {}: sesión {} con autoridades {} no cumple la regla del endpoint"
+                    + " (ver feedback.seguridad.roles-*).", request.getRequestURI(),
+                    principal == null ? "?" : principal.getClass().getSimpleName(), auth.getAuthorities());
+        }
+        ProblemDetail pd = baseProblemDetail(status, anonimo ? "No autenticado" : "Acceso denegado", detalle, request);
+        return ResponseEntity.status(status).body(pd);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

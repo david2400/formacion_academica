@@ -76,6 +76,7 @@ public class GestionAlumnosJwtTokenProvider {
     private Claims claimsDe(String token) {
         return Jwts.parser()
                 .verifyWith(signingKey())
+                .requireIssuer(properties.getIssuer())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

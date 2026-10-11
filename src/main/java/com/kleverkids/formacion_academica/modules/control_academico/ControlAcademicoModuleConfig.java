@@ -9,6 +9,7 @@ import com.kleverkids.formacion_academica.modules.control_academico.infrastructu
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.student_progress.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.examenes.*;
 import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.repository.*;
+import com.kleverkids.formacion_academica.modules.control_academico.infrastructure.outbound.persistence.mysql.entity.feedback.FeedbackFormEntity;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         ActivityAttemptEntity.class,
         ActivityAttemptAnswerEntity.class,
         StudentSequenceProgressEntity.class,
+        // Feedback de clases: todas las entidades viven en entity.feedback
+        FeedbackFormEntity.class,
         AsistenciaEntity.class,
         CalificacionPersonalizadaEntity.class,
         ClaseEntity.class,
