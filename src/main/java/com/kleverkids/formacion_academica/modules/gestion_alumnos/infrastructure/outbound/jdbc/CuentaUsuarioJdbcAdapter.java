@@ -78,7 +78,7 @@ public class CuentaUsuarioJdbcAdapter implements CuentaUsuarioPort {
         // Consulta directa a UserCompany (no hay vista intermedia): "vigente"
         // se calcula aquí igual que en UserCompanyEntity.isExpired(), invertido.
         Integer coincidencias = jdbc.queryForObject(
-                "SELECT COUNT(*) FROM " + esquema + ".UserCompany "
+                "SELECT COUNT(*) FROM " + esquema + ".user_company "
                         + "WHERE user_id = ? AND company_id = ? "
                         + "AND (expires_at IS NULL OR expires_at > NOW())",
                 Integer.class, usuarioId, empresaId);

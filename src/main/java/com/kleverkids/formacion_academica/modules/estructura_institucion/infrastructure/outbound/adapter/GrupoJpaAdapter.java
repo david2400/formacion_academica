@@ -55,6 +55,10 @@ public class GrupoJpaAdapter implements GrupoRepositoryPort {
         GrupoEntity entity = grupoJpaRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado"));
         grupoMapper.updateEntityFromDto(request, entity);
+        // El mapper ignora los null para no borrar campos omitidos, pero el
+        // profesor encargado sí debe poder quitarse: el formulario siempre lo
+        // envía (null = "Sin profesor").
+        entity.setTutorId(request.getTutorId());
         return grupoMapper.toDomainModel(grupoJpaRepository.save(entity));
     }
 
