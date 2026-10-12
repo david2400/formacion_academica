@@ -1,6 +1,10 @@
 package com.kleverkids.formacion_academica.modules.gestion_alumnos.infrastructure.inbound.rest;
 
-import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.services.ParentescoService;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.parentesco.CrearParentescoUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.parentesco.ActualizarParentescoUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.parentesco.ConsultarParentescoUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.parentesco.ListarParentescosUseCase;
+import com.kleverkids.formacion_academica.modules.gestion_alumnos.application.input.parentesco.EliminarParentescoUseCase;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.model.Parentesco;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.parentesco.CrearParentescoDto;
 import com.kleverkids.formacion_academica.modules.gestion_alumnos.domain.dto.parentesco.ActualizarParentescoDto;
@@ -25,10 +29,23 @@ import java.util.List;
 @RequestMapping("/gestion-alumnos/parentescos")
 public class ParentescoController {
 
-    private final ParentescoService parentescoService;
+    private final CrearParentescoUseCase crearParentescoUseCase;
+    private final ActualizarParentescoUseCase actualizarParentescoUseCase;
+    private final ConsultarParentescoUseCase consultarParentescoUseCase;
+    private final ListarParentescosUseCase listarParentescosUseCase;
+    private final EliminarParentescoUseCase eliminarParentescoUseCase;
 
-    public ParentescoController(ParentescoService parentescoService) {
-        this.parentescoService = parentescoService;
+    public ParentescoController(CrearParentescoUseCase crearParentescoUseCase,
+                               ActualizarParentescoUseCase actualizarParentescoUseCase,
+                               ConsultarParentescoUseCase consultarParentescoUseCase,
+                               ListarParentescosUseCase listarParentescosUseCase,
+                               EliminarParentescoUseCase eliminarParentescoUseCase) {
+        this.crearParentescoUseCase = crearParentescoUseCase;
+        this.actualizarParentescoUseCase = actualizarParentescoUseCase;
+        this.consultarParentescoUseCase = consultarParentescoUseCase;
+        this.listarParentescosUseCase = listarParentescosUseCase;
+        this.eliminarParentescoUseCase = eliminarParentescoUseCase;
+
     }
 
     @Operation(summary = "Crear parentesco", description = "Registra un nuevo parentesco")
@@ -41,7 +58,7 @@ public class ParentescoController {
     })
     @PostMapping
     public ResponseEntity<Parentesco> crear(@Valid @RequestBody CrearParentescoDto request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(parentescoService.crear(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(crearParentescoUseCase.crear(request));
     }
 
     @Operation(summary = "Actualizar parentesco", description = "Actualiza los datos de un parentesco existente")
@@ -57,7 +74,7 @@ public class ParentescoController {
     public ResponseEntity<Parentesco> actualizar(@PathVariable Long parentescoId,
                                                     @Valid @RequestBody ActualizarParentescoDto request) {
 
-        return ResponseEntity.ok(parentescoService.actualizar(request));
+        return ResponseEntity.ok(actualizarParentescoUseCase.actualizar(request));
     }
 
     @Operation(summary = "Consultar parentesco", description = "Obtiene la información de un parentesco por su identificador")
@@ -70,7 +87,7 @@ public class ParentescoController {
     })
     @GetMapping("/{parentescoId}")
     public ResponseEntity<Parentesco> consultar(@PathVariable Long parentescoId) {
-        return parentescoService.consultarPorId(parentescoId)
+        return consultarParentescoUseCase.consultarPorId(parentescoId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -84,7 +101,7 @@ public class ParentescoController {
     })
     @GetMapping
     public ResponseEntity<List<Parentesco>> listar() {
-        return ResponseEntity.ok(parentescoService.listarTodos());
+        return ResponseEntity.ok(listarParentescosUseCase.listarTodos());
     }
 
     @Operation(summary = "Listar parentescos activos", description = "Obtiene el catálogo de parentescos activos")
@@ -96,7 +113,7 @@ public class ParentescoController {
     })
     @GetMapping("/activos")
     public ResponseEntity<List<Parentesco>> listarActivos() {
-        return ResponseEntity.ok(parentescoService.listarActivos());
+        return ResponseEntity.ok(listarParentescosUseCase.listarActivos());
     }
 
     @Operation(summary = "Eliminar parentesco", description = "Elimina un parentesco")
@@ -107,7 +124,7 @@ public class ParentescoController {
     })
     @DeleteMapping("/{parentescoId}")
     public ResponseEntity<Void> eliminar(@PathVariable Long parentescoId) {
-        parentescoService.eliminar(parentescoId);
+        eliminarParentescoUseCase.eliminar(parentescoId);
         return ResponseEntity.noContent().build();
     }
 }

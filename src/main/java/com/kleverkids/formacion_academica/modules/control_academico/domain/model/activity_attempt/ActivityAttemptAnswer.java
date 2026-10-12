@@ -24,7 +24,7 @@ import java.util.Map;
  * que el estudiante envió.</p>
  *
  * <p>{@code puntajeObtenido} ya viene normalizado a la escala de puntos de la
- * actividad (ver {@code ActivityAttemptService.registrarRespuesta}): el
+ * actividad (ver {@code RegistrarRespuestaAttemptService.registrarRespuesta}): el
  * {@code ValidationResult} de {@code ServicioValidacionRespuesta} califica en
  * la escala propia de la Pregunta ({@code puntajeMaximo}), que no es
  * necesariamente la misma escala que {@code ActivityContentItem.puntos}.</p>

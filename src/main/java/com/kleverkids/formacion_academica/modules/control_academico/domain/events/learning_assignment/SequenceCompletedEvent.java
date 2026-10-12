@@ -4,7 +4,7 @@ import com.kleverkids.formacion_academica.shared.common.domain.DomainEvent;
 
 /**
  * Se publica cuando el progreso de un estudiante en una secuencia alcanza el
- * 100% (ver {@code StudentProgressService}). No es un evento de un agregado
+ * 100% (ver {@code RecalcularProgresoEstudianteService}). No es un evento de un agregado
  * persistido (student_sequence_progress es una proyección explícitamente "no
  * fuente de verdad" — arquitectura aprobada §2.3), así que se emite
  * directamente desde el Service, no acumulado vía AggregateRoot — desviación

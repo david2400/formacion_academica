@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * Proyección de progreso de un estudiante en una secuencia — NO es fuente de
  * verdad (ver arquitectura aprobada §2.3): se recalcula por completo a partir
  * de {@code ActivityAttempt} + {@code LearningSequenceItem} cada vez que un
- * intento se completa ({@code StudentProgressService.recalcular}). Corrección
+ * intento se completa ({@code RecalcularProgresoEstudianteService.recalcular}). Corrección
  * respecto al documento original: FK operacional {@code sequenceId} en vez de
  * {@code sequenceVersionId} (mismo criterio aplicado en Etapa 2/3 a
  * LearningSequenceItem/LearningAssignment).

@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.control_academico.infrastructure.config;
 
-import com.kleverkids.formacion_academica.modules.control_academico.application.services.ActivityTypeDefinitionService;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.activity_type.ConsultarActivityTypeDefinitionUseCase;
+import com.kleverkids.formacion_academica.modules.control_academico.application.input.activity_type.CrearActivityTypeDefinitionUseCase;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.dto.activity_type.CrearActivityTypeDefinitionDto;
 import com.kleverkids.formacion_academica.modules.control_academico.domain.model.activity_type.valueobject.CategoriaTipoActividad;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,15 @@ import java.util.List;
 @Slf4j
 public class ActivityTypeDefinitionDataInitializer implements CommandLineRunner {
 
-    private final ActivityTypeDefinitionService activityTypeDefinitionService;
+    private final ConsultarActivityTypeDefinitionUseCase consultarActivityTypeDefinitionUseCase;
+    private final CrearActivityTypeDefinitionUseCase crearActivityTypeDefinitionUseCase;
 
     @Override
     public void run(String... args) {
         for (CrearActivityTypeDefinitionDto tipo : tiposEtapa1()) {
             try {
-                if (activityTypeDefinitionService.consultarPorTipo(tipo.getType()).isEmpty()) {
-                    activityTypeDefinitionService.crear(tipo);
+                if (consultarActivityTypeDefinitionUseCase.consultarPorTipo(tipo.getType()).isEmpty()) {
+                    crearActivityTypeDefinitionUseCase.crear(tipo);
                     log.info("✅ Tipo de actividad inicializado: {}", tipo.getType());
                 }
             } catch (Exception e) {

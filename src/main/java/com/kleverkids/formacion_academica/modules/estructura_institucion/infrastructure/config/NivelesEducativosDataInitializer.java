@@ -1,6 +1,7 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.config;
 
-import com.kleverkids.formacion_academica.modules.estructura_institucion.application.services.NivelEducativoService;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.ListarNivelesEducativosUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.CrearNivelEducativoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.CrearNivelEducativoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,8 @@ import java.util.List;
 @Slf4j
 public class NivelesEducativosDataInitializer implements CommandLineRunner {
 
-    private final NivelEducativoService nivelEducativoService;
+    private final ListarNivelesEducativosUseCase listarNivelesEducativosUseCase;
+    private final CrearNivelEducativoUseCase crearNivelEducativoUseCase;
 
     @Override
     public void run(String... args) throws Exception {
@@ -28,7 +30,7 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
 
     private boolean debeInicializarDatos() {
         try {
-            return nivelEducativoService.listarTodos().isEmpty();
+            return listarNivelesEducativosUseCase.listarTodos().isEmpty();
         } catch (Exception e) {
             log.warn("No se pudo verificar si existen niveles educativos. Se asumirá que no existen. Error: {}", e.getMessage());
             return true; // Assume table doesn't exist or is empty, so we need to initialize
@@ -40,7 +42,7 @@ public class NivelesEducativosDataInitializer implements CommandLineRunner {
         
         for (CrearNivelEducativoDto nivel : niveles) {
             try {
-                nivelEducativoService.crear(nivel);
+                crearNivelEducativoUseCase.crear(nivel);
                 log.debug("📚 Nivel educativo creado: {}", nivel.getNombre());
             } catch (Exception e) {
                 log.error("❌ Error creando nivel educativo {}: {}", nivel.getCodigo(), e.getMessage());

@@ -46,7 +46,7 @@ import java.util.List;
  * de alcance de Activities. En vez de arreglar ese stub (lo que tocaría un
  * módulo compartido fuera del encargo y arriesgaría romper otros
  * consumidores), este mapper se usa directamente desde
- * {@code ActivityAttemptService} junto con {@code PreguntaJpaRepository} (el
+ * {@code RegistrarRespuestaAttemptService} junto con {@code PreguntaJpaRepository} (el
  * repositorio Spring Data real, que sí funciona), de forma aislada y aditiva.
  */
 @Component

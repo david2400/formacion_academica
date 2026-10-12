@@ -1,6 +1,10 @@
 package com.kleverkids.formacion_academica.modules.estructura_institucion.infrastructure.inbound.rest;
 
-import com.kleverkids.formacion_academica.modules.estructura_institucion.application.services.NivelEducativoService;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.CrearNivelEducativoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.ConsultarNivelEducativoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.ListarNivelesEducativosUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.ActualizarNivelEducativoUseCase;
+import com.kleverkids.formacion_academica.modules.estructura_institucion.application.input.nivel_educativo.EliminarNivelEducativoUseCase;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.ActualizarNivelEducativoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.dto.nivel_academico.CrearNivelEducativoDto;
 import com.kleverkids.formacion_academica.modules.estructura_institucion.domain.model.NivelEducativo;
@@ -27,7 +31,11 @@ import java.util.List;
 @Tag(name = "Niveles Educativos", description = "API para la gestión de niveles educativos según la circular colombiana 2025")
 public class NivelEducativoController {
 
-    private final NivelEducativoService service;
+    private final CrearNivelEducativoUseCase crearNivelEducativoUseCase;
+    private final ConsultarNivelEducativoUseCase consultarNivelEducativoUseCase;
+    private final ListarNivelesEducativosUseCase listarNivelesEducativosUseCase;
+    private final ActualizarNivelEducativoUseCase actualizarNivelEducativoUseCase;
+    private final EliminarNivelEducativoUseCase eliminarNivelEducativoUseCase;
 
     @PostMapping
     @Operation(
@@ -67,7 +75,7 @@ public class NivelEducativoController {
                 content = @Content(schema = @Schema(implementation = CrearNivelEducativoDto.class))
             )
             @Valid @RequestBody CrearNivelEducativoDto dto) {
-        NivelEducativo creado = service.crear(dto);
+        NivelEducativo creado = crearNivelEducativoUseCase.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
@@ -99,7 +107,7 @@ public class NivelEducativoController {
     public ResponseEntity<NivelEducativo> buscarPorId(
             @Parameter(description = "ID único del nivel educativo", required = true, example = "1")
             @PathVariable Long id) {
-        return service.buscarPorId(id)
+        return consultarNivelEducativoUseCase.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -132,7 +140,7 @@ public class NivelEducativoController {
     public ResponseEntity<NivelEducativo> buscarPorCodigo(
             @Parameter(description = "Código único del nivel educativo", required = true, example = "PREESCOLAR")
             @PathVariable String codigo) {
-        return service.buscarPorCodigo(codigo)
+        return consultarNivelEducativoUseCase.buscarPorCodigo(codigo)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -159,7 +167,7 @@ public class NivelEducativoController {
         )
     })
     public ResponseEntity<List<NivelEducativo>> listarTodos() {
-        List<NivelEducativo> niveles = service.listarTodos();
+        List<NivelEducativo> niveles = listarNivelesEducativosUseCase.listarTodos();
         return ResponseEntity.ok(niveles);
     }
 
@@ -194,7 +202,7 @@ public class NivelEducativoController {
     public ResponseEntity<List<NivelEducativo>> listarPorNivelSuperior(
             @Parameter(description = "ID del nivel superior del cual dependen los niveles a buscar", required = true, example = "1")
             @PathVariable Long nivelSuperiorId) {
-        List<NivelEducativo> niveles = service.listarPorNivelSuperior(nivelSuperiorId);
+        List<NivelEducativo> niveles = listarNivelesEducativosUseCase.listarPorNivelSuperior(nivelSuperiorId);
         return ResponseEntity.ok(niveles);
     }
 
@@ -219,7 +227,7 @@ public class NivelEducativoController {
         )
     })
     public ResponseEntity<List<NivelEducativo>> listarActivos() {
-        List<NivelEducativo> niveles = service.listarActivos();
+        List<NivelEducativo> niveles = listarNivelesEducativosUseCase.listarActivos();
         return ResponseEntity.ok(niveles);
     }
 
@@ -253,7 +261,7 @@ public class NivelEducativoController {
         )
     })
     public ResponseEntity<List<NivelEducativo>> listarNivelesPrincipales() {
-        List<NivelEducativo> niveles = service.listarNivelesPrincipales();
+        List<NivelEducativo> niveles = listarNivelesEducativosUseCase.listarNivelesPrincipales();
         return ResponseEntity.ok(niveles);
     }
 
@@ -309,7 +317,7 @@ public class NivelEducativoController {
                 content = @Content(schema = @Schema(implementation = ActualizarNivelEducativoDto.class))
             )
             @Valid @RequestBody ActualizarNivelEducativoDto dto) {
-        return service.actualizar(id, dto)
+        return actualizarNivelEducativoUseCase.actualizar(id, dto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -345,7 +353,7 @@ public class NivelEducativoController {
     public ResponseEntity<Void> eliminar(
             @Parameter(description = "ID del nivel educativo a eliminar", required = true, example = "1")
             @PathVariable Long id) {
-        boolean eliminado = service.eliminar(id);
+        boolean eliminado = eliminarNivelEducativoUseCase.eliminar(id);
         return eliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

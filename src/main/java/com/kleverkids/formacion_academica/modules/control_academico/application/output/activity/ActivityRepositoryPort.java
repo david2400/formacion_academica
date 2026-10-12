@@ -41,6 +41,6 @@ public interface ActivityRepositoryPort {
 
     List<ActivityContentItem> reordenar(Long activityId, ReordenarContenidoActivityDto dto);
 
-    /** Usado por ActivityAttemptService para validar y calificar una respuesta sin que el módulo de intentos reimplemente el acceso a datos de Activity. */
+    /** Usado por RegistrarRespuestaAttemptService para validar y calificar una respuesta sin que el módulo de intentos reimplemente el acceso a datos de Activity. */
     Optional<ActivityContentItem> obtenerContenidoPorId(Long contentItemId);
 }
